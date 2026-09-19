@@ -204,15 +204,7 @@ export const App: React.FC = () => {
           <FeedbackPage onNavigate={handleNavigate} currentUser={deliveryUser} />
         ) : (
           <>
-            <Hero onOpenCommandCenter={() => setIsCommandCenterOpen(true)} onOpenDemoBooking={() => handleOpenDemoBooking()} />
-            <ArchitectureGrid onOpenCommandCenter={() => setIsCommandCenterOpen(true)} />
-            <CapabilitiesAccordion />
-            <InteractiveDemo />
-            <EcosystemSummary onOpenCommandCenter={() => setIsCommandCenterOpen(true)} />
-            <SecuritySection />
-            <GcsSpotlight />
-            <AudienceMatrix />
-            <CtaBand onOpenCommandCenter={() => setIsCommandCenterOpen(true)} onOpenDemoBooking={() => handleOpenDemoBooking()} />
+            <Hero onOpenCommandCenter={() => setIsCommandCenterOpen(true)} onOpenDemoBooking={() => handleOpenDemoBooking()} onNavigate={handleNavigate} />
           </>
         )}
       </main>
