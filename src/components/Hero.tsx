@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Package, Navigation, ArrowRight, CheckCircle2, MapPin, Zap, Shield, Clock, Star, ChevronRight, Loader2 } from 'lucide-react';
 import { API_BASE_URL } from '../config/api';
-import { InteractiveDrone } from './InteractiveDrone';
+import { ScrollDroneFlight } from './ScrollDroneFlight';
 import { ElevationMeshBackground } from './ElevationMeshBackground';
 
 interface HeroProps {
@@ -161,10 +161,13 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
 
   return (
     <>
+      {/* 3D Global UAV Flight Coordinator between Hero and Features */}
+      <ScrollDroneFlight heroSlotId="hero-drone-slot" featuresSlotId="features-drone-slot" />
+
       {/* ══════════════════════════════════════════════════════════════════════
           HERO
          ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative overflow-hidden flex items-center" style={{ background: 'linear-gradient(135deg, #06010f 0%, #0d0520 45%, #10062a 100%)' }}>
+      <section className="relative overflow-hidden flex items-center min-h-[calc(100vh-4rem)] min-h-[calc(100dvh-4rem)] py-10 lg:py-0" style={{ background: 'linear-gradient(135deg, #06010f 0%, #0d0520 45%, #10062a 100%)' }}>
 
         {/* 3D Interactive Elevation Mesh that reacts to cursor position */}
         <ElevationMeshBackground />
@@ -175,7 +178,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
         <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full opacity-10 pointer-events-none"
           style={{ background: 'radial-gradient(circle, #4f46e5 0%, transparent 70%)' }} />
 
-        <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 w-full pt-6 pb-10 sm:pt-8 sm:pb-14 pointer-events-none [&_button]:pointer-events-auto [&_a]:pointer-events-auto [&_input]:pointer-events-auto">
+        <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 w-full py-8 lg:py-12 pointer-events-none [&_button]:pointer-events-auto [&_a]:pointer-events-auto [&_input]:pointer-events-auto">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_480px] gap-16 items-center">
 
             {/* ── Left ── */}
@@ -211,13 +214,6 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                 IndoWings Cyberone autonomous UAVs fly at 65 km/h above Delhi-NCR traffic — delivering medicine, documents, food and parcels to your rooftop via precision Kevlar winch tether. Contactless. Certified. Instant.
               </p>
 
-              {/* Package ticker */}
-              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-                <span className="text-xs sm:text-sm text-white/40 font-medium shrink-0">Now delivering:</span>
-                <div className="flex items-center gap-2.5 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
-                  <span className="text-xs sm:text-sm font-bold text-white">{PACKAGE_TYPES[activePkg].name}</span>
-                </div>
-              </div>
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
@@ -249,10 +245,54 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               </div>
             </div>
 
-            {/* ── Right — Floating Cyber Pilot Visual (Responsive on all screen sizes) ── */}
+            {/* ── Right Column: Mobile shows original floating character girl, Laptop shows 3D UAV slot ── */}
             <div className="flex flex-col items-center justify-center pt-2 lg:pt-0">
-              <InteractiveDrone onOrderClick={() => go('order', '/order')} />
+              {/* Mobile Only: Original Floating Character Girl */}
+              <div className="block lg:hidden relative w-full max-w-[320px] flex flex-col items-center justify-center select-none py-3">
+                <div className="absolute inset-0 bg-[#bc13fe]/20 blur-[50px] rounded-full scale-90 pointer-events-none" />
+                <div className="relative z-10 flex flex-col items-center">
+                  <img
+                    src="/images/floating-character.png"
+                    alt="IndoWings UAV Operator"
+                    loading="eager"
+                    className="relative z-10 w-full max-w-[230px] sm:max-w-[280px] h-auto object-contain pointer-events-none"
+                    style={{ animation: "floatGlow 3.5s ease-in-out infinite" }}
+                  />
+                  <div
+                    className="w-36 sm:w-44 h-4 rounded-[100%] bg-[#bc13fe]/30 blur-[10px] -mt-3 pointer-events-none"
+                    style={{ animation: "shadowPulse 3.5s ease-in-out infinite" }}
+                  />
+                </div>
+              </div>
+
+              {/* Laptop Only: Hero Drone Slot for 3D UAV Flight */}
+              <div
+                id="hero-drone-slot"
+                className="hidden lg:flex relative w-full max-w-[500px] min-h-[320px] sm:min-h-[380px] lg:min-h-[450px] flex-col items-center justify-center select-none pt-2 lg:pt-0"
+              >
+                {/* Soft ambient glow behind Hero Drone */}
+                <div className="absolute inset-0 bg-[#bc13fe]/15 blur-[75px] sm:blur-[105px] rounded-full scale-95 pointer-events-none" />
+                <div className="absolute w-[240px] h-[240px] sm:w-[320px] sm:h-[320px] bg-purple-600/10 blur-[55px] sm:blur-[85px] rounded-full pointer-events-none" />
+
+                {/* Orbital rings */}
+                <div className="absolute w-[280px] h-[280px] sm:w-[340px] sm:h-[340px] lg:w-[410px] lg:h-[410px] rounded-full border border-white/[0.05] border-dashed animate-[spin_120s_linear_infinite] pointer-events-none" />
+                <div className="absolute w-[210px] h-[210px] sm:w-[270px] sm:h-[270px] lg:w-[320px] lg:h-[320px] rounded-full border border-white/[0.04] pointer-events-none" />
+
+                {/* Soft ground shadow */}
+                <div className="absolute bottom-4 sm:bottom-6 w-48 sm:w-60 h-4 sm:h-5 rounded-[100%] bg-black/40 blur-[12px] sm:blur-[14px] pointer-events-none" />
+              </div>
             </div>
+
+            <style>{`
+              @keyframes floatGlow {
+                0%, 100% { transform: translateY(0); filter: drop-shadow(0 0 15px rgba(188, 19, 254, 0.45)); }
+                50% { transform: translateY(-16px); filter: drop-shadow(0 0 35px rgba(188, 19, 254, 0.85)); }
+              }
+              @keyframes shadowPulse {
+                0%, 100% { transform: scale(1); opacity: 0.5; }
+                50% { transform: scale(0.75); opacity: 0.2; }
+              }
+            `}</style>
 
           </div>
 
@@ -358,16 +398,16 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               </button>
             </div>
 
-            {/* Right — Drone spec card */}
-            <div className="rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/10 border border-slate-200">
-              <div className="px-7 py-6" style={{ background: 'linear-gradient(135deg, #06010f, #0d0520)' }}>
+            {/* Mobile Only: Classic Drone Spec Card */}
+            <div className="block lg:hidden rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/10 border border-slate-200">
+              <div className="px-6 sm:px-7 py-6" style={{ background: 'linear-gradient(135deg, #06010f, #0d0520)' }}>
                 <div className="flex items-center gap-4 mb-6">
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                  <Navigation className="w-7 h-7 text-purple-400" />
-                </div>
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                    <Navigation className="w-6 h-6 text-purple-400" />
+                  </div>
                   <div>
-                    <h3 className="text-lg font-black text-white">Cyberone Pro UAV</h3>
-                    <p className="text-xs text-white/40 mt-0.5">IndoWings Fleet · v3.4.4 Stable</p>
+                    <h3 className="text-base sm:text-lg font-black text-white">Cyberone Pro UAV</h3>
+                    <p className="text-[11px] sm:text-xs text-white/40 mt-0.5">IndoWings Fleet · v3.4.4 Stable</p>
                   </div>
                   <span className="ml-auto text-[9px] font-black px-2.5 py-1 rounded-full" style={{ background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.25)', color: '#6ee7b7' }}>
                     ● ACTIVE
@@ -383,19 +423,36 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                   ['Weather Rating', 'IP55 · Wind ≤35 km/h'],
                   ['Certification', 'DGCA BVLOS Class'],
                 ].map(([label, value]) => (
-                  <div key={label} className="flex justify-between items-center py-3 border-b border-white/[0.06] last:border-0">
+                  <div key={label} className="flex justify-between items-center py-2.5 sm:py-3 border-b border-white/[0.06] last:border-0">
                     <span className="text-xs font-semibold" style={{ color: 'rgba(255,255,255,0.4)' }}>{label}</span>
                     <span className="text-sm font-bold text-white">{value}</span>
                   </div>
                 ))}
               </div>
-              <div className="p-5 bg-slate-50">
+              <div className="p-4 sm:p-5 bg-slate-50">
                 <button onClick={() => go('order', '/order')}
-                  className="w-full py-3.5 rounded-xl text-sm font-black text-white shadow-lg transition-all active:scale-95"
+                  className="w-full py-3 sm:py-3.5 rounded-xl text-sm font-black text-white shadow-lg transition-all active:scale-95"
                   style={{ background: 'linear-gradient(135deg, #6d28d9, #4f46e5)' }}>
                   Book Now — Instant Dispatch ↗
                 </button>
               </div>
+            </div>
+
+            {/* Laptop Only: Clean Floating Drone Slot (Target for Scroll Flight) */}
+            <div
+              id="features-drone-slot"
+              className="hidden lg:flex relative w-full max-w-[500px] min-h-[360px] sm:min-h-[420px] lg:min-h-[480px] flex-col items-center justify-center select-none py-4 mx-auto"
+            >
+              {/* Soft ambient glow behind Drone */}
+              <div className="absolute inset-0 bg-[#bc13fe]/10 blur-[85px] sm:blur-[115px] rounded-full scale-95 pointer-events-none" />
+              <div className="absolute w-[260px] h-[260px] sm:w-[340px] sm:h-[340px] bg-purple-600/10 blur-[65px] sm:blur-[95px] rounded-full pointer-events-none" />
+
+              {/* Subtle orbital rings */}
+              <div className="absolute w-[300px] h-[300px] sm:w-[360px] sm:h-[360px] lg:w-[420px] lg:h-[420px] rounded-full border border-purple-900/15 border-dashed animate-[spin_120s_linear_infinite] pointer-events-none" />
+              <div className="absolute w-[220px] h-[220px] sm:w-[280px] sm:h-[280px] lg:w-[330px] lg:h-[330px] rounded-full border border-purple-800/15 pointer-events-none" />
+
+              {/* Soft ground shadow */}
+              <div className="absolute bottom-6 sm:bottom-10 w-50 sm:w-64 h-4.5 sm:h-5.5 rounded-[100%] bg-purple-950/25 blur-[14px] sm:blur-[18px] pointer-events-none" />
             </div>
           </div>
         </div>
