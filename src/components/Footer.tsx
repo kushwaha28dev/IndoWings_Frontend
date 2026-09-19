@@ -72,9 +72,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenFeedback }) =>
                 alt="IndoWings"
                 className="h-7 w-auto object-contain"
               />
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">
-                Aerospace AI
-              </span>
             </a>
             <p className="text-sm text-slate-400 mt-3 leading-relaxed">
               India&apos;s leading autonomous UAV logistics &amp; BVLOS corridor platform. Precision delivery, defense-grade telemetry, and DGCA certified airspace control.
