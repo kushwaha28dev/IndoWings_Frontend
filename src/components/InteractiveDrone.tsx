@@ -23,6 +23,10 @@ export const InteractiveDrone: React.FC<InteractiveDroneProps> = ({ onOrderClick
           <img
             src="/images/floating-character.png"
             alt="IndoWings Flight Operator"
+            loading="eager"
+            // @ts-ignore
+            fetchpriority="high"
+            decoding="sync"
             className="relative z-10 w-full max-w-[280px] sm:max-w-[340px] h-auto object-contain pointer-events-none"
             style={{
               animation: "floatGlow 3.5s ease-in-out infinite",
