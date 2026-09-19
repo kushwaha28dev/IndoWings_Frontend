@@ -71,30 +71,29 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
 
   const [analytics, setAnalytics] = useState<any>(null);
   const [latestOrder, setLatestOrder] = useState<any>(null);
+  const [liveOrder, setLiveOrder] = useState<any>(null); // real in-flight order
 
-  // Fetch real analytics + latest order from backend
+  // Fetch real analytics + latest order + live in-flight order from backend
   useEffect(() => {
-    // Analytics: total, delivered, in-flight counts
     fetch(`${API_BASE_URL}/api/delivery/analytics`)
       .then(r => r.ok ? r.json() : null)
-      .then(data => {
-        if (data) {
-          setAnalytics(data);
-          // Use real in-flight count for live badge
-          if (data.inFlightOrders != null) {
-            setLiveCount(Math.max(data.inFlightOrders, 1));
-          }
-        }
-      })
+      .then(data => { if (data) setAnalytics(data); })
       .catch(() => {});
 
-    // Latest delivered order (public, anonymised) from orders list
     fetch(`${API_BASE_URL}/api/delivery/orders`)
       .then(r => r.ok ? r.json() : null)
       .then(data => {
         if (data?.orders?.length) {
-          // Find most recent delivered order
-          const delivered = data.orders
+          const orders = data.orders;
+
+          // Live flight: most recent in-flight/taking-off/approaching order
+          const inFlight = orders
+            .filter((o: any) => ['in-flight', 'taking-off', 'approaching'].includes(o.status))
+            .sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+          if (inFlight.length > 0) setLiveOrder(inFlight[0]);
+
+          // Latest delivered order
+          const delivered = orders
             .filter((o: any) => o.status === 'delivered')
             .sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
           if (delivered.length > 0) setLatestOrder(delivered[0]);
@@ -246,50 +245,57 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             {/* ── Right — Live card stack ── */}
             <div className="hidden lg:flex flex-col gap-4">
 
-              {/* Main live card */}
-              <div className="rounded-3xl p-6 space-y-5 border border-white/10 backdrop-blur-md"
-                style={{ background: 'rgba(255,255,255,0.04)' }}>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-2xl flex items-center justify-center"
-                      style={{ background: 'linear-gradient(135deg, #6d28d9, #4f46e5)' }}>
-                      <Navigation className="w-5 h-5 text-white" />
+              {/* Main live card — REAL in-flight order if exists */}
+              {liveOrder ? (
+                <div className="rounded-3xl p-6 space-y-5 border border-white/10 backdrop-blur-md"
+                  style={{ background: 'rgba(255,255,255,0.04)' }}>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-2xl flex items-center justify-center"
+                        style={{ background: 'linear-gradient(135deg, #6d28d9, #4f46e5)' }}>
+                        <Navigation className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-black text-white">Cyberone Pro · {liveOrder.drone_id || 'IW-001'}</p>
+                        <p className="text-xs text-white/40">{liveOrder.order_id} · Active Flight</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm font-black text-white">Cyberone Pro · IW-247</p>
-                      <p className="text-xs text-white/40">En route · 65 km/h · 90m AGL</p>
-                    </div>
+                    <span className="text-[10px] font-black px-3 py-1.5 rounded-full border capitalize"
+                      style={{ background: 'rgba(59,130,246,0.15)', borderColor: 'rgba(59,130,246,0.3)', color: '#93c5fd' }}>
+                      {liveOrder.status.replace('-', ' ')}
+                    </span>
                   </div>
-                  <span className="text-[10px] font-black px-3 py-1.5 rounded-full border" style={{ background: 'rgba(59,130,246,0.15)', borderColor: 'rgba(59,130,246,0.3)', color: '#93c5fd' }}>
-                    In Flight
-                  </span>
-                </div>
 
-                {/* Route */}
-                <div>
-                  <div className="flex justify-between text-[10px] font-semibold mb-2" style={{ color: 'rgba(255,255,255,0.35)' }}>
-                    <span>Sector 62 Hub, Noida</span>
-                    <span>Rohini, Delhi</span>
-                  </div>
-                  <div className="relative w-full h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }}>
-                    <div className="absolute left-0 top-0 h-full w-[72%] rounded-full" style={{ background: 'linear-gradient(90deg, #7c3aed, #4f46e5)' }} />
-                    <div className="absolute top-1/2 left-[72%] -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full border-2 border-white shadow-lg" style={{ background: '#7c3aed' }} />
-                  </div>
-                  <div className="flex justify-between mt-2 text-[10px]" style={{ color: 'rgba(255,255,255,0.3)' }}>
-                    <span>72% complete</span>
-                    <span className="font-bold text-purple-400">ETA: ~5 mins</span>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-3 gap-3">
-                  {[{ val: '4.8 km', lbl: 'Distance Left' }, { val: '90 m', lbl: 'Altitude' }, { val: 'Medicine', lbl: 'Package Type' }].map(s => (
-                    <div key={s.lbl} className="rounded-2xl p-3 text-center" style={{ background: 'rgba(255,255,255,0.05)' }}>
-                      <p className="text-base font-black text-white leading-tight">{s.val}</p>
-                      <p className="text-[9px] mt-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>{s.lbl}</p>
+                  {/* Real Route */}
+                  <div>
+                    <div className="flex justify-between text-[10px] font-semibold mb-2" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                      <span className="truncate max-w-[45%]">{liveOrder.pickup_address || 'Pickup'}</span>
+                      <span className="truncate max-w-[45%] text-right">{liveOrder.drop_address || 'Drop-off'}</span>
                     </div>
-                  ))}
+                    <div className="relative w-full h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }}>
+                      <div className="absolute left-0 top-0 h-full w-[55%] rounded-full" style={{ background: 'linear-gradient(90deg, #7c3aed, #4f46e5)' }} />
+                      <div className="absolute top-1/2 left-[55%] -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full border-2 border-white shadow-lg" style={{ background: '#7c3aed' }} />
+                    </div>
+                    <div className="flex justify-between mt-2 text-[10px]" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                      <span>In Progress</span>
+                      <span className="font-bold text-purple-400">Est. &lt; 24 mins</span>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-3">
+                    {[
+                      { val: liveOrder.package_type || 'Parcel', lbl: 'Package Type' },
+                      { val: `${liveOrder.weight || '—'} kg`, lbl: 'Weight' },
+                      { val: `Rs. ${liveOrder.fare || liveOrder.fare_inr || '—'}`, lbl: 'Fare' },
+                    ].map(s => (
+                      <div key={s.lbl} className="rounded-2xl p-3 text-center" style={{ background: 'rgba(255,255,255,0.05)' }}>
+                        <p className="text-xs font-black text-white leading-tight truncate">{s.val}</p>
+                        <p className="text-[9px] mt-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>{s.lbl}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              ) : null}
 
               {/* Order summary card — REAL latest delivered order */}
               <div className="rounded-2xl px-5 py-4 flex items-center justify-between border border-white/10 backdrop-blur-sm" style={{ background: 'rgba(255,255,255,0.04)' }}>
