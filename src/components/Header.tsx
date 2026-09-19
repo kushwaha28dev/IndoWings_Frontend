@@ -261,7 +261,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Primary CTA */}
           <button onClick={() => { onNavigate?.('order'); window.history.pushState({}, '', '/order'); window.scrollTo({ top: 0 }); }}
-            className="flex items-center gap-1.5 sm:gap-2 bg-[#3b0080] hover:bg-[#2c0060] text-white font-bold text-sm px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl shadow-md shadow-purple-900/20 hover:shadow-lg transition-all active:scale-95">
+            className={`${currentUser ? 'hidden sm:flex' : 'flex'} items-center gap-1.5 sm:gap-2 bg-[#3b0080] hover:bg-[#2c0060] text-white font-bold text-sm px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl shadow-md shadow-purple-900/20 hover:shadow-lg transition-all active:scale-95`}>
             <Package className="w-4 h-4" />
             <span className="text-xs sm:text-sm font-bold">Book<span className="hidden sm:inline"> Now</span></span>
           </button>

@@ -460,7 +460,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
   return (
     <>
       {/* ── FLOATING TRIGGER LAUNCHER (Bottom-Right) ─────────────────────────── */}
-      <div className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 flex items-center gap-2.5 select-none">
+      <div className="fixed bottom-3.5 right-3.5 sm:bottom-6 sm:right-6 z-50 flex items-center gap-2 select-none">
         
         {/* Minimal Interactive Teaser Pill */}
         {!isOpen && showTeaser && (
@@ -487,7 +487,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
             setIsOpen(!isOpen);
             if (isMinimized) setIsMinimized(false);
           }}
-          className={`relative group w-12 h-12 rounded-full flex items-center justify-center text-white shadow-[0_6px_20px_rgba(90,0,184,0.35)] hover:shadow-[0_8px_25px_rgba(90,0,184,0.45)] hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer ${
+          className={`relative group w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-white shadow-[0_6px_20px_rgba(90,0,184,0.35)] hover:shadow-[0_8px_25px_rgba(90,0,184,0.45)] hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer ${
             isOpen 
               ? 'bg-slate-900 rotate-90' 
               : 'bg-[#5a00b8] hover:bg-[#4a0099]'
@@ -495,11 +495,11 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
           title={isOpen ? 'Close Copilot' : 'Open IndoWings AI Copilot'}
         >
           {isOpen ? (
-            <X className="w-5 h-5 text-white transition-transform -rotate-90" />
+            <X className="w-4 h-4 sm:w-5 sm:h-5 text-white transition-transform -rotate-90" />
           ) : (
             <div className="relative flex items-center justify-center">
-              <Bot className="w-5 h-5 text-white" />
-              <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#5a00b8]" />
+              <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+              <span className="absolute -top-0.5 -right-0.5 w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400 border-2 border-[#5a00b8]" />
             </div>
           )}
         </button>

@@ -623,7 +623,7 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
         </div>
       </section>
 
-      <div className="max-w-4xl mx-auto px-6 py-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-12 pb-28 sm:pb-12">
         {/* Support & Pre-flight Guidance Helper */}
         <div className="mb-6 bg-gradient-to-r from-purple-50 via-white to-blue-50 border border-purple-100/80 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
           <div className="flex items-center gap-3">
@@ -886,8 +886,8 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                       </div>
 
                       {/* Quick Drop Selector: Row 2 NCR Verified Hubs */}
-                      <div className="flex items-center gap-1.5 flex-wrap mt-1.5">
-                        <span className="text-[11px] font-bold text-slate-400 mr-0.5">NCR Hubs:</span>
+                      <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 mt-1.5 -mx-1 px-1">
+                        <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 mr-0.5 shrink-0">NCR Hubs:</span>
                         {POPULAR_HUBS.map((hub, i) => (
                           <button
                             key={i}
@@ -897,7 +897,7 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                               setDropCoords({ lat: hub.lat, lng: hub.lng });
                               setSelectedAddressId(null);
                             }}
-                            className={`text-[11px] font-medium px-2 py-0.5 rounded-lg transition-all cursor-pointer border ${
+                            className={`shrink-0 text-[10px] sm:text-[11px] font-medium px-2 py-0.5 rounded-lg transition-all cursor-pointer border whitespace-nowrap ${
                               drop.includes(hub.short) || drop === hub.name
                                 ? 'bg-purple-100 text-[#3b0080] border-purple-300 font-bold'
                                 : 'bg-slate-50 hover:bg-purple-50/60 text-slate-600 hover:text-[#3b0080] border-slate-200'
@@ -910,23 +910,23 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                     </div>
 
                     {/* ── 3-METRIC AVIATION TELEMETRY HUB ───────────────────────────── */}
-                    <div className="bg-gradient-to-br from-purple-50/60 via-white to-emerald-50/40 border border-purple-100/90 rounded-2xl p-4 shadow-xs mt-3">
+                    <div className="bg-gradient-to-br from-purple-50/60 via-white to-emerald-50/40 border border-purple-100/90 rounded-2xl p-3 sm:p-4 shadow-xs mt-3">
                       {/* Top Metric Strip */}
-                      <div className="grid grid-cols-3 gap-2 divide-x divide-slate-200/80 text-center pb-3">
-                        <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">Air Distance</span>
-                          <span className="text-base sm:text-lg font-black text-[#171222] font-mono leading-none">~{aerialDistKm} km</span>
-                          <span className="text-[10px] text-slate-500 font-medium block mt-1">Geodesic Vector</span>
+                      <div className="grid grid-cols-3 gap-1 sm:gap-2 divide-x divide-slate-200/80 text-center pb-2.5 sm:pb-3">
+                        <div className="px-1">
+                          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5 truncate">Air Distance</span>
+                          <span className="text-xs sm:text-lg font-black text-[#171222] font-mono leading-none block truncate">~{aerialDistKm} km</span>
+                          <span className="text-[9px] sm:text-[10px] text-slate-500 font-medium block mt-1 truncate">Geodesic</span>
                         </div>
-                        <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">Flight ETA</span>
-                          <span className="text-base sm:text-lg font-black text-[#3b0080] font-mono leading-none whitespace-nowrap">~{flightMins} mins</span>
-                          <span className="text-[10px] text-purple-600 font-medium block mt-1">Cruise 65 km/h</span>
+                        <div className="px-1">
+                          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5 truncate">Flight ETA</span>
+                          <span className="text-xs sm:text-lg font-black text-[#3b0080] font-mono leading-none block truncate">~{flightMins} mins</span>
+                          <span className="text-[9px] sm:text-[10px] text-purple-600 font-medium block mt-1 truncate">Cruise 65 km/h</span>
                         </div>
-                        <div>
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">Airspace</span>
-                          <span className="text-base sm:text-lg font-black text-emerald-600 font-mono leading-none whitespace-nowrap">Green Zone</span>
-                          <span className="text-[10px] text-emerald-700 font-medium block mt-1">&lt;120m AGL Clear</span>
+                        <div className="px-1">
+                          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5 truncate">Airspace</span>
+                          <span className="text-xs sm:text-lg font-black text-emerald-600 font-mono leading-none block truncate">Green Zone</span>
+                          <span className="text-[9px] sm:text-[10px] text-emerald-700 font-medium block mt-1 truncate">&lt;120m AGL</span>
                         </div>
                       </div>
 
