@@ -183,29 +183,29 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               )}
 
               {/* Eyebrow */}
-              <p className="text-xs sm:text-sm font-black uppercase tracking-[0.18em] text-purple-400">
-                India's Autonomous Drone Delivery Network
-              </p>
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-sm bg-purple-400" />
+                <p className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.2em] text-purple-300/90 font-mono">
+                  INDIA&apos;S AUTONOMOUS DRONE DELIVERY NETWORK
+                </p>
+              </div>
 
-              {/* Headline */}
-              <h1 className="text-[42px] sm:text-[54px] lg:text-[62px] font-black leading-[1.05] tracking-tight text-white">
-                Deliver Anything,{' '}
-                <span className="relative">
-                  <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(90deg, #c084fc, #818cf8)' }}>
-                    Anywhere in NCR
-                  </span>
+              {/* Headline with FlytBase editorial serif display font */}
+              <h1 className="text-[44px] sm:text-[58px] lg:text-[68px] font-normal leading-[1.04] tracking-tight text-white font-['Instrument_Serif',serif]">
+                Deliver Anything, <br />
+                Anywhere in NCR <br className="hidden sm:inline" />
+                <span className="text-white/80 font-normal">
+                  — Under <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-indigo-200 to-purple-200">24 Minutes</span>.
                 </span>
-                <br />
-                <span className="text-white/80 text-[38px] sm:text-[46px] lg:text-[52px]">— Under 24 Minutes.</span>
               </h1>
 
               {/* Body */}
-              <p className="text-base sm:text-lg text-white/60 max-w-lg leading-relaxed">
+              <p className="text-base sm:text-lg text-white/60 max-w-lg leading-relaxed font-['Plus_Jakarta_Sans',sans-serif]">
                 IndoWings Cyberone autonomous UAVs fly at 65 km/h above Delhi-NCR traffic — delivering medicine, documents, food and parcels to your rooftop via precision Kevlar winch tether. Contactless. Certified. Instant.
               </p>
 
               {/* Package ticker */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 font-['Plus_Jakarta_Sans',sans-serif]">
                 <span className="text-sm text-white/30 font-medium shrink-0">Now delivering:</span>
                 <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
                   <span className="text-sm font-bold text-white">{PACKAGE_TYPES[activePkg].name}</span>
@@ -213,130 +213,118 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               </div>
 
               {/* CTAs */}
-              <div className="flex flex-wrap gap-4">
-                <button onClick={() => go('order', '/order')}
+              <div className="flex flex-wrap gap-4 pt-2">
+                <button
+                  onClick={() => go('order', '/order')}
                   className="group flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-black text-sm text-white shadow-xl shadow-purple-900/40 transition-all active:scale-95"
-                  style={{ background: 'linear-gradient(135deg, #6d28d9, #4f46e5)' }}
-                  onMouseEnter={e => (e.currentTarget.style.background = 'linear-gradient(135deg, #5b21b6, #4338ca)')}
-                  onMouseLeave={e => (e.currentTarget.style.background = 'linear-gradient(135deg, #6d28d9, #4f46e5)')}>
-                  <Package className="w-4 h-4" />
-                  Book Drone Delivery
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)' }}
+                >
+                  <span>Book Drone Delivery</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </button>
-
-                <button onClick={() => go('track', '/track')}
-                  className="flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-semibold text-sm text-white border border-white/20 bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all active:scale-95">
-                  <Navigation className="w-4 h-4" />
-                  Track My Order
+                <button
+                  onClick={() => go('track', '/track')}
+                  className="flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-semibold text-sm text-white border border-white/20 bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all active:scale-95"
+                >
+                  <Navigation className="w-4 h-4 text-purple-300" />
+                  <span>Track My Order</span>
                 </button>
               </div>
 
-              {/* Trust strip */}
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-1">
+              {/* Trust micro-badges */}
+              <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2 text-xs text-white/40">
                 {['DGCA Certified UAVs', 'Razorpay Secured', 'Live SMS Tracking', 'COD Available'].map(b => (
-                  <span key={b} className="flex items-center gap-1.5 text-[11px] font-semibold text-white/40">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                  <span key={b} className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                     {b}
                   </span>
                 ))}
               </div>
             </div>
 
-            {/* ── Right — Live card stack ── */}
-            <div className="hidden lg:flex flex-col gap-4">
+            {/* ── Right — Classic Showcase Live Card Stack ── */}
+            <div className="hidden lg:flex flex-col gap-4 font-['Plus_Jakarta_Sans',sans-serif]">
 
-              {/* Main live card — REAL in-flight order if exists */}
-              {liveOrder ? (
-                <div className="rounded-3xl p-6 space-y-5 border border-white/10 backdrop-blur-md"
-                  style={{ background: 'rgba(255,255,255,0.04)' }}>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-2xl flex items-center justify-center"
-                        style={{ background: 'linear-gradient(135deg, #6d28d9, #4f46e5)' }}>
-                        <Navigation className="w-5 h-5 text-white" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-black text-white">Cyberone Pro · {liveOrder.drone_id || 'IW-001'}</p>
-                        <p className="text-xs text-white/40">{liveOrder.order_id} · Active Flight</p>
-                      </div>
+              {/* Main live flight showcase card */}
+              <div className="rounded-3xl p-6 space-y-5 border border-white/10 backdrop-blur-md"
+                style={{ background: 'rgba(255,255,255,0.04)' }}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-2xl flex items-center justify-center"
+                      style={{ background: 'linear-gradient(135deg, #6d28d9, #4f46e5)' }}>
+                      <Navigation className="w-5 h-5 text-white" />
                     </div>
-                    <span className="text-[10px] font-black px-3 py-1.5 rounded-full border capitalize"
-                      style={{ background: 'rgba(59,130,246,0.15)', borderColor: 'rgba(59,130,246,0.3)', color: '#93c5fd' }}>
-                      {liveOrder.status.replace('-', ' ')}
-                    </span>
-                  </div>
-
-                  {/* Real Route */}
-                  <div>
-                    <div className="flex justify-between text-[10px] font-semibold mb-2" style={{ color: 'rgba(255,255,255,0.35)' }}>
-                      <span className="truncate max-w-[45%]">{liveOrder.pickup_address || 'Pickup'}</span>
-                      <span className="truncate max-w-[45%] text-right">{liveOrder.drop_address || 'Drop-off'}</span>
-                    </div>
-                    <div className="relative w-full h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }}>
-                      <div className="absolute left-0 top-0 h-full w-[55%] rounded-full" style={{ background: 'linear-gradient(90deg, #7c3aed, #4f46e5)' }} />
-                      <div className="absolute top-1/2 left-[55%] -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full border-2 border-white shadow-lg" style={{ background: '#7c3aed' }} />
-                    </div>
-                    <div className="flex justify-between mt-2 text-[10px]" style={{ color: 'rgba(255,255,255,0.3)' }}>
-                      <span>In Progress</span>
-                      <span className="font-bold text-purple-400">Est. &lt; 24 mins</span>
+                    <div>
+                      <p className="text-sm font-black text-white">Cyberone Pro · IW-247</p>
+                      <p className="text-xs text-white/40">En route · 65 km/h · 90m AGL</p>
                     </div>
                   </div>
+                  <span className="text-[10px] font-black px-3 py-1.5 rounded-full border"
+                    style={{ background: 'rgba(59,130,246,0.15)', borderColor: 'rgba(59,130,246,0.3)', color: '#93c5fd' }}>
+                    In Flight
+                  </span>
+                </div>
 
-                  <div className="grid grid-cols-3 gap-3">
-                    {[
-                      { val: liveOrder.package_type || 'Parcel', lbl: 'Package Type' },
-                      { val: `${liveOrder.weight || '—'} kg`, lbl: 'Weight' },
-                      { val: `Rs. ${liveOrder.fare || liveOrder.fare_inr || '—'}`, lbl: 'Fare' },
-                    ].map(s => (
-                      <div key={s.lbl} className="rounded-2xl p-3 text-center" style={{ background: 'rgba(255,255,255,0.05)' }}>
-                        <p className="text-xs font-black text-white leading-tight truncate">{s.val}</p>
-                        <p className="text-[9px] mt-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>{s.lbl}</p>
-                      </div>
-                    ))}
+                {/* Route */}
+                <div>
+                  <div className="flex justify-between text-[10px] font-semibold mb-2" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                    <span>Sector 62 Hub, Noida</span>
+                    <span>Rohini, Delhi</span>
+                  </div>
+                  <div className="relative w-full h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }}>
+                    <div className="absolute left-0 top-0 h-full w-[72%] rounded-full" style={{ background: 'linear-gradient(90deg, #7c3aed, #4f46e5)' }} />
+                    <div className="absolute top-1/2 left-[72%] -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full border-2 border-white shadow-lg" style={{ background: '#7c3aed' }} />
+                  </div>
+                  <div className="flex justify-between mt-2 text-[10px]" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                    <span>72% complete</span>
+                    <span className="font-bold text-purple-400">ETA: ~5 mins</span>
                   </div>
                 </div>
-              ) : null}
 
-              {/* Order summary card — REAL latest delivered order */}
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { val: '4.8 km', lbl: 'Distance Left' },
+                    { val: '90 m', lbl: 'Altitude' },
+                    { val: 'Medicine', lbl: 'Package Type' }
+                  ].map(s => (
+                    <div key={s.lbl} className="rounded-2xl p-3 text-center" style={{ background: 'rgba(255,255,255,0.05)' }}>
+                      <p className="text-base font-black text-white leading-tight">{s.val}</p>
+                      <p className="text-[9px] mt-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>{s.lbl}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Order summary card — classic showcase style */}
               <div className="rounded-2xl px-5 py-4 flex items-center justify-between border border-white/10 backdrop-blur-sm" style={{ background: 'rgba(255,255,255,0.04)' }}>
                 <div>
-                  <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>Latest Order</p>
-                  <p className="text-sm font-black text-white font-mono mt-0.5">
-                    {latestOrder ? latestOrder.order_id || latestOrder.id?.slice(0, 10).toUpperCase() : 'INW2026001'}
-                  </p>
+                  <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>ORDER ID</p>
+                  <p className="text-sm font-black text-white font-mono mt-0.5">INW2026042</p>
                 </div>
                 <div className="h-8 w-px bg-white/10" />
                 <div>
-                  <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>Amount</p>
-                  <p className="text-sm font-black text-emerald-400 mt-0.5">
-                    {latestOrder ? `Rs. ${latestOrder.fare || latestOrder.fare_inr || 249}` : 'Rs. 249'}
-                  </p>
+                  <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>AMOUNT</p>
+                  <p className="text-sm font-black text-emerald-400 mt-0.5">✓ ₹149 Paid</p>
                 </div>
                 <div className="h-8 w-px bg-white/10" />
                 <div>
-                  <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>Status</p>
-                  <p className="text-sm font-bold text-emerald-400 mt-0.5">Delivered</p>
+                  <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>METHOD</p>
+                  <p className="text-sm font-bold text-white mt-0.5">UPI</p>
                 </div>
               </div>
 
-              {/* Hero mini review card — replaced with real review if available, else static */}
+              {/* Review card */}
               <div className="rounded-2xl px-5 py-4 border border-white/10 backdrop-blur-sm" style={{ background: 'rgba(255,255,255,0.04)' }}>
                 <div className="flex gap-0.5 mb-2">
-                  {[1,2,3,4,5].map(i => <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />)}
+                  {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />)}
                 </div>
-                {reviews.length > 0 ? (
-                  <>
-                    <p className="text-xs text-white/60 leading-relaxed">"{reviews[0].message}"</p>
-                    <p className="text-[10px] font-bold text-white/30 mt-1.5">— {reviews[0].user_name}</p>
-                  </>
-                ) : (
-                  <>
-                    <p className="text-xs text-white/60 leading-relaxed">"Delivered in 19 minutes. Absolutely unreal speed."</p>
-                    <p className="text-[10px] font-bold text-white/30 mt-1.5">— First IndoWings Customer</p>
-                  </>
-                )}
+                <p className="text-xs text-white/70 leading-relaxed">
+                  &ldquo;Medicine arrived in 19 minutes. Absolutely unreal speed.&rdquo;
+                </p>
+                <p className="text-[10px] font-bold text-white/40 mt-1.5">— Rahul S. · Noida</p>
               </div>
             </div>
+
           </div>
 
         </div>
