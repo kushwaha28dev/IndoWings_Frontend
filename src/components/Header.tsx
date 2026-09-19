@@ -84,13 +84,13 @@ export const Header: React.FC<HeaderProps> = ({
         </a>
 
         {/* ── Desktop Nav ───────────────────────────────────────────── */}
-        <nav className="hidden lg:flex items-center gap-1.5 text-[15.5px] font-semibold text-slate-700" ref={dropdownRef}>
+        <nav className="hidden lg:flex items-center gap-1 text-sm font-bold text-slate-800" ref={dropdownRef}>
 
           {/* Delivery Dropdown */}
           <div className="relative" onMouseEnter={() => setOpenDropdown('delivery')} onMouseLeave={() => setOpenDropdown(null)}>
-            <button className={`flex items-center gap-1.5 px-4 py-2 rounded-lg transition-all ${openDropdown === 'delivery' ? 'bg-purple-50 text-[#3b0080]' : 'hover:bg-slate-100 hover:text-slate-900'}`}>
+            <button className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all ${openDropdown === 'delivery' ? 'bg-purple-50 text-[#3b0080]' : 'hover:bg-slate-100 hover:text-slate-900'}`}>
               Delivery
-              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${openDropdown === 'delivery' ? 'rotate-180 text-[#3b0080]' : 'text-slate-400'}`} />
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === 'delivery' ? 'rotate-180 text-[#3b0080]' : 'text-slate-400'}`} />
             </button>
             {openDropdown === 'delivery' && (
               <div className="absolute top-[calc(100%+6px)] left-0 w-72 bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2 animate-in fade-in slide-in-from-top-2 duration-150">
@@ -127,9 +127,9 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Support Dropdown */}
           <div className="relative" onMouseEnter={() => setOpenDropdown('support')} onMouseLeave={() => setOpenDropdown(null)}>
-            <button className={`flex items-center gap-1.5 px-4 py-2 rounded-lg transition-all ${openDropdown === 'support' ? 'bg-purple-50 text-[#3b0080]' : 'hover:bg-slate-100 hover:text-slate-900'}`}>
+            <button className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all ${openDropdown === 'support' ? 'bg-purple-50 text-[#3b0080]' : 'hover:bg-slate-100 hover:text-slate-900'}`}>
               Support
-              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${openDropdown === 'support' ? 'rotate-180 text-[#3b0080]' : 'text-slate-400'}`} />
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === 'support' ? 'rotate-180 text-[#3b0080]' : 'text-slate-400'}`} />
             </button>
             {openDropdown === 'support' && (
               <div className="absolute top-[calc(100%+6px)] left-0 w-72 bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2 animate-in fade-in slide-in-from-top-2 duration-150">
@@ -157,9 +157,9 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Resources Dropdown */}
           <div className="relative" onMouseEnter={() => setOpenDropdown('resources')} onMouseLeave={() => setOpenDropdown(null)}>
-            <button className={`flex items-center gap-1.5 px-4 py-2 rounded-lg transition-all ${openDropdown === 'resources' ? 'bg-purple-50 text-[#3b0080]' : 'hover:bg-slate-100 hover:text-slate-900'}`}>
+            <button className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all ${openDropdown === 'resources' ? 'bg-purple-50 text-[#3b0080]' : 'hover:bg-slate-100 hover:text-slate-900'}`}>
               Resources
-              <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${openDropdown === 'resources' ? 'rotate-180 text-[#3b0080]' : 'text-slate-400'}`} />
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === 'resources' ? 'rotate-180 text-[#3b0080]' : 'text-slate-400'}`} />
             </button>
             {openDropdown === 'resources' && (
               <div className="absolute top-[calc(100%+6px)] left-0 w-64 bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2 animate-in fade-in slide-in-from-top-2 duration-150">
@@ -182,7 +182,7 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </div>
 
-          <a href="/company" onClick={nav('company', '/company')} className="px-4 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-all">
+          <a href="/company" onClick={nav('company', '/company')} className="px-3.5 py-2 rounded-lg hover:bg-slate-100 hover:text-slate-900 transition-all">
             Company
           </a>
         </nav>
@@ -192,7 +192,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Track Order — quick pill */}
           <a href="/track" onClick={nav('track', '/track')}
-            className="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-[15px] font-semibold text-slate-700 hover:text-[#3b0080] hover:bg-purple-50 transition-all">
+            className="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-[#3b0080] hover:bg-purple-50 transition-all">
             <Navigation className="w-4 h-4" />
             Track
           </a>
@@ -201,12 +201,12 @@ export const Header: React.FC<HeaderProps> = ({
           {currentUser ? (
             <div className="relative" ref={profileRef}>
               <button onClick={() => setOpenDropdown(openDropdown === 'profile' ? null : 'profile')}
-                className="flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-xl border border-slate-200 hover:border-purple-300 hover:bg-purple-50 transition-all">
+                className="flex items-center gap-2 pl-1.5 pr-3 py-1.5 rounded-xl border border-slate-200 hover:border-purple-300 hover:bg-purple-50 transition-all">
                 <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#3b0080] to-purple-600 flex items-center justify-center text-white text-xs font-black">
                   {currentUser.name?.[0]?.toUpperCase() || 'U'}
                 </div>
-                <span className="text-[14.5px] font-semibold text-slate-800 hidden sm:block max-w-[100px] truncate">{currentUser.name?.split(' ')[0]}</span>
-                <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${openDropdown === 'profile' ? 'rotate-180' : ''}`} />
+                <span className="text-sm font-bold text-slate-800 hidden sm:block max-w-[95px] truncate">{currentUser.name?.split(' ')[0]}</span>
+                <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${openDropdown === 'profile' ? 'rotate-180' : ''}`} />
               </button>
               {openDropdown === 'profile' && (
                 <div className="absolute top-[calc(100%+8px)] right-0 w-64 bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2 animate-in fade-in slide-in-from-top-2 duration-150 z-50">
@@ -253,7 +253,7 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           ) : (
             <button onClick={onOpenAuth}
-              className="hidden sm:flex items-center gap-1.5 text-[15px] font-semibold text-slate-700 border border-slate-200 hover:border-purple-300 hover:text-[#3b0080] hover:bg-purple-50 px-4 py-2 rounded-xl transition-all">
+              className="hidden sm:flex items-center gap-1.5 text-sm font-bold text-slate-800 border border-slate-200 hover:border-purple-300 hover:text-[#3b0080] hover:bg-purple-50 px-4 py-2 rounded-xl transition-all">
               <User className="w-4 h-4" />
               Sign In
             </button>
@@ -261,7 +261,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Primary CTA */}
           <button onClick={() => { onNavigate?.('order'); window.history.pushState({}, '', '/order'); window.scrollTo({ top: 0 }); }}
-            className="flex items-center gap-2 bg-[#3b0080] hover:bg-[#2c0060] text-white font-bold text-[15px] px-5 py-2.5 rounded-xl shadow-md shadow-purple-900/20 hover:shadow-lg transition-all active:scale-95">
+            className="flex items-center gap-2 bg-[#3b0080] hover:bg-[#2c0060] text-white font-bold text-sm px-5 py-2.5 rounded-xl shadow-md shadow-purple-900/20 hover:shadow-lg transition-all active:scale-95">
             <Package className="w-4 h-4" />
             <span className="hidden sm:block">Book Now</span>
           </button>
