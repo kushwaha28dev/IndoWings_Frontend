@@ -160,7 +160,7 @@ export const App: React.FC = () => {
   }, [deliveryUser]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f7f4fb] text-[#171222] font-sans antialiased">
+    <div className="min-h-screen flex flex-col bg-[#f7f4fb] text-[#171222] font-sans antialiased w-full max-w-full overflow-x-hidden">
       {currentPage !== 'login' && (
         <Header
           currentUser={deliveryUser}
@@ -173,7 +173,7 @@ export const App: React.FC = () => {
         />
       )}
 
-      <main className="flex-1">
+      <main className="flex-1 w-full max-w-full min-w-0">
         {currentPage === 'login' ? (
           <LoginPage onNavigate={handleNavigate} onSuccess={handleDeliveryLogin} />
         ) : currentPage === 'profile' ? (

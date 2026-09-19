@@ -607,53 +607,53 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
   );
 
   return (
-    <div className="min-h-screen bg-[#f7f4fb]">
+    <div className="min-h-screen bg-[#f7f4fb] w-full max-w-full overflow-x-hidden">
       {/* Hero */}
-      <section className="relative text-white pt-16 pb-20 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #1e0940 0%, #2b114d 50%, #1a0835 100%)' }}>
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-        <div className="relative max-w-4xl mx-auto">
-          <div className="w-14 h-14 bg-white/15 border border-white/20 rounded-xl flex items-center justify-center mb-5">
-            <Truck className="w-7 h-7 text-white" />
+      <section className="relative text-white pt-14 sm:pt-16 pb-16 sm:pb-20 px-4 sm:px-6 overflow-hidden w-full max-w-full" style={{ background: 'linear-gradient(135deg, #1e0940 0%, #2b114d 50%, #1a0835 100%)' }}>
+        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+        <div className="relative max-w-4xl mx-auto min-w-0">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white/15 border border-white/20 rounded-xl flex items-center justify-center mb-4 sm:mb-5">
+            <Truck className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
           </div>
-          <p className="text-xs font-bold tracking-[0.2em] uppercase text-white/70 mb-3">Drone Delivery Dispatch</p>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight max-w-xl">Instant aerial courier across Delhi NCR</h1>
-          <p className="text-white/70 text-base max-w-xl leading-relaxed">
+          <p className="text-[11px] sm:text-xs font-bold tracking-[0.2em] uppercase text-white/70 mb-2 sm:mb-3">Drone Delivery Dispatch</p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 tracking-tight max-w-xl">Instant aerial courier across Delhi NCR</h1>
+          <p className="text-white/70 text-sm sm:text-base max-w-xl leading-relaxed">
             Standard 24-minute flight corridors. Pay securely via Razorpay UPI, Cards, or NetBanking.
           </p>
         </div>
       </section>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-12 pb-28 sm:pb-12">
+      <div className="max-w-4xl mx-auto px-3.5 sm:px-6 py-6 sm:py-12 pb-28 sm:pb-12 w-full max-w-full min-w-0">
         {/* Support & Pre-flight Guidance Helper */}
-        <div className="mb-6 bg-gradient-to-r from-purple-50 via-white to-blue-50 border border-purple-100/80 rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
-          <div className="flex items-center gap-3">
+        <div className="mb-6 bg-gradient-to-r from-purple-50 via-white to-blue-50 border border-purple-100/80 rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs min-w-0 w-full">
+          <div className="flex items-center gap-3 min-w-0">
             <div className="w-9 h-9 rounded-xl bg-[#3b0080]/10 flex items-center justify-center text-[#3b0080] shrink-0">
               <Sparkles className="w-4 h-4" />
             </div>
-            <div>
+            <div className="min-w-0">
               <p className="text-xs font-bold text-slate-800">Unsure about terrace landing or weight limits?</p>
               <p className="text-[11px] text-slate-500">DGCA guidelines require 3×3m clear terrace & max 5kg payload.</p>
             </div>
           </div>
-          <div className="flex items-center gap-2 text-xs">
+          <div className="flex items-center gap-2 text-xs flex-wrap shrink-0">
             <a
               href="/support?tab=expert"
               onClick={(e) => { e.preventDefault(); onNavigate('support'); window.history.pushState({}, '', '/support?tab=expert'); }}
-              className="px-2.5 py-1.5 bg-white border border-purple-200 hover:border-[#3b0080] text-[#3b0080] font-semibold rounded-lg shadow-xs hover:bg-purple-50 transition-all flex items-center gap-1"
+              className="px-2.5 py-1.5 bg-white border border-purple-200 hover:border-[#3b0080] text-[#3b0080] font-semibold rounded-lg shadow-xs hover:bg-purple-50 transition-all flex items-center gap-1 shrink-0"
             >
               Talk to Expert
             </a>
             <a
               href="/support?tab=guide"
               onClick={(e) => { e.preventDefault(); onNavigate('support'); window.history.pushState({}, '', '/support?tab=guide'); }}
-              className="px-2.5 py-1.5 bg-white border border-slate-200 hover:border-slate-400 text-slate-700 font-medium rounded-lg shadow-xs hover:bg-slate-50 transition-all"
+              className="px-2.5 py-1.5 bg-white border border-slate-200 hover:border-slate-400 text-slate-700 font-medium rounded-lg shadow-xs hover:bg-slate-50 transition-all shrink-0"
             >
               Customer Guide
             </a>
             <a
               href="/support?tab=fix"
               onClick={(e) => { e.preventDefault(); onNavigate('support'); window.history.pushState({}, '', '/support?tab=fix'); }}
-              className="px-2.5 py-1.5 bg-white border border-slate-200 hover:border-slate-400 text-slate-700 font-medium rounded-lg shadow-xs hover:bg-slate-50 transition-all hidden md:inline-flex"
+              className="px-2.5 py-1.5 bg-white border border-slate-200 hover:border-slate-400 text-slate-700 font-medium rounded-lg shadow-xs hover:bg-slate-50 transition-all hidden md:inline-flex shrink-0"
             >
               Fix & Troubleshoot Guide
             </a>
@@ -661,23 +661,23 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
         </div>
 
         {!currentUser && (
-          <div className="mb-6 flex items-center gap-3 bg-amber-50 border border-amber-200 rounded-xl px-5 py-4">
-            <p className="text-sm text-amber-700 flex-1">Please sign in with your phone OTP to place a delivery order</p>
-            <button onClick={onOpenAuth} className="text-sm font-bold text-[#3b0080] hover:underline">Sign In Now →</button>
+          <div className="mb-6 flex items-center gap-3 bg-amber-50 border border-amber-200 rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 min-w-0 w-full">
+            <p className="text-xs sm:text-sm text-amber-700 flex-1">Please sign in with your phone OTP to place a delivery order</p>
+            <button onClick={onOpenAuth} className="text-xs sm:text-sm font-bold text-[#3b0080] hover:underline shrink-0">Sign In Now →</button>
           </div>
         )}
 
-        <form onSubmit={handlePayAndOrder}>
-          <div className="grid lg:grid-cols-2 gap-6">
+        <form onSubmit={handlePayAndOrder} className="w-full min-w-0">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 min-w-0 w-full">
             {/* Left Column */}
-            <div className="space-y-5">
-              <div className="bg-white border border-[#e2e8f0] rounded-2xl p-6 shadow-sm">
-                <div className="flex items-center justify-between mb-4">
-                  <div>
+            <div className="space-y-5 min-w-0 w-full">
+              <div className="bg-white border border-[#e2e8f0] rounded-2xl p-4 sm:p-6 shadow-sm min-w-0 w-full overflow-hidden">
+                <div className="flex flex-wrap items-start sm:items-center justify-between gap-2 mb-4">
+                  <div className="min-w-0">
                     <h2 className="text-base font-bold text-[#171222]">Aerial Transit Route</h2>
                     <p className="text-xs text-slate-400">Autonomous Point-to-Point UAV Flight Corridor</p>
                   </div>
-                  <div className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200 rounded-full text-[11px] font-bold text-emerald-700 shadow-2xs">
+                  <div className="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 border border-emerald-200 rounded-full text-[11px] font-bold text-emerald-700 shadow-2xs shrink-0">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>DGCA Green Zone</span>
                   </div>
@@ -703,15 +703,15 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                         </button>
                       </div>
 
-                      <div className="relative">
-                        <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-600" />
+                      <div className="relative min-w-0 w-full">
+                        <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-600 shrink-0" />
                         <input
                           value={pickup}
                           onFocus={() => { setActiveSearchField('pickup'); if (pickup.length >= 2) setShowPickupDropdown(true); }}
                           onChange={e => { setPickup(e.target.value); setSelectedPickupAddressId(null); setActiveSearchField('pickup'); }}
                           required
                           placeholder="Search departure address, hub or society..."
-                          className="w-full pl-10 pr-4 py-3 border border-slate-200 focus:border-emerald-500 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-100 transition-all bg-white"
+                          className="w-full min-w-0 pl-10 pr-4 py-3 border border-slate-200 focus:border-emerald-500 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-100 transition-all bg-white"
                         />
                       </div>
 
@@ -812,21 +812,21 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                         <button
                           type="button"
                           onClick={() => { onNavigate('profile'); window.history.pushState({}, '', '/profile'); }}
-                          className="text-[11px] font-bold text-[#3b0080] hover:text-[#280058] flex items-center gap-1 hover:underline cursor-pointer">
+                          className="text-[11px] font-bold text-[#3b0080] hover:text-[#280058] flex items-center gap-1 hover:underline cursor-pointer shrink-0">
                           <span>Manage Addresses</span>
                           <ExternalLink className="w-3 h-3" />
                         </button>
                       </div>
 
-                      <div className="relative">
-                        <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-purple-600" />
+                      <div className="relative min-w-0 w-full">
+                        <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-purple-600 shrink-0" />
                         <input
                           value={drop}
                           onFocus={() => { setActiveSearchField('drop'); if (drop.length >= 2) setShowDropDropdown(true); }}
                           onChange={e => { setDrop(e.target.value); setSelectedAddressId(null); setActiveSearchField('drop'); }}
                           required
                           placeholder="Search delivery address, building or landmark..."
-                          className="w-full pl-10 pr-4 py-3 border border-slate-200 focus:border-[#3b0080] rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-100 transition-all bg-white"
+                          className="w-full min-w-0 pl-10 pr-4 py-3 border border-slate-200 focus:border-[#3b0080] rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-purple-100 transition-all bg-white"
                         />
                       </div>
 
@@ -886,7 +886,7 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                       </div>
 
                       {/* Quick Drop Selector: Row 2 NCR Verified Hubs */}
-                      <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 mt-1.5 -mx-1 px-1">
+                      <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 mt-1.5 -mx-1 px-1 w-full max-w-full min-w-0">
                         <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 mr-0.5 shrink-0">NCR Hubs:</span>
                         {POPULAR_HUBS.map((hub, i) => (
                           <button
@@ -910,23 +910,23 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                     </div>
 
                     {/* ── 3-METRIC AVIATION TELEMETRY HUB ───────────────────────────── */}
-                    <div className="bg-gradient-to-br from-purple-50/60 via-white to-emerald-50/40 border border-purple-100/90 rounded-2xl p-3 sm:p-4 shadow-xs mt-3">
+                    <div className="bg-gradient-to-br from-purple-50/60 via-white to-emerald-50/40 border border-purple-100/90 rounded-2xl p-2.5 sm:p-4 shadow-xs mt-3 min-w-0 w-full overflow-hidden">
                       {/* Top Metric Strip */}
-                      <div className="grid grid-cols-3 gap-1 sm:gap-2 divide-x divide-slate-200/80 text-center pb-2.5 sm:pb-3">
-                        <div className="px-1">
-                          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5 truncate">Air Distance</span>
-                          <span className="text-xs sm:text-lg font-black text-[#171222] font-mono leading-none block truncate">~{aerialDistKm} km</span>
-                          <span className="text-[9px] sm:text-[10px] text-slate-500 font-medium block mt-1 truncate">Geodesic</span>
+                      <div className="grid grid-cols-3 gap-1 sm:gap-2 divide-x divide-slate-200/80 text-center pb-2 sm:pb-3">
+                        <div className="px-0.5 sm:px-1 min-w-0">
+                          <span className="text-[8.5px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5 truncate">Air Distance</span>
+                          <span className="text-[11px] sm:text-lg font-black text-[#171222] font-mono leading-none block truncate">~{aerialDistKm} km</span>
+                          <span className="text-[8.5px] sm:text-[10px] text-slate-500 font-medium block mt-1 truncate">Geodesic</span>
                         </div>
-                        <div className="px-1">
-                          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5 truncate">Flight ETA</span>
-                          <span className="text-xs sm:text-lg font-black text-[#3b0080] font-mono leading-none block truncate">~{flightMins} mins</span>
-                          <span className="text-[9px] sm:text-[10px] text-purple-600 font-medium block mt-1 truncate">Cruise 65 km/h</span>
+                        <div className="px-0.5 sm:px-1 min-w-0">
+                          <span className="text-[8.5px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5 truncate">Flight ETA</span>
+                          <span className="text-[11px] sm:text-lg font-black text-[#3b0080] font-mono leading-none block truncate">~{flightMins} mins</span>
+                          <span className="text-[8.5px] sm:text-[10px] text-purple-600 font-medium block mt-1 truncate">Cruise 65 km/h</span>
                         </div>
-                        <div className="px-1">
-                          <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5 truncate">Airspace</span>
-                          <span className="text-xs sm:text-lg font-black text-emerald-600 font-mono leading-none block truncate">Green Zone</span>
-                          <span className="text-[9px] sm:text-[10px] text-emerald-700 font-medium block mt-1 truncate">&lt;120m AGL</span>
+                        <div className="px-0.5 sm:px-1 min-w-0">
+                          <span className="text-[8.5px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5 truncate">Airspace</span>
+                          <span className="text-[11px] sm:text-lg font-black text-emerald-600 font-mono leading-none block truncate">Green Zone</span>
+                          <span className="text-[8.5px] sm:text-[10px] text-emerald-700 font-medium block mt-1 truncate">&lt;120m AGL</span>
                         </div>
                       </div>
 
@@ -971,26 +971,26 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                   </div>
 
                   {/* 2. Order for Someone Else / New Recipient Address Section */}
-                  <div className="pt-4 border-t border-slate-100">
+                  <div className="pt-4 border-t border-slate-100 min-w-0 w-full">
                     <div 
                       onClick={() => setIsOrderingForSomeoneElse(!isOrderingForSomeoneElse)}
-                      className="flex items-center justify-between cursor-pointer p-3.5 rounded-xl bg-slate-50 hover:bg-purple-50/60 border border-slate-200 transition-all">
-                      <div className="flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+                      className="flex items-center justify-between cursor-pointer p-3 sm:p-3.5 rounded-xl bg-slate-50 hover:bg-purple-50/60 border border-slate-200 transition-all min-w-0">
+                      <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-2">
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
                           isOrderingForSomeoneElse ? 'bg-[#3b0080] text-white' : 'bg-slate-200 text-slate-600'
                         }`}>
                           <UserPlus className="w-4 h-4" />
                         </div>
-                        <div>
+                        <div className="min-w-0">
                           <p className="text-xs font-bold text-[#171222]">Deliver to someone else?</p>
-                          <p className="text-[11px] text-slate-500">Send package to a friend, client, family or alternate drop recipient</p>
+                          <p className="text-[10px] sm:text-[11px] text-slate-500 truncate sm:whitespace-normal">Send package to a friend, client, family or alternate drop recipient</p>
                         </div>
                       </div>
                       <input
                         type="checkbox"
                         checked={isOrderingForSomeoneElse}
                         onChange={(e) => setIsOrderingForSomeoneElse(e.target.checked)}
-                        className="w-4 h-4 text-[#3b0080] rounded accent-[#3b0080] cursor-pointer"
+                        className="w-4 h-4 text-[#3b0080] rounded accent-[#3b0080] cursor-pointer shrink-0"
                       />
                     </div>
 
@@ -1056,18 +1056,18 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                 </div>
               </div>
 
-              <div className="bg-white border border-[#e2e8f0] rounded-2xl p-6 shadow-sm">
+              <div className="bg-white border border-[#e2e8f0] rounded-2xl p-4 sm:p-6 shadow-sm min-w-0 w-full overflow-hidden">
                 <h2 className="text-base font-bold text-[#171222] mb-4">Package Specifications</h2>
-                <div className="space-y-4">
+                <div className="space-y-4 min-w-0">
                   <select
                     value={packageType}
                     onChange={e => setPackageType(e.target.value)}
                     required
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 bg-white">
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 bg-white min-w-0">
                     {PACKAGE_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
                   </select>
-                  <div className="relative">
-                    <Scale className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <div className="relative min-w-0">
+                    <Scale className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 shrink-0" />
                     <input
                       type="number"
                       step="0.1"
@@ -1077,7 +1077,7 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                       onChange={e => setWeight(e.target.value)}
                       required
                       placeholder="Weight in kg (max 5 kg)"
-                      className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100"
+                      className="w-full min-w-0 pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100"
                     />
                   </div>
                   <p className="text-xs text-slate-400">
@@ -1088,16 +1088,16 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
             </div>
 
             {/* Right Column */}
-            <div className="space-y-5">
-              <div className="bg-white border border-[#e2e8f0] rounded-2xl p-6 shadow-sm">
+            <div className="space-y-5 min-w-0 w-full">
+              <div className="bg-white border border-[#e2e8f0] rounded-2xl p-4 sm:p-6 shadow-sm min-w-0 w-full overflow-hidden">
                 <h2 className="text-base font-bold text-[#171222] mb-4">Dispatch Schedule</h2>
-                <div className="flex gap-3 mb-4">
+                <div className="flex gap-2 sm:gap-3 mb-4 min-w-0">
                   {(['now', 'later'] as const).map(s => (
                     <button
                       key={s}
                       type="button"
                       onClick={() => setScheduleMode(s)}
-                      className={`flex-1 py-2.5 text-sm font-semibold rounded-xl border transition-all ${
+                      className={`flex-1 py-2.5 px-2 text-xs sm:text-sm font-semibold rounded-xl border transition-all text-center truncate ${
                         scheduleMode === s ? 'border-[#3b0080] bg-purple-50 text-[#3b0080]' : 'border-slate-200 text-slate-500 hover:border-slate-300'
                       }`}>
                       {s === 'now' ? '⚡ Instant Dispatch' : '🕐 Schedule Later'}
@@ -1105,29 +1105,29 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                   ))}
                 </div>
                 {scheduleMode === 'later' && (
-                  <div className="relative">
-                    <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <div className="relative min-w-0">
+                    <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 shrink-0" />
                     <input
                       type="datetime-local"
                       value={scheduledTime}
                       onChange={e => setScheduledTime(e.target.value)}
                       required
-                      className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100"
+                      className="w-full min-w-0 pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100"
                     />
                   </div>
                 )}
               </div>
 
               {/* Pricing & Checkout Summary Card */}
-              <div className="bg-white border-2 border-purple-100 rounded-2xl p-6 shadow-sm">
+              <div className="bg-white border-2 border-purple-100 rounded-2xl p-4 sm:p-6 shadow-sm min-w-0 w-full overflow-hidden">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-base font-bold text-[#171222]">Fare Estimate</h2>
-                  <span className="text-xs font-bold text-[#3b0080] bg-purple-50 px-2.5 py-1 rounded-full flex items-center gap-1">
+                  <span className="text-xs font-bold text-[#3b0080] bg-purple-50 px-2.5 py-1 rounded-full flex items-center gap-1 shrink-0">
                     <Zap className="w-3 h-3" /> Live Quote
                   </span>
                 </div>
 
-                <div className="space-y-2.5 text-xs text-slate-600 mb-5">
+                <div className="space-y-2.5 text-xs text-slate-600 mb-5 min-w-0">
                   <div className="flex justify-between">
                     <span>Base Drone Dispatch Fee</span>
                     <span className="font-semibold text-[#171222]">₹{baseFare}</span>
@@ -1149,39 +1149,39 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                 </div>
 
                 {/* Payment Mode Selector: Online vs Cash on Delivery */}
-                <div className="mb-5">
+                <div className="mb-5 min-w-0">
                   <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">
                     Payment Method
                   </label>
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-2 gap-2 min-w-0">
                     <button
                       type="button"
                       onClick={() => setPaymentMethod('online')}
-                      className={`p-3 rounded-xl border text-left transition-all ${
+                      className={`p-2.5 sm:p-3 rounded-xl border text-left transition-all min-w-0 ${
                         paymentMethod === 'online'
                           ? 'border-[#3b0080] bg-purple-50/70 ring-2 ring-purple-100'
                           : 'border-slate-200 hover:border-slate-300 bg-white'
                       }`}>
                       <div className="flex items-center gap-1.5 font-bold text-xs text-[#171222]">
-                        <CreditCard className="w-3.5 h-3.5 text-[#3b0080]" />
-                        <span>Online UPI / Card</span>
+                        <CreditCard className="w-3.5 h-3.5 text-[#3b0080] shrink-0" />
+                        <span className="truncate">Online UPI / Card</span>
                       </div>
-                      <p className="text-[10px] text-slate-400 mt-0.5">Instant via Razorpay</p>
+                      <p className="text-[10px] text-slate-400 mt-0.5 truncate">Instant via Razorpay</p>
                     </button>
 
                     <button
                       type="button"
                       onClick={() => setPaymentMethod('cod')}
-                      className={`p-3 rounded-xl border text-left transition-all ${
+                      className={`p-2.5 sm:p-3 rounded-xl border text-left transition-all min-w-0 ${
                         paymentMethod === 'cod'
                           ? 'border-[#3b0080] bg-purple-50/70 ring-2 ring-purple-100'
                           : 'border-slate-200 hover:border-slate-300 bg-white'
                       }`}>
                       <div className="flex items-center gap-1.5 font-bold text-xs text-[#171222]">
-                        <Banknote className="w-3.5 h-3.5 text-green-600" />
-                        <span>Cash on Delivery</span>
+                        <Banknote className="w-3.5 h-3.5 text-green-600 shrink-0" />
+                        <span className="truncate">Cash on Delivery</span>
                       </div>
-                      <p className="text-[10px] text-slate-400 mt-0.5">Pay on payload arrival</p>
+                      <p className="text-[10px] text-slate-400 mt-0.5 truncate">Pay on payload arrival</p>
                     </button>
                   </div>
                 </div>
