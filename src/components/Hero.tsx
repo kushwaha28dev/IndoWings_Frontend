@@ -73,6 +73,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   const [analytics, setAnalytics] = useState<any>(null);
   const [latestOrder, setLatestOrder] = useState<any>(null);
   const [liveOrder, setLiveOrder] = useState<any>(null); // real in-flight order
+  const [heroVisualMode, setHeroVisualMode] = useState<'cards' | 'character'>('cards');
 
   // Fetch real analytics + latest order + live in-flight order from backend
   useEffect(() => {
@@ -243,9 +244,126 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               </div>
             </div>
 
-            {/* ── Right — Interactive 3D Cursor-Tracking Drone ── */}
-            <div className="hidden lg:flex flex-col items-center justify-center">
-              <InteractiveDrone onOrderClick={() => go('order', '/order')} />
+            {/* ── Right — Comparison View (Original Cards vs Floating Character) ── */}
+            <div className="hidden lg:flex flex-col gap-3">
+              {/* Quick Comparison Switcher Pill */}
+              <div className="flex items-center justify-between pb-1">
+                <span className="text-[10px] font-mono text-purple-300/60 uppercase tracking-widest flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
+                  Hero Visual Preview
+                </span>
+                <div className="flex items-center p-1 rounded-xl bg-white/[0.06] border border-white/10 backdrop-blur-md">
+                  <button
+                    onClick={() => setHeroVisualMode('cards')}
+                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                      heroVisualMode === 'cards'
+                        ? 'bg-purple-600 text-white shadow-md'
+                        : 'text-white/50 hover:text-white'
+                    }`}
+                  >
+                    Original Cards
+                  </button>
+                  <button
+                    onClick={() => setHeroVisualMode('character')}
+                    className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
+                      heroVisualMode === 'character'
+                        ? 'bg-purple-600 text-white shadow-md'
+                        : 'text-white/50 hover:text-white'
+                    }`}
+                  >
+                    Floating Character
+                  </button>
+                </div>
+              </div>
+
+              {heroVisualMode === 'cards' ? (
+                /* ── Starting Original Showcase Cards ── */
+                <div className="flex flex-col gap-4">
+                  {/* Main live flight showcase card */}
+                  <div className="rounded-3xl p-6 space-y-5 border border-white/10 backdrop-blur-md"
+                    style={{ background: 'rgba(255,255,255,0.04)' }}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-2xl flex items-center justify-center"
+                          style={{ background: 'linear-gradient(135deg, #6d28d9, #4f46e5)' }}>
+                          <Navigation className="w-5 h-5 text-white" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-black text-white">Cyberone Pro · IW-247</p>
+                          <p className="text-xs text-white/40">En route · 65 km/h · 90m AGL</p>
+                        </div>
+                      </div>
+                      <span className="text-[10px] font-black px-3 py-1.5 rounded-full border"
+                        style={{ background: 'rgba(59,130,246,0.15)', borderColor: 'rgba(59,130,246,0.3)', color: '#93c5fd' }}>
+                        In Flight
+                      </span>
+                    </div>
+
+                    {/* Route */}
+                    <div>
+                      <div className="flex justify-between text-[10px] font-semibold mb-2" style={{ color: 'rgba(255,255,255,0.35)' }}>
+                        <span>Sector 62 Hub, Noida</span>
+                        <span>Rohini, Delhi</span>
+                      </div>
+                      <div className="relative w-full h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }}>
+                        <div className="absolute left-0 top-0 h-full w-[72%] rounded-full" style={{ background: 'linear-gradient(90deg, #7c3aed, #4f46e5)' }} />
+                        <div className="absolute top-1/2 left-[72%] -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full border-2 border-white shadow-lg" style={{ background: '#7c3aed' }} />
+                      </div>
+                      <div className="flex justify-between mt-2 text-[10px]" style={{ color: 'rgba(255,255,255,0.3)' }}>
+                        <span>72% complete</span>
+                        <span className="font-bold text-purple-400">ETA: ~5 mins</span>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-3">
+                      {[
+                        { val: '4.8 km', lbl: 'Distance Left' },
+                        { val: '90 m', lbl: 'Altitude' },
+                        { val: 'Medicine', lbl: 'Package Type' }
+                      ].map(s => (
+                        <div key={s.lbl} className="rounded-2xl p-3 text-center" style={{ background: 'rgba(255,255,255,0.05)' }}>
+                          <p className="text-base font-black text-white leading-tight">{s.val}</p>
+                          <p className="text-[9px] mt-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>{s.lbl}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Order summary card — classic showcase style */}
+                  <div className="rounded-2xl px-5 py-4 flex items-center justify-between border border-white/10 backdrop-blur-sm" style={{ background: 'rgba(255,255,255,0.04)' }}>
+                    <div>
+                      <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>ORDER ID</p>
+                      <p className="text-sm font-black text-white font-mono mt-0.5">INW2026042</p>
+                    </div>
+                    <div className="h-8 w-px bg-white/10" />
+                    <div>
+                      <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>AMOUNT</p>
+                      <p className="text-sm font-black text-emerald-400 mt-0.5">✓ ₹149 Paid</p>
+                    </div>
+                    <div className="h-8 w-px bg-white/10" />
+                    <div>
+                      <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>METHOD</p>
+                      <p className="text-sm font-bold text-white mt-0.5">UPI</p>
+                    </div>
+                  </div>
+
+                  {/* Review card */}
+                  <div className="rounded-2xl px-5 py-4 border border-white/10 backdrop-blur-sm" style={{ background: 'rgba(255,255,255,0.04)' }}>
+                    <div className="flex gap-0.5 mb-2">
+                      {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />)}
+                    </div>
+                    <p className="text-xs text-white/70 leading-relaxed">
+                      &ldquo;Medicine arrived in 19 minutes. Absolutely unreal speed.&rdquo;
+                    </p>
+                    <p className="text-[10px] font-bold text-white/40 mt-1.5">— Rahul S. · Noida</p>
+                  </div>
+                </div>
+              ) : (
+                /* ── Floating Character Option ── */
+                <div className="flex flex-col items-center justify-center">
+                  <InteractiveDrone onOrderClick={() => go('order', '/order')} />
+                </div>
+              )}
             </div>
 
           </div>
