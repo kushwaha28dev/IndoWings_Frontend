@@ -7,65 +7,36 @@ interface InteractiveDroneProps {
 
 export const InteractiveDrone: React.FC<InteractiveDroneProps> = ({ onOrderClick }) => {
   return (
-    <div className="relative w-full max-w-[420px] min-h-[420px] flex flex-col items-center justify-center select-none py-2">
+    <div className="relative w-full max-w-[460px] min-h-[460px] flex flex-col items-center justify-center select-none py-4">
       {/* ── Ambient Background Glows ── */}
-      <div className="absolute inset-0 bg-[#bc13fe]/15 blur-[90px] rounded-full scale-75 animate-pulse pointer-events-none" />
-      <div className="absolute w-[280px] h-[280px] bg-purple-600/15 blur-[70px] rounded-full pointer-events-none" />
+      <div className="absolute inset-0 bg-[#bc13fe]/20 blur-[100px] rounded-full scale-90 animate-pulse pointer-events-none" />
+      <div className="absolute w-[320px] h-[320px] bg-purple-600/20 blur-[80px] rounded-full pointer-events-none" />
 
       {/* ── Circular Orbital Grid Rings ── */}
-      <div className="absolute w-[340px] h-[340px] rounded-full border border-white/[0.06] border-dashed animate-[spin_80s_linear_infinite] pointer-events-none" />
-      <div className="absolute w-[240px] h-[240px] rounded-full border border-purple-500/15 pointer-events-none" />
+      <div className="absolute w-[380px] h-[380px] rounded-full border border-white/[0.07] border-dashed animate-[spin_80s_linear_infinite] pointer-events-none" />
+      <div className="absolute w-[280px] h-[280px] rounded-full border border-purple-500/20 pointer-events-none" />
 
-      {/* ── Main Floating Character Container ── */}
+      {/* ── Main Floating Character Container (Clean & Focused) ── */}
       <div className="relative z-10 flex flex-col items-center">
         {/* Floating Character Image from CSCA */}
         <div className="relative flex justify-center">
           <img
             src="/images/floating-character.png"
             alt="IndoWings Flight Operator"
-            className="relative z-10 w-full max-w-[210px] sm:max-w-[250px] h-auto object-contain pointer-events-none"
+            className="relative z-10 w-full max-w-[280px] sm:max-w-[340px] h-auto object-contain pointer-events-none"
             style={{
               animation: "floatGlow 3.5s ease-in-out infinite",
             }}
           />
-
-          {/* Floating High-Tech Badge: Top Left */}
-          <div className="absolute top-4 -left-3 sm:-left-6 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#120726]/90 border border-[#bc13fe]/40 backdrop-blur-md text-[9px] font-mono text-white shadow-xl">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-bold tracking-wider">UAV PILOT</span>
-          </div>
-
-          {/* Floating High-Tech Badge: Bottom Right */}
-          <div className="absolute bottom-8 -right-3 sm:-right-5 z-20 flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#120726]/90 border border-purple-400/30 backdrop-blur-md text-[9px] font-mono text-purple-200 shadow-xl">
-            <Radio className="w-3 h-3 text-[#bc13fe] animate-pulse" />
-            <span className="tracking-wider">BVLOS ACTIVE</span>
-          </div>
         </div>
 
         {/* ── Soft Ground Shadow / Platform Pulse ── */}
         <div
-          className="w-40 h-4 rounded-[100%] bg-[#bc13fe]/25 blur-[10px] -mt-3 pointer-events-none"
+          className="w-48 h-5 rounded-[100%] bg-[#bc13fe]/30 blur-[12px] -mt-4 pointer-events-none"
           style={{
             animation: "shadowPulse 3.5s ease-in-out infinite",
           }}
         />
-
-        {/* ── Bottom Micro Telemetry Bar ── */}
-        <div className="grid grid-cols-3 gap-2.5 w-full max-w-[340px] mt-4">
-          {[
-            { label: "CORRIDORS", val: "NCR ACTIVE" },
-            { label: "RESPONSE", val: "< 24 MINS" },
-            { label: "CERTIFIED", val: "DGCA INDIA" },
-          ].map((item) => (
-            <div
-              key={item.label}
-              className="px-2 py-1.5 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-md text-center"
-            >
-              <p className="text-[7.5px] font-mono tracking-widest text-white/40 uppercase font-bold">{item.label}</p>
-              <p className="text-[10px] font-black text-white mt-0.5 font-mono">{item.val}</p>
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* ── Embedded CSS Animation (Exact CSCA Style) ── */}
