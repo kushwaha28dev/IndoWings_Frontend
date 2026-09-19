@@ -88,8 +88,25 @@ export const ElevationMeshBackground: React.FC<ElevationMeshBackgroundProps> = (
       setCursorPos({ x: -1000, y: -1000, active: false });
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!e.touches.length) return;
+      const rect = container.getBoundingClientRect();
+      const x = e.touches[0].clientX - rect.left;
+      const y = e.touches[0].clientY - rect.top;
+      mouseRef.current = { x, y, active: true };
+      setCursorPos({ x, y, active: true });
+    };
+
+    const handleTouchEnd = () => {
+      mouseRef.current = { x: -1000, y: -1000, active: false };
+      setCursorPos({ x: -1000, y: -1000, active: false });
+    };
+
     container.addEventListener('mousemove', handleMouseMove);
     container.addEventListener('mouseleave', handleMouseLeave);
+    container.addEventListener('touchstart', handleTouchMove, { passive: true });
+    container.addEventListener('touchmove', handleTouchMove, { passive: true });
+    container.addEventListener('touchend', handleTouchEnd);
 
     // Render loop
     const render = () => {
@@ -213,6 +230,9 @@ export const ElevationMeshBackground: React.FC<ElevationMeshBackgroundProps> = (
       window.removeEventListener('resize', handleResize);
       container.removeEventListener('mousemove', handleMouseMove);
       container.removeEventListener('mouseleave', handleMouseLeave);
+      container.removeEventListener('touchstart', handleTouchMove);
+      container.removeEventListener('touchmove', handleTouchMove);
+      container.removeEventListener('touchend', handleTouchEnd);
     };
   }, []);
 
@@ -222,18 +242,18 @@ export const ElevationMeshBackground: React.FC<ElevationMeshBackgroundProps> = (
       className={`absolute inset-0 overflow-hidden pointer-events-auto ${className}`}
       style={{ zIndex: 1 }}
     >
-      {/* Soft, minimal luxury ambient spotlight that moves smoothly with cursor */}
+      {/* Soft, minimal luxury ambient spotlight that moves smoothly with cursor/touch */}
       {cursorPos.active && (
         <div
           className="pointer-events-none absolute transition-opacity duration-500 rounded-full"
           style={{
             left: `${cursorPos.x}px`,
             top: `${cursorPos.y}px`,
-            width: '280px',
-            height: '280px',
+            width: '240px',
+            height: '240px',
             transform: 'translate(-50%, -50%)',
             background: 'radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, rgba(99, 102, 241, 0.03) 50%, transparent 70%)',
-            filter: 'blur(32px)',
+            filter: 'blur(28px)',
           }}
         />
       )}

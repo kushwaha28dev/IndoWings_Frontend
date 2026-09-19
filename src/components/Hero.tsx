@@ -179,10 +179,10 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_480px] gap-16 items-center">
 
             {/* ── Left ── */}
-            <div className="space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {/* Live badge — only shown when real deliveries exist */}
               {analytics && analytics.deliveredOrders > 0 && (
-                <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-bold"
+                <div className="inline-flex items-center gap-2.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold"
                   style={{ background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.25)', color: '#6ee7b7' }}>
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                   <span>{analytics.deliveredOrders} deliveries completed · {analytics.inFlightOrders || 0} flights active</span>
@@ -190,12 +190,12 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               )}
 
               {/* Eyebrow */}
-              <p className="text-xs sm:text-sm font-black uppercase tracking-[0.18em] text-purple-400">
+              <p className="text-[11px] sm:text-sm font-black uppercase tracking-[0.16em] sm:tracking-[0.18em] text-purple-400">
                 India&apos;s Autonomous Drone Delivery Network
               </p>
 
               {/* Headline */}
-              <h1 className="text-[42px] sm:text-[54px] lg:text-[62px] font-black leading-[1.05] tracking-tight text-white">
+              <h1 className="text-[32px] sm:text-[48px] lg:text-[62px] font-black leading-[1.08] tracking-tight text-white">
                 Deliver Anything,{' '}
                 <span className="relative">
                   <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(90deg, #c084fc, #818cf8)' }}>
@@ -203,27 +203,27 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                   </span>
                 </span>
                 <br />
-                <span className="text-white/80 text-[38px] sm:text-[46px] lg:text-[52px]">— Under 24 Minutes.</span>
+                <span className="text-white/80 text-[24px] sm:text-[38px] lg:text-[52px]">— Under 24 Minutes.</span>
               </h1>
 
               {/* Body */}
-              <p className="text-base sm:text-lg text-white/60 max-w-lg leading-relaxed">
+              <p className="text-sm sm:text-lg text-white/60 max-w-lg leading-relaxed">
                 IndoWings Cyberone autonomous UAVs fly at 65 km/h above Delhi-NCR traffic — delivering medicine, documents, food and parcels to your rooftop via precision Kevlar winch tether. Contactless. Certified. Instant.
               </p>
 
               {/* Package ticker */}
-              <div className="flex items-center gap-3">
-                <span className="text-sm text-white/30 font-medium shrink-0">Now delivering:</span>
-                <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
-                  <span className="text-sm font-bold text-white">{PACKAGE_TYPES[activePkg].name}</span>
+              <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                <span className="text-xs sm:text-sm text-white/40 font-medium shrink-0">Now delivering:</span>
+                <div className="flex items-center gap-2.5 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
+                  <span className="text-xs sm:text-sm font-bold text-white">{PACKAGE_TYPES[activePkg].name}</span>
                 </div>
               </div>
 
               {/* CTAs */}
-              <div className="flex flex-wrap gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
                 <button
                   onClick={() => go('order', '/order')}
-                  className="group flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-black text-sm text-white shadow-xl shadow-purple-900/40 transition-all active:scale-95"
+                  className="group flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-xl font-black text-sm text-white shadow-xl shadow-purple-900/40 transition-all active:scale-95 w-full sm:w-auto"
                   style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)' }}
                 >
                   <span>Book Drone Delivery</span>
@@ -231,7 +231,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                 </button>
                 <button
                   onClick={() => go('track', '/track')}
-                  className="flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-semibold text-sm text-white border border-white/20 bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all active:scale-95"
+                  className="flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-xl font-semibold text-sm text-white border border-white/20 bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all active:scale-95 w-full sm:w-auto"
                 >
                   <Navigation className="w-4 h-4 text-purple-300" />
                   <span>Track My Order</span>
@@ -239,7 +239,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               </div>
 
               {/* Trust micro-badges */}
-              <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2 text-xs text-white/40">
+              <div className="flex flex-wrap gap-x-4 sm:gap-x-6 gap-y-2 pt-2 text-[11px] sm:text-xs text-white/40">
                 {['DGCA Certified UAVs', 'Razorpay Secured', 'Live SMS Tracking', 'COD Available'].map(b => (
                   <span key={b} className="flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
@@ -249,8 +249,8 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               </div>
             </div>
 
-            {/* ── Right — Floating Cyber Pilot Visual ── */}
-            <div className="hidden lg:flex flex-col items-center justify-center">
+            {/* ── Right — Floating Cyber Pilot Visual (Responsive on all screen sizes) ── */}
+            <div className="flex flex-col items-center justify-center pt-2 lg:pt-0">
               <InteractiveDrone onOrderClick={() => go('order', '/order')} />
             </div>
 
@@ -262,16 +262,16 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
       {/* ══════════════════════════════════════════════════════════════════════
           STATS BAR — Count-up animation
          ══════════════════════════════════════════════════════════════════════ */}
-      <section ref={statsRef} style={{ background: 'linear-gradient(90deg, #2e0068, #3b0080, #2e0068)' }} className="py-10">
+      <section ref={statsRef} style={{ background: 'linear-gradient(90deg, #2e0068, #3b0080, #2e0068)' }} className="py-8 sm:py-10">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-white/10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-2 md:gap-0 md:divide-x divide-white/10">
             {STATS.map((s, i) => (
-              <div key={s.label} className="text-center py-2 px-4">
-                <p className="text-3xl sm:text-[44px] font-black text-white tabular-nums leading-none">
+              <div key={s.label} className="text-center py-1 sm:py-2 px-2 sm:px-4">
+                <p className="text-2xl sm:text-3xl lg:text-[44px] font-black text-white tabular-nums leading-none">
                   {formatStat(displayStats[i], s.value)}
-                  <span className="text-lg sm:text-2xl font-bold text-purple-300 ml-1">{s.unit}</span>
+                  <span className="text-base sm:text-lg lg:text-2xl font-bold text-purple-300 ml-1">{s.unit}</span>
                 </p>
-                <p className="text-xs font-semibold text-white/50 mt-2 tracking-wide">{s.label}</p>
+                <p className="text-[11px] sm:text-xs font-semibold text-white/50 mt-1.5 sm:mt-2 tracking-wide">{s.label}</p>
               </div>
             ))}
           </div>
@@ -445,9 +445,9 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             </div>
           ) : reviews.length > 0 ? (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
                 {reviews.map((t, i) => (
-                  <div key={t.id || i} className="bg-slate-50 rounded-3xl p-7 border border-slate-100 hover:border-purple-200 hover:shadow-lg transition-all duration-300">
+                  <div key={t.id || i} className="bg-slate-50 rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-slate-100 hover:border-purple-200 hover:shadow-lg transition-all duration-300">
                     <div className="flex gap-1 mb-5">
                       {[1,2,3,4,5].map(s => (
                         <Star key={s} className={`w-4 h-4 ${s <= (t.rating || 5) ? 'fill-amber-400 text-amber-400' : 'text-slate-200 fill-slate-200'}`} />

@@ -261,9 +261,9 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Primary CTA */}
           <button onClick={() => { onNavigate?.('order'); window.history.pushState({}, '', '/order'); window.scrollTo({ top: 0 }); }}
-            className="flex items-center gap-2 bg-[#3b0080] hover:bg-[#2c0060] text-white font-bold text-sm px-5 py-2.5 rounded-xl shadow-md shadow-purple-900/20 hover:shadow-lg transition-all active:scale-95">
+            className="flex items-center gap-1.5 sm:gap-2 bg-[#3b0080] hover:bg-[#2c0060] text-white font-bold text-sm px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl shadow-md shadow-purple-900/20 hover:shadow-lg transition-all active:scale-95">
             <Package className="w-4 h-4" />
-            <span className="hidden sm:block">Book Now</span>
+            <span className="text-xs sm:text-sm font-bold">Book<span className="hidden sm:inline"> Now</span></span>
           </button>
 
           {/* Mobile hamburger */}
@@ -275,37 +275,41 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* ── Mobile Drawer ─────────────────────────────────────────────── */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-slate-100 px-4 py-4 space-y-1 shadow-xl">
+        <div className="lg:hidden bg-white border-t border-slate-100 px-4 py-4 space-y-1 shadow-xl animate-in fade-in slide-in-from-top-2 duration-150">
           {[
-            { label: 'Book Delivery', page: 'order', url: '/order', accent: true },
-            { label: 'Track Order', page: 'track', url: '/track' },
-            { label: 'My Orders', page: 'orders', url: '/profile?tab=orders' },
-            { label: 'My Profile', page: 'profile', url: '/profile' },
-            { label: 'Support & Expert', page: 'support', url: '/support' },
-            { label: 'Documentation', page: 'docs', url: '/docs' },
-            { label: 'Company', page: 'company', url: '/company' },
-            { label: 'Feedback & Reviews', page: 'feedback', url: '/feedback' },
+            { label: 'Book Delivery', page: 'order', url: '/order', icon: Package, accent: true },
+            { label: 'Track Order', page: 'track', url: '/track', icon: Navigation },
+            { label: 'My Orders', page: 'orders', url: '/profile?tab=orders', icon: Clock },
+            { label: 'My Profile', page: 'profile', url: '/profile', icon: User },
+            { label: 'Support & Expert', page: 'support', url: '/support', icon: Headphones },
+            { label: 'Documentation', page: 'docs', url: '/docs', icon: BookOpen },
+            { label: 'Company', page: 'company', url: '/company', icon: Building2 },
+            { label: 'Feedback & Reviews', page: 'feedback', url: '/feedback', icon: MessageSquare },
           ].map(item => (
             <a key={item.label} href={item.url} onClick={nav(item.page, item.url)}
-              className={`block px-4 py-3 rounded-xl text-[15px] font-semibold transition-colors ${item.accent ? 'bg-purple-50 text-[#3b0080]' : 'text-slate-700 hover:bg-slate-50'}`}>
-              {item.label}
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl text-[14.5px] font-semibold transition-all ${item.accent ? 'bg-purple-50 text-[#3b0080]' : 'text-slate-700 hover:bg-slate-50'}`}>
+              <item.icon className={`w-4 h-4 ${item.accent ? 'text-[#3b0080]' : 'text-slate-400'}`} />
+              <span>{item.label}</span>
             </a>
           ))}
           {currentUser?.role === 'admin' && (
-            <a href="/dispatch" onClick={nav('dispatch', '/dispatch')} className="block px-4 py-3 rounded-xl text-[15px] font-semibold text-slate-700 hover:bg-slate-50">
-            Dispatch Board
+            <a href="/dispatch" onClick={nav('dispatch', '/dispatch')} className="flex items-center gap-3 px-4 py-3 rounded-xl text-[14.5px] font-semibold text-slate-700 hover:bg-slate-50">
+              <LayoutDashboard className="w-4 h-4 text-slate-400" />
+              <span>Dispatch Board</span>
             </a>
           )}
           <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
             {currentUser ? (
               <button onClick={() => { onLogout?.(); setMobileMenuOpen(false); }}
-                className="w-full py-3 rounded-xl border border-red-200 text-red-600 font-semibold text-[15px]">
-                Sign Out
+                className="w-full py-3 rounded-xl border border-red-200 text-red-600 font-semibold text-[14.5px] flex items-center justify-center gap-2">
+                <LogOut className="w-4 h-4" />
+                <span>Sign Out</span>
               </button>
             ) : (
               <button onClick={() => { onOpenAuth?.(); setMobileMenuOpen(false); }}
-                className="w-full py-3 rounded-xl border border-slate-200 text-slate-700 font-semibold text-[15px]">
-                Sign In
+                className="w-full py-3 rounded-xl border border-slate-200 text-slate-700 font-semibold text-[14.5px] flex items-center justify-center gap-2">
+                <User className="w-4 h-4" />
+                <span>Sign In</span>
               </button>
             )}
           </div>
