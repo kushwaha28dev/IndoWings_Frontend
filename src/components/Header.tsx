@@ -277,14 +277,14 @@ export const Header: React.FC<HeaderProps> = ({
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-t border-slate-100 px-4 py-4 space-y-1 shadow-xl">
           {[
-            { label: '📦 Book Delivery', page: 'order', url: '/order', accent: true },
-            { label: '🚁 Track Order', page: 'track', url: '/track' },
-            { label: '📋 My Orders', page: 'orders', url: '/profile?tab=orders' },
-            { label: '👤 My Profile', page: 'profile', url: '/profile' },
-            { label: '🎧 Support & Expert', page: 'support', url: '/support' },
-            { label: '📄 Documentation', page: 'docs', url: '/docs' },
-            { label: '🏢 Company', page: 'company', url: '/company' },
-            { label: '⭐ Feedback', page: 'feedback', url: '/feedback' },
+            { label: 'Book Delivery', page: 'order', url: '/order', accent: true },
+            { label: 'Track Order', page: 'track', url: '/track' },
+            { label: 'My Orders', page: 'orders', url: '/profile?tab=orders' },
+            { label: 'My Profile', page: 'profile', url: '/profile' },
+            { label: 'Support & Expert', page: 'support', url: '/support' },
+            { label: 'Documentation', page: 'docs', url: '/docs' },
+            { label: 'Company', page: 'company', url: '/company' },
+            { label: 'Feedback & Reviews', page: 'feedback', url: '/feedback' },
           ].map(item => (
             <a key={item.label} href={item.url} onClick={nav(item.page, item.url)}
               className={`block px-4 py-3 rounded-xl text-sm font-semibold transition-colors ${item.accent ? 'bg-purple-50 text-[#3b0080]' : 'text-slate-700 hover:bg-slate-50'}`}>
@@ -293,7 +293,7 @@ export const Header: React.FC<HeaderProps> = ({
           ))}
           {currentUser?.role === 'admin' && (
             <a href="/dispatch" onClick={nav('dispatch', '/dispatch')} className="block px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50">
-              🛩️ Dispatch Board
+            Dispatch Board
             </a>
           )}
           <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">

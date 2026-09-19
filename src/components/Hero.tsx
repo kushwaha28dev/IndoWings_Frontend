@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Package, Navigation, ArrowRight, CheckCircle2, MapPin, Zap, Shield, Clock, Star, ChevronRight, Play } from 'lucide-react';
+import { Package, Navigation, ArrowRight, CheckCircle2, MapPin, Zap, Shield, Clock, Star, ChevronRight, Loader2 } from 'lucide-react';
+import { API_BASE_URL } from '../config/api';
 
 interface HeroProps {
   onOpenCommandCenter: () => void;
@@ -16,11 +17,11 @@ const STATS = [
 ];
 
 const PACKAGE_TYPES = [
-  { emoji: '💊', name: 'Medicine & Lab Samples', color: 'from-rose-500 to-pink-500' },
-  { emoji: '📄', name: 'Documents & Contracts', color: 'from-blue-500 to-indigo-500' },
-  { emoji: '🍱', name: 'Food & Hot Parcels', color: 'from-amber-500 to-orange-500' },
-  { emoji: '📱', name: 'Electronics & Spares', color: 'from-emerald-500 to-teal-500' },
-  { emoji: '🧪', name: 'Lab & Medical Kits', color: 'from-purple-500 to-violet-500' },
+  { name: 'Medicine & Lab Samples' },
+  { name: 'Documents & Contracts' },
+  { name: 'Food & Hot Parcels' },
+  { name: 'Electronics & Spares' },
+  { name: 'Lab & Medical Kits' },
 ];
 
 const HOW_IT_WORKS = [
@@ -38,27 +39,22 @@ const FEATURES = [
 ];
 
 const COVERAGE_ZONES = [
-  { zone: 'Noida Sector 62', type: 'UAV Primary Hub', icon: '🛰️' },
-  { zone: 'Connaught Place', type: 'Central Drop Zone', icon: '🏛️' },
-  { zone: 'AIIMS New Delhi', type: 'Medical Priority Port', icon: '🏥' },
-  { zone: 'Cyber City Gurugram', type: 'Tech Corridor Hub', icon: '🏢' },
-  { zone: 'Dwarka Sector 21', type: 'Residential Hub', icon: '🏘️' },
-  { zone: 'Greater Noida', type: 'Express Zone', icon: '🚀' },
-];
-
-const TESTIMONIALS = [
-  { text: 'Medicine arrived in 19 minutes. Absolutely unreal speed.', name: 'Rahul S.', loc: 'Noida' },
-  { text: 'Watched the drone approach from my terrace. Future is here!', name: 'Priya M.', loc: 'Gurugram' },
-  { text: 'Documents delivered across Delhi while I was still in the meeting.', name: 'Arjun K.', loc: 'Connaught Place' },
+  { zone: 'Noida Sector 62', type: 'UAV Primary Hub' },
+  { zone: 'Connaught Place', type: 'Central Drop Zone' },
+  { zone: 'AIIMS New Delhi', type: 'Medical Priority Port' },
+  { zone: 'Cyber City Gurugram', type: 'Tech Corridor Hub' },
+  { zone: 'Dwarka Sector 21', type: 'Residential Hub' },
+  { zone: 'Greater Noida', type: 'Express Zone' },
 ];
 
 /* ─── COMPONENT ──────────────────────────────────────────────────────────── */
 export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   const [activePkg, setActivePkg] = useState(0);
   const [liveCount, setLiveCount] = useState(12);
-  const [visibleSection, setVisibleSection] = useState<Record<string, boolean>>({});
   const [statsCounted, setStatsCounted] = useState(false);
   const [displayStats, setDisplayStats] = useState(STATS.map(() => 0));
+  const [reviews, setReviews] = useState<any[]>([]);
+  const [reviewsLoading, setReviewsLoading] = useState(true);
   const statsRef = useRef<HTMLDivElement>(null);
 
   // Cycle packages
@@ -73,14 +69,19 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
     return () => clearInterval(t);
   }, []);
 
-  // Intersection observer for scroll animations
+  // Fetch real feedback from backend
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => entries.forEach(e => setVisibleSection(prev => ({ ...prev, [e.target.id]: e.isIntersecting }))),
-      { threshold: 0.15 }
-    );
-    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
-    return () => observer.disconnect();
+    fetch(`${API_BASE_URL}/api/delivery/feedbacks`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (data?.feedbacks && Array.isArray(data.feedbacks)) {
+          // Only show rated (3+) reviews that have a message
+          const good = data.feedbacks.filter((f: any) => f.rating >= 4 && f.message?.trim());
+          setReviews(good.slice(0, 3));
+        }
+      })
+      .catch(() => {})
+      .finally(() => setReviewsLoading(false));
   }, []);
 
   // Count-up stats
@@ -172,8 +173,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               {/* Package ticker */}
               <div className="flex items-center gap-3">
                 <span className="text-sm text-white/30 font-medium shrink-0">Now delivering:</span>
-                <div key={activePkg} className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
-                  <span className="text-xl">{PACKAGE_TYPES[activePkg].emoji}</span>
+                <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
                   <span className="text-sm font-bold text-white">{PACKAGE_TYPES[activePkg].name}</span>
                 </div>
               </div>
@@ -216,23 +216,25 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                 style={{ background: 'rgba(255,255,255,0.04)' }}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-2xl flex items-center justify-center text-xl"
-                      style={{ background: 'linear-gradient(135deg, #6d28d9, #4f46e5)' }}>🚁</div>
+                    <div className="w-10 h-10 rounded-2xl flex items-center justify-center"
+                      style={{ background: 'linear-gradient(135deg, #6d28d9, #4f46e5)' }}>
+                      <Navigation className="w-5 h-5 text-white" />
+                    </div>
                     <div>
                       <p className="text-sm font-black text-white">Cyberone Pro · IW-247</p>
                       <p className="text-xs text-white/40">En route · 65 km/h · 90m AGL</p>
                     </div>
                   </div>
                   <span className="text-[10px] font-black px-3 py-1.5 rounded-full border" style={{ background: 'rgba(59,130,246,0.15)', borderColor: 'rgba(59,130,246,0.3)', color: '#93c5fd' }}>
-                    ✈️ In Flight
+                    In Flight
                   </span>
                 </div>
 
                 {/* Route */}
                 <div>
                   <div className="flex justify-between text-[10px] font-semibold mb-2" style={{ color: 'rgba(255,255,255,0.35)' }}>
-                    <span>📍 Sector 62 Hub, Noida</span>
-                    <span>🏠 Rohini, Delhi</span>
+                    <span>Sector 62 Hub, Noida</span>
+                    <span>Rohini, Delhi</span>
                   </div>
                   <div className="relative w-full h-1.5 rounded-full" style={{ background: 'rgba(255,255,255,0.08)' }}>
                     <div className="absolute left-0 top-0 h-full w-[72%] rounded-full" style={{ background: 'linear-gradient(90deg, #7c3aed, #4f46e5)' }} />
@@ -245,9 +247,9 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                 </div>
 
                 <div className="grid grid-cols-3 gap-3">
-                  {[{ val: '4.8 km', lbl: 'Distance Left' }, { val: '90 m', lbl: 'Altitude' }, { val: '💊', lbl: 'Medicine' }].map(s => (
+                  {[{ val: '4.8 km', lbl: 'Distance Left' }, { val: '90 m', lbl: 'Altitude' }, { val: 'Medicine', lbl: 'Package Type' }].map(s => (
                     <div key={s.lbl} className="rounded-2xl p-3 text-center" style={{ background: 'rgba(255,255,255,0.05)' }}>
-                      <p className="text-base font-black text-white">{s.val}</p>
+                      <p className="text-base font-black text-white leading-tight">{s.val}</p>
                       <p className="text-[9px] mt-0.5" style={{ color: 'rgba(255,255,255,0.35)' }}>{s.lbl}</p>
                     </div>
                   ))}
@@ -263,7 +265,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                 <div className="h-8 w-px bg-white/10" />
                 <div>
                   <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>Amount</p>
-                  <p className="text-sm font-black text-emerald-400 mt-0.5">✓ ₹149 Paid</p>
+                  <p className="text-sm font-black text-emerald-400 mt-0.5">Paid · Rs. 149</p>
                 </div>
                 <div className="h-8 w-px bg-white/10" />
                 <div>
@@ -272,16 +274,26 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                 </div>
               </div>
 
-              {/* Testimonial card */}
+              {/* Hero mini review card — replaced with real review if available, else static */}
               <div className="rounded-2xl px-5 py-4 border border-white/10 backdrop-blur-sm" style={{ background: 'rgba(255,255,255,0.04)' }}>
                 <div className="flex gap-0.5 mb-2">
                   {[1,2,3,4,5].map(i => <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />)}
                 </div>
-                <p className="text-xs text-white/60 leading-relaxed">"Medicine arrived in 19 minutes. Absolutely unreal speed."</p>
-                <p className="text-[10px] font-bold text-white/30 mt-1.5">— Rahul S. · Noida</p>
+                {reviews.length > 0 ? (
+                  <>
+                    <p className="text-xs text-white/60 leading-relaxed">"{reviews[0].message}"</p>
+                    <p className="text-[10px] font-bold text-white/30 mt-1.5">— {reviews[0].user_name}</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-xs text-white/60 leading-relaxed">"Delivered in 19 minutes. Absolutely unreal speed."</p>
+                    <p className="text-[10px] font-bold text-white/30 mt-1.5">— First IndoWings Customer</p>
+                  </>
+                )}
               </div>
             </div>
           </div>
+
         </div>
       </section>
 
@@ -388,7 +400,9 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             <div className="rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/10 border border-slate-200">
               <div className="px-7 py-6" style={{ background: 'linear-gradient(135deg, #06010f, #0d0520)' }}>
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}>🚁</div>
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  <Navigation className="w-7 h-7 text-purple-400" />
+                </div>
                   <div>
                     <h3 className="text-lg font-black text-white">Cyberone Pro UAV</h3>
                     <p className="text-xs text-white/40 mt-0.5">IndoWings Fleet · v3.4.4 Stable</p>
@@ -441,7 +455,9 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
             {COVERAGE_ZONES.map(z => (
               <div key={z.zone} className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm text-center hover:border-purple-300 hover:shadow-md hover:-translate-y-1 transition-all duration-200 group">
-                <div className="text-3xl mb-3">{z.icon}</div>
+                <div className="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 group-hover:bg-purple-100 flex items-center justify-center mx-auto mb-3 transition-colors">
+                  <MapPin className="w-5 h-5" />
+                </div>
                 <p className="text-xs font-black text-[#171222] leading-snug">{z.zone}</p>
                 <p className="text-[10px] text-slate-400 mt-1 leading-tight">{z.type}</p>
               </div>
@@ -451,34 +467,54 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
-          TESTIMONIALS
+          REAL CUSTOMER REVIEWS
          ══════════════════════════════════════════════════════════════════════ */}
       <section className="py-24 bg-white">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="text-center mb-14">
-            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-purple-600 mb-3">Real Customers</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-[#171222]">What Delhi-NCR says</h2>
+            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-purple-600 mb-3">Verified Reviews</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-[#171222]">What our customers say</h2>
             <div className="w-14 h-1 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 mx-auto mt-5" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {TESTIMONIALS.map((t, i) => (
-              <div key={i} className="bg-slate-50 rounded-3xl p-7 border border-slate-100 hover:border-purple-200 hover:shadow-lg transition-all duration-300">
-                <div className="flex gap-1 mb-5">
-                  {[1,2,3,4,5].map(s => <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />)}
-                </div>
-                <p className="text-slate-700 text-sm leading-relaxed font-medium">"{t.text}"</p>
-                <div className="flex items-center gap-3 mt-6">
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-black" style={{ background: 'linear-gradient(135deg, #6d28d9, #4f46e5)' }}>
-                    {t.name[0]}
+
+          {reviewsLoading ? (
+            <div className="flex justify-center items-center py-16">
+              <Loader2 className="w-7 h-7 animate-spin text-purple-400" />
+            </div>
+          ) : reviews.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {reviews.map((t, i) => (
+                <div key={t.id || i} className="bg-slate-50 rounded-3xl p-7 border border-slate-100 hover:border-purple-200 hover:shadow-lg transition-all duration-300">
+                  <div className="flex gap-1 mb-5">
+                    {[1,2,3,4,5].map(s => (
+                      <Star key={s} className={`w-4 h-4 ${s <= (t.rating || 5) ? 'fill-amber-400 text-amber-400' : 'text-slate-200 fill-slate-200'}`} />
+                    ))}
                   </div>
-                  <div>
-                    <p className="text-sm font-bold text-[#171222]">{t.name}</p>
-                    <p className="text-xs text-slate-400">{t.loc}</p>
+                  <p className="text-slate-700 text-sm leading-relaxed font-medium">"{t.message}"</p>
+                  <div className="flex items-center gap-3 mt-6">
+                    <div className="w-9 h-9 rounded-xl flex items-center justify-center text-white text-sm font-black shrink-0"
+                      style={{ background: 'linear-gradient(135deg, #6d28d9, #4f46e5)' }}>
+                      {(t.user_name || 'U')[0].toUpperCase()}
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-[#171222]">{t.user_name || 'IndoWings Customer'}</p>
+                      <p className="text-xs text-slate-400">{t.drone_name ? `Delivered via ${t.drone_name}` : 'Verified Customer'}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-16">
+              <p className="text-slate-400 text-sm">No reviews yet — be the first to share your experience!</p>
+              <button onClick={() => go('order', '/order')}
+                className="mt-4 inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white transition-all"
+                style={{ background: 'linear-gradient(135deg, #6d28d9, #4f46e5)' }}>
+                <Package className="w-4 h-4" />
+                Book Your First Delivery
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
