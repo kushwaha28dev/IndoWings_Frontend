@@ -28,6 +28,7 @@ import { CommandCenterModal } from './components/CommandCenterModal';
 import { DemoBookingModal } from './components/DemoBookingModal';
 import { FeedbackModal } from './components/FeedbackModal';
 import { Chatbot } from './components/Chatbot';
+import { API_BASE_URL } from './config/api';
 import { AuthModal, DeliveryUser } from './components/AuthModal';
 import { UserProfile } from './types';
 
@@ -129,7 +130,7 @@ export const App: React.FC = () => {
       try {
         const token = localStorage.getItem('iw_delivery_token');
         if (!token) return;
-        const res = await fetch('http://localhost:5000/api/delivery/orders/my', {
+        const res = await fetch(`${API_BASE_URL}/api/delivery/orders/my`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const data = await res.json();

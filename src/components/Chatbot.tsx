@@ -15,6 +15,7 @@ import {
   Package, 
   ArrowRight
 } from 'lucide-react';
+import { API_BASE_URL } from '../config/api';
 
 interface ChatMessage {
   id: string;
@@ -135,7 +136,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
 
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/delivery/chatbot/request-id-otp', {
+      const res = await fetch(`${API_BASE_URL}/api/delivery/chatbot/request-id-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ identifier })
@@ -218,7 +219,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
       // 1. STATE: Awaiting customer name for Order ID verification
       if (convState.step === 'awaiting_name' && convState.pendingOrderId) {
         const orderId = convState.pendingOrderId;
-        const res = await fetch('http://localhost:5000/api/delivery/chatbot/track-by-id', {
+        const res = await fetch(`${API_BASE_URL}/api/delivery/chatbot/track-by-id`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ order_id: orderId, customer_name: clean })
@@ -261,7 +262,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
         }
 
         const otpCode = is6DigitOtp ? pureDigits : clean.replace(/[^0-9]/g, '');
-        const res = await fetch('http://localhost:5000/api/delivery/chatbot/verify-id-otp', {
+        const res = await fetch(`${API_BASE_URL}/api/delivery/chatbot/verify-id-otp`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ identifier: targetIden, otp: otpCode || clean })
@@ -325,7 +326,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
       const orderMatch = clean.match(orderIdRegex);
       if (orderMatch) {
         const foundId = orderMatch[0].toUpperCase();
-        const res = await fetch('http://localhost:5000/api/delivery/chatbot/track-by-id', {
+        const res = await fetch(`${API_BASE_URL}/api/delivery/chatbot/track-by-id`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ order_id: foundId })
@@ -718,7 +719,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
                                   onClick={async () => {
                                     setLoading(true);
                                     try {
-                                      const res = await fetch('http://localhost:5000/api/delivery/chatbot/track-by-id', {
+                                      const res = await fetch(`${API_BASE_URL}/api/delivery/chatbot/track-by-id`, {
                                         method: 'POST',
                                         headers: { 'Content-Type': 'application/json' },
                                         body: JSON.stringify({ order_id: ord.id, skip_name_check: true })

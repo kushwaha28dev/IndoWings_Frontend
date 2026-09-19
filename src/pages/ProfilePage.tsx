@@ -7,6 +7,7 @@ import {
   RefreshCw, Radio, Calendar, Plane, LayoutDashboard
 } from 'lucide-react';
 import { DeliveryUser, SavedAddress } from '../components/AuthModal';
+import { API_BASE_URL } from '../config/api';
 
 interface ProfilePageProps {
   onNavigate: (page: string) => void;
@@ -78,7 +79,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
     const token = localStorage.getItem('iw_delivery_token');
     if (!token) return;
 
-    fetch('http://localhost:5000/api/delivery/profile', {
+    fetch(`${API_BASE_URL}/api/delivery/profile`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => res.ok ? res.json() : null)
@@ -99,7 +100,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
     const token = localStorage.getItem('iw_delivery_token');
     if (!token) return;
     setLoadingOrders(true);
-    fetch('http://localhost:5000/api/delivery/orders', {
+    fetch(`${API_BASE_URL}/api/delivery/orders`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => res.ok ? res.json() : null)
@@ -129,7 +130,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
 
     const token = localStorage.getItem('iw_delivery_token');
     try {
-      const res = await fetch(`http://localhost:5000/api/delivery/orders/${cancellingOrder.id}/cancel`, {
+      const res = await fetch(`${API_BASE_URL}/api/delivery/orders/${cancellingOrder.id}/cancel`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -246,7 +247,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/delivery/profile', {
+      const res = await fetch(`${API_BASE_URL}/api/delivery/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -290,7 +291,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
     setOtpSuccess('');
 
     try {
-      const res = await fetch('http://localhost:5000/api/delivery/profile/send-verify-otp', {
+      const res = await fetch(`${API_BASE_URL}/api/delivery/profile/send-verify-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -331,7 +332,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
     setOtpError('');
 
     try {
-      const res = await fetch('http://localhost:5000/api/delivery/profile/verify-otp', {
+      const res = await fetch(`${API_BASE_URL}/api/delivery/profile/verify-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -481,7 +482,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
     // Save to backend immediately
     const token = localStorage.getItem('iw_delivery_token');
     if (token) {
-      fetch('http://localhost:5000/api/delivery/profile', {
+      fetch(`${API_BASE_URL}/api/delivery/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -511,7 +512,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
 
     const token = localStorage.getItem('iw_delivery_token');
     if (token) {
-      fetch('http://localhost:5000/api/delivery/profile', {
+      fetch(`${API_BASE_URL}/api/delivery/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -541,7 +542,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
 
     const token = localStorage.getItem('iw_delivery_token');
     if (token) {
-      fetch('http://localhost:5000/api/delivery/profile', {
+      fetch(`${API_BASE_URL}/api/delivery/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

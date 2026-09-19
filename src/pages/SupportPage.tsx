@@ -6,6 +6,7 @@ import {
   Sparkles, Check, Headphones, MessageCircle, AlertCircle, RefreshCw
 } from 'lucide-react';
 import { DeliveryUser } from '../components/AuthModal';
+import { API_BASE_URL } from '../config/api';
 
 interface SupportPageProps {
   onNavigate: (page: string) => void;
@@ -56,7 +57,7 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
     setFormError('');
 
     try {
-      const res = await fetch('http://localhost:5000/api/delivery/support/expert-request', {
+      const res = await fetch(`${API_BASE_URL}/api/delivery/support/expert-request`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

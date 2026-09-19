@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, Star, Send, CheckCircle2, MessageSquare, Plane, Sparkles, ExternalLink } from 'lucide-react';
 import { DeliveryUser } from './AuthModal';
+import { API_BASE_URL } from '../config/api';
 
 interface FeedbackModalProps {
   isOpen: boolean;
@@ -60,7 +61,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
     setError('');
 
     try {
-      const res = await fetch('http://localhost:5000/api/delivery/feedbacks', {
+      const res = await fetch(`${API_BASE_URL}/api/delivery/feedbacks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

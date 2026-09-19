@@ -17,6 +17,7 @@ import {
   ChevronDown
 } from 'lucide-react';
 import { DeliveryUser } from '../components/AuthModal';
+import { API_BASE_URL } from '../config/api';
 
 interface FeedbackItem {
   id: string;
@@ -77,7 +78,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
   const fetchFeedbacks = async () => {
     try {
       setLoading(true);
-      const res = await fetch('http://localhost:5000/api/delivery/feedbacks');
+      const res = await fetch(`${API_BASE_URL}/api/delivery/feedbacks`);
       const data = await res.json();
       if (data.success && Array.isArray(data.feedbacks)) {
         setFeedbacks(data.feedbacks);
@@ -119,7 +120,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
     setSubmitError('');
 
     try {
-      const res = await fetch('http://localhost:5000/api/delivery/feedbacks', {
+      const res = await fetch(`${API_BASE_URL}/api/delivery/feedbacks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

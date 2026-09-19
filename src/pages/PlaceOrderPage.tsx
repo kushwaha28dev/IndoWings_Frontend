@@ -7,6 +7,7 @@ import {
   Copy, CheckCheck, ArrowUpDown, ArrowUpRight, Info, ChevronDown, ChevronUp, Shield
 } from 'lucide-react';
 import { DeliveryUser, SavedAddress } from '../components/AuthModal';
+import { API_BASE_URL } from '../config/api';
 
 declare global {
   interface Window {
@@ -157,7 +158,7 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
   useEffect(() => {
     const token = localStorage.getItem('iw_delivery_token');
     if (!token) return;
-    fetch('http://localhost:5000/api/delivery/profile', {
+    fetch(`${API_BASE_URL}/api/delivery/profile`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => res.ok ? res.json() : null)
@@ -309,7 +310,7 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
       ? recipientPhone.trim()
       : (contactPhone || currentUser?.phone || '');
 
-    const res = await fetch('http://localhost:5000/api/delivery/orders', {
+    const res = await fetch(`${API_BASE_URL}/api/delivery/orders`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
       body: JSON.stringify({
@@ -375,7 +376,7 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
 
     try {
       // 1. Create Razorpay Order on server
-      const rzpRes = await fetch('http://localhost:5000/api/delivery/payment/create-order', {
+      const rzpRes = await fetch(`${API_BASE_URL}/api/delivery/payment/create-order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -411,7 +412,7 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
               const paymentId = response.razorpay_payment_id || `PAY-${Date.now()}`;
               
               // Verify on server
-              await fetch('http://localhost:5000/api/delivery/payment/verify-payment', {
+              await fetch(`${API_BASE_URL}/api/delivery/payment/verify-payment`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

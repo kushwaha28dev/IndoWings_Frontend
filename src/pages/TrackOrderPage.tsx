@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { MapPin, Package, Check, Clock, Loader2, AlertCircle, Search, Truck, Phone, Mail, ChevronRight } from 'lucide-react';
+import { API_BASE_URL } from '../config/api';
 
 interface TrackOrderPageProps {
   onNavigate: (page: string) => void;
@@ -52,7 +53,7 @@ export const TrackOrderPage: React.FC<TrackOrderPageProps> = ({ onNavigate, init
   React.useEffect(() => {
     if (!order || ['delivered', 'cancelled', 'failed'].includes(order.status)) return;
     const interval = setInterval(() => {
-      fetch(`http://localhost:5000/api/delivery/orders/${order.id}`)
+      fetch(`${API_BASE_URL}/api/delivery/orders/${order.id}`)
         .then(r => r.ok ? r.json() : null)
         .then(data => {
           if (data?.order) {
@@ -82,7 +83,7 @@ export const TrackOrderPage: React.FC<TrackOrderPageProps> = ({ onNavigate, init
     if (!orderId.trim()) return;
     setLoading(true); setError(''); setOrder(null); setSearched(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/delivery/orders/${orderId.trim()}`);
+      const res = await fetch(`${API_BASE_URL}/api/delivery/orders/${orderId.trim()}`);
       const data = await res.json();
       if (!res.ok) { setError('Order not found. Please check the Order ID and try again.'); return; }
       setOrder(data.order);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Mail, Phone, User, Lock, Loader2, Truck, Shield, Zap, ArrowLeft, CheckCircle2, RotateCcw, KeyRound } from 'lucide-react';
 import { DeliveryUser } from '../components/AuthModal';
+import { API_BASE_URL } from '../config/api';
 
 interface LoginPageProps {
   onNavigate: (page: string) => void;
@@ -74,7 +75,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
     setLoading(true);
     setError('');
     try {
-      const res = await fetch('http://localhost:5000/api/delivery/auth/send-otp', {
+      const res = await fetch(`${API_BASE_URL}/api/delivery/auth/send-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -99,7 +100,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
       setTimeout(() => otpInputsRef.current[0]?.focus(), 150);
       return true;
     } catch {
-      setError('Cannot connect to server. Please verify backend is running on port 5000.');
+      setError('Cannot connect to server. Please verify backend service.');
       return false;
     } finally {
       setLoading(false);
@@ -126,7 +127,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
     setLoading(true);
     setError('');
     try {
-      const res = await fetch('http://localhost:5000/api/delivery/auth/verify-otp', {
+      const res = await fetch(`${API_BASE_URL}/api/delivery/auth/verify-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -171,7 +172,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
       setLoading(true);
       setError('');
       try {
-        const res = await fetch('http://localhost:5000/api/delivery/auth/login', {
+        const res = await fetch(`${API_BASE_URL}/api/delivery/auth/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

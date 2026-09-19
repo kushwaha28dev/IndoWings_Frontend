@@ -7,6 +7,7 @@ import {
   Headphones, MessageCircle, Star, MessageSquare
 } from 'lucide-react';
 import { DeliveryUser } from '../components/AuthModal';
+import { API_BASE_URL } from '../config/api';
 
 interface DispatchPageProps {
   onNavigate: (page: string) => void;
@@ -80,7 +81,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
 
   const fetchOrders = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/delivery/orders', { headers: { Authorization: `Bearer ${token}` } });
+      const res = await fetch(`${API_BASE_URL}/api/delivery/orders`, { headers: { Authorization: `Bearer ${token}` } });
       const data = await res.json();
       setOrders(data.orders || []);
     } catch {}
@@ -88,7 +89,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
 
   const fetchFleet = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/delivery/fleet');
+      const res = await fetch(`${API_BASE_URL}/api/delivery/fleet`);
       const data = await res.json();
       setFleet(data.fleet || []);
       setFleetStats({
@@ -103,7 +104,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
 
   const fetchAnalytics = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/delivery/analytics');
+      const res = await fetch(`${API_BASE_URL}/api/delivery/analytics`);
       const data = await res.json();
       setAnalytics(data);
     } catch {}
@@ -111,7 +112,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
 
   const fetchExpertRequests = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/delivery/support/expert-requests');
+      const res = await fetch(`${API_BASE_URL}/api/delivery/support/expert-requests`);
       const data = await res.json();
       setExpertRequests(data.requests || []);
     } catch {}
@@ -120,7 +121,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
   const handleUpdateEnquiryStatus = async (id: string, status: string, notes?: string) => {
     setUpdatingEnquiryId(id);
     try {
-      const res = await fetch(`http://localhost:5000/api/delivery/support/expert-requests/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/delivery/support/expert-requests/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status, notes }),
@@ -144,7 +145,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
 
   const fetchFeedbacks = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/delivery/feedbacks');
+      const res = await fetch(`${API_BASE_URL}/api/delivery/feedbacks`);
       const data = await res.json();
       setFeedbacks(data.feedbacks || []);
     } catch {}
@@ -153,7 +154,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
   const handleDeleteFeedback = async (id: string) => {
     if (!confirm('Are you sure you want to remove this feedback?')) return;
     try {
-      await fetch(`http://localhost:5000/api/delivery/feedbacks/${id}`, { method: 'DELETE' });
+      await fetch(`${API_BASE_URL}/api/delivery/feedbacks/${id}`, { method: 'DELETE' });
       await fetchFeedbacks();
       setToastMessage('Feedback removed from operational stream.');
       setTimeout(() => setToastMessage(null), 4000);
@@ -185,7 +186,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
   const updateStatus = async (orderId: string, status: string) => {
     setUpdating(orderId);
     try {
-      await fetch(`http://localhost:5000/api/delivery/orders/${orderId}/status`, {
+      await fetch(`${API_BASE_URL}/api/delivery/orders/${orderId}/status`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ status }),
@@ -200,7 +201,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
     setIsCancelling(true);
     setCancelError('');
     try {
-      const res = await fetch(`http://localhost:5000/api/delivery/orders/${adminCancelModal.id}/cancel`, {
+      const res = await fetch(`${API_BASE_URL}/api/delivery/orders/${adminCancelModal.id}/cancel`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
         body: JSON.stringify({ reason: adminCancelReason }),
@@ -222,7 +223,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
   const handleUpdateDroneState = async (droneId: string, newState: string) => {
     setUpdatingDrone(true);
     try {
-      await fetch(`http://localhost:5000/api/delivery/fleet/${droneId}`, {
+      await fetch(`${API_BASE_URL}/api/delivery/fleet/${droneId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newState })
@@ -240,7 +241,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
     setRegisteringDrone(true);
     setRegisterSuccess('');
     try {
-      const res = await fetch('http://localhost:5000/api/delivery/fleet', {
+      const res = await fetch(`${API_BASE_URL}/api/delivery/fleet`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

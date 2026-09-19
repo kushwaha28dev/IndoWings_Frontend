@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Mail, Phone, User, Lock, Loader2, Package2 } from 'lucide-react';
+import { API_BASE_URL } from '../config/api';
 
 export interface SavedAddress {
   id: string;
@@ -50,8 +51,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
     setError('');
     try {
       const endpoint = mode === 'register'
-        ? 'http://localhost:5000/api/delivery/auth/register'
-        : 'http://localhost:5000/api/delivery/auth/login';
+        ? `${API_BASE_URL}/api/delivery/auth/register`
+        : `${API_BASE_URL}/api/delivery/auth/login`;
       const body = mode === 'register'
         ? { name, email, phone }
         : isAdmin ? { email, password } : { email, phone };
