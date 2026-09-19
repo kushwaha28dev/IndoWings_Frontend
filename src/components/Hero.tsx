@@ -104,13 +104,19 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
       .catch(() => {});
   }, []);
 
-  // Fetch real feedback from backend
+  // Fetch real feedback from backend (Strictly latest 3 sorted by date)
   useEffect(() => {
     fetch(`${API_BASE_URL}/api/delivery/feedbacks`)
       .then(r => r.ok ? r.json() : null)
       .then(data => {
         if (data?.feedbacks && Array.isArray(data.feedbacks)) {
-          const good = data.feedbacks.filter((f: any) => f.rating >= 4 && f.message?.trim());
+          // Sort strictly newest first by date
+          const sorted = [...data.feedbacks].sort((a: any, b: any) => {
+            const timeA = a.created_at ? new Date(a.created_at).getTime() : 0;
+            const timeB = b.created_at ? new Date(b.created_at).getTime() : 0;
+            return timeB - timeA;
+          });
+          const good = sorted.filter((f: any) => f.rating >= 4 && f.message?.trim());
           setReviews(good.slice(0, 3));
         }
       })
@@ -438,28 +444,38 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               <Loader2 className="w-7 h-7 animate-spin text-purple-400" />
             </div>
           ) : reviews.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {reviews.map((t, i) => (
-                <div key={t.id || i} className="bg-slate-50 rounded-3xl p-7 border border-slate-100 hover:border-purple-200 hover:shadow-lg transition-all duration-300">
-                  <div className="flex gap-1 mb-5">
-                    {[1,2,3,4,5].map(s => (
-                      <Star key={s} className={`w-4 h-4 ${s <= (t.rating || 5) ? 'fill-amber-400 text-amber-400' : 'text-slate-200 fill-slate-200'}`} />
-                    ))}
-                  </div>
-                  <p className="text-slate-700 text-sm leading-relaxed font-medium">"{t.message}"</p>
-                  <div className="flex items-center gap-3 mt-6">
-                    <div className="w-9 h-9 rounded-xl flex items-center justify-center text-white text-sm font-black shrink-0"
-                      style={{ background: 'linear-gradient(135deg, #6d28d9, #4f46e5)' }}>
-                      {(t.user_name || 'U')[0].toUpperCase()}
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {reviews.map((t, i) => (
+                  <div key={t.id || i} className="bg-slate-50 rounded-3xl p-7 border border-slate-100 hover:border-purple-200 hover:shadow-lg transition-all duration-300">
+                    <div className="flex gap-1 mb-5">
+                      {[1,2,3,4,5].map(s => (
+                        <Star key={s} className={`w-4 h-4 ${s <= (t.rating || 5) ? 'fill-amber-400 text-amber-400' : 'text-slate-200 fill-slate-200'}`} />
+                      ))}
                     </div>
-                    <div>
-                      <p className="text-sm font-bold text-[#171222]">{t.user_name || 'IndoWings Customer'}</p>
-                      <p className="text-xs text-slate-400">{t.drone_name ? `Delivered via ${t.drone_name}` : 'Verified Customer'}</p>
+                    <p className="text-slate-700 text-sm leading-relaxed font-medium">"{t.message}"</p>
+                    <div className="flex items-center gap-3 mt-6">
+                      <div className="w-9 h-9 rounded-xl flex items-center justify-center text-white text-sm font-black shrink-0"
+                        style={{ background: 'linear-gradient(135deg, #6d28d9, #4f46e5)' }}>
+                        {(t.user_name || 'U')[0].toUpperCase()}
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold text-[#171222]">{t.user_name || 'IndoWings Customer'}</p>
+                        <p className="text-xs text-slate-400">{t.drone_name ? `Delivered via ${t.drone_name}` : 'Verified Customer'}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+
+              <div className="text-center mt-10">
+                <button onClick={() => go('feedback', '/feedback')}
+                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold text-[#3b0080] bg-purple-50 hover:bg-purple-100 border border-purple-200/80 transition-all hover:gap-3">
+                  <span>View All Customer Reviews</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </>
           ) : (
             <div className="text-center py-16">
               <p className="text-slate-400 text-sm">No reviews yet — be the first to share your experience!</p>
