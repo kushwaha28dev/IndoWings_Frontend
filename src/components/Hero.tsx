@@ -169,7 +169,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
         <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full opacity-10"
           style={{ background: 'radial-gradient(circle, #4f46e5 0%, transparent 70%)' }} />
 
-        <div className="relative max-w-[1280px] mx-auto px-4 sm:px-6 w-full py-14 sm:py-20">
+        <div className="relative max-w-[1280px] mx-auto px-4 sm:px-6 w-full pt-6 pb-10 sm:pt-8 sm:pb-14">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_480px] gap-16 items-center">
 
             {/* ── Left ── */}
