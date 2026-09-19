@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Package, Navigation, ArrowRight, CheckCircle2, MapPin, Zap, Shield, Clock, Star, ChevronRight, Loader2 } from 'lucide-react';
 import { API_BASE_URL } from '../config/api';
 import { InteractiveDrone } from './InteractiveDrone';
+import { ElevationMeshBackground } from './ElevationMeshBackground';
 
 interface HeroProps {
   onOpenCommandCenter: () => void;
@@ -159,17 +160,16 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
          ══════════════════════════════════════════════════════════════════════ */}
       <section className="relative overflow-hidden flex items-center" style={{ background: 'linear-gradient(135deg, #06010f 0%, #0d0520 45%, #10062a 100%)' }}>
 
-        {/* Grid pattern */}
-        <div className="absolute inset-0 opacity-[0.07]"
-          style={{ backgroundImage: 'linear-gradient(rgba(167,139,250,1) 1px, transparent 1px), linear-gradient(90deg, rgba(167,139,250,1) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
+        {/* 3D Interactive Elevation Mesh that reacts to cursor position */}
+        <ElevationMeshBackground />
 
         {/* Radial glow */}
-        <div className="absolute top-1/4 left-1/3 w-[700px] h-[700px] rounded-full opacity-20"
+        <div className="absolute top-1/4 left-1/3 w-[700px] h-[700px] rounded-full opacity-20 pointer-events-none"
           style={{ background: 'radial-gradient(circle, #7c3aed 0%, transparent 70%)' }} />
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full opacity-10"
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full opacity-10 pointer-events-none"
           style={{ background: 'radial-gradient(circle, #4f46e5 0%, transparent 70%)' }} />
 
-        <div className="relative max-w-[1280px] mx-auto px-4 sm:px-6 w-full pt-6 pb-10 sm:pt-8 sm:pb-14">
+        <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 w-full pt-6 pb-10 sm:pt-8 sm:pb-14 pointer-events-none [&_button]:pointer-events-auto [&_a]:pointer-events-auto [&_input]:pointer-events-auto">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_480px] gap-16 items-center">
 
             {/* ── Left ── */}
