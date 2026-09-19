@@ -52,11 +52,11 @@ export const AudienceMatrix: React.FC = () => {
   };
 
   return (
-    <section id="roles" className="py-20 lg:py-24 bg-[#fbf9fd] text-[#171222]">
+    <section id="roles" className="py-20 lg:py-24 bg-zinc-50 text-[#171222]">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
         {/* Section Heading */}
         <div className="mb-10 text-left">
-          <p className="text-xs font-bold tracking-widest text-[#3b0080] uppercase mb-3">
+          <p className="text-xs font-bold tracking-widest text-zinc-900 uppercase mb-3">
             BUILT FOR
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-[#111827] tracking-tight leading-tight">
@@ -71,7 +71,7 @@ export const AudienceMatrix: React.FC = () => {
             return (
               <div 
                 key={role.title}
-                className="rounded-xl border border-[#3b0080]/15 bg-white shadow-sm overflow-hidden transition-colors"
+                className="rounded-xl border border-zinc-200 bg-white shadow-sm overflow-hidden transition-colors"
                 style={{
                   background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.94)), radial-gradient(circle at 0 0, rgba(220, 196, 255, 0.35), transparent 18rem)'
                 }}
@@ -87,7 +87,7 @@ export const AudienceMatrix: React.FC = () => {
                     {role.title}
                   </h3>
                   <ChevronDown 
-                    className={`w-5 h-5 text-[#3b0080] transition-transform duration-200 shrink-0 ${
+                    className={`w-5 h-5 text-zinc-900 transition-transform duration-200 shrink-0 ${
                       isOpen ? 'rotate-180' : ''
                     }`} 
                   />
@@ -96,7 +96,7 @@ export const AudienceMatrix: React.FC = () => {
                 {/* Collapsible Card Body */}
                 {isOpen && (
                   <>
-                    <div className="border-t border-[#3b0080]/10 w-full" />
+                    <div className="border-t border-zinc-200 w-full" />
                     <div className="px-6 py-4.5 sm:px-8 sm:py-5 animate-in fade-in duration-200">
                       {role.content}
                     </div>

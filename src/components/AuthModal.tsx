@@ -82,7 +82,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
           <X className="w-5 h-5" />
         </button>
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-[#3b0080] flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-black flex items-center justify-center">
             <Package2 className="w-5 h-5 text-white" />
           </div>
           <div>
@@ -93,13 +93,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
         <div className="flex gap-1 bg-slate-100 rounded-xl p-1 mb-6">
           {(['login', 'register'] as const).map(m => (
             <button key={m} onClick={() => { setMode(m); setError(''); }}
-              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${mode === m ? 'bg-white text-[#3b0080] shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}>
+              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${mode === m ? 'bg-white text-zinc-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}>
               {m === 'login' ? 'Sign In' : 'Create Account'}
             </button>
           ))}
         </div>
         {isAdmin && mode === 'login' && (
-          <div className="mb-4 px-3 py-2 bg-purple-50 border border-purple-200 rounded-lg text-xs text-[#3b0080] font-medium">
+          <div className="mb-4 px-3 py-2 bg-zinc-100 border border-zinc-300 rounded-lg text-xs text-zinc-900 font-medium">
             🔐 Admin login detected
           </div>
         )}
@@ -108,31 +108,31 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
             <div className="relative">
               <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input value={name} onChange={e => setName(e.target.value)} required placeholder="Full Name"
-                className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100" />
+                className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-black focus:ring-2 focus:ring-zinc-300" />
             </div>
           )}
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <input type="email" value={email} onChange={e => setEmail(e.target.value)} required placeholder="Email Address"
-              className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100" />
+              className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-black focus:ring-2 focus:ring-zinc-300" />
           </div>
           {(!isAdmin || mode === 'register') && (
             <div className="relative">
               <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} required placeholder="Phone Number"
-                className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100" />
+                className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-black focus:ring-2 focus:ring-zinc-300" />
             </div>
           )}
           {isAdmin && mode === 'login' && (
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input type="password" value={password} onChange={e => setPassword(e.target.value)} required placeholder="Admin Password"
-                className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100" />
+                className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-black focus:ring-2 focus:ring-zinc-300" />
             </div>
           )}
           {error && <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">{error}</p>}
           <button type="submit" disabled={loading}
-            className="w-full py-3 bg-[#3b0080] hover:bg-[#2d006b] text-white font-bold rounded-xl transition-colors flex items-center justify-center gap-2 disabled:opacity-70">
+            className="w-full py-3 bg-black hover:bg-zinc-800 text-white font-bold rounded-xl transition-colors flex items-center justify-center gap-2 disabled:opacity-70">
             {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
             {loading ? 'Please wait...' : mode === 'login' ? 'Sign In' : 'Create Account'}
           </button>
@@ -140,7 +140,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
         <p className="text-center text-xs text-slate-400 mt-5">
           {mode === 'login' ? 'New user? ' : 'Already have account? '}
           <button onClick={() => { setMode(mode === 'login' ? 'register' : 'login'); setError(''); }}
-            className="text-[#3b0080] font-semibold hover:underline">
+            className="text-zinc-900 font-semibold hover:underline">
             {mode === 'login' ? 'Create account' : 'Sign in'}
           </button>
         </p>

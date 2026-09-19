@@ -25,7 +25,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
     {
       id: 'doc-platform',
       tag: 'Platform Overview',
-      tagColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+      tagColor: 'bg-zinc-100 text-zinc-800 border-zinc-200',
       icon: ShieldCheck,
       title: 'How the IndoWings ecosystem works',
       desc: 'Command Center, GCS, account access, role-based permissions, trusted devices, aircraft lifecycle, releases, support, and audit review.',
@@ -36,7 +36,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
     {
       id: 'doc-gcs-install',
       tag: 'Quick Start',
-      tagColor: 'bg-teal-50 text-teal-700 border-teal-200',
+      tagColor: 'bg-zinc-100 text-zinc-800 border-zinc-200',
       icon: DownloadCloud,
       title: 'Install and prepare IndoWings GCS',
       desc: 'Start with the latest installer metadata, SHA-256 checksum, system requirements, Windows installation, and safe ground setup guidance.',
@@ -47,7 +47,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
     {
       id: 'doc-ordering',
       tag: 'Delivery Guide',
-      tagColor: 'bg-purple-50 text-[#3b0080] border-purple-200',
+      tagColor: 'bg-zinc-900 text-white border-zinc-800',
       icon: Package,
       featured: true,
       title: 'How to Order & Dispatch Drone Deliveries',
@@ -58,7 +58,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
     {
       id: 'doc-admin',
       tag: 'Admin Guide',
-      tagColor: 'bg-blue-50 text-blue-700 border-blue-200',
+      tagColor: 'bg-zinc-100 text-zinc-800 border-zinc-200',
       icon: Shield,
       title: 'Command Center administration & Dispatch Board',
       desc: 'Accounts, organizations, users, role permissions, fleet operations, live radar telemetry, flight corridor holds, and callback enquiry management.',
@@ -69,7 +69,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
     {
       id: 'doc-pilot',
       tag: 'Pilot Guide',
-      tagColor: 'bg-sky-50 text-sky-700 border-sky-200',
+      tagColor: 'bg-zinc-100 text-zinc-800 border-zinc-200',
       icon: Compass,
       title: 'Mission planning and autonomous flight mode',
       desc: 'Aircraft connection, waypoint planning, preflight calibrations, live telemetry downlinks, failsafe geofence return, and synced field workflows.',
@@ -80,7 +80,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
     {
       id: 'doc-safety',
       tag: 'Safety & DGCA',
-      tagColor: 'bg-amber-50 text-amber-700 border-amber-200',
+      tagColor: 'bg-zinc-100 text-zinc-800 border-zinc-200',
       icon: Award,
       title: 'Terrace Landing & DGCA Airspace Compliance',
       desc: 'Digital Sky Green Zone corridor rules, 3×3 metre clear terrace criteria, winch tether protocols, wind limits, and contactless handover safety.',
@@ -97,11 +97,11 @@ export const DocsPage: React.FC<DocsPageProps> = ({
   });
 
   return (
-    <div className="min-h-screen bg-[#f7f4fb] text-[#171222]">
-      {/* ── HERO SECTION (Exact SkyGrid Purple Aesthetics) ──────────────────── */}
+    <div className="min-h-screen bg-zinc-50 text-zinc-900">
+      {/* ── HERO SECTION ──────────────────── */}
       <section 
-        className="relative text-white pt-16 pb-24 px-6 overflow-hidden" 
-        style={{ background: 'linear-gradient(135deg, #1e0940 0%, #2b114d 50%, #1a0835 100%)' }}>
+        className="relative text-white pt-16 pb-24 px-6 overflow-hidden border-b border-zinc-800" 
+        style={{ background: 'linear-gradient(135deg, #09090b 0%, #18181b 50%, #050507 100%)' }}>
         <div 
           className="absolute inset-0 opacity-10" 
           style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, #fff 1px, transparent 1px), radial-gradient(circle at 70% 80%, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} 
@@ -109,11 +109,11 @@ export const DocsPage: React.FC<DocsPageProps> = ({
         
         <div className="relative max-w-6xl mx-auto">
           {/* Bookmark Icon Box */}
-          <div className="w-14 h-14 bg-white/15 border border-white/20 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-purple-950/30">
+          <div className="w-14 h-14 bg-white/10 border border-white/15 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-black/20">
             <BookOpen className="w-7 h-7 text-white" />
           </div>
 
-          <p className="text-xs font-bold tracking-[0.25em] uppercase text-purple-300 mb-3">
+          <p className="text-xs font-bold tracking-[0.25em] uppercase text-zinc-400 mb-3">
             DOCUMENTATION
           </p>
 
@@ -121,21 +121,21 @@ export const DocsPage: React.FC<DocsPageProps> = ({
             IndoWings documentation library
           </h1>
 
-          <p className="text-white/70 text-base sm:text-lg max-w-2xl leading-relaxed">
+          <p className="text-zinc-300 text-base sm:text-lg max-w-2xl leading-relaxed">
             Public operating references for GCS, Command Center workflows, autonomous drone delivery ordering, downloads, and flight operations support.
           </p>
         </div>
       </section>
 
-      {/* ── PUBLIC GUIDE SHOWCASE BANNER (Matches Screenshot 2) ─────────────── */}
+      {/* ── PUBLIC GUIDE SHOWCASE BANNER ─────────────── */}
       <section className="max-w-6xl mx-auto px-6 -mt-10 relative z-10 mb-14">
-        <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xl shadow-purple-950/5">
+        <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-8 shadow-xl shadow-black/5">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <div>
-              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#3b0080] bg-purple-50 px-2.5 py-1 rounded-md border border-purple-100 inline-block mb-2">
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-zinc-900 bg-zinc-100 px-2.5 py-1 rounded-md border border-zinc-200 inline-block mb-2">
                 PUBLIC GUIDE
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#171222] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight">
                 Professional docs for operators, customers, and fleet administrators.
               </h2>
             </div>
@@ -143,118 +143,118 @@ export const DocsPage: React.FC<DocsPageProps> = ({
             <div className="flex items-center gap-3 shrink-0">
               <button
                 onClick={() => { onNavigate('order'); window.history.pushState({}, '', '/order'); }}
-                className="flex items-center gap-2 bg-[#3b0080] hover:bg-[#280058] text-white text-xs sm:text-sm font-bold px-5 py-3 rounded-xl shadow-md transition-all active:scale-95 cursor-pointer">
+                className="flex items-center gap-2 bg-black hover:bg-zinc-800 text-white text-xs sm:text-sm font-bold px-5 py-3 rounded-xl shadow-md transition-all active:scale-95 cursor-pointer">
                 <Package className="w-4 h-4" />
                 <span>Place Delivery Order</span>
               </button>
               <button
                 onClick={() => { onNavigate('gcs'); window.history.pushState({}, '', '/gcs'); }}
-                className="hidden sm:flex items-center gap-2 border border-slate-200 hover:border-[#3b0080] text-slate-700 hover:text-[#3b0080] text-xs sm:text-sm font-semibold px-4 py-3 rounded-xl transition-all cursor-pointer">
+                className="hidden sm:flex items-center gap-2 border border-zinc-300 hover:border-black text-zinc-700 hover:text-black text-xs sm:text-sm font-semibold px-4 py-3 rounded-xl transition-all cursor-pointer">
                 <Book className="w-4 h-4" />
                 <span>Open GCS guide</span>
               </button>
             </div>
           </div>
 
-          {/* 3 Visual Mini-Dashboards (Matches Screenshot 2 Layout) */}
+          {/* 3 Visual Mini-Dashboards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {/* Card 1: Dispatch & Coordinates */}
-            <div className="bg-gradient-to-b from-[#0f172a] to-[#1e1b4b] rounded-2xl p-5 text-white border border-slate-800 shadow-md flex flex-col justify-between min-h-[220px]">
+            <div className="bg-zinc-950 rounded-2xl p-5 text-white border border-zinc-800 shadow-md flex flex-col justify-between min-h-[220px]">
               <div>
-                <div className="flex items-center justify-between text-xs text-slate-400 mb-4">
+                <div className="flex items-center justify-between text-xs text-zinc-400 mb-4">
                   <span className="font-mono">CORRIDOR LOCK</span>
-                  <span className="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-bold text-[10px]">LIVE RADAR</span>
+                  <span className="bg-white/10 text-white px-2 py-0.5 rounded font-bold text-[10px] border border-white/20">LIVE RADAR</span>
                 </div>
                 <div className="grid grid-cols-2 gap-2 my-2">
                   <div className="bg-white/5 border border-white/10 rounded-xl p-3">
-                    <span className="text-[10px] text-slate-400 uppercase font-bold block">FLIGHT TIME</span>
-                    <span className="text-xl font-bold font-mono text-purple-200">18 min</span>
+                    <span className="text-[10px] text-zinc-400 uppercase font-bold block">FLIGHT TIME</span>
+                    <span className="text-xl font-bold font-mono text-zinc-100">18 min</span>
                   </div>
                   <div className="bg-white/5 border border-white/10 rounded-xl p-3">
-                    <span className="text-[10px] text-slate-400 uppercase font-bold block">DISTANCE</span>
-                    <span className="text-xl font-bold font-mono text-purple-200">14.8 km</span>
+                    <span className="text-[10px] text-zinc-400 uppercase font-bold block">DISTANCE</span>
+                    <span className="text-xl font-bold font-mono text-zinc-100">14.8 km</span>
                   </div>
                 </div>
               </div>
               <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-300">Transit & Route Mapping</span>
-                <span className="text-[10px] bg-purple-500/30 text-purple-200 px-2 py-0.5 rounded font-mono">Step 1</span>
+                <span className="text-xs font-bold text-zinc-300">Transit & Route Mapping</span>
+                <span className="text-[10px] bg-white/10 text-zinc-200 px-2 py-0.5 rounded font-mono border border-white/15">Step 1</span>
               </div>
             </div>
 
             {/* Card 2: Mission Archive & Orders */}
-            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between min-h-[220px]">
+            <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-5 flex flex-col justify-between min-h-[220px]">
               <div>
-                <div className="flex items-center justify-between text-xs text-slate-500 mb-3">
+                <div className="flex items-center justify-between text-xs text-zinc-500 mb-3">
                   <span className="font-bold uppercase text-[11px] tracking-wider">Mission Archive</span>
-                  <span className="bg-purple-100 text-[#3b0080] font-bold text-[10px] px-2 py-0.5 rounded-full">ACTIVE</span>
+                  <span className="bg-zinc-200 text-zinc-900 font-bold text-[10px] px-2 py-0.5 rounded-full border border-zinc-300">ACTIVE</span>
                 </div>
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-200/80 text-xs">
+                  <div className="flex items-center justify-between bg-white p-2.5 rounded-xl border border-zinc-200 text-xs">
                     <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                      <span className="font-mono font-bold text-slate-700">ORD-782190</span>
+                      <span className="w-2 h-2 rounded-full bg-zinc-900"></span>
+                      <span className="font-mono font-bold text-zinc-800">ORD-782190</span>
                     </div>
-                    <span className="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded text-[10px]">Delivered</span>
+                    <span className="text-zinc-800 font-bold bg-zinc-100 px-2 py-0.5 rounded text-[10px] border border-zinc-200">Delivered</span>
                   </div>
-                  <div className="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-200/80 text-xs">
+                  <div className="flex items-center justify-between bg-white p-2.5 rounded-xl border border-zinc-200 text-xs">
                     <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-sky-500 animate-ping"></span>
-                      <span className="font-mono font-bold text-slate-700">ORD-419205</span>
+                      <span className="w-2 h-2 rounded-full bg-zinc-500 animate-ping"></span>
+                      <span className="font-mono font-bold text-zinc-800">ORD-419205</span>
                     </div>
-                    <span className="text-sky-700 font-bold bg-sky-50 px-2 py-0.5 rounded text-[10px]">In-Flight</span>
+                    <span className="text-zinc-800 font-bold bg-zinc-100 px-2 py-0.5 rounded text-[10px] border border-zinc-200">In-Flight</span>
                   </div>
                 </div>
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-700">Orders Queue & Archive</span>
-                <span className="text-[10px] bg-slate-200 text-slate-700 px-2 py-0.5 rounded font-mono">Step 2</span>
+              <div className="mt-4 pt-3 border-t border-zinc-200 flex items-center justify-between">
+                <span className="text-xs font-bold text-zinc-700">Orders Queue & Archive</span>
+                <span className="text-[10px] bg-zinc-200 text-zinc-700 px-2 py-0.5 rounded font-mono">Step 2</span>
               </div>
             </div>
 
             {/* Card 3: Analytics & Review */}
-            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between min-h-[220px]">
+            <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-5 flex flex-col justify-between min-h-[220px]">
               <div>
-                <div className="flex items-center justify-between text-xs text-slate-500 mb-3">
+                <div className="flex items-center justify-between text-xs text-zinc-500 mb-3">
                   <span className="font-bold uppercase text-[11px] tracking-wider">Performance Insights</span>
-                  <span className="text-[10px] font-mono text-slate-400">NCR Hub</span>
+                  <span className="text-[10px] font-mono text-zinc-400">NCR Hub</span>
                 </div>
                 <div className="grid grid-cols-3 gap-2 text-center my-1">
-                  <div className="bg-white p-2 rounded-xl border border-slate-200/70">
-                    <span className="text-base font-bold text-purple-700 font-mono block">99.4%</span>
-                    <span className="text-[9px] text-slate-400 font-bold">SUCCESS</span>
+                  <div className="bg-white p-2 rounded-xl border border-zinc-200">
+                    <span className="text-base font-bold text-zinc-900 font-mono block">99.4%</span>
+                    <span className="text-[9px] text-zinc-500 font-bold">SUCCESS</span>
                   </div>
-                  <div className="bg-white p-2 rounded-xl border border-slate-200/70">
-                    <span className="text-base font-bold text-purple-700 font-mono block">&lt;24m</span>
-                    <span className="text-[9px] text-slate-400 font-bold">AVG ETA</span>
+                  <div className="bg-white p-2 rounded-xl border border-zinc-200">
+                    <span className="text-base font-bold text-zinc-900 font-mono block">&lt;24m</span>
+                    <span className="text-[9px] text-zinc-500 font-bold">AVG ETA</span>
                   </div>
-                  <div className="bg-white p-2 rounded-xl border border-slate-200/70">
-                    <span className="text-base font-bold text-purple-700 font-mono block">0</span>
-                    <span className="text-[9px] text-slate-400 font-bold">INCIDENT</span>
+                  <div className="bg-white p-2 rounded-xl border border-zinc-200">
+                    <span className="text-base font-bold text-zinc-900 font-mono block">0</span>
+                    <span className="text-[9px] text-zinc-500 font-bold">INCIDENT</span>
                   </div>
                 </div>
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-700">Flight Safety Telemetry</span>
-                <span className="text-[10px] bg-slate-200 text-slate-700 px-2 py-0.5 rounded font-mono">Step 3</span>
+              <div className="mt-4 pt-3 border-t border-zinc-200 flex items-center justify-between">
+                <span className="text-xs font-bold text-zinc-700">Flight Safety Telemetry</span>
+                <span className="text-[10px] bg-zinc-200 text-zinc-700 px-2 py-0.5 rounded font-mono">Step 3</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── STEP-BY-STEP ORDERING GUIDE WALKTHROUGH (CORE REQUEST) ──────────── */}
+      {/* ── STEP-BY-STEP ORDERING GUIDE WALKTHROUGH ──────────── */}
       <section className="max-w-6xl mx-auto px-6 mb-16">
-        <div className="bg-gradient-to-br from-white via-purple-50/40 to-blue-50/30 border-2 border-purple-200/80 rounded-3xl p-6 sm:p-10 shadow-lg">
+        <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-10 shadow-sm">
           <div className="max-w-3xl mb-8">
-            <div className="inline-flex items-center gap-2 bg-[#3b0080] text-white text-xs font-bold px-3 py-1 rounded-full mb-3">
-              <Sparkles className="w-3.5 h-3.5 text-purple-300" />
+            <div className="inline-flex items-center gap-2 bg-black text-white text-xs font-bold px-3 py-1 rounded-full mb-3">
+              <Sparkles className="w-3.5 h-3.5 text-zinc-300" />
               <span>STEP-BY-STEP MANUAL</span>
             </div>
-            <h2 className="text-2xl sm:text-4xl font-extrabold text-[#171222] tracking-tight mb-3">
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-zinc-900 tracking-tight mb-3">
               How to Place a Drone Courier Delivery Order
             </h2>
-            <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+            <p className="text-zinc-600 text-sm sm:text-base leading-relaxed">
               IndoWings enables instant autonomous aerial transit across Delhi NCR in 6 clear steps. Follow this guide to prepare your package, book a flight corridor, and receive contactless delivery.
             </p>
           </div>
@@ -262,134 +262,134 @@ export const DocsPage: React.FC<DocsPageProps> = ({
           {/* 6 Step Interactive Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {/* Step 1 */}
-            <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs hover:border-purple-300 transition-all flex flex-col justify-between">
+            <div className="bg-white border border-zinc-200 rounded-2xl p-5 shadow-xs hover:border-zinc-400 transition-all flex flex-col justify-between">
               <div>
-                <div className="w-10 h-10 rounded-xl bg-purple-50 text-[#3b0080] flex items-center justify-center font-bold text-sm font-mono mb-3">
+                <div className="w-10 h-10 rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-900 flex items-center justify-center font-bold text-sm font-mono mb-3">
                   01
                 </div>
-                <h3 className="text-base font-bold text-[#171222] mb-1.5 flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4 text-[#3b0080]" />
+                <h3 className="text-base font-bold text-zinc-900 mb-1.5 flex items-center gap-1.5">
+                  <MapPin className="w-4 h-4 text-zinc-900" />
                   <span>Choose Corridors</span>
                 </h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
+                <p className="text-xs text-zinc-500 leading-relaxed">
                   Select predefined verified hubs (Noida Sec 62, Connaught Place, Cyber City Gurugram, Faridabad) or type any residential/office location. OpenStreetMap geocodes your precise GPS coordinates automatically.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-purple-700 font-semibold">
+              <div className="mt-4 pt-3 border-t border-zinc-100 text-[11px] text-zinc-700 font-semibold">
                 Tip: Use "Use Saved Address" for 1-click fill
               </div>
             </div>
 
             {/* Step 2 */}
-            <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs hover:border-purple-300 transition-all flex flex-col justify-between">
+            <div className="bg-white border border-zinc-200 rounded-2xl p-5 shadow-xs hover:border-zinc-400 transition-all flex flex-col justify-between">
               <div>
-                <div className="w-10 h-10 rounded-xl bg-purple-50 text-[#3b0080] flex items-center justify-center font-bold text-sm font-mono mb-3">
+                <div className="w-10 h-10 rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-900 flex items-center justify-center font-bold text-sm font-mono mb-3">
                   02
                 </div>
-                <h3 className="text-base font-bold text-[#171222] mb-1.5 flex items-center gap-1.5">
-                  <Layers className="w-4 h-4 text-[#3b0080]" />
+                <h3 className="text-base font-bold text-zinc-900 mb-1.5 flex items-center gap-1.5">
+                  <Layers className="w-4 h-4 text-zinc-900" />
                   <span>Package Type & Weight</span>
                 </h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
+                <p className="text-xs text-zinc-500 leading-relaxed">
                   Choose package category (Medical Supplies, Critical Documents, Electronics, Lab Samples) and enter weight (up to 5.0 kg DGCA limit). Our algorithm selects the optimal drone model (Cyberone Lite, Max, or Pro).
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-purple-700 font-semibold">
+              <div className="mt-4 pt-3 border-t border-zinc-100 text-[11px] text-zinc-700 font-semibold">
                 Standard payload capacity: 0.5 kg to 5.0 kg
               </div>
             </div>
 
             {/* Step 3 */}
-            <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs hover:border-purple-300 transition-all flex flex-col justify-between">
+            <div className="bg-white border border-zinc-200 rounded-2xl p-5 shadow-xs hover:border-zinc-400 transition-all flex flex-col justify-between">
               <div>
-                <div className="w-10 h-10 rounded-xl bg-purple-50 text-[#3b0080] flex items-center justify-center font-bold text-sm font-mono mb-3">
+                <div className="w-10 h-10 rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-900 flex items-center justify-center font-bold text-sm font-mono mb-3">
                   03
                 </div>
-                <h3 className="text-base font-bold text-[#171222] mb-1.5 flex items-center gap-1.5">
-                  <Zap className="w-4 h-4 text-[#3b0080]" />
+                <h3 className="text-base font-bold text-zinc-900 mb-1.5 flex items-center gap-1.5">
+                  <Zap className="w-4 h-4 text-zinc-900" />
                   <span>Real-Time Fare & ETA</span>
                 </h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
+                <p className="text-xs text-zinc-500 leading-relaxed">
                   The system calculates true aerial distance via GPS coordinates (~14.8 km) and shows exact base fare (₹149 + ₹15/km + ₹25/kg) with guaranteed 18 to 24 minute transit window.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-purple-700 font-semibold">
+              <div className="mt-4 pt-3 border-t border-zinc-100 text-[11px] text-zinc-700 font-semibold">
                 Transparent: Zero hidden surge charges
               </div>
             </div>
 
             {/* Step 4 */}
-            <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs hover:border-purple-300 transition-all flex flex-col justify-between">
+            <div className="bg-white border border-zinc-200 rounded-2xl p-5 shadow-xs hover:border-zinc-400 transition-all flex flex-col justify-between">
               <div>
-                <div className="w-10 h-10 rounded-xl bg-purple-50 text-[#3b0080] flex items-center justify-center font-bold text-sm font-mono mb-3">
+                <div className="w-10 h-10 rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-900 flex items-center justify-center font-bold text-sm font-mono mb-3">
                   04
                 </div>
-                <h3 className="text-base font-bold text-[#171222] mb-1.5 flex items-center gap-1.5">
-                  <CreditCard className="w-4 h-4 text-[#3b0080]" />
+                <h3 className="text-base font-bold text-zinc-900 mb-1.5 flex items-center gap-1.5">
+                  <CreditCard className="w-4 h-4 text-zinc-900" />
                   <span>Payment Gateway or COD</span>
                 </h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
+                <p className="text-xs text-zinc-500 leading-relaxed">
                   Pay securely via Razorpay (UPI QR, Google Pay, PhonePe, Cards, NetBanking) or choose Cash on Delivery (COD) to pay upon safe package drop. Automated invoice and receipt is immediately issued.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-purple-700 font-semibold">
+              <div className="mt-4 pt-3 border-t border-zinc-100 text-[11px] text-zinc-700 font-semibold">
                 Instant Razorpay checkout modal supported
               </div>
             </div>
 
             {/* Step 5 */}
-            <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs hover:border-purple-300 transition-all flex flex-col justify-between">
+            <div className="bg-white border border-zinc-200 rounded-2xl p-5 shadow-xs hover:border-zinc-400 transition-all flex flex-col justify-between">
               <div>
-                <div className="w-10 h-10 rounded-xl bg-purple-50 text-[#3b0080] flex items-center justify-center font-bold text-sm font-mono mb-3">
+                <div className="w-10 h-10 rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-900 flex items-center justify-center font-bold text-sm font-mono mb-3">
                   05
                 </div>
-                <h3 className="text-base font-bold text-[#171222] mb-1.5 flex items-center gap-1.5">
-                  <Radio className="w-4 h-4 text-[#3b0080]" />
+                <h3 className="text-base font-bold text-zinc-900 mb-1.5 flex items-center gap-1.5">
+                  <Radio className="w-4 h-4 text-zinc-900" />
                   <span>Live Radar Telemetry</span>
                 </h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
+                <p className="text-xs text-zinc-500 leading-relaxed">
                   Upon dispatch, you receive an Air Tracking ID (e.g. <code>ORD-892140</code>). Visit <code>/track</code> to watch your drone's live GPS coordinates, altitude (120m AGL), airspeed (65 km/h), and battery percentage.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-purple-700 font-semibold">
+              <div className="mt-4 pt-3 border-t border-zinc-100 text-[11px] text-zinc-700 font-semibold">
                 Live flight updates synced every 4 seconds
               </div>
             </div>
 
             {/* Step 6 */}
-            <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs hover:border-purple-300 transition-all flex flex-col justify-between">
+            <div className="bg-white border border-zinc-200 rounded-2xl p-5 shadow-xs hover:border-zinc-400 transition-all flex flex-col justify-between">
               <div>
-                <div className="w-10 h-10 rounded-xl bg-purple-50 text-[#3b0080] flex items-center justify-center font-bold text-sm font-mono mb-3">
+                <div className="w-10 h-10 rounded-xl bg-zinc-100 border border-zinc-200 text-zinc-900 flex items-center justify-center font-bold text-sm font-mono mb-3">
                   06
                 </div>
-                <h3 className="text-base font-bold text-[#171222] mb-1.5 flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-[#3b0080]" />
+                <h3 className="text-base font-bold text-zinc-900 mb-1.5 flex items-center gap-1.5">
+                  <ShieldCheck className="w-4 h-4 text-zinc-900" />
                   <span>Terrace Winch Drop & OTP</span>
                 </h3>
-                <p className="text-xs text-slate-500 leading-relaxed">
+                <p className="text-xs text-zinc-500 leading-relaxed">
                   The drone hovers safely at 15m above your clear 3×3m terrace. A motorized winch tether gently lowers the package to ground level. Enter the 4-digit SMS OTP to release and complete delivery.
                 </p>
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-purple-700 font-semibold">
+              <div className="mt-4 pt-3 border-t border-zinc-100 text-[11px] text-zinc-700 font-semibold">
                 100% contactless and DGCA certified
               </div>
             </div>
           </div>
 
           {/* Direct Action Banner inside Guide */}
-          <div className="mt-8 pt-6 border-t border-purple-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="mt-8 pt-6 border-t border-zinc-200 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#3b0080] text-white flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-black text-white flex items-center justify-center shrink-0">
                 <Truck className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-sm font-bold text-[#171222]">Ready to dispatch your first aerial delivery?</p>
-                <p className="text-xs text-slate-500">Average courier dispatch time: 4 minutes from order submission.</p>
+                <p className="text-sm font-bold text-zinc-900">Ready to dispatch your first aerial delivery?</p>
+                <p className="text-xs text-zinc-500">Average courier dispatch time: 4 minutes from order submission.</p>
               </div>
             </div>
             <button
               onClick={() => { onNavigate('order'); window.history.pushState({}, '', '/order'); }}
-              className="bg-[#3b0080] hover:bg-[#260052] text-white text-xs sm:text-sm font-bold px-6 py-3 rounded-xl shadow-md transition-all active:scale-95 flex items-center gap-2 cursor-pointer shrink-0">
+              className="bg-black hover:bg-zinc-800 text-white text-xs sm:text-sm font-bold px-6 py-3 rounded-xl shadow-md transition-all active:scale-95 flex items-center gap-2 cursor-pointer shrink-0">
               <span>Go to Order Dispatch Page</span>
               <ArrowRight className="w-4 h-4" />
             </button>
@@ -415,8 +415,8 @@ export const DocsPage: React.FC<DocsPageProps> = ({
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                   activeTab === tab.id
-                    ? 'bg-[#3b0080] text-white shadow-sm'
-                    : 'bg-white border border-slate-200 text-slate-600 hover:border-purple-200 hover:text-[#3b0080]'
+                    ? 'bg-black text-white shadow-sm'
+                    : 'bg-white border border-zinc-200 text-zinc-600 hover:border-zinc-400 hover:text-black'
                 }`}
               >
                 {tab.label}
@@ -426,19 +426,19 @@ export const DocsPage: React.FC<DocsPageProps> = ({
 
           {/* Search */}
           <div className="relative w-full sm:w-64">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
             <input
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Search documentation..."
-              className="w-full pl-10 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-[#3b0080] transition-all shadow-xs"
+              className="w-full pl-10 pr-4 py-2 bg-white border border-zinc-200 rounded-xl text-xs focus:outline-none focus:border-black transition-all shadow-xs text-zinc-900"
             />
           </div>
         </div>
       </section>
 
-      {/* ── 6 CORE DOCUMENTATION CARDS (Exact Screenshot 3 Layout) ───────────── */}
+      {/* ── 6 CORE DOCUMENTATION CARDS ───────────── */}
       <section className="max-w-6xl mx-auto px-6 pb-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCards.map(card => {
@@ -446,7 +446,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
             return (
               <div 
                 key={card.id}
-                className="bg-white border border-slate-200 hover:border-purple-300 rounded-2xl p-7 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+                className="bg-white border border-zinc-200 hover:border-zinc-400 rounded-2xl p-7 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
                 <div>
                   {/* Card Tag Pill */}
                   <div className="flex items-center gap-2 mb-5">
@@ -459,18 +459,18 @@ export const DocsPage: React.FC<DocsPageProps> = ({
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl font-bold text-[#171222] mb-3 group-hover:text-[#3b0080] transition-colors leading-snug">
+                  <h3 className="text-xl font-bold text-zinc-900 mb-3 group-hover:text-black transition-colors leading-snug">
                     {card.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-slate-500 text-xs sm:text-sm leading-relaxed mb-6">
+                  <p className="text-zinc-500 text-xs sm:text-sm leading-relaxed mb-6">
                     {card.desc}
                   </p>
                 </div>
 
                 {/* Footer Link */}
-                <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                <div className="pt-4 border-t border-zinc-100 flex items-center justify-between">
                   <button
                     onClick={() => {
                       if (card.targetPage) {
@@ -484,7 +484,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
                         window.history.pushState({}, '', '/support?tab=guide');
                       }
                     }}
-                    className="text-xs font-bold text-[#3b0080] hover:text-[#250052] flex items-center gap-1.5 transition-colors cursor-pointer group-hover:translate-x-1 duration-150"
+                    className="text-xs font-bold text-zinc-900 hover:text-zinc-600 flex items-center gap-1.5 transition-colors cursor-pointer group-hover:translate-x-1 duration-150 underline"
                   >
                     <span>{card.linkText}</span>
                     <ArrowRight className="w-3.5 h-3.5" />

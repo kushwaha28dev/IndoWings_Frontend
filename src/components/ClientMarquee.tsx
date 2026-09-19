@@ -3,9 +3,9 @@ import { CLIENT_LOGOS } from '../data/indowingsData';
 
 export const ClientMarquee: React.FC = () => {
   return (
-    <section className="py-14 bg-[#171222] border-b border-purple-900/30 text-white overflow-hidden">
+    <section className="py-14 bg-[#09090b] border-b border-zinc-800 text-white overflow-hidden">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
-        <p className="text-center text-xs font-bold uppercase tracking-widest text-purple-400 mb-8">
+        <p className="text-center text-xs font-bold uppercase tracking-widest text-zinc-400 mb-8">
           Trusted by India&apos;s Leading Public & Private Enterprises
         </p>
 

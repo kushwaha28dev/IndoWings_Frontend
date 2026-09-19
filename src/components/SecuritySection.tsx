@@ -32,18 +32,18 @@ const securityFeatures: SecurityFeature[] = [
 
 export const SecuritySection: React.FC = () => {
   return (
-    <section id="security" className="py-20 lg:py-24 bg-[#fbf9fd] text-[#171222]">
+    <section id="security" className="py-20 lg:py-24 bg-zinc-50 text-[#171222]">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] gap-8 items-start">
           {/* Left Column Unified Container Card */}
           <div 
-            className="rounded-2xl p-6 sm:p-8 bg-white border border-[#3b0080]/15 shadow-sm space-y-6"
+            className="rounded-2xl p-6 sm:p-8 bg-white border border-zinc-200 shadow-sm space-y-6"
             style={{
               background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.92)), radial-gradient(circle at top left, rgba(220, 196, 255, 0.45), transparent 18rem)'
             }}
           >
             <div className="space-y-3">
-              <p className="text-xs font-bold tracking-widest text-[#3b0080] uppercase">
+              <p className="text-xs font-bold tracking-widest text-zinc-900 uppercase">
                 SECURITY MODEL
               </p>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight leading-[1.25]">
@@ -68,9 +68,9 @@ export const SecuritySection: React.FC = () => {
             <div>
               <a 
                 href="#docs" 
-                className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-lg bg-white border border-slate-200 shadow-sm text-sm font-semibold text-[#111827] hover:bg-slate-50 hover:border-[#3b0080]/30 transition-all duration-200"
+                className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-lg bg-white border border-slate-200 shadow-sm text-sm font-semibold text-[#111827] hover:bg-slate-50 hover:border-zinc-400 transition-all duration-200"
               >
-                <BookOpen className="w-4 h-4 text-[#3b0080]" />
+                <BookOpen className="w-4 h-4 text-zinc-900" />
                 <span>Open public guide</span>
               </a>
             </div>
@@ -83,10 +83,10 @@ export const SecuritySection: React.FC = () => {
               return (
                 <div 
                   key={feat.title}
-                  className="p-6 sm:p-7 rounded-2xl bg-white border border-[#3b0080]/15 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-start min-h-[220px]"
+                  className="p-6 sm:p-7 rounded-2xl bg-white border border-zinc-200 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-start min-h-[220px]"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-[#f2ecf8] flex items-center justify-center mb-5">
-                    <IconComponent className="w-5 h-5 text-[#3b0080]" />
+                  <div className="w-10 h-10 rounded-lg bg-zinc-100 flex items-center justify-center mb-5">
+                    <IconComponent className="w-5 h-5 text-zinc-900" />
                   </div>
                   <h3 className="text-lg font-bold text-[#111827] mb-2 tracking-tight">
                     {feat.title}

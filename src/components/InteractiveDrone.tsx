@@ -262,9 +262,9 @@ export const InteractiveDrone: React.FC<InteractiveDroneProps> = ({ onOrderClick
 
   return (
     <div className="relative w-full max-w-[460px] flex flex-col items-center justify-center select-none py-1">
-      {/* ── Soft Ambient Radial Glow behind the Drone (Clean & Premium) ── */}
-      <div className="absolute inset-0 bg-[#bc13fe]/15 blur-[70px] sm:blur-[100px] rounded-full scale-90 pointer-events-none" />
-      <div className="absolute w-[220px] h-[220px] sm:w-[300px] sm:h-[300px] bg-purple-600/10 blur-[50px] sm:blur-[80px] rounded-full pointer-events-none" />
+      {/* ── Soft Ambient Radial Glow behind the Drone (Clean Monochrome) ── */}
+      <div className="absolute inset-0 bg-white/10 blur-[70px] sm:blur-[100px] rounded-full scale-90 pointer-events-none" />
+      <div className="absolute w-[220px] h-[220px] sm:w-[300px] sm:h-[300px] bg-zinc-400/10 blur-[50px] sm:blur-[80px] rounded-full pointer-events-none" />
 
       {/* ── Subtle Elegant Outer Rings ── */}
       <div className="absolute w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] lg:w-[380px] lg:h-[380px] rounded-full border border-white/[0.05] border-dashed animate-[spin_120s_linear_infinite] pointer-events-none" />

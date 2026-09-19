@@ -1,4 +1,4 @@
-﻿import React, { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Shield, Lock, FileText, Database } from "lucide-react";
 
 interface LegalPageProps {
@@ -26,14 +26,14 @@ export const LegalPage: React.FC<LegalPageProps> = ({ section }) => {
   }, [section]);
 
   return (
-    <div className="min-h-screen bg-[#f9f7fd]">
+    <div className="min-h-screen bg-zinc-50">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-white border-b border-zinc-200">
         <div className="max-w-[900px] mx-auto px-4 sm:px-6 py-12">
-          <p className="text-[11px] font-black uppercase tracking-[0.18em] text-purple-600 mb-3">Legal</p>
-          <h1 className="text-3xl sm:text-4xl font-black text-[#171222]">Legal &amp; Compliance</h1>
-          <div className="w-14 h-1 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 mt-4" />
-          <p className="text-slate-500 text-sm mt-4 leading-relaxed max-w-xl">
+          <p className="text-[11px] font-black uppercase tracking-[0.18em] text-zinc-500 mb-3">Legal</p>
+          <h1 className="text-3xl sm:text-4xl font-black text-zinc-900">Legal &amp; Compliance</h1>
+          <div className="w-14 h-1 rounded-full bg-zinc-900 mt-4" />
+          <p className="text-zinc-600 text-sm mt-4 leading-relaxed max-w-xl">
             IndoWings Technologies operates autonomous drone delivery services across Delhi-NCR under DGCA Drone Rules 2021.
             These documents govern your use of our platform, data practices, and security standards.
           </p>
@@ -41,7 +41,7 @@ export const LegalPage: React.FC<LegalPageProps> = ({ section }) => {
             {SECTIONS.map(s => (
               <a key={s.id} href={"#" + s.id}
                 onClick={e => { e.preventDefault(); document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold border border-purple-200 text-purple-700 bg-purple-50 hover:bg-purple-100 transition-colors">
+                className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold border border-zinc-300 text-zinc-800 bg-white hover:bg-zinc-100 transition-colors shadow-xs">
                 <s.icon className="w-3.5 h-3.5" />
                 {s.label}
               </a>
@@ -55,7 +55,7 @@ export const LegalPage: React.FC<LegalPageProps> = ({ section }) => {
         {/* PRIVACY POLICY */}
         <section id="privacy" className="scroll-mt-24">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center"><Lock className="w-5 h-5" /></div>
+            <div className="w-10 h-10 rounded-xl bg-zinc-100 text-zinc-900 border border-zinc-200 flex items-center justify-center"><Lock className="w-5 h-5" /></div>
             <div>
               <h2 className="text-2xl font-black text-[#171222]">Privacy Policy</h2>
               <p className="text-xs text-slate-400 mt-0.5">Last updated: September 2026</p>
@@ -94,12 +94,12 @@ export const LegalPage: React.FC<LegalPageProps> = ({ section }) => {
               </ul>
             </div>
             <div>
-              <h3 className="text-base font-black text-[#171222] mb-2">4. Data Retention</h3>
-              <p>Order data is retained for 5 years for DGCA compliance. Account data is retained until deletion request. Email <a href="mailto:support@indowings.com" className="text-purple-600 hover:underline">support@indowings.com</a> for any privacy requests.</p>
+              <h3 className="text-base font-black text-zinc-900 mb-2">4. Data Retention</h3>
+              <p>Order data is retained for 5 years for DGCA compliance. Account data is retained until deletion request. Email <a href="mailto:support@indowings.com" className="text-zinc-900 font-semibold underline hover:text-zinc-700">support@indowings.com</a> for any privacy requests.</p>
             </div>
             <div>
-              <h3 className="text-base font-black text-[#171222] mb-2">5. Your Rights</h3>
-              <p>Under India Digital Personal Data Protection Act (DPDPA) 2023, you have the right to access, correct, and erase your personal data. Contact <a href="mailto:support@indowings.com" className="text-purple-600 hover:underline">support@indowings.com</a>.</p>
+              <h3 className="text-base font-black text-zinc-900 mb-2">5. Your Rights</h3>
+              <p>Under India Digital Personal Data Protection Act (DPDPA) 2023, you have the right to access, correct, and erase your personal data. Contact <a href="mailto:support@indowings.com" className="text-zinc-900 font-semibold underline hover:text-zinc-700">support@indowings.com</a>.</p>
             </div>
           </div>
         </section>
@@ -107,19 +107,19 @@ export const LegalPage: React.FC<LegalPageProps> = ({ section }) => {
         {/* TERMS OF USE */}
         <section id="terms" className="scroll-mt-24">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center"><FileText className="w-5 h-5" /></div>
+            <div className="w-10 h-10 rounded-xl bg-zinc-100 text-zinc-900 border border-zinc-200 flex items-center justify-center"><FileText className="w-5 h-5" /></div>
             <div>
-              <h2 className="text-2xl font-black text-[#171222]">Terms of Use</h2>
-              <p className="text-xs text-slate-400 mt-0.5">Last updated: September 2026</p>
+              <h2 className="text-2xl font-black text-zinc-900">Terms of Use</h2>
+              <p className="text-xs text-zinc-500 mt-0.5">Last updated: September 2026</p>
             </div>
           </div>
-          <div className="bg-white rounded-3xl border border-slate-200 p-7 sm:p-10 space-y-6 text-sm text-slate-600 leading-relaxed">
+          <div className="bg-white rounded-3xl border border-zinc-200 p-7 sm:p-10 space-y-6 text-sm text-zinc-600 leading-relaxed shadow-xs">
             <div>
-              <h3 className="text-base font-black text-[#171222] mb-2">1. Acceptance of Terms</h3>
+              <h3 className="text-base font-black text-zinc-900 mb-2">1. Acceptance of Terms</h3>
               <p>By using IndoWings delivery services, you agree to these Terms of Use. These terms are governed by the laws of India.</p>
             </div>
             <div>
-              <h3 className="text-base font-black text-[#171222] mb-2">2. Eligible Use</h3>
+              <h3 className="text-base font-black text-zinc-900 mb-2">2. Eligible Use</h3>
               <ul className="list-disc pl-5 space-y-1">
                 <li>You must be 18 years or older to place orders</li>
                 <li>Delivery addresses must be within our approved Delhi-NCR air corridors</li>
@@ -128,7 +128,7 @@ export const LegalPage: React.FC<LegalPageProps> = ({ section }) => {
               </ul>
             </div>
             <div>
-              <h3 className="text-base font-black text-[#171222] mb-2">3. Prohibited Items</h3>
+              <h3 className="text-base font-black text-zinc-900 mb-2">3. Prohibited Items</h3>
               <ul className="list-disc pl-5 space-y-1">
                 <li>Narcotics, controlled substances, or illegal goods</li>
                 <li>Flammable, explosive, or hazardous materials</li>
@@ -138,15 +138,15 @@ export const LegalPage: React.FC<LegalPageProps> = ({ section }) => {
               </ul>
             </div>
             <div>
-              <h3 className="text-base font-black text-[#171222] mb-2">4. Liability</h3>
+              <h3 className="text-base font-black text-zinc-900 mb-2">4. Liability</h3>
               <p>IndoWings maximum liability per delivery is limited to the declared value of the package or Rs. 5,000, whichever is lower. We are not liable for delays caused by weather, DGCA airspace restrictions, or events beyond operational control.</p>
             </div>
             <div>
-              <h3 className="text-base font-black text-[#171222] mb-2">5. Cancellations &amp; Refunds</h3>
+              <h3 className="text-base font-black text-zinc-900 mb-2">5. Cancellations &amp; Refunds</h3>
               <p>Orders can be cancelled before UAV dispatch for a full refund. Once the drone is in flight, cancellation is not possible. Refunds for failed deliveries are processed within 5-7 business days.</p>
             </div>
             <div>
-              <h3 className="text-base font-black text-[#171222] mb-2">6. Service Availability</h3>
+              <h3 className="text-base font-black text-zinc-900 mb-2">6. Service Availability</h3>
               <p>Services operate in DGCA-approved air corridors only. IndoWings reserves the right to suspend service in any zone without notice if required by regulatory authorities or safety concerns.</p>
             </div>
           </div>
@@ -155,15 +155,15 @@ export const LegalPage: React.FC<LegalPageProps> = ({ section }) => {
         {/* SECURITY DISCLOSURE */}
         <section id="security" className="scroll-mt-24">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center"><Shield className="w-5 h-5" /></div>
+            <div className="w-10 h-10 rounded-xl bg-zinc-100 text-zinc-900 border border-zinc-200 flex items-center justify-center"><Shield className="w-5 h-5" /></div>
             <div>
-              <h2 className="text-2xl font-black text-[#171222]">Security Disclosure</h2>
-              <p className="text-xs text-slate-400 mt-0.5">Last updated: September 2026</p>
+              <h2 className="text-2xl font-black text-zinc-900">Security Disclosure</h2>
+              <p className="text-xs text-zinc-500 mt-0.5">Last updated: September 2026</p>
             </div>
           </div>
-          <div className="bg-white rounded-3xl border border-slate-200 p-7 sm:p-10 space-y-6 text-sm text-slate-600 leading-relaxed">
+          <div className="bg-white rounded-3xl border border-zinc-200 p-7 sm:p-10 space-y-6 text-sm text-zinc-600 leading-relaxed shadow-xs">
             <div>
-              <h3 className="text-base font-black text-[#171222] mb-2">1. Platform Security</h3>
+              <h3 className="text-base font-black text-zinc-900 mb-2">1. Platform Security</h3>
               <ul className="list-disc pl-5 space-y-1">
                 <li>All API communications use HTTPS/TLS 1.3 encryption</li>
                 <li>User authentication uses JWT tokens</li>
@@ -173,7 +173,7 @@ export const LegalPage: React.FC<LegalPageProps> = ({ section }) => {
               </ul>
             </div>
             <div>
-              <h3 className="text-base font-black text-[#171222] mb-2">2. UAV Security</h3>
+              <h3 className="text-base font-black text-zinc-900 mb-2">2. UAV Security</h3>
               <ul className="list-disc pl-5 space-y-1">
                 <li>All drones operate on encrypted telemetry channels</li>
                 <li>C2 links comply with DGCA BVLOS operational requirements</li>
@@ -182,15 +182,15 @@ export const LegalPage: React.FC<LegalPageProps> = ({ section }) => {
               </ul>
             </div>
             <div>
-              <h3 className="text-base font-black text-[#171222] mb-2">3. Responsible Disclosure</h3>
+              <h3 className="text-base font-black text-zinc-900 mb-2">3. Responsible Disclosure</h3>
               <p>If you discover a security vulnerability, please report it to:</p>
-              <div className="mt-3 p-4 bg-slate-50 rounded-xl border border-slate-200">
-                <p className="font-bold text-[#171222]">security@indowings.com</p>
-                <p className="text-xs text-slate-400 mt-1">We respond to all valid security reports within 72 hours and do not pursue legal action against good-faith security researchers.</p>
+              <div className="mt-3 p-4 bg-zinc-50 rounded-xl border border-zinc-200">
+                <p className="font-bold text-zinc-900">security@indowings.com</p>
+                <p className="text-xs text-zinc-500 mt-1">We respond to all valid security reports within 72 hours and do not pursue legal action against good-faith security researchers.</p>
               </div>
             </div>
             <div>
-              <h3 className="text-base font-black text-[#171222] mb-2">4. Incident Response</h3>
+              <h3 className="text-base font-black text-zinc-900 mb-2">4. Incident Response</h3>
               <p>In the event of a data breach, IndoWings will notify affected users within 72 hours as required by DPDPA 2023, and report to CERT-In within the legally mandated timeframe.</p>
             </div>
           </div>
@@ -199,15 +199,15 @@ export const LegalPage: React.FC<LegalPageProps> = ({ section }) => {
         {/* DATA PROTECTION */}
         <section id="data-protection" className="scroll-mt-24">
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center"><Database className="w-5 h-5" /></div>
+            <div className="w-10 h-10 rounded-xl bg-zinc-100 text-zinc-900 border border-zinc-200 flex items-center justify-center"><Database className="w-5 h-5" /></div>
             <div>
-              <h2 className="text-2xl font-black text-[#171222]">Data Protection</h2>
-              <p className="text-xs text-slate-400 mt-0.5">Last updated: September 2026</p>
+              <h2 className="text-2xl font-black text-zinc-900">Data Protection</h2>
+              <p className="text-xs text-zinc-500 mt-0.5">Last updated: September 2026</p>
             </div>
           </div>
-          <div className="bg-white rounded-3xl border border-slate-200 p-7 sm:p-10 space-y-6 text-sm text-slate-600 leading-relaxed">
+          <div className="bg-white rounded-3xl border border-zinc-200 p-7 sm:p-10 space-y-6 text-sm text-zinc-600 leading-relaxed shadow-xs">
             <div>
-              <h3 className="text-base font-black text-[#171222] mb-2">1. Compliance Framework</h3>
+              <h3 className="text-base font-black text-zinc-900 mb-2">1. Compliance Framework</h3>
               <ul className="list-disc pl-5 space-y-1">
                 <li>India Digital Personal Data Protection Act (DPDPA) 2023</li>
                 <li>IT Act 2000 and IT (Amendment) Act 2008</li>
@@ -216,7 +216,7 @@ export const LegalPage: React.FC<LegalPageProps> = ({ section }) => {
               </ul>
             </div>
             <div>
-              <h3 className="text-base font-black text-[#171222] mb-2">2. Data Storage</h3>
+              <h3 className="text-base font-black text-zinc-900 mb-2">2. Data Storage</h3>
               <ul className="list-disc pl-5 space-y-1">
                 <li>All user data stored on Supabase (PostgreSQL) in Asia-Pacific region</li>
                 <li>Database access restricted to authenticated backend services only</li>
@@ -225,11 +225,11 @@ export const LegalPage: React.FC<LegalPageProps> = ({ section }) => {
               </ul>
             </div>
             <div>
-              <h3 className="text-base font-black text-[#171222] mb-2">3. Data Minimisation</h3>
+              <h3 className="text-base font-black text-zinc-900 mb-2">3. Data Minimisation</h3>
               <p>We collect only the minimum data required to complete your delivery. Location data is used exclusively for UAV flight path generation and is not shared with third parties for advertising or profiling.</p>
             </div>
             <div>
-              <h3 className="text-base font-black text-[#171222] mb-2">4. Your Rights Under DPDPA 2023</h3>
+              <h3 className="text-base font-black text-zinc-900 mb-2">4. Your Rights Under DPDPA 2023</h3>
               <ul className="list-disc pl-5 space-y-1">
                 <li><strong>Right to access:</strong> Request a copy of all personal data we hold about you</li>
                 <li><strong>Right to correction:</strong> Update inaccurate personal information</li>
@@ -239,11 +239,11 @@ export const LegalPage: React.FC<LegalPageProps> = ({ section }) => {
               </ul>
             </div>
             <div>
-              <h3 className="text-base font-black text-[#171222] mb-2">5. Contact</h3>
-              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                <p className="font-bold text-[#171222]">IndoWings Technologies — Data Protection Officer</p>
-                <a href="mailto:support@indowings.com" className="text-purple-600 hover:underline">support@indowings.com</a>
-                <p className="text-xs text-slate-400 mt-2">We respond to all data protection requests within 30 days as required by law.</p>
+              <h3 className="text-base font-black text-zinc-900 mb-2">5. Contact</h3>
+              <div className="p-4 bg-zinc-50 rounded-xl border border-zinc-200">
+                <p className="font-bold text-zinc-900">IndoWings Technologies — Data Protection Officer</p>
+                <a href="mailto:support@indowings.com" className="text-zinc-900 font-semibold underline hover:text-zinc-700">support@indowings.com</a>
+                <p className="text-xs text-zinc-500 mt-2">We respond to all data protection requests within 30 days as required by law.</p>
               </div>
             </div>
           </div>

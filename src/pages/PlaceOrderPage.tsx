@@ -405,7 +405,7 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
             contact: (contactPhone || currentUser.phone || '').replace(/[^0-9]/g, '').slice(-10)
           },
           theme: {
-            color: '#3b0080'
+            color: '#000000'
           },
           handler: async function (response: any) {
             try {
@@ -512,24 +512,24 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
           </div>
 
           {/* Tracking ID & Assigned Drone Hero Box */}
-          <div className="bg-purple-50/70 border border-purple-100 rounded-2xl p-5 mb-6 text-center">
-            <p className="text-[11px] font-bold text-purple-700 uppercase tracking-widest mb-1.5">
+          <div className="bg-zinc-100 border border-zinc-200 rounded-2xl p-5 mb-6 text-center">
+            <p className="text-[11px] font-bold text-zinc-800 uppercase tracking-widest mb-1.5">
               Assigned Air Tracking ID
             </p>
             <div className="flex items-center justify-center gap-2 mb-2">
-              <span className="text-3xl sm:text-4xl font-black text-[#3b0080] tracking-tight font-mono">
+              <span className="text-3xl sm:text-4xl font-black text-zinc-900 tracking-tight font-mono">
                 {successOrder.id}
               </span>
               <button
                 type="button"
                 onClick={() => handleCopyTrackingId(successOrder.id)}
                 title="Copy Tracking ID"
-                className="p-1.5 rounded-lg text-slate-400 hover:text-[#3b0080] hover:bg-white transition-all">
+                className="p-1.5 rounded-lg text-slate-400 hover:text-zinc-900 hover:bg-white transition-all">
                 {copiedId ? <CheckCheck className="w-5 h-5 text-emerald-600" /> : <Copy className="w-5 h-5" />}
               </button>
             </div>
-            <div className="inline-flex items-center gap-2 bg-white px-3.5 py-1 rounded-full border border-purple-200/60 shadow-2xs text-xs">
-              <Truck className="w-3.5 h-3.5 text-[#3b0080]" />
+            <div className="inline-flex items-center gap-2 bg-white px-3.5 py-1 rounded-full border border-zinc-200/60 shadow-2xs text-xs">
+              <Truck className="w-3.5 h-3.5 text-zinc-900" />
               <span className="font-bold text-slate-700">
                 {successOrder.drone_id ? `Assigned UAV: ${successOrder.drone_id} (${successOrder.drone_model})` : 'UAV auto-allocation in progress'}
               </span>
@@ -544,11 +544,11 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Pickup Location</p>
-                <p className="text-sm font-semibold text-[#171222] truncate">{successOrder.pickup_address}</p>
+                <p className="text-sm font-semibold text-[#09090b] truncate">{successOrder.pickup_address}</p>
               </div>
             </div>
 
-            <div className="border-l-2 border-dashed border-purple-200 ml-3 pl-6 py-0.5 text-xs text-slate-400 font-medium">
+            <div className="border-l-2 border-dashed border-zinc-200 ml-3 pl-6 py-0.5 text-xs text-slate-400 font-medium">
               Direct Air Path ~{successOrder.aerial_distance_km || aerialDistKm} km • ETA ~{successOrder.flight_duration_mins || flightMins} mins
             </div>
 
@@ -558,19 +558,19 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Drop Destination</p>
-                <p className="text-sm font-semibold text-[#171222]">{successOrder.drop_address}</p>
+                <p className="text-sm font-semibold text-[#09090b]">{successOrder.drop_address}</p>
               </div>
             </div>
           </div>
 
           {/* Recipient Details if exists */}
           {successOrder.recipient_name && (
-            <div className="bg-purple-50/50 border border-purple-200 rounded-2xl p-4 mb-6 text-left flex items-start justify-between gap-4">
+            <div className="bg-zinc-100 border border-zinc-200 rounded-2xl p-4 mb-6 text-left flex items-start justify-between gap-4">
               <div>
-                <span className="text-[10px] font-bold text-[#3b0080] uppercase tracking-wider bg-white px-2 py-0.5 rounded border border-purple-100">
+                <span className="text-[10px] font-bold text-zinc-900 uppercase tracking-wider bg-white px-2 py-0.5 rounded border border-zinc-200">
                   Recipient Contact
                 </span>
-                <p className="text-sm font-bold text-[#171222] mt-1.5">{successOrder.recipient_name}</p>
+                <p className="text-sm font-bold text-[#09090b] mt-1.5">{successOrder.recipient_name}</p>
                 {successOrder.delivery_notes && (
                   <p className="text-xs text-slate-500 italic mt-0.5">
                     Instructions: &ldquo;{successOrder.delivery_notes}&rdquo;
@@ -591,13 +591,13 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
             <button
               type="button"
               onClick={() => { onNavigate('track'); window.history.pushState({}, '', `/track?id=${successOrder.id}`); }}
-              className="flex-1 flex items-center justify-center gap-2 bg-[#3b0080] hover:bg-[#2a005c] text-white font-bold py-3.5 rounded-xl transition-all shadow-md active:scale-98">
+              className="flex-1 flex items-center justify-center gap-2 bg-black hover:bg-zinc-800 text-white font-bold py-3.5 rounded-xl transition-all shadow-md active:scale-98">
               <MapPin className="w-4 h-4" /> Track Live Flight
             </button>
             <button
               type="button"
               onClick={() => { setSuccessOrder(null); window.scrollTo({ top: 0, behavior: 'instant' }); }}
-              className="flex-1 flex items-center justify-center gap-2 border border-slate-200 hover:border-[#3b0080] text-slate-700 hover:text-[#3b0080] font-semibold py-3.5 rounded-xl transition-all hover:bg-purple-50/40">
+              className="flex-1 flex items-center justify-center gap-2 border border-slate-200 hover:border-black text-slate-700 hover:text-zinc-900 font-semibold py-3.5 rounded-xl transition-all hover:bg-zinc-100/40">
               Dispatch Another Delivery
             </button>
           </div>
@@ -607,119 +607,109 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
   );
 
   return (
-    <div className="min-h-screen bg-[#f7f4fb] w-full max-w-full overflow-x-hidden">
+    <div className="min-h-screen bg-[#fafafa] w-full max-w-full overflow-x-hidden">
       {/* Hero */}
-      <section className="relative text-white pt-14 sm:pt-16 pb-16 sm:pb-20 px-4 sm:px-6 overflow-hidden w-full max-w-full" style={{ background: 'linear-gradient(135deg, #1e0940 0%, #2b114d 50%, #1a0835 100%)' }}>
+      <section className="relative text-white pt-14 sm:pt-16 pb-16 sm:pb-20 px-4 sm:px-6 overflow-hidden w-full max-w-full" style={{ background: 'linear-gradient(135deg, #000000 0%, #09090b 50%, #17171c 100%)' }}>
         <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         <div className="relative max-w-4xl mx-auto min-w-0">
-          <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white/15 border border-white/20 rounded-xl flex items-center justify-center mb-4 sm:mb-5">
+          <div className="w-12 h-12 sm:w-14 sm:h-14 bg-white/10 border border-white/15 rounded-xl flex items-center justify-center mb-4 sm:mb-5 shadow-lg">
             <Truck className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
           </div>
-          <p className="text-[11px] sm:text-xs font-bold tracking-[0.2em] uppercase text-white/70 mb-2 sm:mb-3">Drone Delivery Dispatch</p>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 tracking-tight max-w-xl">Instant aerial courier across Delhi NCR</h1>
-          <p className="text-white/70 text-sm sm:text-base max-w-xl leading-relaxed">
+          <p className="text-[11px] sm:text-xs font-bold tracking-[0.2em] uppercase text-zinc-400 mb-2 sm:mb-3">Drone Delivery Dispatch</p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 tracking-tight max-w-xl text-white">Instant aerial courier across Delhi NCR</h1>
+          <p className="text-zinc-400 text-sm sm:text-base max-w-xl leading-relaxed">
             Standard 24-minute flight corridors. Pay securely via Razorpay UPI, Cards, or NetBanking.
           </p>
         </div>
       </section>
 
-      <div className="max-w-4xl mx-auto px-3.5 sm:px-6 py-6 sm:py-12 pb-28 sm:pb-12 w-full max-w-full min-w-0">
+      <div className="max-w-5xl mx-auto px-3.5 sm:px-6 py-5 pb-16 w-full min-w-0">
         {/* Support & Pre-flight Guidance Helper */}
-        <div className="mb-6 bg-gradient-to-r from-purple-50 via-white to-blue-50 border border-purple-100/80 rounded-2xl p-3.5 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs min-w-0 w-full">
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="w-9 h-9 rounded-xl bg-[#3b0080]/10 flex items-center justify-center text-[#3b0080] shrink-0">
-              <Sparkles className="w-4 h-4" />
-            </div>
-            <div className="min-w-0">
-              <p className="text-xs font-bold text-slate-800">Unsure about terrace landing or weight limits?</p>
-              <p className="text-[11px] text-slate-500">DGCA guidelines require 3×3m clear terrace & max 5kg payload.</p>
-            </div>
+        <div className="mb-4 bg-white border border-zinc-200 rounded-xl px-3.5 py-2 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 shadow-2xs min-w-0 w-full text-xs">
+          <div className="flex items-center gap-2 min-w-0">
+            <Sparkles className="w-3.5 h-3.5 text-zinc-700 shrink-0" />
+            <p className="text-zinc-600 truncate text-[11px] sm:text-xs">
+              <strong className="text-zinc-900 font-semibold">DGCA Guideline:</strong> Requires 3×3m clear terrace & max 5kg payload.
+            </p>
           </div>
-          <div className="flex items-center gap-2 text-xs flex-wrap shrink-0">
+          <div className="flex items-center gap-1.5 shrink-0">
             <a
               href="/support?tab=expert"
               onClick={(e) => { e.preventDefault(); onNavigate('support'); window.history.pushState({}, '', '/support?tab=expert'); }}
-              className="px-2.5 py-1.5 bg-white border border-purple-200 hover:border-[#3b0080] text-[#3b0080] font-semibold rounded-lg shadow-xs hover:bg-purple-50 transition-all flex items-center gap-1 shrink-0"
+              className="px-2.5 py-1 bg-zinc-100 hover:bg-black hover:text-white border border-zinc-200 text-zinc-800 text-[11px] font-semibold rounded-lg transition-all shrink-0 cursor-pointer"
             >
               Talk to Expert
             </a>
             <a
               href="/support?tab=guide"
               onClick={(e) => { e.preventDefault(); onNavigate('support'); window.history.pushState({}, '', '/support?tab=guide'); }}
-              className="px-2.5 py-1.5 bg-white border border-slate-200 hover:border-slate-400 text-slate-700 font-medium rounded-lg shadow-xs hover:bg-slate-50 transition-all shrink-0"
+              className="px-2 py-1 bg-white hover:bg-zinc-100 border border-zinc-200 text-zinc-600 text-[11px] font-medium rounded-lg transition-all shrink-0 cursor-pointer"
             >
-              Customer Guide
-            </a>
-            <a
-              href="/support?tab=fix"
-              onClick={(e) => { e.preventDefault(); onNavigate('support'); window.history.pushState({}, '', '/support?tab=fix'); }}
-              className="px-2.5 py-1.5 bg-white border border-slate-200 hover:border-slate-400 text-slate-700 font-medium rounded-lg shadow-xs hover:bg-slate-50 transition-all hidden md:inline-flex shrink-0"
-            >
-              Fix & Troubleshoot Guide
+              Guide
             </a>
           </div>
         </div>
 
         {!currentUser && (
-          <div className="mb-6 flex items-center gap-3 bg-amber-50 border border-amber-200 rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 min-w-0 w-full">
-            <p className="text-xs sm:text-sm text-amber-700 flex-1">Please sign in with your phone OTP to place a delivery order</p>
-            <button onClick={onOpenAuth} className="text-xs sm:text-sm font-bold text-[#3b0080] hover:underline shrink-0">Sign In Now →</button>
+          <div className="mb-4 flex items-center gap-2.5 bg-amber-50 border border-amber-200 rounded-xl px-3.5 py-2.5 min-w-0 w-full text-xs">
+            <p className="text-amber-800 flex-1">Please sign in with your phone OTP to place a delivery order</p>
+            <button onClick={onOpenAuth} className="font-bold text-zinc-900 hover:underline shrink-0">Sign In →</button>
           </div>
         )}
 
         <form onSubmit={handlePayAndOrder} className="w-full min-w-0">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 min-w-0 w-full">
-            {/* Left Column */}
-            <div className="space-y-5 min-w-0 w-full">
-              <div className="bg-white border border-[#e2e8f0] rounded-2xl p-4 sm:p-6 shadow-sm min-w-0 w-full overflow-hidden">
-                <div className="flex flex-wrap items-start sm:items-center justify-between gap-2 mb-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 min-w-0 w-full items-start">
+            {/* Left Column (7 cols) */}
+            <div className="lg:col-span-7 space-y-3.5 min-w-0 w-full">
+              <div className="bg-white border border-zinc-200 rounded-xl p-3.5 sm:p-4 shadow-2xs min-w-0 w-full overflow-hidden">
+                <div className="flex items-center justify-between gap-2 mb-3">
                   <div className="min-w-0">
-                    <h2 className="text-base font-bold text-[#171222]">Aerial Transit Route</h2>
-                    <p className="text-xs text-slate-400">Autonomous Point-to-Point UAV Flight Corridor</p>
+                    <h2 className="text-sm sm:text-base font-bold text-zinc-900">Aerial Transit Route</h2>
+                    <p className="text-[11px] text-zinc-400">Autonomous Point-to-Point UAV Flight Corridor</p>
                   </div>
-                  <div className="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 border border-emerald-200 rounded-full text-[11px] font-bold text-emerald-700 shadow-2xs shrink-0">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <div className="flex items-center gap-1.5 px-2 py-0.5 bg-emerald-50 border border-emerald-200 rounded-full text-[10px] font-bold text-emerald-700 shrink-0">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>DGCA Green Zone</span>
                   </div>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {/* ── TRANSIT ROUTE CONTAINER (CONNECTED PICKUP & DROP) ── */}
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     {/* PICKUP POINT (DEPARTURE) */}
                     <div className="relative" ref={pickupRef}>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block shadow-xs"></span>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="text-[10.5px] font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block shadow-xs"></span>
                           <span>Pickup Point (Departure Hub)</span>
                         </label>
                         <button
                           type="button"
                           onClick={handleDetectCurrentLocation}
                           disabled={isLocating}
-                          className="text-[11px] font-bold text-[#3b0080] hover:text-[#280058] flex items-center gap-1.5 cursor-pointer bg-purple-50 hover:bg-purple-100 border border-purple-200/80 px-2.5 py-1 rounded-lg transition-colors shadow-2xs">
-                          {isLocating ? <Loader2 className="w-3 h-3 animate-spin" /> : <Navigation className="w-3 h-3 text-[#3b0080]" />}
+                          className="text-[10px] font-bold text-zinc-900 hover:text-black flex items-center gap-1 cursor-pointer bg-zinc-100 hover:bg-zinc-200/80 border border-zinc-200 px-2 py-0.5 rounded-md transition-colors shadow-2xs">
+                          {isLocating ? <Loader2 className="w-2.5 h-2.5 animate-spin" /> : <Navigation className="w-2.5 h-2.5 text-zinc-900" />}
                           <span>{isLocating ? 'Locating...' : 'GPS Auto-Detect'}</span>
                         </button>
                       </div>
 
                       <div className="relative min-w-0 w-full">
-                        <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-600 shrink-0" />
+                        <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-emerald-600 shrink-0" />
                         <input
                           value={pickup}
                           onFocus={() => { setActiveSearchField('pickup'); if (pickup.length >= 2) setShowPickupDropdown(true); }}
                           onChange={e => { setPickup(e.target.value); setSelectedPickupAddressId(null); setActiveSearchField('pickup'); }}
                           required
                           placeholder="Search departure address, hub or society..."
-                          className="w-full min-w-0 pl-10 pr-4 py-3 border border-slate-200 focus:border-emerald-500 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-100 transition-all bg-white"
+                          className="w-full min-w-0 pl-8 pr-3 py-2 border border-zinc-250 focus:border-black rounded-lg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black/5 transition-all bg-white"
                         />
                       </div>
 
                       {/* Autocomplete Suggestions Dropdown */}
                       {showPickupDropdown && pickupSuggestions.length > 0 && (
-                        <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl z-30 overflow-hidden max-h-56 overflow-y-auto">
-                          <div className="p-2 bg-slate-50 border-b border-slate-100 text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                            <Sparkles className="w-3 h-3 text-[#3b0080]" />
+                        <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-zinc-200 rounded-xl shadow-xl z-30 overflow-hidden max-h-56 overflow-y-auto">
+                          <div className="p-2 bg-zinc-50 border-b border-zinc-100 text-[10px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <Sparkles className="w-3 h-3 text-zinc-900" />
                             <span>Location Suggestions</span>
                           </div>
                           {pickupSuggestions.map((item, idx) => (
@@ -732,11 +722,11 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                                 setSelectedPickupAddressId(null);
                                 setShowPickupDropdown(false);
                               }}
-                              className="w-full text-left px-3.5 py-2.5 hover:bg-emerald-50 transition-colors border-b border-slate-50 last:border-0 flex items-start gap-2.5 cursor-pointer">
-                              <MapPin className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                              className="w-full text-left px-3 py-2 hover:bg-emerald-50 transition-colors border-b border-zinc-50 last:border-0 flex items-start gap-2 cursor-pointer">
+                              <MapPin className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                               <div className="flex-1 min-w-0">
-                                <p className="text-xs font-bold text-[#171222] truncate">{item.short_name || item.name || item.display_name.split(',')[0]}</p>
-                                <p className="text-[11px] text-slate-400 truncate">{item.display_name || item.type}</p>
+                                <p className="text-xs font-bold text-zinc-900 truncate">{item.short_name || item.name || item.display_name.split(',')[0]}</p>
+                                <p className="text-[10px] text-zinc-400 truncate">{item.display_name || item.type}</p>
                               </div>
                             </button>
                           ))}
@@ -744,8 +734,8 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                       )}
 
                       {/* Quick Pickup Selector Pills */}
-                      <div className="flex items-center gap-1.5 flex-wrap mt-2">
-                        <span className="text-[11px] font-bold text-slate-400 mr-0.5">Saved Places:</span>
+                      <div className="flex items-center gap-1.5 flex-wrap mt-1.5">
+                        <span className="text-[10px] font-bold text-zinc-400 mr-0.5">Saved Places:</span>
                         {savedAddresses.map((addr) => {
                           const isSelected = selectedPickupAddressId === addr.id || (Boolean(pickup) && Boolean(addr.full_address) && pickup.includes(addr.full_address));
                           return (
@@ -753,10 +743,10 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                               key={addr.id}
                               type="button"
                               onClick={() => handleApplyAddress(addr, 'pickup')}
-                              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                              className={`px-2 py-0.5 rounded-md text-[11px] font-bold transition-all flex items-center gap-1 cursor-pointer ${
                                 isSelected
-                                  ? 'bg-emerald-600 text-white shadow-xs ring-2 ring-emerald-200'
-                                  : 'bg-slate-50 hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 border border-slate-200 hover:border-emerald-200'
+                                  ? 'bg-emerald-600 text-white shadow-xs ring-1 ring-emerald-200'
+                                  : 'bg-zinc-50 hover:bg-emerald-50 text-zinc-700 hover:text-emerald-700 border border-zinc-200 hover:border-emerald-200'
                               }`}>
                               {addr.label === 'Home' && <Home className="w-3 h-3" />}
                               {addr.label === 'Work' && <Building2 className="w-3 h-3" />}
@@ -777,10 +767,10 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                             setPickupCoords({ lat: 28.6280, lng: 77.3649 });
                             setSelectedPickupAddressId(null);
                           }}
-                          className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
+                          className={`px-2 py-0.5 rounded-md text-[11px] font-bold transition-all flex items-center gap-1 cursor-pointer ${
                             pickup.includes('Sector 62')
-                              ? 'bg-emerald-600 text-white shadow-xs ring-2 ring-emerald-200'
-                              : 'bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200'
+                              ? 'bg-emerald-600 text-white shadow-xs ring-1 ring-emerald-200'
+                              : 'bg-zinc-50 hover:bg-zinc-100 text-zinc-600 border border-zinc-200'
                           }`}>
                           <span>Noida Sec 62</span>
                         </button>
@@ -788,53 +778,53 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                     </div>
 
                     {/* ROUTE DIVIDER WITH SWAP BUTTON */}
-                    <div className="relative flex items-center justify-center my-2">
+                    <div className="relative flex items-center justify-center my-1">
                       <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-dashed border-slate-200"></div>
+                        <div className="w-full border-t border-dashed border-zinc-200"></div>
                       </div>
                       <button
                         type="button"
                         onClick={handleSwapRoute}
                         title="Swap Departure and Destination"
-                        className="relative z-10 px-4 py-1.5 bg-white hover:bg-purple-50 border border-slate-200 hover:border-purple-300 text-slate-700 hover:text-[#3b0080] rounded-full text-xs font-bold shadow-2xs flex items-center gap-1.5 transition-all cursor-pointer">
-                        <ArrowUpDown className="w-3.5 h-3.5 text-[#3b0080]" />
+                        className="relative z-10 px-3 py-1 bg-white hover:bg-zinc-100 border border-zinc-200 hover:border-zinc-300 text-zinc-700 hover:text-black rounded-full text-[10.5px] font-bold shadow-2xs flex items-center gap-1 transition-all cursor-pointer">
+                        <ArrowUpDown className="w-3 h-3 text-zinc-800" />
                         <span>Swap Direction</span>
                       </button>
                     </div>
 
                     {/* DROP DESTINATION (DELIVERY) */}
                     <div className="relative" ref={dropRef}>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <label className="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                          <span className="w-2.5 h-2.5 rounded-full bg-purple-600 inline-block shadow-xs"></span>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="text-[10.5px] font-bold text-zinc-500 uppercase tracking-wider flex items-center gap-1.5">
+                          <span className="w-2 h-2 rounded-full bg-zinc-900 inline-block shadow-xs"></span>
                           <span>Drop Destination (Delivery Zone)</span>
                         </label>
                         <button
                           type="button"
                           onClick={() => { onNavigate('profile'); window.history.pushState({}, '', '/profile'); }}
-                          className="text-[11px] font-bold text-[#3b0080] hover:text-[#280058] flex items-center gap-1 hover:underline cursor-pointer shrink-0">
-                          <span>Manage Addresses</span>
-                          <ExternalLink className="w-3 h-3" />
+                          className="text-[10.5px] font-bold text-zinc-800 hover:text-black flex items-center gap-1 hover:underline cursor-pointer shrink-0">
+                          <span>Manage</span>
+                          <ExternalLink className="w-2.5 h-2.5" />
                         </button>
                       </div>
 
                       <div className="relative min-w-0 w-full">
-                        <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-purple-600 shrink-0" />
+                        <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-700 shrink-0" />
                         <input
                           value={drop}
                           onFocus={() => { setActiveSearchField('drop'); if (drop.length >= 2) setShowDropDropdown(true); }}
                           onChange={e => { setDrop(e.target.value); setSelectedAddressId(null); setActiveSearchField('drop'); }}
                           required
                           placeholder="Search delivery address, building or landmark..."
-                          className="w-full min-w-0 pl-10 pr-4 py-3 border border-slate-200 focus:border-[#3b0080] rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-purple-100 transition-all bg-white"
+                          className="w-full min-w-0 pl-8 pr-3 py-2 border border-zinc-250 focus:border-black rounded-lg text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-black/5 transition-all bg-white"
                         />
                       </div>
 
                       {/* Autocomplete Suggestions Dropdown */}
                       {showDropDropdown && dropSuggestions.length > 0 && (
-                        <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl z-30 overflow-hidden max-h-56 overflow-y-auto">
-                          <div className="p-2 bg-slate-50 border-b border-slate-100 text-[11px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                            <Sparkles className="w-3 h-3 text-[#3b0080]" />
+                        <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-zinc-200 rounded-xl shadow-xl z-30 overflow-hidden max-h-56 overflow-y-auto">
+                          <div className="p-2 bg-zinc-50 border-b border-zinc-100 text-[10px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <Sparkles className="w-3 h-3 text-zinc-900" />
                             <span>Location Suggestions</span>
                           </div>
                           {dropSuggestions.map((item, idx) => (
@@ -847,11 +837,11 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                                 setSelectedAddressId(null);
                                 setShowDropDropdown(false);
                               }}
-                              className="w-full text-left px-3.5 py-2.5 hover:bg-purple-50 transition-colors border-b border-slate-50 last:border-0 flex items-start gap-2.5 cursor-pointer">
-                              <MapPin className="w-4 h-4 text-purple-600 shrink-0 mt-0.5" />
+                              className="w-full text-left px-3 py-2 hover:bg-zinc-100 transition-colors border-b border-zinc-50 last:border-0 flex items-start gap-2 cursor-pointer">
+                              <MapPin className="w-3.5 h-3.5 text-zinc-700 shrink-0 mt-0.5" />
                               <div className="flex-1 min-w-0">
-                                <p className="text-xs font-bold text-[#171222] truncate">{item.short_name || item.name || item.display_name.split(',')[0]}</p>
-                                <p className="text-[11px] text-slate-400 truncate">{item.display_name || item.type}</p>
+                                <p className="text-xs font-bold text-zinc-900 truncate">{item.short_name || item.name || item.display_name.split(',')[0]}</p>
+                                <p className="text-[10px] text-zinc-400 truncate">{item.display_name || item.type}</p>
                               </div>
                             </button>
                           ))}
@@ -859,8 +849,8 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                       )}
 
                       {/* Quick Drop Selector: Row 1 Saved Places */}
-                      <div className="flex items-center gap-1.5 flex-wrap mt-2">
-                        <span className="text-[11px] font-bold text-slate-400 mr-0.5">Saved Places:</span>
+                      <div className="flex items-center gap-1.5 flex-wrap mt-1.5">
+                        <span className="text-[10px] font-bold text-zinc-400 mr-0.5">Saved Places:</span>
                         {savedAddresses.map((addr) => {
                           const isSelected = selectedAddressId === addr.id || (Boolean(drop) && Boolean(addr.full_address) && drop.includes(addr.full_address));
                           return (
@@ -868,10 +858,10 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                               key={addr.id}
                               type="button"
                               onClick={() => handleApplyAddress(addr, 'drop')}
-                              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                              className={`px-2 py-0.5 rounded-md text-[11px] font-bold transition-all flex items-center gap-1 cursor-pointer ${
                                 isSelected
-                                  ? 'bg-[#3b0080] text-white shadow-xs ring-2 ring-purple-200'
-                                  : 'bg-slate-50 hover:bg-purple-50 text-slate-700 hover:text-[#3b0080] border border-slate-200 hover:border-purple-200'
+                                  ? 'bg-black text-white shadow-xs ring-1 ring-zinc-300'
+                                  : 'bg-zinc-50 hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 border border-zinc-200'
                               }`}>
                               {addr.label === 'Home' && <Home className="w-3 h-3" />}
                               {addr.label === 'Work' && <Building2 className="w-3 h-3" />}
@@ -886,8 +876,8 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                       </div>
 
                       {/* Quick Drop Selector: Row 2 NCR Verified Hubs */}
-                      <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 mt-1.5 -mx-1 px-1 w-full max-w-full min-w-0">
-                        <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 mr-0.5 shrink-0">NCR Hubs:</span>
+                      <div className="flex items-center gap-1 overflow-x-auto no-scrollbar py-1 mt-1 -mx-1 px-1 w-full max-w-full min-w-0">
+                        <span className="text-[10px] font-bold text-zinc-400 mr-0.5 shrink-0">NCR Hubs:</span>
                         {POPULAR_HUBS.map((hub, i) => (
                           <button
                             key={i}
@@ -897,10 +887,10 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                               setDropCoords({ lat: hub.lat, lng: hub.lng });
                               setSelectedAddressId(null);
                             }}
-                            className={`shrink-0 text-[10px] sm:text-[11px] font-medium px-2 py-0.5 rounded-lg transition-all cursor-pointer border whitespace-nowrap ${
+                            className={`shrink-0 text-[10px] font-medium px-2 py-0.5 rounded-md transition-all cursor-pointer border whitespace-nowrap ${
                               drop.includes(hub.short) || drop === hub.name
-                                ? 'bg-purple-100 text-[#3b0080] border-purple-300 font-bold'
-                                : 'bg-slate-50 hover:bg-purple-50/60 text-slate-600 hover:text-[#3b0080] border-slate-200'
+                                ? 'bg-zinc-900 text-white border-zinc-900 font-bold'
+                                : 'bg-zinc-50 hover:bg-zinc-100 text-zinc-600 hover:text-zinc-900 border-zinc-200'
                             }`}
                             title={hub.name}>
                             <span>{hub.short}</span>
@@ -910,23 +900,28 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                     </div>
 
                     {/* ── 3-METRIC AVIATION TELEMETRY HUB ───────────────────────────── */}
-                    <div className="bg-gradient-to-br from-purple-50/60 via-white to-emerald-50/40 border border-purple-100/90 rounded-2xl p-2.5 sm:p-4 shadow-xs mt-3 min-w-0 w-full overflow-hidden">
+                    <div className="bg-zinc-950 text-white border border-zinc-800 rounded-xl p-2.5 sm:p-3 shadow-md mt-2.5 min-w-0 w-full overflow-hidden relative">
+                      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-zinc-800 via-zinc-400 to-zinc-800"></div>
+
                       {/* Top Metric Strip */}
-                      <div className="grid grid-cols-3 gap-1 sm:gap-2 divide-x divide-slate-200/80 text-center pb-2 sm:pb-3">
-                        <div className="px-0.5 sm:px-1 min-w-0">
-                          <span className="text-[8.5px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5 truncate">Air Distance</span>
-                          <span className="text-[11px] sm:text-lg font-black text-[#171222] font-mono leading-none block truncate">~{aerialDistKm} km</span>
-                          <span className="text-[8.5px] sm:text-[10px] text-slate-500 font-medium block mt-1 truncate">Geodesic</span>
+                      <div className="grid grid-cols-3 gap-1 divide-x divide-zinc-800 text-center pb-2">
+                        <div className="px-1 min-w-0">
+                          <span className="text-[9px] font-bold uppercase tracking-wider text-zinc-400 block mb-0.5 truncate">Air Distance</span>
+                          <span className="text-xs sm:text-base font-black text-white font-mono leading-none block truncate">~{aerialDistKm} km</span>
+                          <span className="text-[8.5px] text-zinc-400 font-mono block mt-0.5 truncate">Geodesic</span>
                         </div>
-                        <div className="px-0.5 sm:px-1 min-w-0">
-                          <span className="text-[8.5px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5 truncate">Flight ETA</span>
-                          <span className="text-[11px] sm:text-lg font-black text-[#3b0080] font-mono leading-none block truncate">~{flightMins} mins</span>
-                          <span className="text-[8.5px] sm:text-[10px] text-purple-600 font-medium block mt-1 truncate">Cruise 65 km/h</span>
+                        <div className="px-1 min-w-0">
+                          <span className="text-[9px] font-bold uppercase tracking-wider text-zinc-400 block mb-0.5 truncate">Flight ETA</span>
+                          <span className="text-xs sm:text-base font-black text-white font-mono leading-none block truncate">~{flightMins} mins</span>
+                          <span className="text-[8.5px] text-zinc-400 font-mono block mt-0.5 truncate">65 km/h</span>
                         </div>
-                        <div className="px-0.5 sm:px-1 min-w-0">
-                          <span className="text-[8.5px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5 truncate">Airspace</span>
-                          <span className="text-[11px] sm:text-lg font-black text-emerald-600 font-mono leading-none block truncate">Green Zone</span>
-                          <span className="text-[8.5px] sm:text-[10px] text-emerald-700 font-medium block mt-1 truncate">&lt;120m AGL</span>
+                        <div className="px-1 min-w-0">
+                          <span className="text-[9px] font-bold uppercase tracking-wider text-zinc-400 block mb-0.5 truncate">Airspace</span>
+                          <div className="flex items-center justify-center gap-1 mt-0.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span className="text-[11px] sm:text-sm font-black text-emerald-400 font-mono leading-none block truncate">Green Zone</span>
+                          </div>
+                          <span className="text-[8.5px] text-emerald-400/90 font-mono block mt-0.5 truncate">&lt;120m AGL</span>
                         </div>
                       </div>
 
@@ -934,34 +929,34 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                       <button
                         type="button"
                         onClick={() => setShowCalcExplainer(!showCalcExplainer)}
-                        className="w-full pt-2.5 border-t border-purple-100/70 flex items-center justify-between text-[11px] font-bold text-[#3b0080] hover:text-[#280058] transition-colors cursor-pointer">
-                        <span className="flex items-center gap-1.5">
-                          <Info className="w-3.5 h-3.5 text-[#3b0080]" />
-                          <span>How are KM, ETA & Green Zone calculated?</span>
+                        className="w-full pt-1.5 border-t border-zinc-800/80 flex items-center justify-between text-[10px] font-semibold text-zinc-300 hover:text-white transition-colors cursor-pointer">
+                        <span className="flex items-center gap-1">
+                          <Info className="w-3 h-3 text-zinc-400" />
+                          <span>Calculation breakdown (Haversine & ETA)</span>
                         </span>
-                        {showCalcExplainer ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                        {showCalcExplainer ? <ChevronUp className="w-3 h-3 text-zinc-400" /> : <ChevronDown className="w-3 h-3 text-zinc-400" />}
                       </button>
 
                       {/* Expandable Breakdown Drawer */}
                       {showCalcExplainer && (
-                        <div className="mt-3 pt-3 border-t border-purple-100/70 text-xs text-slate-600 space-y-2 animate-in fade-in slide-in-from-top-1">
-                          <div className="p-3 bg-white/90 rounded-xl border border-purple-100 space-y-2 shadow-2xs">
-                            <div className="flex items-start gap-2">
-                              <span className="font-bold text-[#3b0080] shrink-0 text-xs">📏 Air Distance (~{aerialDistKm} km):</span>
-                              <span className="text-[11px] leading-relaxed text-slate-600">
-                                Calculated using the <strong>Haversine Geodesic GPS formula</strong> directly connecting Pickup & Drop coordinates. Drones fly in an unobstructed 3D straight-line vector, bypassing traffic jams, winding roads and red lights.
+                        <div className="mt-2 pt-2 border-t border-zinc-800/80 text-[11px] text-zinc-300 space-y-1.5 animate-in fade-in slide-in-from-top-1">
+                          <div className="p-2.5 bg-zinc-900/90 rounded-lg border border-zinc-800 space-y-1.5 shadow-sm">
+                            <div className="flex items-start gap-1.5">
+                              <span className="font-bold text-white shrink-0">📏 Distance:</span>
+                              <span className="text-[10.5px] leading-relaxed text-zinc-300">
+                                <strong>Haversine Geodesic GPS vector</strong> directly connecting coordinates.
                               </span>
                             </div>
-                            <div className="flex items-start gap-2">
-                              <span className="font-bold text-[#3b0080] shrink-0 text-xs">⏱️ Flight ETA (~{flightMins} mins):</span>
-                              <span className="text-[11px] leading-relaxed text-slate-600">
-                                Calculated as <strong>(Distance ÷ 65 km/h UAV cruise speed) × 60 mins + 4 mins</strong> buffer (vertical takeoff, climb to 90m cruise altitude, descent and precision winch tether drop).
+                            <div className="flex items-start gap-1.5">
+                              <span className="font-bold text-white shrink-0">⏱️ Flight ETA:</span>
+                              <span className="text-[10.5px] leading-relaxed text-zinc-300">
+                                (Distance ÷ 65 km/h cruise) + 4 min buffer (vertical climb, approach & tether drop).
                               </span>
                             </div>
-                            <div className="flex items-start gap-2">
-                              <span className="font-bold text-emerald-700 shrink-0 text-xs">🟢 DGCA Green Zone:</span>
-                              <span className="text-[11px] leading-relaxed text-slate-600">
-                                Under India's Ministry of Civil Aviation DigitalSky rules, airspace up to <strong>120 meters (400 ft) AGL</strong> outside airport perimeters is designated <strong>Green Zone</strong> — meaning autonomous civilian delivery flights require <strong>zero prior ATC permissions</strong>.
+                            <div className="flex items-start gap-1.5">
+                              <span className="font-bold text-emerald-400 shrink-0">🟢 Green Zone:</span>
+                              <span className="text-[10.5px] leading-relaxed text-zinc-300">
+                                DigitalSky &lt;120m (400ft) AGL corridor requiring zero prior ATC permissions.
                               </span>
                             </div>
                           </div>
@@ -971,82 +966,82 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                   </div>
 
                   {/* 2. Order for Someone Else / New Recipient Address Section */}
-                  <div className="pt-4 border-t border-slate-100 min-w-0 w-full">
+                  <div className="pt-2.5 border-t border-zinc-100 min-w-0 w-full">
                     <div 
                       onClick={() => setIsOrderingForSomeoneElse(!isOrderingForSomeoneElse)}
-                      className="flex items-center justify-between cursor-pointer p-3 sm:p-3.5 rounded-xl bg-slate-50 hover:bg-purple-50/60 border border-slate-200 transition-all min-w-0">
-                      <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 pr-2">
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
-                          isOrderingForSomeoneElse ? 'bg-[#3b0080] text-white' : 'bg-slate-200 text-slate-600'
+                      className="flex items-center justify-between cursor-pointer p-2 sm:p-2.5 rounded-lg bg-zinc-50 hover:bg-zinc-100 border border-zinc-200 transition-all min-w-0">
+                      <div className="flex items-center gap-2 min-w-0 pr-2">
+                        <div className={`w-6 h-6 rounded-md flex items-center justify-center shrink-0 transition-colors ${
+                          isOrderingForSomeoneElse ? 'bg-black text-white' : 'bg-zinc-200 text-zinc-600'
                         }`}>
-                          <UserPlus className="w-4 h-4" />
+                          <UserPlus className="w-3.5 h-3.5" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-xs font-bold text-[#171222]">Deliver to someone else?</p>
-                          <p className="text-[10px] sm:text-[11px] text-slate-500 truncate sm:whitespace-normal">Send package to a friend, client, family or alternate drop recipient</p>
+                          <p className="text-xs font-bold text-zinc-900">Deliver to someone else?</p>
+                          <p className="text-[10px] text-zinc-500 truncate">Send to a friend, client or alternate recipient</p>
                         </div>
                       </div>
                       <input
                         type="checkbox"
                         checked={isOrderingForSomeoneElse}
                         onChange={(e) => setIsOrderingForSomeoneElse(e.target.checked)}
-                        className="w-4 h-4 text-[#3b0080] rounded accent-[#3b0080] cursor-pointer shrink-0"
+                        className="w-3.5 h-3.5 text-zinc-900 rounded accent-black cursor-pointer shrink-0"
                       />
                     </div>
 
                     {isOrderingForSomeoneElse && (
-                      <div className="mt-3 p-4 bg-purple-50/40 border border-purple-200 rounded-xl space-y-3 animate-in fade-in slide-in-from-top-2">
-                        <div className="flex items-center gap-2 text-xs font-bold text-[#3b0080]">
-                          <HeartHandshake className="w-4 h-4" />
-                          <span>Recipient Contact Details (For SMS Alert on UAV Landing)</span>
+                      <div className="mt-2 p-3 bg-zinc-50 border border-zinc-200 rounded-lg space-y-2 animate-in fade-in slide-in-from-top-1 text-xs">
+                        <div className="flex items-center gap-1.5 font-bold text-zinc-900">
+                          <HeartHandshake className="w-3.5 h-3.5" />
+                          <span>Recipient Contact (For SMS Alert on UAV Landing)</span>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                              Recipient Full Name *
+                            <label className="block text-[10px] font-bold text-zinc-500 uppercase tracking-wider mb-0.5">
+                              Recipient Name *
                             </label>
                             <div className="relative">
-                              <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                              <User className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-400" />
                               <input
                                 value={recipientName}
                                 onChange={e => setRecipientName(e.target.value)}
                                 required={isOrderingForSomeoneElse}
                                 placeholder="e.g. Rahul Sharma"
-                                className="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100"
+                                className="w-full pl-8 pr-2.5 py-1.5 bg-white border border-zinc-200 rounded-md text-xs focus:outline-none focus:border-black"
                               />
                             </div>
                           </div>
 
                           <div>
-                            <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                              Recipient Mobile Phone *
+                            <label className="block text-[10px] font-bold text-zinc-500 uppercase tracking-wider mb-0.5">
+                              Recipient Phone *
                             </label>
                             <div className="relative">
-                              <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                              <Phone className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-400" />
                               <input
                                 value={recipientPhone}
                                 onChange={e => setRecipientPhone(e.target.value)}
                                 required={isOrderingForSomeoneElse}
-                                placeholder="10-digit mobile (e.g. 9876543210)"
-                                className="w-full pl-9 pr-3 py-2.5 bg-white border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100"
+                                placeholder="10-digit mobile"
+                                className="w-full pl-8 pr-2.5 py-1.5 bg-white border border-zinc-200 rounded-md text-xs focus:outline-none focus:border-black"
                               />
                             </div>
                           </div>
                         </div>
 
                         <div>
-                          <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                            Delivery Notes / Drop Zone Instructions (Optional)
+                          <label className="block text-[10px] font-bold text-zinc-500 uppercase tracking-wider mb-0.5">
+                            Drop Zone Instructions (Optional)
                           </label>
                           <div className="relative">
-                            <MessageSquare className="absolute left-3 top-3 w-4 h-4 text-slate-400" />
+                            <MessageSquare className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-zinc-400" />
                             <textarea
                               value={deliveryNotes}
                               onChange={e => setDeliveryNotes(e.target.value)}
-                              rows={2}
-                              placeholder="e.g. Leave package with Gate 2 security or land at terrace helipad spot"
-                              className="w-full pl-9 pr-3 py-2 bg-white border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 resize-none"
+                              rows={1}
+                              placeholder="e.g. Leave with Gate 2 security or terrace helipad spot"
+                              className="w-full pl-8 pr-2.5 py-1.5 bg-white border border-zinc-200 rounded-md text-xs focus:outline-none focus:border-black resize-none"
                             />
                           </div>
                         </div>
@@ -1056,49 +1051,62 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                 </div>
               </div>
 
-              <div className="bg-white border border-[#e2e8f0] rounded-2xl p-4 sm:p-6 shadow-sm min-w-0 w-full overflow-hidden">
-                <h2 className="text-base font-bold text-[#171222] mb-4">Package Specifications</h2>
-                <div className="space-y-4 min-w-0">
-                  <select
-                    value={packageType}
-                    onChange={e => setPackageType(e.target.value)}
-                    required
-                    className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 bg-white min-w-0">
-                    {PACKAGE_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
-                  </select>
-                  <div className="relative min-w-0">
-                    <Scale className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 shrink-0" />
-                    <input
-                      type="number"
-                      step="0.1"
-                      min="0.1"
-                      max="5"
-                      value={weight}
-                      onChange={e => setWeight(e.target.value)}
-                      required
-                      placeholder="Weight in kg (max 5 kg)"
-                      className="w-full min-w-0 pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100"
-                    />
+              {/* Package Specifications Card - Compact Side-by-Side */}
+              <div className="bg-white border border-zinc-200 rounded-xl p-3.5 sm:p-4 shadow-2xs min-w-0 w-full overflow-hidden">
+                <h2 className="text-sm sm:text-base font-bold text-zinc-900 mb-2.5">Package Specifications</h2>
+                <div className="space-y-2 min-w-0">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div className="relative min-w-0">
+                      <select
+                        value={packageType}
+                        onChange={e => setPackageType(e.target.value)}
+                        required
+                        className="w-full appearance-none px-3 py-2 pr-8 border border-zinc-300 rounded-lg text-xs sm:text-sm font-semibold text-zinc-900 bg-white focus:outline-none focus:border-black focus:ring-2 focus:ring-black/5 cursor-pointer shadow-2xs">
+                        {PACKAGE_TYPES.map(t => (
+                          <option key={t} value={t} className="bg-white text-zinc-900 font-medium py-1">
+                            {t}
+                          </option>
+                        ))}
+                      </select>
+                      <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-500" />
+                    </div>
+                    <div className="relative min-w-0">
+                      <Scale className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-400 shrink-0" />
+                      <input
+                        type="number"
+                        step="0.1"
+                        min="0.1"
+                        max="5"
+                        value={weight}
+                        onChange={e => setWeight(e.target.value)}
+                        required
+                        placeholder="Weight (max 5 kg)"
+                        className="w-full min-w-0 pl-8 pr-3 py-2 border border-zinc-300 rounded-lg text-xs sm:text-sm font-semibold text-zinc-900 bg-white placeholder-zinc-400 focus:outline-none focus:border-black focus:ring-2 focus:ring-black/5 shadow-2xs"
+                      />
+                    </div>
                   </div>
-                  <p className="text-xs text-slate-400">
-                    Standard payload allowance: up to 5kg per flight via Cyberone UAV.
+                  <p className="text-[11px] text-zinc-500 flex items-center gap-1.5">
+                    <Check className="w-3 h-3 text-emerald-600 shrink-0" />
+                    <span>Payload allowance: up to 5kg per flight via Cyberone UAV.</span>
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Right Column */}
-            <div className="space-y-5 min-w-0 w-full">
-              <div className="bg-white border border-[#e2e8f0] rounded-2xl p-4 sm:p-6 shadow-sm min-w-0 w-full overflow-hidden">
-                <h2 className="text-base font-bold text-[#171222] mb-4">Dispatch Schedule</h2>
-                <div className="flex gap-2 sm:gap-3 mb-4 min-w-0">
+            {/* Right Column (5 cols) */}
+            <div className="lg:col-span-5 space-y-3.5 min-w-0 w-full">
+              <div className="bg-white border border-zinc-200 rounded-xl p-3.5 sm:p-4 shadow-2xs min-w-0 w-full overflow-hidden">
+                <h2 className="text-sm sm:text-base font-bold text-zinc-900 mb-2">Dispatch Schedule</h2>
+                <div className="flex gap-1.5 p-1 bg-zinc-100 rounded-lg border border-zinc-200 mb-2.5 min-w-0">
                   {(['now', 'later'] as const).map(s => (
                     <button
                       key={s}
                       type="button"
                       onClick={() => setScheduleMode(s)}
-                      className={`flex-1 py-2.5 px-2 text-xs sm:text-sm font-semibold rounded-xl border transition-all text-center truncate ${
-                        scheduleMode === s ? 'border-[#3b0080] bg-purple-50 text-[#3b0080]' : 'border-slate-200 text-slate-500 hover:border-slate-300'
+                      className={`flex-1 py-1.5 px-2 text-xs font-bold rounded-md transition-all text-center truncate cursor-pointer ${
+                        scheduleMode === s
+                          ? 'bg-black text-white shadow-sm'
+                          : 'text-zinc-600 hover:text-black hover:bg-zinc-200/60'
                       }`}>
                       {s === 'now' ? '⚡ Instant Dispatch' : '🕐 Schedule Later'}
                     </button>
@@ -1106,88 +1114,88 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                 </div>
                 {scheduleMode === 'later' && (
                   <div className="relative min-w-0">
-                    <Clock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 shrink-0" />
+                    <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-400 shrink-0" />
                     <input
                       type="datetime-local"
                       value={scheduledTime}
                       onChange={e => setScheduledTime(e.target.value)}
                       required
-                      className="w-full min-w-0 pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100"
+                      className="w-full min-w-0 pl-8 pr-2.5 py-1.5 border border-zinc-300 rounded-md text-xs font-semibold text-zinc-900 bg-white focus:outline-none focus:border-black"
                     />
                   </div>
                 )}
               </div>
 
               {/* Pricing & Checkout Summary Card */}
-              <div className="bg-white border-2 border-purple-100 rounded-2xl p-4 sm:p-6 shadow-sm min-w-0 w-full overflow-hidden">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-base font-bold text-[#171222]">Fare Estimate</h2>
-                  <span className="text-xs font-bold text-[#3b0080] bg-purple-50 px-2.5 py-1 rounded-full flex items-center gap-1 shrink-0">
-                    <Zap className="w-3 h-3" /> Live Quote
+              <div className="bg-white border-2 border-zinc-250 rounded-xl p-3.5 sm:p-4 shadow-sm min-w-0 w-full overflow-hidden">
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-sm sm:text-base font-bold text-zinc-900">Fare Estimate</h2>
+                  <span className="text-[10.5px] font-bold text-white bg-black px-2 py-0.5 rounded-full flex items-center gap-1 shrink-0 font-mono">
+                    <Zap className="w-2.5 h-2.5 text-amber-400" /> Live Quote
                   </span>
                 </div>
 
-                <div className="space-y-2.5 text-xs text-slate-600 mb-5 min-w-0">
+                <div className="space-y-2 text-xs text-zinc-600 mb-3.5 min-w-0">
                   <div className="flex justify-between">
                     <span>Base Drone Dispatch Fee</span>
-                    <span className="font-semibold text-[#171222]">₹{baseFare}</span>
+                    <span className="font-semibold text-zinc-900 font-mono">₹{baseFare}</span>
                   </div>
                   {extraWeightFee > 0 && (
                     <div className="flex justify-between">
                       <span>Extra Payload Surcharge (+{(weightNum - 1).toFixed(1)}kg)</span>
-                      <span className="font-semibold text-[#171222]">₹{extraWeightFee}</span>
+                      <span className="font-semibold text-zinc-900 font-mono">₹{extraWeightFee}</span>
                     </div>
                   )}
                   <div className="flex justify-between">
                     <span>Airspace Navigation & Insurance</span>
-                    <span className="font-semibold text-green-600">INCLUDED</span>
+                    <span className="font-semibold text-emerald-600 font-mono text-[11px]">INCLUDED</span>
                   </div>
-                  <div className="border-t border-slate-100 pt-2.5 flex justify-between text-sm">
-                    <span className="font-bold text-[#171222]">Total Payable</span>
-                    <span className="font-bold text-xl text-[#3b0080]">₹{totalFare}</span>
+                  <div className="border-t border-zinc-200 pt-2.5 flex justify-between items-center text-sm">
+                    <span className="font-bold text-zinc-900">Total Payable</span>
+                    <span className="font-black text-xl text-zinc-950 font-mono">₹{totalFare}</span>
                   </div>
                 </div>
 
                 {/* Payment Mode Selector: Online vs Cash on Delivery */}
-                <div className="mb-5 min-w-0">
-                  <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-2">
+                <div className="mb-3.5 min-w-0">
+                  <label className="block text-[10px] font-bold text-zinc-500 uppercase tracking-wider mb-1.5">
                     Payment Method
                   </label>
                   <div className="grid grid-cols-2 gap-2 min-w-0">
                     <button
                       type="button"
                       onClick={() => setPaymentMethod('online')}
-                      className={`p-2.5 sm:p-3 rounded-xl border text-left transition-all min-w-0 ${
+                      className={`p-2.5 rounded-lg border text-left transition-all cursor-pointer min-w-0 ${
                         paymentMethod === 'online'
-                          ? 'border-[#3b0080] bg-purple-50/70 ring-2 ring-purple-100'
-                          : 'border-slate-200 hover:border-slate-300 bg-white'
+                          ? 'border-black bg-black text-white shadow-sm ring-1 ring-black'
+                          : 'border-zinc-200 hover:border-zinc-300 bg-white text-zinc-800'
                       }`}>
-                      <div className="flex items-center gap-1.5 font-bold text-xs text-[#171222]">
-                        <CreditCard className="w-3.5 h-3.5 text-[#3b0080] shrink-0" />
-                        <span className="truncate">Online UPI / Card</span>
+                      <div className="flex items-center gap-1.5 font-bold text-xs">
+                        <CreditCard className={`w-3.5 h-3.5 shrink-0 ${paymentMethod === 'online' ? 'text-white' : 'text-zinc-900'}`} />
+                        <span className="truncate">Online UPI/Card</span>
                       </div>
-                      <p className="text-[10px] text-slate-400 mt-0.5 truncate">Instant via Razorpay</p>
+                      <p className={`text-[10px] mt-0.5 truncate ${paymentMethod === 'online' ? 'text-zinc-400' : 'text-zinc-500'}`}>Razorpay Instant</p>
                     </button>
 
                     <button
                       type="button"
                       onClick={() => setPaymentMethod('cod')}
-                      className={`p-2.5 sm:p-3 rounded-xl border text-left transition-all min-w-0 ${
+                      className={`p-2.5 rounded-lg border text-left transition-all cursor-pointer min-w-0 ${
                         paymentMethod === 'cod'
-                          ? 'border-[#3b0080] bg-purple-50/70 ring-2 ring-purple-100'
-                          : 'border-slate-200 hover:border-slate-300 bg-white'
+                          ? 'border-black bg-black text-white shadow-sm ring-1 ring-black'
+                          : 'border-zinc-200 hover:border-zinc-300 bg-white text-zinc-800'
                       }`}>
-                      <div className="flex items-center gap-1.5 font-bold text-xs text-[#171222]">
-                        <Banknote className="w-3.5 h-3.5 text-green-600 shrink-0" />
+                      <div className="flex items-center gap-1.5 font-bold text-xs">
+                        <Banknote className={`w-3.5 h-3.5 shrink-0 ${paymentMethod === 'cod' ? 'text-emerald-400' : 'text-emerald-600'}`} />
                         <span className="truncate">Cash on Delivery</span>
                       </div>
-                      <p className="text-[10px] text-slate-400 mt-0.5 truncate">Pay on payload arrival</p>
+                      <p className={`text-[10px] mt-0.5 truncate ${paymentMethod === 'cod' ? 'text-zinc-400' : 'text-zinc-500'}`}>Pay on arrival</p>
                     </button>
                   </div>
                 </div>
 
                 {error && (
-                  <div className="mb-4 px-4 py-3 bg-red-50 border border-red-200 rounded-xl text-xs text-red-600">
+                  <div className="mb-3 px-3 py-2 bg-red-50 border border-red-200 rounded-lg text-xs text-red-600">
                     {error}
                   </div>
                 )}
@@ -1195,31 +1203,31 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-4 bg-[#3b0080] hover:bg-[#2d006b] text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2.5 disabled:opacity-70 text-base shadow-lg shadow-purple-900/15">
+                  className="w-full py-3 bg-black hover:bg-zinc-800 active:scale-[0.99] text-white font-bold rounded-lg transition-all flex items-center justify-center gap-2 disabled:opacity-70 text-sm sm:text-base shadow-md shadow-black/15 cursor-pointer">
                   {loading ? (
                     <>
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                      <span>{paymentMethod === 'cod' ? 'Confirming Dispatch...' : 'Initializing Secure Gateway...'}</span>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>{paymentMethod === 'cod' ? 'Confirming Dispatch...' : 'Opening Gateway...'}</span>
                     </>
                   ) : paymentMethod === 'cod' ? (
                     <>
-                      <Banknote className="w-5 h-5 text-amber-300" />
-                      <span>Confirm COD Dispatch (₹{totalFare})</span>
+                      <Banknote className="w-4 h-4 text-amber-300" />
+                      <span>Confirm COD (₹{totalFare})</span>
                     </>
                   ) : (
                     <>
-                      <CreditCard className="w-5 h-5" />
-                      <span>Pay ₹{totalFare} & Dispatch Drone</span>
+                      <CreditCard className="w-4 h-4" />
+                      <span>Pay ₹{totalFare} & Dispatch</span>
                     </>
                   )}
                 </button>
 
-                <div className="flex items-center justify-center gap-2 mt-3 text-[11px] text-slate-400">
-                  <ShieldCheck className="w-3.5 h-3.5 text-green-500" />
+                <div className="flex items-center justify-center gap-1.5 mt-2.5 text-[10.5px] text-zinc-500">
+                  <ShieldCheck className="w-3 h-3 text-emerald-600" />
                   <span>
                     {paymentMethod === 'cod' 
-                      ? 'Pay cash/UPI at destination drop zone upon arrival' 
-                      : 'Secured with Razorpay 256-Bit SSL Encryption'}
+                      ? 'Pay at destination drop zone upon arrival' 
+                      : 'Secured with 256-Bit SSL Encryption'}
                   </span>
                 </div>
               </div>

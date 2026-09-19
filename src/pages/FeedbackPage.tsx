@@ -177,20 +177,20 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
     : '0.0';
 
   return (
-    <div className="min-h-screen bg-[#f8fafc]">
+    <div className="min-h-screen bg-zinc-50">
       {/* ── HERO SECTION ────────────────────────────────────────────────────── */}
-      <section className="bg-[#1b0038] text-white pt-20 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-purple-600/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
+      <section className="bg-[#09090b] text-white pt-20 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-zinc-700/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-md flex items-center justify-center text-purple-200 mb-6 shadow-inner">
+              <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/15 backdrop-blur-md flex items-center justify-center text-zinc-300 mb-6 shadow-inner">
                 <MessageSquare className="w-6 h-6" />
               </div>
 
-              <div className="text-xs font-bold uppercase tracking-[0.2em] text-purple-300/90 mb-3">
+              <div className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-400 mb-3">
                 Verified Flight Reviews
               </div>
 
@@ -198,7 +198,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
                 Customer & Flight Feedback
               </h1>
 
-              <p className="text-base sm:text-lg text-purple-100/80 max-w-2xl leading-relaxed">
+              <p className="text-base sm:text-lg text-zinc-300 max-w-2xl leading-relaxed">
                 Real-time operational reviews, payload winch touchdown evaluations, and verified flight experiences from healthcare providers, enterprise partners, and retail deliveries across India.
               </p>
             </div>
@@ -211,25 +211,25 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
                     key={i}
                     className={`w-5 h-5 ${
                       feedbacks.length > 0 && i <= Math.round(Number(avgRating))
-                        ? 'fill-amber-400 text-amber-400'
+                        ? 'fill-zinc-900 text-zinc-900'
                         : 'text-white/25'
                     }`}
                   />
                 ))}
               </div>
               <div className="text-4xl font-extrabold text-white font-mono tracking-tight">
-                {feedbacks.length > 0 ? avgRating : '0.0'} <span className="text-xl text-purple-200 font-normal">/ 5.0</span>
+                {feedbacks.length > 0 ? avgRating : '0.0'} <span className="text-xl text-zinc-300 font-normal">/ 5.0</span>
               </div>
-              <p className="text-xs text-purple-200/90 mt-1 mb-4 font-medium">
+              <p className="text-xs text-zinc-300 mt-1 mb-4 font-medium">
                 {feedbacks.length > 0 
                   ? `Based on ${feedbacks.length} verified mission rating${feedbacks.length > 1 ? 's' : ''}`
                   : 'Live ratings stream when real orders complete'}
               </p>
               <button
                 onClick={() => { setShowForm(true); window.scrollTo({ top: 500, behavior: 'smooth' }); }}
-                className="w-full py-3 bg-white hover:bg-purple-50 text-[#3b0080] font-bold text-sm rounded-xl shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-3 bg-white hover:bg-zinc-100 text-zinc-900 font-bold text-sm rounded-xl shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Sparkles className="w-4 h-4 text-[#3b0080]" />
+                <Sparkles className="w-4 h-4 text-zinc-900" />
                 <span>Write a Flight Review</span>
               </button>
             </div>
@@ -242,7 +242,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div className="border-r border-slate-100 last:border-0">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-1">Customer Reviews</span>
-            <span className="text-2xl font-extrabold text-[#3b0080] font-mono">{feedbacks.length}</span>
+            <span className="text-2xl font-extrabold text-zinc-900 font-mono">{feedbacks.length}</span>
           </div>
           <div className="border-r border-slate-100 last:border-0">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-1">Average Star Rating</span>
@@ -258,7 +258,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
           </div>
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-1">Verified Order Deliveries</span>
-            <span className="text-2xl font-extrabold text-purple-700 font-mono">
+            <span className="text-2xl font-extrabold text-zinc-900 font-mono">
               {feedbacks.filter(f => f.verified_order || f.order_id).length}
             </span>
           </div>
@@ -270,10 +270,10 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
         
         {/* ── OPTIONAL INLINE SUBMISSION FORM ──────────────────────────────── */}
         {showForm && (
-          <div className="mb-12 bg-white rounded-2xl border-2 border-purple-200 shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-4 duration-200">
+          <div className="mb-12 bg-white rounded-2xl border-2 border-zinc-300 shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-4 duration-200">
             <div className="bg-[#fbf9fe] px-6 py-4 border-b border-slate-100 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#3b0080]/10 text-[#3b0080] flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-zinc-100 text-zinc-900 flex items-center justify-center">
                   <Star className="w-4 h-4" />
                 </div>
                 <div>
@@ -302,7 +302,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
                 </p>
                 <button
                   onClick={handleResetForm}
-                  className="px-6 py-2.5 bg-[#3b0080] hover:bg-[#280058] text-white text-xs font-bold rounded-xl shadow-md transition-all cursor-pointer"
+                  className="px-6 py-2.5 bg-black hover:bg-zinc-800 text-white text-xs font-bold rounded-xl shadow-md transition-all cursor-pointer"
                 >
                   View My Review
                 </button>
@@ -357,7 +357,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
                     <select
                       value={droneName}
                       onChange={e => setDroneName(e.target.value)}
-                      className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:border-[#3b0080] focus:bg-white transition-all"
+                      className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:border-black focus:bg-white transition-all"
                     >
                       {DRONE_OPTIONS.map(d => (
                         <option key={d} value={d}>{d}</option>
@@ -373,7 +373,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
                     <select
                       value={category}
                       onChange={e => setCategory(e.target.value)}
-                      className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:border-[#3b0080] focus:bg-white transition-all"
+                      className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:border-black focus:bg-white transition-all"
                     >
                       {CATEGORY_OPTIONS.map(c => (
                         <option key={c} value={c}>{c}</option>
@@ -391,7 +391,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
                       value={name}
                       onChange={e => setName(e.target.value)}
                       placeholder="e.g. Dr. Rajesh Sharma"
-                      className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:border-[#3b0080] focus:bg-white transition-all"
+                      className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:border-black focus:bg-white transition-all"
                     />
                   </div>
 
@@ -405,7 +405,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
                       value={orderId}
                       onChange={e => setOrderId(e.target.value)}
                       placeholder="e.g. INW-2026-001"
-                      className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-medium text-slate-800 focus:outline-none focus:border-[#3b0080] focus:bg-white transition-all"
+                      className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono font-medium text-slate-800 focus:outline-none focus:border-black focus:bg-white transition-all"
                     />
                   </div>
                 </div>
@@ -420,7 +420,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
                     value={message}
                     onChange={e => setMessage(e.target.value)}
                     placeholder="Describe the payload delivery, flight speed, precision winch landing, or GCS dashboard experience..."
-                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:border-[#3b0080] focus:bg-white transition-all resize-none"
+                    className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:border-black focus:bg-white transition-all resize-none"
                   />
                 </div>
 
@@ -435,7 +435,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="flex items-center gap-2 px-6 py-2.5 bg-[#3b0080] hover:bg-[#280058] text-white font-bold text-xs rounded-xl shadow-md transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
+                    className="flex items-center gap-2 px-6 py-2.5 bg-black hover:bg-zinc-800 text-white font-bold text-xs rounded-xl shadow-md transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
                   >
                     <Send className="w-3.5 h-3.5" />
                     <span>{submitting ? 'Publishing Review...' : 'Publish Feedback'}</span>
@@ -455,7 +455,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
               onClick={() => setFilterRating('all')}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 filterRating === 'all'
-                  ? 'bg-[#3b0080] text-white shadow-xs'
+                  ? 'bg-black text-white shadow-xs'
                   : 'bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100'
               }`}
             >
@@ -465,23 +465,23 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
               onClick={() => setFilterRating(5)}
               className={`flex items-center gap-1 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 filterRating === 5
-                  ? 'bg-[#3b0080] text-white shadow-xs'
+                  ? 'bg-black text-white shadow-xs'
                   : 'bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100'
               }`}
             >
               <span>5 Stars</span>
-              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+              <Star className="w-3.5 h-3.5 fill-zinc-900 text-zinc-900" />
             </button>
             <button
               onClick={() => setFilterRating(4)}
               className={`flex items-center gap-1 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 filterRating === 4
-                  ? 'bg-[#3b0080] text-white shadow-xs'
+                  ? 'bg-black text-white shadow-xs'
                   : 'bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100'
               }`}
             >
               <span>4 Stars</span>
-              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+              <Star className="w-3.5 h-3.5 fill-zinc-900 text-zinc-900" />
             </button>
           </div>
 
@@ -493,7 +493,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Search drone, customer, topic..."
-              className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-[#3b0080] focus:bg-white transition-all"
+              className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-black focus:bg-white transition-all"
             />
           </div>
         </div>
@@ -501,12 +501,12 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
         {/* ── FEEDBACK REVIEWS GRID ────────────────────────────────────────── */}
         {loading ? (
           <div className="text-center py-20 text-slate-400">
-            <div className="w-10 h-10 border-2 border-[#3b0080] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+            <div className="w-10 h-10 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-3" />
             <p className="text-xs font-semibold">Loading live flight reviews...</p>
           </div>
         ) : filteredFeedbacks.length === 0 ? (
           <div className="bg-white border border-slate-200 rounded-3xl p-16 text-center max-w-2xl mx-auto shadow-xs">
-            <div className="w-14 h-14 rounded-2xl bg-purple-50 text-[#3b0080] flex items-center justify-center mx-auto mb-4 border border-purple-100">
+            <div className="w-14 h-14 rounded-2xl bg-zinc-100 text-zinc-900 flex items-center justify-center mx-auto mb-4 border border-zinc-200">
               <MessageSquare className="w-7 h-7" />
             </div>
             <h3 className="text-lg font-bold text-[#171222]">
@@ -519,7 +519,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
             </p>
             <button
               onClick={() => setShowForm(true)}
-              className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#3b0080] hover:bg-[#280058] text-white font-bold text-xs rounded-xl shadow-md transition-all active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-2.5 bg-black hover:bg-zinc-800 text-white font-bold text-xs rounded-xl shadow-md transition-all active:scale-95 cursor-pointer"
             >
               <Sparkles className="w-4 h-4" />
               <span>Share Flight Experience</span>
@@ -537,7 +537,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
               return (
                 <div
                   key={fb.id}
-                  className="bg-white rounded-2xl border border-slate-200/90 hover:border-purple-200 hover:shadow-md p-6 flex flex-col justify-between transition-all"
+                  className="bg-white rounded-2xl border border-slate-200/90 hover:border-zinc-300 hover:shadow-md p-6 flex flex-col justify-between transition-all"
                 >
                   <div>
                     {/* Top Row: Rating & Verified Flight Badge */}
@@ -569,7 +569,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
 
                     {/* Drone Model Tag */}
                     <div className="mb-3">
-                      <div className="inline-flex items-center gap-1.5 bg-purple-50 text-[#3b0080] border border-purple-100 px-2.5 py-1 rounded-lg text-xs font-bold">
+                      <div className="inline-flex items-center gap-1.5 bg-zinc-100 text-zinc-900 border border-zinc-200 px-2.5 py-1 rounded-lg text-xs font-bold">
                         <Plane className="w-3 h-3" />
                         <span className="truncate max-w-[200px]">{fb.drone_name}</span>
                       </div>
@@ -584,7 +584,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
                   {/* Bottom Author & Order Info */}
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-full bg-[#3b0080] text-white text-xs font-bold flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-full bg-black text-white text-xs font-bold flex items-center justify-center">
                         {fb.user_name?.[0]?.toUpperCase() || 'U'}
                       </div>
                       <div>
@@ -598,7 +598,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
                     </div>
 
                     {fb.order_id && (
-                      <span className="text-[10px] font-mono text-purple-600 font-bold bg-purple-50 px-2 py-0.5 rounded">
+                      <span className="text-[10px] font-mono text-zinc-800 font-bold bg-zinc-100 px-2 py-0.5 rounded">
                         #{fb.order_id}
                       </span>
                     )}

@@ -40,8 +40,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenFeedback }) =>
       />
 
       {/* Atmospheric aerospace glows */}
-      <div className="absolute top-0 left-1/4 w-[450px] h-[250px] bg-purple-600/[0.08] blur-[100px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-10 right-1/4 w-[500px] h-[250px] bg-indigo-600/[0.07] blur-[110px] rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-[450px] h-[250px] bg-white/[0.04] blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-10 right-1/4 w-[500px] h-[250px] bg-zinc-600/[0.05] blur-[110px] rounded-full pointer-events-none" />
 
       {/* GIANT FLYTBASE-STYLE WATERMARK
           Interwoven with the footer so content sits right over it */}
@@ -83,7 +83,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenFeedback }) =>
             <p className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
               Stay updated on new flight corridors
             </p>
-            <form onSubmit={handleSubscribe} className="flex items-center max-w-md bg-white/[0.04] border border-white/10 rounded-xl p-1.5 focus-within:border-purple-500/50 transition-colors">
+            <form onSubmit={handleSubscribe} className="flex items-center max-w-md bg-white/[0.04] border border-white/10 rounded-xl p-1.5 focus-within:border-white/40 transition-colors">
               <input
                 type="email"
                 value={email}
@@ -94,11 +94,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenFeedback }) =>
               />
               <button
                 type="submit"
-                className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white px-4 py-2 rounded-lg font-bold text-xs flex items-center gap-1.5 shrink-0 transition-all shadow-md active:scale-95"
+                className="bg-white hover:bg-zinc-200 text-black px-4 py-2 rounded-lg font-bold text-xs flex items-center gap-1.5 shrink-0 transition-all shadow-md active:scale-95"
               >
                 {subscribed ? (
                   <>
-                    <Check className="w-3.5 h-3.5" />
+                    <Check className="w-3.5 h-3.5 text-black" />
                     <span>Subscribed</span>
                   </>
                 ) : (
@@ -117,7 +117,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenFeedback }) =>
           {/* Column 1: Delivery Operations */}
           <div>
             <h3 className="text-xs font-black uppercase tracking-[0.16em] text-white/90 mb-4 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
+              <span className="w-1.5 h-1.5 rounded-full bg-white" />
               Delivery
             </h3>
             <ul className="space-y-2.5 text-sm text-slate-400">
@@ -137,7 +137,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenFeedback }) =>
                 </a>
               </li>
               <li>
-                <a href="/dispatch" onClick={navTo('dispatch', '/dispatch')} className="hover:text-purple-400 transition-colors">
+                <a href="/dispatch" onClick={navTo('dispatch', '/dispatch')} className="hover:text-white transition-colors">
                   Dispatch Board
                 </a>
               </li>
@@ -147,7 +147,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenFeedback }) =>
           {/* Column 2: Platform */}
           <div>
             <h3 className="text-xs font-black uppercase tracking-[0.16em] text-white/90 mb-4 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
               Platform
             </h3>
             <ul className="space-y-2.5 text-sm text-slate-400">
@@ -177,7 +177,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenFeedback }) =>
           {/* Column 3: Resources */}
           <div>
             <h3 className="text-xs font-black uppercase tracking-[0.16em] text-white/90 mb-4 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-300" />
               Resources
             </h3>
             <ul className="space-y-2.5 text-sm text-slate-400">
@@ -207,7 +207,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenFeedback }) =>
           {/* Column 4: Company */}
           <div>
             <h3 className="text-xs font-black uppercase tracking-[0.16em] text-white/90 mb-4 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
               Company
             </h3>
             <ul className="space-y-2.5 text-sm text-slate-400">
@@ -217,7 +217,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenFeedback }) =>
                 </a>
               </li>
               <li>
-                <a href="mailto:support@indowings.com" className="text-purple-300 hover:text-purple-200 transition-colors">
+                <a href="mailto:support@indowings.com" className="text-zinc-300 hover:text-white transition-colors">
                   support@indowings.com
                 </a>
               </li>
@@ -232,7 +232,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenFeedback }) =>
           {/* Column 5: Legal & Compliance */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <h3 className="text-xs font-black uppercase tracking-[0.16em] text-white/90 mb-4 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />
+              <span className="w-1.5 h-1.5 rounded-full bg-white" />
               Compliance
             </h3>
             <ul className="space-y-2.5 text-sm text-slate-400">
@@ -265,7 +265,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenFeedback }) =>
           </div>
           <div className="flex items-center gap-3 text-slate-400">
             <span className="inline-flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
               Network Online
             </span>
             <span className="text-white/20">·</span>

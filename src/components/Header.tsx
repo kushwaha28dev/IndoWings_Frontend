@@ -26,6 +26,30 @@ export const Header: React.FC<HeaderProps> = ({
   const [scrolled, setScrolled] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleMouseEnter = (name: string) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    setOpenDropdown(name);
+  };
+
+  const handleMouseLeave = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = setTimeout(() => {
+      setOpenDropdown(null);
+    }, 150);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -87,97 +111,109 @@ export const Header: React.FC<HeaderProps> = ({
         <nav className="hidden lg:flex items-center gap-1 text-sm font-bold text-slate-800" ref={dropdownRef}>
 
           {/* Delivery Dropdown */}
-          <div className="relative" onMouseEnter={() => setOpenDropdown('delivery')} onMouseLeave={() => setOpenDropdown(null)}>
-            <button className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all ${openDropdown === 'delivery' ? 'bg-purple-50 text-[#3b0080]' : 'hover:bg-slate-100 hover:text-slate-900'}`}>
+          <div className="relative" onMouseEnter={() => handleMouseEnter('delivery')} onMouseLeave={handleMouseLeave}>
+            <button
+              onClick={() => setOpenDropdown(openDropdown === 'delivery' ? null : 'delivery')}
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all ${openDropdown === 'delivery' ? 'bg-zinc-100 text-black' : 'hover:bg-slate-100 hover:text-slate-900'}`}>
               Delivery
-              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === 'delivery' ? 'rotate-180 text-[#3b0080]' : 'text-slate-400'}`} />
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === 'delivery' ? 'rotate-180 text-black' : 'text-slate-400'}`} />
             </button>
             {openDropdown === 'delivery' && (
-              <div className="absolute top-[calc(100%+6px)] left-0 w-72 bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2 animate-in fade-in slide-in-from-top-2 duration-150">
-                <div className="px-3 pt-2 pb-1.5">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Drone Delivery Services</p>
+              <div className="absolute top-full left-0 pt-1.5 w-72 z-50">
+                <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2 animate-in fade-in slide-in-from-top-1 duration-150">
+                  <div className="px-3 pt-2 pb-1.5">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Drone Delivery Services</p>
+                  </div>
+                  {DELIVERY_ITEMS.map(item => (
+                    <a key={item.label} href={item.url} onClick={nav(item.page, item.url)}
+                      className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group ${item.accent ? 'bg-zinc-100 hover:bg-zinc-200/80' : 'hover:bg-slate-50'}`}>
+                      <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${item.accent ? 'bg-black text-white' : 'bg-slate-100 text-slate-600 group-hover:bg-zinc-200 group-hover:text-black'}`}>
+                        <item.icon className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <p className={`text-sm font-semibold ${item.accent ? 'text-black' : 'text-slate-800'}`}>{item.label}</p>
+                        <p className="text-xs text-slate-400">{item.sub}</p>
+                      </div>
+                    </a>
+                  ))}
+                  {currentUser?.role === 'admin' && (
+                    <a href="/dispatch" onClick={nav('dispatch', '/dispatch')}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition-all group mt-1 border-t border-slate-100">
+                      <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-600 group-hover:bg-zinc-200 group-hover:text-black flex items-center justify-center shrink-0">
+                        <LayoutDashboard className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-800">Dispatch Board</p>
+                        <p className="text-xs text-slate-400">Admin · Fleet management</p>
+                      </div>
+                    </a>
+                  )}
                 </div>
-                {DELIVERY_ITEMS.map(item => (
-                  <a key={item.label} href={item.url} onClick={nav(item.page, item.url)}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group ${item.accent ? 'bg-purple-50 hover:bg-purple-100' : 'hover:bg-slate-50'}`}>
-                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${item.accent ? 'bg-[#3b0080] text-white' : 'bg-slate-100 text-slate-600 group-hover:bg-purple-100 group-hover:text-[#3b0080]'}`}>
-                      <item.icon className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <p className={`text-sm font-semibold ${item.accent ? 'text-[#3b0080]' : 'text-slate-800'}`}>{item.label}</p>
-                      <p className="text-xs text-slate-400">{item.sub}</p>
-                    </div>
-                  </a>
-                ))}
-                {currentUser?.role === 'admin' && (
-                  <a href="/dispatch" onClick={nav('dispatch', '/dispatch')}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition-all group mt-1 border-t border-slate-100">
-                    <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-600 group-hover:bg-purple-100 group-hover:text-[#3b0080] flex items-center justify-center shrink-0">
-                      <LayoutDashboard className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-slate-800">Dispatch Board</p>
-                      <p className="text-xs text-slate-400">Admin · Fleet management</p>
-                    </div>
-                  </a>
-                )}
               </div>
             )}
           </div>
 
           {/* Support Dropdown */}
-          <div className="relative" onMouseEnter={() => setOpenDropdown('support')} onMouseLeave={() => setOpenDropdown(null)}>
-            <button className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all ${openDropdown === 'support' ? 'bg-purple-50 text-[#3b0080]' : 'hover:bg-slate-100 hover:text-slate-900'}`}>
+          <div className="relative" onMouseEnter={() => handleMouseEnter('support')} onMouseLeave={handleMouseLeave}>
+            <button
+              onClick={() => setOpenDropdown(openDropdown === 'support' ? null : 'support')}
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all ${openDropdown === 'support' ? 'bg-zinc-100 text-black' : 'hover:bg-slate-100 hover:text-slate-900'}`}>
               Support
-              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === 'support' ? 'rotate-180 text-[#3b0080]' : 'text-slate-400'}`} />
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === 'support' ? 'rotate-180 text-black' : 'text-slate-400'}`} />
             </button>
             {openDropdown === 'support' && (
-              <div className="absolute top-[calc(100%+6px)] left-0 w-72 bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2 animate-in fade-in slide-in-from-top-2 duration-150">
-                <div className="px-3 pt-2 pb-1.5">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Help & Operations Desk</p>
-                </div>
-                {SUPPORT_ITEMS.map(item => (
-                  <a key={item.label} href={item.url} onClick={nav(item.page, item.url)}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition-all group">
-                    <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-600 group-hover:bg-purple-100 group-hover:text-[#3b0080] flex items-center justify-center shrink-0">
-                      <item.icon className="w-4 h-4" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <p className="text-sm font-semibold text-slate-800">{item.label}</p>
-                        {item.badge && <span className="text-[9px] font-black px-1.5 py-0.5 bg-emerald-100 text-emerald-700 rounded-full">{item.badge}</span>}
+              <div className="absolute top-full left-0 pt-1.5 w-72 z-50">
+                <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2 animate-in fade-in slide-in-from-top-1 duration-150">
+                  <div className="px-3 pt-2 pb-1.5">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Help & Operations Desk</p>
+                  </div>
+                  {SUPPORT_ITEMS.map(item => (
+                    <a key={item.label} href={item.url} onClick={nav(item.page, item.url)}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition-all group">
+                      <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-600 group-hover:bg-zinc-200 group-hover:text-black flex items-center justify-center shrink-0">
+                        <item.icon className="w-4 h-4" />
                       </div>
-                      <p className="text-xs text-slate-400">{item.sub}</p>
-                    </div>
-                  </a>
-                ))}
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2">
+                          <p className="text-sm font-semibold text-slate-800">{item.label}</p>
+                          {item.badge && <span className="text-[9px] font-black px-1.5 py-0.5 bg-zinc-200 text-zinc-900 rounded-full">{item.badge}</span>}
+                        </div>
+                        <p className="text-xs text-slate-400">{item.sub}</p>
+                      </div>
+                    </a>
+                  ))}
+                </div>
               </div>
             )}
           </div>
 
           {/* Resources Dropdown */}
-          <div className="relative" onMouseEnter={() => setOpenDropdown('resources')} onMouseLeave={() => setOpenDropdown(null)}>
-            <button className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all ${openDropdown === 'resources' ? 'bg-purple-50 text-[#3b0080]' : 'hover:bg-slate-100 hover:text-slate-900'}`}>
+          <div className="relative" onMouseEnter={() => handleMouseEnter('resources')} onMouseLeave={handleMouseLeave}>
+            <button
+              onClick={() => setOpenDropdown(openDropdown === 'resources' ? null : 'resources')}
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all ${openDropdown === 'resources' ? 'bg-zinc-100 text-black' : 'hover:bg-slate-100 hover:text-slate-900'}`}>
               Resources
-              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === 'resources' ? 'rotate-180 text-[#3b0080]' : 'text-slate-400'}`} />
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === 'resources' ? 'rotate-180 text-black' : 'text-slate-400'}`} />
             </button>
             {openDropdown === 'resources' && (
-              <div className="absolute top-[calc(100%+6px)] left-0 w-64 bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2 animate-in fade-in slide-in-from-top-2 duration-150">
-                <div className="px-3 pt-2 pb-1.5">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Company & Docs</p>
+              <div className="absolute top-full left-0 pt-1.5 w-64 z-50">
+                <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2 animate-in fade-in slide-in-from-top-1 duration-150">
+                  <div className="px-3 pt-2 pb-1.5">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Company & Docs</p>
+                  </div>
+                  {RESOURCE_ITEMS.map(item => (
+                    <a key={item.label} href={item.url} onClick={nav(item.page, item.url)}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition-all group">
+                      <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-600 group-hover:bg-zinc-200 group-hover:text-black flex items-center justify-center shrink-0">
+                        <item.icon className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-800">{item.label}</p>
+                        <p className="text-xs text-slate-400">{item.sub}</p>
+                      </div>
+                    </a>
+                  ))}
                 </div>
-                {RESOURCE_ITEMS.map(item => (
-                  <a key={item.label} href={item.url} onClick={nav(item.page, item.url)}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition-all group">
-                    <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-600 group-hover:bg-purple-100 group-hover:text-[#3b0080] flex items-center justify-center shrink-0">
-                      <item.icon className="w-4 h-4" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-slate-800">{item.label}</p>
-                      <p className="text-xs text-slate-400">{item.sub}</p>
-                    </div>
-                  </a>
-                ))}
               </div>
             )}
           </div>
@@ -192,7 +228,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Track Order — quick pill */}
           <a href="/track" onClick={nav('track', '/track')}
-            className="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-[#3b0080] hover:bg-purple-50 transition-all">
+            className="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-black hover:bg-zinc-100 transition-all">
             <Navigation className="w-4 h-4" />
             Track
           </a>
@@ -201,18 +237,19 @@ export const Header: React.FC<HeaderProps> = ({
           {currentUser ? (
             <div className="relative" ref={profileRef}>
               <button onClick={() => setOpenDropdown(openDropdown === 'profile' ? null : 'profile')}
-                className="flex items-center gap-2 pl-1.5 pr-3 py-1.5 rounded-xl border border-slate-200 hover:border-purple-300 hover:bg-purple-50 transition-all">
-                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#3b0080] to-purple-600 flex items-center justify-center text-white text-xs font-black">
+                className="flex items-center gap-2 pl-1.5 pr-3 py-1.5 rounded-xl border border-slate-200 hover:border-zinc-400 hover:bg-zinc-50 transition-all">
+                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-zinc-800 to-black flex items-center justify-center text-white text-xs font-black">
                   {currentUser.name?.[0]?.toUpperCase() || 'U'}
                 </div>
                 <span className="text-sm font-bold text-slate-800 hidden sm:block max-w-[95px] truncate">{currentUser.name?.split(' ')[0]}</span>
                 <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${openDropdown === 'profile' ? 'rotate-180' : ''}`} />
               </button>
               {openDropdown === 'profile' && (
-                <div className="absolute top-[calc(100%+8px)] right-0 w-64 bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2 animate-in fade-in slide-in-from-top-2 duration-150 z-50">
-                  <div className="px-3.5 py-3 mb-1 bg-gradient-to-br from-purple-50 to-slate-50 rounded-xl">
+                <div className="absolute top-full right-0 pt-2 w-64 z-50">
+                  <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2 animate-in fade-in slide-in-from-top-1 duration-150">
+                    <div className="px-3.5 py-3 mb-1 bg-gradient-to-br from-zinc-100 to-zinc-50 rounded-xl">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#3b0080] to-purple-600 flex items-center justify-center text-white text-sm font-black">
+                      <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-zinc-800 to-black flex items-center justify-center text-white text-sm font-black">
                         {currentUser.name?.[0]?.toUpperCase() || 'U'}
                       </div>
                       <div className="min-w-0">
@@ -221,7 +258,7 @@ export const Header: React.FC<HeaderProps> = ({
                       </div>
                     </div>
                     {currentUser.role === 'admin' && (
-                      <span className="inline-block mt-2 text-[10px] font-black bg-[#3b0080] text-white px-2 py-0.5 rounded-full tracking-wide">ADMIN</span>
+                      <span className="inline-block mt-2 text-[10px] font-black bg-black text-white px-2 py-0.5 rounded-full tracking-wide">ADMIN</span>
                     )}
                   </div>
                   {[
@@ -230,13 +267,13 @@ export const Header: React.FC<HeaderProps> = ({
                     { icon: Package, label: 'Book Delivery', page: 'order', url: '/order' },
                     { icon: Navigation, label: 'Track Order', page: 'track', url: '/track' },
                   ].map(i => (
-                    <button key={i.label} onClick={nav(i.page, i.url)} className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-[#3b0080] text-sm font-medium transition-colors">
+                    <button key={i.label} onClick={nav(i.page, i.url)} className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-black text-sm font-medium transition-colors">
                       <i.icon className="w-4 h-4 text-slate-400" />
                       {i.label}
                     </button>
                   ))}
                   {currentUser.role === 'admin' && (
-                    <button onClick={nav('dispatch', '/dispatch')} className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-[#3b0080] text-sm font-medium transition-colors">
+                    <button onClick={nav('dispatch', '/dispatch')} className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-black text-sm font-medium transition-colors">
                       <LayoutDashboard className="w-4 h-4 text-slate-400" />
                       Dispatch Board
                     </button>
@@ -248,12 +285,13 @@ export const Header: React.FC<HeaderProps> = ({
                       Sign Out
                     </button>
                   </div>
-                </div>
-              )}
-            </div>
+                    </div>
+                  </div>
+                )}
+              </div>
           ) : (
             <button onClick={onOpenAuth}
-              className="hidden sm:flex items-center gap-1.5 text-sm font-bold text-slate-800 border border-slate-200 hover:border-purple-300 hover:text-[#3b0080] hover:bg-purple-50 px-4 py-2 rounded-xl transition-all">
+              className="hidden sm:flex items-center gap-1.5 text-sm font-bold text-slate-800 border border-slate-200 hover:border-zinc-400 hover:text-black hover:bg-zinc-50 px-4 py-2 rounded-xl transition-all">
               <User className="w-4 h-4" />
               Sign In
             </button>
@@ -261,7 +299,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Primary CTA */}
           <button onClick={() => { onNavigate?.('order'); window.history.pushState({}, '', '/order'); window.scrollTo({ top: 0 }); }}
-            className={`${currentUser ? 'hidden sm:flex' : 'flex'} items-center gap-1.5 sm:gap-2 bg-[#3b0080] hover:bg-[#2c0060] text-white font-bold text-sm px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl shadow-md shadow-purple-900/20 hover:shadow-lg transition-all active:scale-95`}>
+            className={`${currentUser ? 'hidden sm:flex' : 'flex'} items-center gap-1.5 sm:gap-2 bg-black hover:bg-zinc-800 text-white font-bold text-sm px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl shadow-md shadow-black/20 hover:shadow-lg transition-all active:scale-95`}>
             <Package className="w-4 h-4" />
             <span className="text-xs sm:text-sm font-bold">Book<span className="hidden sm:inline"> Now</span></span>
           </button>
@@ -287,8 +325,8 @@ export const Header: React.FC<HeaderProps> = ({
             { label: 'Feedback & Reviews', page: 'feedback', url: '/feedback', icon: MessageSquare },
           ].map(item => (
             <a key={item.label} href={item.url} onClick={nav(item.page, item.url)}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl text-[14.5px] font-semibold transition-all ${item.accent ? 'bg-purple-50 text-[#3b0080]' : 'text-slate-700 hover:bg-slate-50'}`}>
-              <item.icon className={`w-4 h-4 ${item.accent ? 'text-[#3b0080]' : 'text-slate-400'}`} />
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl text-[14.5px] font-semibold transition-all ${item.accent ? 'bg-zinc-100 text-black' : 'text-slate-700 hover:bg-slate-50'}`}>
+              <item.icon className={`w-4 h-4 ${item.accent ? 'text-black' : 'text-slate-400'}`} />
               <span>{item.label}</span>
             </a>
           ))}

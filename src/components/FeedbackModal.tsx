@@ -115,7 +115,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-[#fbf9fe]">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#3b0080]/10 flex items-center justify-center text-[#3b0080]">
+            <div className="w-8 h-8 rounded-lg bg-zinc-100 flex items-center justify-center text-zinc-900">
               <MessageSquare className="w-4 h-4" />
             </div>
             <div>
@@ -154,7 +154,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
               </button>
               <button
                 onClick={handleResetAndClose}
-                className="px-6 py-2.5 bg-[#3b0080] hover:bg-[#280058] text-white text-xs font-bold rounded-xl shadow-md transition-all cursor-pointer"
+                className="px-6 py-2.5 bg-black hover:bg-zinc-800 text-white text-xs font-bold rounded-xl shadow-md transition-all cursor-pointer"
               >
                 Done
               </button>
@@ -180,7 +180,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
                     <p className="text-[11px] text-emerald-700">Order #{prefilledOrder.id} touched down</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-1 text-[11px] font-bold text-[#3b0080] bg-white px-2 py-1 rounded-md border border-purple-200">
+                <div className="flex items-center gap-1 text-[11px] font-bold text-zinc-900 bg-white px-2 py-1 rounded-md border border-zinc-300">
                   <Plane className="w-3 h-3" />
                   <span>{droneName}</span>
                 </div>
@@ -226,7 +226,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
                 <select
                   value={droneName}
                   onChange={e => setDroneName(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-[#3b0080] focus:bg-white transition-all font-medium"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-black focus:bg-white transition-all font-medium"
                 >
                   <option value="Cyberone Pro (Medical Winch & Express)">Cyberone Pro (Medical Winch & Express)</option>
                   <option value="Cyberone Max (Heavy Cargo 15kg)">Cyberone Max (Heavy Cargo 15kg)</option>
@@ -257,8 +257,8 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
                     onClick={() => setCategory(cat)}
                     className={`px-3 py-1.5 rounded-lg text-[11px] font-semibold text-left border transition-all cursor-pointer truncate ${
                       category === cat
-                        ? 'border-[#3b0080] bg-purple-50/80 text-[#3b0080]'
-                        : 'border-slate-200 hover:border-purple-200 text-slate-600 bg-white'
+                        ? 'border-black bg-zinc-100 text-zinc-900'
+                        : 'border-slate-200 hover:border-zinc-300 text-slate-600 bg-white'
                     }`}
                   >
                     {cat}
@@ -276,7 +276,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
                   value={name}
                   onChange={e => setName(e.target.value)}
                   placeholder="e.g. Rahul Sharma"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-[#3b0080] focus:bg-white transition-all font-medium"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-black focus:bg-white transition-all font-medium"
                 />
               </div>
               <div>
@@ -286,7 +286,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="rahul@example.com"
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-[#3b0080] focus:bg-white transition-all font-medium"
+                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-black focus:bg-white transition-all font-medium"
                 />
               </div>
             </div>
@@ -301,7 +301,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
                 onChange={e => setMessage(e.target.value)}
                 rows={3}
                 placeholder="How was the payload touchdown, corridor speed, or dashboard tracking? Any suggestions?"
-                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-[#3b0080] focus:bg-white transition-all resize-none font-medium"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-black focus:bg-white transition-all resize-none font-medium"
               />
             </div>
 
@@ -310,7 +310,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
               <button
                 type="button"
                 onClick={handleGoFeedbackPage}
-                className="text-xs font-bold text-[#3b0080] hover:underline flex items-center gap-1 cursor-pointer"
+                className="text-xs font-bold text-zinc-900 hover:underline flex items-center gap-1 cursor-pointer"
               >
                 <span>View all reviews</span>
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -327,7 +327,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex items-center gap-2 px-5 py-2 bg-[#3b0080] hover:bg-[#280058] text-white text-xs font-bold rounded-xl shadow-md transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
+                  className="flex items-center gap-2 px-5 py-2 bg-black hover:bg-zinc-800 text-white text-xs font-bold rounded-xl shadow-md transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>{loading ? 'Submitting...' : 'Submit Review'}</span>

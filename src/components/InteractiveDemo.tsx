@@ -47,11 +47,11 @@ export const InteractiveDemo: React.FC = () => {
   const current = tabContents[activeTab];
 
   return (
-    <section className="pt-20 pb-20 sm:pt-24 sm:pb-24 bg-[#f8f7fc] text-[#171222] border-t border-[#3b0080]/10 scroll-mt-24" id="demo">
+    <section className="pt-20 pb-20 sm:pt-24 sm:pb-24 bg-[#f8f7fc] text-[#171222] border-t border-zinc-200 scroll-mt-24" id="demo">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading with generous spacing and line break matching SkyGrid */}
         <div className="max-w-[760px] mb-8 sm:mb-10">
-          <p className="text-[13px] font-extrabold uppercase tracking-[0.12em] text-[#581c87] mb-3">
+          <p className="text-[13px] font-extrabold uppercase tracking-[0.12em] text-zinc-900 mb-3">
             Interactive Product Demo
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-[#171222] leading-[1.08] tracking-tight max-w-[620px]">
@@ -60,7 +60,7 @@ export const InteractiveDemo: React.FC = () => {
         </div>
 
         {/* Outer Workspace Card (.demo-workspace) with soft lavender tint and equal padding */}
-        <div className="p-4 sm:p-5 rounded-xl border border-[#3b0080]/15 bg-[#f2ecf8] shadow-[0_16px_36px_rgba(31,18,45,0.06)]">
+        <div className="p-4 sm:p-5 rounded-xl border border-zinc-200 bg-zinc-100 shadow-[0_16px_36px_rgba(31,18,45,0.06)]">
           {/* Tabs Row (.demo-tabs) */}
           <div className="flex flex-wrap gap-2 sm:gap-2.5 mb-4" role="tablist" aria-label="IndoWings product views">
             <button
@@ -70,8 +70,8 @@ export const InteractiveDemo: React.FC = () => {
               onClick={() => setActiveTab('pilot')}
               className={`min-h-[40px] px-4 py-2 rounded-lg text-sm sm:text-[14px] font-extrabold transition-all cursor-pointer ${
                 activeTab === 'pilot'
-                  ? 'bg-[#3b0080] text-white shadow-sm border border-[#3b0080]'
-                  : 'bg-white/90 text-[#171222] border border-[#3b0080]/15 hover:border-[#3b0080]/40 hover:bg-white'
+                  ? 'bg-black text-white shadow-sm border border-black'
+                  : 'bg-white/90 text-[#171222] border border-zinc-200 hover:border-black/40 hover:bg-white'
               }`}
             >
               Pilot View
@@ -84,8 +84,8 @@ export const InteractiveDemo: React.FC = () => {
               onClick={() => setActiveTab('admin')}
               className={`min-h-[40px] px-4 py-2 rounded-lg text-sm sm:text-[14px] font-extrabold transition-all cursor-pointer ${
                 activeTab === 'admin'
-                  ? 'bg-[#3b0080] text-white shadow-sm border border-[#3b0080]'
-                  : 'bg-white/90 text-[#171222] border border-[#3b0080]/15 hover:border-[#3b0080]/40 hover:bg-white'
+                  ? 'bg-black text-white shadow-sm border border-black'
+                  : 'bg-white/90 text-[#171222] border border-zinc-200 hover:border-black/40 hover:bg-white'
               }`}
             >
               Administrator View
@@ -98,8 +98,8 @@ export const InteractiveDemo: React.FC = () => {
               onClick={() => setActiveTab('manufacturer')}
               className={`min-h-[40px] px-4 py-2 rounded-lg text-sm sm:text-[14px] font-extrabold transition-all cursor-pointer ${
                 activeTab === 'manufacturer'
-                  ? 'bg-[#3b0080] text-white shadow-sm border border-[#3b0080]'
-                  : 'bg-white/90 text-[#171222] border border-[#3b0080]/15 hover:border-[#3b0080]/40 hover:bg-white'
+                  ? 'bg-black text-white shadow-sm border border-black'
+                  : 'bg-white/90 text-[#171222] border border-zinc-200 hover:border-black/40 hover:bg-white'
               }`}
             >
               Manufacturer View
@@ -112,8 +112,8 @@ export const InteractiveDemo: React.FC = () => {
               onClick={() => setActiveTab('auditor')}
               className={`min-h-[40px] px-4 py-2 rounded-lg text-sm sm:text-[14px] font-extrabold transition-all cursor-pointer ${
                 activeTab === 'auditor'
-                  ? 'bg-[#3b0080] text-white shadow-sm border border-[#3b0080]'
-                  : 'bg-white/90 text-[#171222] border border-[#3b0080]/15 hover:border-[#3b0080]/40 hover:bg-white'
+                  ? 'bg-black text-white shadow-sm border border-black'
+                  : 'bg-white/90 text-[#171222] border border-zinc-200 hover:border-black/40 hover:bg-white'
               }`}
             >
               Auditor View
@@ -121,11 +121,11 @@ export const InteractiveDemo: React.FC = () => {
           </div>
 
           {/* Inner Panel Card (.demo-panel) in pure crisp white */}
-          <div className="p-6 sm:p-7 lg:p-8 rounded-lg border border-[#3b0080]/12 bg-white shadow-[0_8px_24px_rgba(23,18,34,0.03)]">
+          <div className="p-6 sm:p-7 lg:p-8 rounded-lg border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(23,18,34,0.03)]">
             <div className="grid grid-cols-1 lg:grid-cols-[0.82fr_1.18fr] gap-6 sm:gap-8 lg:gap-10 items-center">
               {/* Left Copy Column */}
               <div>
-                <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-[#581c87] mb-2.5">
+                <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-zinc-900 mb-2.5">
                   {current.eyebrow}
                 </p>
                 <h3 className="text-2xl sm:text-3xl lg:text-[34px] font-extrabold text-[#171222] leading-[1.12] mb-3.5">
@@ -137,7 +137,7 @@ export const InteractiveDemo: React.FC = () => {
               </div>
 
               {/* Right Screenshot Column (.demo-shot) */}
-              <div className="aspect-[16/9] w-full rounded-lg overflow-hidden border border-[#3b0080]/10 shadow-[0_4px_16px_rgba(23,18,34,0.05)] bg-[#171222] relative group">
+              <div className="aspect-[16/9] w-full rounded-lg overflow-hidden border border-zinc-200 shadow-[0_4px_16px_rgba(23,18,34,0.05)] bg-[#09090b] relative group">
                 <img 
                   key={activeTab}
                   src={current.image} 

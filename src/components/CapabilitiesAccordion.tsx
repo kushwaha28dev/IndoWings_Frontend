@@ -17,11 +17,11 @@ export const CapabilitiesAccordion: React.FC = () => {
   };
 
   return (
-    <section className="py-16 sm:py-20 bg-white text-[#171222] border-t border-[#3b0080]/10" id="capabilities">
+    <section className="py-16 sm:py-20 bg-white text-[#171222] border-t border-zinc-200" id="capabilities">
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Heading matching SkyGrid compact heading */}
         <div className="max-w-[760px] mb-8 sm:mb-10">
-          <p className="text-[13px] font-extrabold uppercase tracking-[0.12em] text-[#581c87] mb-3">
+          <p className="text-[13px] font-extrabold uppercase tracking-[0.12em] text-zinc-900 mb-3">
             Core Capabilities
           </p>
           <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-extrabold text-[#171222] leading-[1.08] tracking-tight">
@@ -32,7 +32,7 @@ export const CapabilitiesAccordion: React.FC = () => {
         {/* 3 Separate Cards Stack matching user screenshot */}
         <div className="max-w-[860px] space-y-4 sm:space-y-5">
           {/* Card 1: Plan and fly missions (Open by default) */}
-          <div className="bg-white rounded-xl border border-[#3b0080]/10 shadow-[0_4px_16px_rgba(23,18,34,0.02)] overflow-hidden transition-colors">
+          <div className="bg-white rounded-xl border border-zinc-200 shadow-[0_4px_16px_rgba(23,18,34,0.02)] overflow-hidden transition-colors">
             <button
               onClick={() => toggleCard(0)}
               className="w-full text-left px-6 py-4.5 sm:py-5 flex items-center justify-between gap-4 hover:bg-[#faf8fd] transition-colors"
@@ -42,7 +42,7 @@ export const CapabilitiesAccordion: React.FC = () => {
                 Plan and fly missions
               </h3>
               <ChevronDown 
-                className={`w-5 h-5 text-[#581c87] transition-transform duration-200 shrink-0 ${
+                className={`w-5 h-5 text-zinc-900 transition-transform duration-200 shrink-0 ${
                   openCards[0] ? 'rotate-180' : ''
                 }`} 
               />
@@ -57,7 +57,7 @@ export const CapabilitiesAccordion: React.FC = () => {
           </div>
 
           {/* Card 2: Control user access (Closed by default, opens on click) */}
-          <div className="bg-white rounded-xl border border-[#3b0080]/10 shadow-[0_4px_16px_rgba(23,18,34,0.02)] overflow-hidden transition-colors">
+          <div className="bg-white rounded-xl border border-zinc-200 shadow-[0_4px_16px_rgba(23,18,34,0.02)] overflow-hidden transition-colors">
             <button
               onClick={() => toggleCard(1)}
               className="w-full text-left px-6 py-4.5 sm:py-5 flex items-center justify-between gap-4 hover:bg-[#faf8fd] transition-colors"
@@ -67,7 +67,7 @@ export const CapabilitiesAccordion: React.FC = () => {
                 Control user access
               </h3>
               <ChevronDown 
-                className={`w-5 h-5 text-[#581c87] transition-transform duration-200 shrink-0 ${
+                className={`w-5 h-5 text-zinc-900 transition-transform duration-200 shrink-0 ${
                   openCards[1] ? 'rotate-180' : ''
                 }`} 
               />
@@ -76,7 +76,7 @@ export const CapabilitiesAccordion: React.FC = () => {
               <div className="border-t border-gray-100 px-6 py-4.5 sm:py-5 bg-white animate-in fade-in duration-200">
                 <p className="text-[15px] text-[#4b5563] leading-relaxed">
                   IndoWings uses{' '}
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-[#ede9fe] text-[#581c87] font-extrabold text-xs tracking-wide">
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-900 font-extrabold text-xs tracking-wide">
                     RBAC
                   </span>{' '}
                   so pilots, manufacturers, administrators, and auditors only see the workflows they need.
@@ -86,7 +86,7 @@ export const CapabilitiesAccordion: React.FC = () => {
           </div>
 
           {/* Card 3: Manage fleets and records (Closed by default, opens on click) */}
-          <div className="bg-white rounded-xl border border-[#3b0080]/10 shadow-[0_4px_16px_rgba(23,18,34,0.02)] overflow-hidden transition-colors">
+          <div className="bg-white rounded-xl border border-zinc-200 shadow-[0_4px_16px_rgba(23,18,34,0.02)] overflow-hidden transition-colors">
             <button
               onClick={() => toggleCard(2)}
               className="w-full text-left px-6 py-4.5 sm:py-5 flex items-center justify-between gap-4 hover:bg-[#faf8fd] transition-colors"
@@ -96,7 +96,7 @@ export const CapabilitiesAccordion: React.FC = () => {
                 Manage fleets and records
               </h3>
               <ChevronDown 
-                className={`w-5 h-5 text-[#581c87] transition-transform duration-200 shrink-0 ${
+                className={`w-5 h-5 text-zinc-900 transition-transform duration-200 shrink-0 ${
                   openCards[2] ? 'rotate-180' : ''
                 }`} 
               />

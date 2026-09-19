@@ -105,11 +105,11 @@ export const VersionsPage: React.FC<VersionsPageProps> = ({ onNavigate }) => {
   });
 
   return (
-    <div className="min-h-screen bg-[#f7f4fb] text-[#171222]">
+    <div className="min-h-screen bg-zinc-50 text-[#171222]">
       {/* ── HERO SECTION (Aviation Dark Purple Aesthetics) ──────────────────── */}
       <section 
         className="relative text-white pt-16 pb-24 px-6 overflow-hidden" 
-        style={{ background: 'linear-gradient(135deg, #1e0940 0%, #2b114d 50%, #1a0835 100%)' }}>
+        style={{ background: 'linear-gradient(135deg, #09090b 0%, #18181b 50%, #050507 100%)' }}>
         <div 
           className="absolute inset-0 opacity-10" 
           style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, #fff 1px, transparent 1px), radial-gradient(circle at 70% 80%, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} 
@@ -117,11 +117,11 @@ export const VersionsPage: React.FC<VersionsPageProps> = ({ onNavigate }) => {
         
         <div className="relative max-w-5xl mx-auto">
           {/* Sliders / Toggle Icon Box */}
-          <div className="w-14 h-14 bg-white/15 border border-white/20 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-purple-950/30">
+          <div className="w-14 h-14 bg-white/15 border border-white/20 rounded-2xl flex items-center justify-center mb-5 shadow-lg shadow-black/20">
             <SlidersHorizontal className="w-7 h-7 text-white" />
           </div>
 
-          <p className="text-xs font-bold tracking-[0.25em] uppercase text-purple-300 mb-3">
+          <p className="text-xs font-bold tracking-[0.25em] uppercase text-zinc-400 mb-3">
             RELEASE NOTES & OPERATIONAL UPDATES
           </p>
 
@@ -151,7 +151,7 @@ export const VersionsPage: React.FC<VersionsPageProps> = ({ onNavigate }) => {
                 onClick={() => setFilter(tab.id as any)}
                 className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   filter === tab.id
-                    ? 'bg-[#3b0080] text-white shadow-xs'
+                    ? 'bg-black text-white shadow-xs'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
               >
@@ -163,14 +163,14 @@ export const VersionsPage: React.FC<VersionsPageProps> = ({ onNavigate }) => {
           <div className="flex items-center gap-2">
             <button
               onClick={() => { onNavigate('order'); window.history.pushState({}, '', '/order'); }}
-              className="flex items-center gap-1.5 text-xs font-bold text-[#3b0080] hover:underline cursor-pointer pr-2"
+              className="flex items-center gap-1.5 text-xs font-bold text-zinc-900 hover:underline cursor-pointer pr-2"
             >
               <Package className="w-4 h-4" />
               <span>Place Delivery Order</span>
             </button>
             <button
               onClick={() => { onNavigate('downloads'); window.history.pushState({}, '', '/downloads'); }}
-              className="hidden sm:flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-[#3b0080] cursor-pointer pl-2 border-l border-slate-200"
+              className="hidden sm:flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-zinc-900 cursor-pointer pl-2 border-l border-slate-200"
             >
               <DownloadCloud className="w-4 h-4" />
               <span>Downloads</span>
@@ -182,7 +182,7 @@ export const VersionsPage: React.FC<VersionsPageProps> = ({ onNavigate }) => {
         {filteredReleases.map(release => (
           <div 
             key={release.version}
-            className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-lg shadow-purple-950/5 transition-all">
+            className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-lg shadow-black/5 transition-all">
             
             {/* Top Metadata Bar */}
             <div className="flex items-center justify-between pb-3 mb-2">
@@ -198,7 +198,7 @@ export const VersionsPage: React.FC<VersionsPageProps> = ({ onNavigate }) => {
               </div>
               <span className={`text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider ${
                 release.status === 'Stable' 
-                  ? 'bg-purple-100 text-[#3b0080] border border-purple-200' 
+                  ? 'bg-zinc-100 text-zinc-900 border border-zinc-300' 
                   : 'bg-emerald-100 text-emerald-800 border border-emerald-200'
               }`}>
                 {release.status}
@@ -219,15 +219,15 @@ export const VersionsPage: React.FC<VersionsPageProps> = ({ onNavigate }) => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
               
               {/* Quadrant 1: New */}
-              <div className="bg-[#fcfaff] border border-purple-100/90 rounded-2xl p-5 sm:p-6 shadow-xs">
-                <div className="flex items-center gap-2 text-[#3b0080] font-bold text-sm mb-4">
+              <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-5 sm:p-6 shadow-xs">
+                <div className="flex items-center gap-2 text-zinc-900 font-bold text-sm mb-4">
                   <Sparkles className="w-4 h-4" />
                   <span>New Capabilities</span>
                 </div>
                 <ul className="space-y-3">
                   {release.newFeatures.map((feat, idx) => (
                     <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-[13px] text-slate-700 leading-relaxed">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#3b0080] mt-2 shrink-0"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-black mt-2 shrink-0"></span>
                       <span>{feat}</span>
                     </li>
                   ))}
@@ -235,15 +235,15 @@ export const VersionsPage: React.FC<VersionsPageProps> = ({ onNavigate }) => {
               </div>
 
               {/* Quadrant 2: Improved */}
-              <div className="bg-[#fcfaff] border border-purple-100/90 rounded-2xl p-5 sm:p-6 shadow-xs">
-                <div className="flex items-center gap-2 text-[#3b0080] font-bold text-sm mb-4">
+              <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-5 sm:p-6 shadow-xs">
+                <div className="flex items-center gap-2 text-zinc-900 font-bold text-sm mb-4">
                   <TrendingUp className="w-4 h-4" />
                   <span>Performance & Systems</span>
                 </div>
                 <ul className="space-y-3">
                   {release.improvements.map((imp, idx) => (
                     <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-[13px] text-slate-700 leading-relaxed">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#3b0080] mt-2 shrink-0"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-black mt-2 shrink-0"></span>
                       <span>{imp}</span>
                     </li>
                   ))}
@@ -251,15 +251,15 @@ export const VersionsPage: React.FC<VersionsPageProps> = ({ onNavigate }) => {
               </div>
 
               {/* Quadrant 3: Bug Fixes */}
-              <div className="bg-[#fcfaff] border border-purple-100/90 rounded-2xl p-5 sm:p-6 shadow-xs">
-                <div className="flex items-center gap-2 text-[#3b0080] font-bold text-sm mb-4">
+              <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-5 sm:p-6 shadow-xs">
+                <div className="flex items-center gap-2 text-zinc-900 font-bold text-sm mb-4">
                   <Wrench className="w-4 h-4" />
                   <span>Corrections & Bug Fixes</span>
                 </div>
                 <ul className="space-y-3">
                   {release.bugFixes.map((bug, idx) => (
                     <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-[13px] text-slate-700 leading-relaxed">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#3b0080] mt-2 shrink-0"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-black mt-2 shrink-0"></span>
                       <span>{bug}</span>
                     </li>
                   ))}
@@ -267,15 +267,15 @@ export const VersionsPage: React.FC<VersionsPageProps> = ({ onNavigate }) => {
               </div>
 
               {/* Quadrant 4: Operational Parameters */}
-              <div className="bg-[#fcfaff] border border-purple-100/90 rounded-2xl p-5 sm:p-6 shadow-xs">
-                <div className="flex items-center gap-2 text-[#3b0080] font-bold text-sm mb-4">
+              <div className="bg-zinc-50 border border-zinc-200 rounded-2xl p-5 sm:p-6 shadow-xs">
+                <div className="flex items-center gap-2 text-zinc-900 font-bold text-sm mb-4">
                   <AlertTriangle className="w-4 h-4" />
                   <span>DGCA Operational Parameters</span>
                 </div>
                 <ul className="space-y-3">
                   {release.limitations.map((lim, idx) => (
                     <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-[13px] text-slate-700 leading-relaxed">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#3b0080] mt-2 shrink-0"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-black mt-2 shrink-0"></span>
                       <span>{lim}</span>
                     </li>
                   ))}
@@ -302,7 +302,7 @@ export const VersionsPage: React.FC<VersionsPageProps> = ({ onNavigate }) => {
                   {release.sha256 && (
                     <button
                       onClick={() => handleCopySha(release.sha256!)}
-                      className="px-3 py-2 bg-white border border-slate-200 hover:border-purple-300 text-slate-600 hover:text-[#3b0080] text-xs font-semibold rounded-xl transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+                      className="px-3 py-2 bg-white border border-slate-200 hover:border-zinc-400 text-slate-600 hover:text-zinc-900 text-xs font-semibold rounded-xl transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
                     >
                       {copiedSha === release.sha256 ? (
                         <>
@@ -320,7 +320,7 @@ export const VersionsPage: React.FC<VersionsPageProps> = ({ onNavigate }) => {
 
                   <button
                     onClick={() => { onNavigate('downloads'); window.history.pushState({}, '', '/downloads'); }}
-                    className="px-4 py-2 bg-[#3b0080] hover:bg-[#280058] text-white text-xs font-bold rounded-xl shadow-xs transition-all flex items-center gap-1.5 cursor-pointer active:scale-95"
+                    className="px-4 py-2 bg-black hover:bg-zinc-800 text-white text-xs font-bold rounded-xl shadow-xs transition-all flex items-center gap-1.5 cursor-pointer active:scale-95"
                   >
                     <DownloadCloud className="w-3.5 h-3.5" />
                     <span>Download Installer</span>

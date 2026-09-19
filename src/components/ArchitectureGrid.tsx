@@ -12,7 +12,7 @@ export const ArchitectureGrid: React.FC<ArchitectureGridProps> = ({ onOpenComman
         {/* 2-Column Section Heading matching SkyGrid exactly */}
         <div className="grid grid-cols-1 md:grid-cols-[0.82fr_1fr] gap-6 md:gap-9 items-end mb-10 sm:mb-12">
           <div>
-            <p className="text-[13px] font-extrabold uppercase tracking-[0.12em] text-[#581c87] mb-3">
+            <p className="text-[13px] font-extrabold uppercase tracking-[0.12em] text-zinc-900 mb-3">
               Product Architecture
             </p>
           </div>
@@ -26,10 +26,10 @@ export const ArchitectureGrid: React.FC<ArchitectureGridProps> = ({ onOpenComman
         {/* 3-Card Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-7">
           {/* Card 1: IndoWings Command Center */}
-          <article className="bg-white rounded-2xl p-6 sm:p-7 border border-[#3b0080]/10 shadow-[0_16px_36px_rgba(23,18,34,0.04)] flex flex-col justify-between hover:shadow-[0_20px_45px_rgba(59,0,128,0.08)] transition-all duration-300 group">
+          <article className="bg-white rounded-2xl p-6 sm:p-7 border border-zinc-200 shadow-[0_16px_36px_rgba(23,18,34,0.04)] flex flex-col justify-between hover:shadow-[0_20px_45px_rgba(59,0,128,0.08)] transition-all duration-300 group">
             <div>
               {/* Card Visual / Screenshot */}
-              <div className="aspect-[16/9] w-full rounded-xl overflow-hidden border border-[#3b0080]/10 mb-5 bg-[#171222]">
+              <div className="aspect-[16/9] w-full rounded-xl overflow-hidden border border-zinc-200 mb-5 bg-[#09090b]">
                 <img 
                   src="/images/command-overview.webp" 
                   alt="IndoWings Command Center mission overview analytics dashboard"
@@ -38,7 +38,7 @@ export const ArchitectureGrid: React.FC<ArchitectureGridProps> = ({ onOpenComman
               </div>
 
               {/* Pill Kicker */}
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#ede9fe] text-[#581c87] text-xs font-bold mb-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-900 text-xs font-bold mb-4">
                 <RadioTower className="w-3.5 h-3.5" />
                 <span>Control tower</span>
               </div>
@@ -58,7 +58,7 @@ export const ArchitectureGrid: React.FC<ArchitectureGridProps> = ({ onOpenComman
             <div>
               <button 
                 onClick={onOpenCommandCenter}
-                className="text-[#3b0080] font-extrabold text-[15px] hover:underline inline-flex items-center transition-colors text-left"
+                className="text-zinc-900 font-extrabold text-[15px] hover:underline inline-flex items-center transition-colors text-left"
               >
                 Explore Command Center
               </button>
@@ -66,10 +66,10 @@ export const ArchitectureGrid: React.FC<ArchitectureGridProps> = ({ onOpenComman
           </article>
 
           {/* Card 2: IndoWings Ground Control Station */}
-          <article className="bg-white rounded-2xl p-6 sm:p-7 border border-[#3b0080]/10 shadow-[0_16px_36px_rgba(23,18,34,0.04)] flex flex-col justify-between hover:shadow-[0_20px_45px_rgba(59,0,128,0.08)] transition-all duration-300 group">
+          <article className="bg-white rounded-2xl p-6 sm:p-7 border border-zinc-200 shadow-[0_16px_36px_rgba(23,18,34,0.04)] flex flex-col justify-between hover:shadow-[0_20px_45px_rgba(59,0,128,0.08)] transition-all duration-300 group">
             <div>
               {/* Card Visual / Screenshot */}
-              <div className="aspect-[16/9] w-full rounded-xl overflow-hidden border border-[#3b0080]/10 mb-5 bg-[#171222]">
+              <div className="aspect-[16/9] w-full rounded-xl overflow-hidden border border-zinc-200 mb-5 bg-[#09090b]">
                 <img 
                   src="/images/indowings-route-planner.webp" 
                   alt="IndoWings GCS waypoint route planner with mission controls"
@@ -78,7 +78,7 @@ export const ArchitectureGrid: React.FC<ArchitectureGridProps> = ({ onOpenComman
               </div>
 
               {/* Pill Kicker */}
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#ede9fe] text-[#581c87] text-xs font-bold mb-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-900 text-xs font-bold mb-4">
                 <MonitorUp className="w-3.5 h-3.5" />
                 <span>Mission execution</span>
               </div>
@@ -98,7 +98,7 @@ export const ArchitectureGrid: React.FC<ArchitectureGridProps> = ({ onOpenComman
             <div>
               <a 
                 href="#gcs"
-                className="text-[#3b0080] font-extrabold text-[15px] hover:underline inline-flex items-center transition-colors"
+                className="text-zinc-900 font-extrabold text-[15px] hover:underline inline-flex items-center transition-colors"
               >
                 Explore GCS
               </a>
@@ -106,10 +106,10 @@ export const ArchitectureGrid: React.FC<ArchitectureGridProps> = ({ onOpenComman
           </article>
 
           {/* Card 3: Fleet Lifecycle Management */}
-          <article className="bg-white rounded-2xl p-6 sm:p-7 border border-[#3b0080]/10 shadow-[0_16px_36px_rgba(23,18,34,0.04)] flex flex-col justify-between hover:shadow-[0_20px_45px_rgba(59,0,128,0.08)] transition-all duration-300 group">
+          <article className="bg-white rounded-2xl p-6 sm:p-7 border border-zinc-200 shadow-[0_16px_36px_rgba(23,18,34,0.04)] flex flex-col justify-between hover:shadow-[0_20px_45px_rgba(59,0,128,0.08)] transition-all duration-300 group">
             <div>
               {/* Card Visual / Screenshot */}
-              <div className="aspect-[16/9] w-full rounded-xl overflow-hidden border border-[#3b0080]/10 mb-5 bg-[#171222]">
+              <div className="aspect-[16/9] w-full rounded-xl overflow-hidden border border-zinc-200 mb-5 bg-[#09090b]">
                 <img 
                   src="/images/mission-operation-center.webp" 
                   alt="IndoWings mission operation center with aircraft readiness and pilot assignment"
@@ -118,7 +118,7 @@ export const ArchitectureGrid: React.FC<ArchitectureGridProps> = ({ onOpenComman
               </div>
 
               {/* Pill Kicker */}
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#ede9fe] text-[#581c87] text-xs font-bold mb-4">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-zinc-100 border border-zinc-200 text-zinc-900 text-xs font-bold mb-4">
                 <Network className="w-3.5 h-3.5" />
                 <span>Aircraft & fleet layer</span>
               </div>
@@ -138,7 +138,7 @@ export const ArchitectureGrid: React.FC<ArchitectureGridProps> = ({ onOpenComman
             <div>
               <a 
                 href="#platform"
-                className="text-[#3b0080] font-extrabold text-[15px] hover:underline inline-flex items-center transition-colors"
+                className="text-zinc-900 font-extrabold text-[15px] hover:underline inline-flex items-center transition-colors"
               >
                 Learn how it works
               </a>

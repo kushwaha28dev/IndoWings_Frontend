@@ -253,15 +253,15 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
     <div className="min-h-screen flex">
       {/* LEFT — Branding Panel */}
       <div className="hidden lg:flex lg:w-[52%] flex-col justify-between p-12 relative overflow-hidden"
-        style={{ background: 'linear-gradient(135deg, #1e0940 0%, #2b114d 55%, #1a0835 100%)' }}>
+        style={{ background: 'linear-gradient(135deg, #000000 0%, #09090b 55%, #141418 100%)' }}>
         
         {/* Background Grid Pattern */}
-        <div className="absolute inset-0 opacity-[0.07]"
+        <div className="absolute inset-0 opacity-[0.05]"
           style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '48px 48px' }} />
         
         {/* Ambient Glow */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-20 pointer-events-none"
-          style={{ background: 'radial-gradient(circle, #7c3aed 0%, transparent 70%)' }} />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-10 pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)' }} />
 
         <div className="relative z-10">
           <button onClick={() => { onNavigate('home'); window.history.pushState({}, '', '/'); }}
@@ -273,7 +273,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
             onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
 
           <div className="inline-flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-4 py-1.5 text-xs font-bold text-white/80 tracking-widest uppercase mb-6">
-            <Truck className="w-3.5 h-3.5 text-purple-300" />
+            <Truck className="w-3.5 h-3.5 text-zinc-300" />
             <span>Autonomous Drone Delivery System</span>
           </div>
 
@@ -296,7 +296,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
           ].map(({ icon: Icon, title, desc }) => (
             <div key={title} className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 backdrop-blur-sm">
               <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
-                <Icon className="w-5 h-5 text-purple-200" />
+                <Icon className="w-5 h-5 text-zinc-300" />
               </div>
               <div>
                 <p className="text-white text-sm font-semibold">{title}</p>
@@ -326,11 +326,11 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
             <div>
               <button 
                 onClick={() => { setOtpStep(false); setError(''); }}
-                className="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-[#3b0080] mb-6 transition-colors">
+                className="inline-flex items-center gap-2 text-xs font-semibold text-slate-500 hover:text-zinc-900 mb-6 transition-colors">
                 <ArrowLeft className="w-3.5 h-3.5" /> Back to {otpChannel === 'email' ? 'Email' : 'Phone'} Entry
               </button>
 
-              <div className="w-14 h-14 rounded-2xl bg-purple-50 border border-purple-200/60 flex items-center justify-center text-[#3b0080] mb-5 shadow-sm">
+              <div className="w-14 h-14 rounded-2xl bg-zinc-100 border border-zinc-200/60 flex items-center justify-center text-zinc-900 mb-5 shadow-sm">
                 {otpChannel === 'email' ? <Mail className="w-7 h-7" /> : <KeyRound className="w-7 h-7" />}
               </div>
 
@@ -341,11 +341,11 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
                 We sent a 6-digit verification code to <span className="font-semibold text-[#171222]">{otpDestination}</span>
               </p>
 
-              <div className="mb-6 p-4 rounded-xl bg-purple-50/50 border border-purple-100 flex items-center gap-3">
+              <div className="mb-6 p-4 rounded-xl bg-zinc-100 border border-zinc-200 flex items-center gap-3">
                 {otpChannel === 'email' ? (
-                  <Mail className="w-5 h-5 text-[#3b0080] shrink-0" />
+                  <Mail className="w-5 h-5 text-zinc-900 shrink-0" />
                 ) : (
-                  <Shield className="w-5 h-5 text-[#3b0080] shrink-0" />
+                  <Shield className="w-5 h-5 text-zinc-900 shrink-0" />
                 )}
                 <p className="text-xs text-slate-600">
                   {otpChannel === 'email'
@@ -371,7 +371,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
                         value={digit}
                         onChange={e => handleDigitChange(idx, e.target.value)}
                         onKeyDown={e => handleDigitKeyDown(idx, e)}
-                        className="w-12 h-14 sm:w-14 sm:h-16 text-center text-2xl font-bold text-[#171222] border-2 border-slate-200 rounded-xl focus:outline-none focus:border-[#3b0080] focus:ring-4 focus:ring-purple-100 transition-all bg-slate-50/50"
+                        className="w-12 h-14 sm:w-14 sm:h-16 text-center text-2xl font-bold text-[#171222] border-2 border-slate-200 rounded-xl focus:outline-none focus:border-black focus:ring-4 focus:ring-zinc-300 transition-all bg-slate-50/50"
                       />
                     ))}
                   </div>
@@ -386,7 +386,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
                 <button
                   type="submit"
                   disabled={loading || otpDigits.join('').length !== 6}
-                  className="w-full py-4 bg-[#3b0080] hover:bg-[#2d006b] text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 text-base shadow-lg shadow-purple-900/15">
+                  className="w-full py-4 bg-black hover:bg-zinc-800 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-50 text-base shadow-lg shadow-black/10">
                   {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <CheckCircle2 className="w-5 h-5" />}
                   <span>{loading ? 'Verifying...' : 'Verify & Continue'}</span>
                 </button>
@@ -404,7 +404,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
                           handleSendOtp({ targetPhone: activeOtpPhone });
                         }
                       }}
-                      className="font-bold text-[#3b0080] hover:underline inline-flex items-center gap-1">
+                      className="font-bold text-zinc-900 hover:underline inline-flex items-center gap-1">
                       <RotateCcw className="w-3 h-3" /> Resend Code
                     </button>
                   ) : (
@@ -437,7 +437,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
                     key={m}
                     onClick={() => { setMode(m); setError(''); }}
                     className={`flex-1 py-2.5 text-sm font-semibold rounded-lg transition-all ${
-                      mode === m ? 'bg-white text-[#3b0080] shadow-sm' : 'text-slate-500 hover:text-slate-700'
+                      mode === m ? 'bg-white text-zinc-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'
                     }`}>
                     {m === 'login' ? 'Sign In' : 'Sign Up with Phone OTP'}
                   </button>
@@ -458,7 +458,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
                         onChange={e => setName(e.target.value)}
                         required
                         placeholder="e.g. Puneet Kushwaha"
-                        className="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl text-sm text-[#171222] placeholder:text-slate-300 focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 transition-all"
+                        className="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl text-sm text-[#171222] placeholder:text-slate-300 focus:outline-none focus:border-black focus:ring-2 focus:ring-zinc-300 transition-all"
                       />
                     </div>
                   </div>
@@ -475,7 +475,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
                         onChange={e => setEmail(e.target.value)}
                         required
                         placeholder="you@company.com"
-                        className="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl text-sm text-[#171222] placeholder:text-slate-300 focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 transition-all"
+                        className="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl text-sm text-[#171222] placeholder:text-slate-300 focus:outline-none focus:border-black focus:ring-2 focus:ring-zinc-300 transition-all"
                       />
                     </div>
                   </div>
@@ -495,7 +495,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
                         required
                         maxLength={10}
                         placeholder="9876543210"
-                        className="w-full px-4 py-3.5 border border-slate-200 rounded-r-xl text-sm text-[#171222] placeholder:text-slate-300 focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 transition-all font-medium"
+                        className="w-full px-4 py-3.5 border border-slate-200 rounded-r-xl text-sm text-[#171222] placeholder:text-slate-300 focus:outline-none focus:border-black focus:ring-2 focus:ring-zinc-300 transition-all font-medium"
                       />
                     </div>
                     <p className="text-[11px] text-slate-400 mt-1">
@@ -512,7 +512,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-4 bg-[#3b0080] hover:bg-[#2d006b] text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-60 text-base shadow-lg shadow-purple-900/15 mt-2">
+                    className="w-full py-4 bg-black hover:bg-zinc-800 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-60 text-base shadow-lg shadow-black/10 mt-2">
                     {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Phone className="w-5 h-5" />}
                     <span>{loading ? 'Sending OTP...' : 'Send Verification OTP'}</span>
                   </button>
@@ -521,9 +521,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
                 /* LOGIN FORM (Admin or Customer) */
                 <form onSubmit={handleLoginSubmit} className="space-y-4">
                   {isAdminLogin && (
-                    <div className="mb-4 px-4 py-3 bg-purple-50 border border-purple-200 rounded-xl flex items-center gap-2.5">
-                      <Shield className="w-4 h-4 text-[#3b0080] shrink-0" />
-                      <p className="text-xs text-[#3b0080] font-semibold">
+                    <div className="mb-4 px-4 py-3 bg-zinc-100 border border-zinc-200 rounded-xl flex items-center gap-2.5">
+                      <Shield className="w-4 h-4 text-zinc-900 shrink-0" />
+                      <p className="text-xs text-zinc-900 font-semibold">
                         Admin identity recognized. Please provide your secure admin password.
                       </p>
                     </div>
@@ -541,7 +541,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
                         onChange={e => setLoginEmail(e.target.value)}
                         required
                         placeholder="puneet@indowings.com or +91..."
-                        className="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl text-sm text-[#171222] placeholder:text-slate-300 focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 transition-all"
+                        className="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl text-sm text-[#171222] placeholder:text-slate-300 focus:outline-none focus:border-black focus:ring-2 focus:ring-zinc-300 transition-all"
                       />
                     </div>
                   </div>
@@ -559,7 +559,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
                             value={loginPassword}
                             onChange={e => setLoginPassword(e.target.value)}
                             placeholder="••••••••"
-                            className="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl text-sm text-[#171222] placeholder:text-slate-300 focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 transition-all"
+                            className="w-full pl-11 pr-4 py-3.5 border border-slate-200 rounded-xl text-sm text-[#171222] placeholder:text-slate-300 focus:outline-none focus:border-black focus:ring-2 focus:ring-zinc-300 transition-all"
                           />
                         </div>
                       </div>
@@ -568,17 +568,17 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
                         <button
                           type="button"
                           onClick={() => handleSendOtp({ targetEmail: loginEmail.trim() })}
-                          className="text-xs text-[#3b0080] font-semibold hover:underline flex items-center gap-1.5">
+                          className="text-xs text-zinc-900 font-semibold hover:underline flex items-center gap-1.5">
                           <Mail className="w-3.5 h-3.5" /> Or send OTP to admin email instead
                         </button>
                       </div>
                     </div>
                   ) : (
-                    <div className="rounded-xl p-3 bg-purple-50/50 border border-purple-100/80 flex items-center gap-2.5">
+                    <div className="rounded-xl p-3 bg-zinc-100 border border-zinc-200/80 flex items-center gap-2.5">
                       {loginEmail.includes('@') ? (
-                        <Mail className="w-4 h-4 text-[#3b0080] shrink-0" />
+                        <Mail className="w-4 h-4 text-zinc-900 shrink-0" />
                       ) : (
-                        <Phone className="w-4 h-4 text-[#3b0080] shrink-0" />
+                        <Phone className="w-4 h-4 text-zinc-900 shrink-0" />
                       )}
                       <p className="text-xs text-slate-600">
                         {loginEmail.includes('@')
@@ -597,7 +597,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-4 bg-[#3b0080] hover:bg-[#2d006b] text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-60 text-base shadow-lg shadow-purple-900/15 mt-2">
+                    className="w-full py-4 bg-black hover:bg-zinc-800 text-white font-bold rounded-xl transition-all flex items-center justify-center gap-2 disabled:opacity-60 text-base shadow-lg shadow-black/10 mt-2">
                     {loading ? (
                       <Loader2 className="w-5 h-5 animate-spin" />
                     ) : isAdminLogin && loginPassword ? (
@@ -624,7 +624,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess, def
                 {mode === 'login' ? "New to IndoWings Delivery? " : 'Already registered? '}
                 <button
                   onClick={() => { setMode(mode === 'login' ? 'register' : 'login'); setError(''); }}
-                  className="text-[#3b0080] font-semibold hover:underline">
+                  className="text-zinc-900 font-semibold hover:underline">
                   {mode === 'login' ? 'Create an account' : 'Sign in'}
                 </button>
               </p>

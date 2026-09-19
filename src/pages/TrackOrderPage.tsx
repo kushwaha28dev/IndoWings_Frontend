@@ -12,7 +12,7 @@ const STATUS_COLORS: Record<string, string> = {
   delivered: 'bg-green-100 text-green-700 border-green-200',
   'in-flight': 'bg-blue-100 text-blue-700 border-blue-200',
   'on-hold': 'bg-orange-100 text-orange-700 border-orange-200',
-  assigned: 'bg-purple-100 text-purple-700 border-purple-200',
+  assigned: 'bg-zinc-100 text-zinc-800 border-zinc-200',
   rescheduled: 'bg-yellow-100 text-yellow-700 border-yellow-200',
   pending: 'bg-slate-100 text-slate-600 border-slate-200',
   'taking-off': 'bg-blue-100 text-blue-700 border-blue-200',
@@ -104,23 +104,23 @@ export const TrackOrderPage: React.FC<TrackOrderPageProps> = ({ onNavigate, init
   };
 
   return (
-    <div className="min-h-screen bg-[#f7f4fb]">
-      <section className="relative text-white pt-16 pb-24 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #1e0940 0%, #2b114d 50%, #1a0835 100%)' }}>
+    <div className="min-h-screen bg-[#fafafa]">
+      <section className="relative text-white pt-16 pb-24 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #000000 0%, #09090b 50%, #17171c 100%)' }}>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         <div className="relative max-w-4xl mx-auto">
-          <div className="w-14 h-14 bg-white/15 border border-white/20 rounded-xl flex items-center justify-center mb-5">
+          <div className="w-14 h-14 bg-white/10 border border-white/15 rounded-xl flex items-center justify-center mb-5 shadow-lg">
             <MapPin className="w-7 h-7 text-white" />
           </div>
-          <p className="text-xs font-bold tracking-[0.2em] uppercase text-white/70 mb-3">Track Order</p>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight max-w-xl">Real-time drone delivery tracking</h1>
-          <p className="text-white/70 text-base max-w-xl leading-relaxed mb-8">Enter your Order ID to see live status, drone assignment, and delivery timeline.</p>
+          <p className="text-xs font-bold tracking-[0.2em] uppercase text-zinc-400 mb-3">Track Order</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight max-w-xl text-white">Real-time drone delivery tracking</h1>
+          <p className="text-zinc-400 text-base max-w-xl leading-relaxed mb-8">Enter your Order ID to see live status, drone assignment, and delivery timeline.</p>
           <form onSubmit={handleSearch} className="flex gap-3 max-w-xl">
             <div className="flex-1 relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" />
               <input value={orderId} onChange={e => setOrderId(e.target.value)} placeholder="Enter Order ID (e.g. INW-2026-001)"
                 className="w-full pl-12 pr-4 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/50 text-sm font-medium focus:outline-none focus:border-white/50 focus:bg-white/15" />
             </div>
-            <button type="submit" className="px-6 py-4 bg-white text-[#3b0080] font-bold rounded-xl hover:bg-white/90 transition-colors whitespace-nowrap">
+            <button type="submit" className="px-6 py-4 bg-white text-black font-bold rounded-xl hover:bg-zinc-200 transition-colors whitespace-nowrap shadow-md">
               Track
             </button>
           </form>
@@ -131,7 +131,7 @@ export const TrackOrderPage: React.FC<TrackOrderPageProps> = ({ onNavigate, init
       <div className="max-w-4xl mx-auto px-6 py-12">
         {loading && (
           <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 text-[#3b0080] animate-spin" />
+            <Loader2 className="w-8 h-8 text-black animate-spin" />
           </div>
         )}
 
@@ -159,7 +159,7 @@ export const TrackOrderPage: React.FC<TrackOrderPageProps> = ({ onNavigate, init
                   {order.status === 'delivered' && (
                     <button
                       onClick={() => onOpenFeedback?.(order)}
-                      className="px-4 py-2 rounded-full text-xs font-bold bg-[#3b0080] hover:bg-[#280058] text-white shadow-sm transition-all flex items-center gap-1.5 cursor-pointer"
+                      className="px-4 py-2 rounded-full text-xs font-bold bg-black hover:bg-zinc-800 text-white shadow-sm transition-all flex items-center gap-1.5 cursor-pointer"
                     >
                       <span>⭐ Rate Flight / Feedback</span>
                     </button>
@@ -179,11 +179,11 @@ export const TrackOrderPage: React.FC<TrackOrderPageProps> = ({ onNavigate, init
                   {(order.timeline || []).map((step: any, i: number) => (
                     <div key={i} className="flex gap-4">
                       <div className="flex flex-col items-center">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 shrink-0 ${step.done ? 'bg-[#3b0080] border-[#3b0080]' : 'bg-white border-slate-200'}`}>
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 shrink-0 ${step.done ? 'bg-black border-black' : 'bg-white border-slate-200'}`}>
                           {step.done ? <Check className="w-4 h-4 text-white" /> : <div className="w-2 h-2 rounded-full bg-slate-300" />}
                         </div>
                         {i < (order.timeline.length - 1) && (
-                          <div className={`w-0.5 flex-1 my-1 ${step.done ? 'bg-[#3b0080]' : 'bg-slate-100'}`} style={{ minHeight: '28px' }} />
+                          <div className={`w-0.5 flex-1 my-1 ${step.done ? 'bg-black' : 'bg-slate-100'}`} style={{ minHeight: '28px' }} />
                         )}
                       </div>
                       <div className="pb-6">
@@ -202,8 +202,8 @@ export const TrackOrderPage: React.FC<TrackOrderPageProps> = ({ onNavigate, init
                   <div className="bg-white border border-[#e2e8f0] rounded-2xl p-5 shadow-sm">
                     <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-3">Assigned Drone</h3>
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center">
-                        <Truck className="w-5 h-5 text-[#3b0080]" />
+                      <div className="w-10 h-10 rounded-xl bg-zinc-100 flex items-center justify-center">
+                        <Truck className="w-5 h-5 text-zinc-900" />
                       </div>
                       <div>
                         <p className="font-bold text-[#171222]">{order.drone_id}</p>
@@ -257,7 +257,7 @@ export const TrackOrderPage: React.FC<TrackOrderPageProps> = ({ onNavigate, init
                   <div className="space-y-2.5 text-sm">
                     {order.recipient_name ? (
                       <div>
-                        <p className="text-[10px] font-bold text-[#3b0080] uppercase tracking-wider">Recipient</p>
+                        <p className="text-[10px] font-bold text-zinc-900 uppercase tracking-wider">Recipient</p>
                         <p className="font-semibold text-[#171222]">{order.recipient_name}</p>
                         <div className="flex items-center gap-1.5 text-xs text-slate-500 mt-0.5">
                           <Phone className="w-3 h-3 text-slate-400" />
@@ -286,10 +286,10 @@ export const TrackOrderPage: React.FC<TrackOrderPageProps> = ({ onNavigate, init
                 </div>
 
                 {order.estimated_delivery && (
-                  <div className="bg-purple-50 border border-purple-100 rounded-2xl p-5">
+                  <div className="bg-zinc-100 border border-zinc-200 rounded-2xl p-5">
                     <div className="flex items-center gap-2 mb-1">
-                      <Clock className="w-4 h-4 text-[#3b0080]" />
-                      <p className="text-xs font-bold text-[#3b0080] uppercase tracking-wide">Estimated Delivery</p>
+                      <Clock className="w-4 h-4 text-zinc-900" />
+                      <p className="text-xs font-bold text-zinc-900 uppercase tracking-wide">Estimated Delivery</p>
                     </div>
                     <p className="text-sm font-bold text-[#171222]">{formatTime(order.estimated_delivery)}</p>
                   </div>

@@ -60,7 +60,7 @@ export const ScrollDroneFlight: React.FC<ScrollDroneFlightProps> = ({
     scene.add(droneGroup);
 
     const bodyMaterial = new THREE.MeshBasicMaterial({
-      color: 0x0f091f,
+      color: 0x000000,
       side: THREE.DoubleSide,
       polygonOffset: true,
       polygonOffsetFactor: 2,

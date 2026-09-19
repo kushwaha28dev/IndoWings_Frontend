@@ -165,11 +165,11 @@ export const ElevationMeshBackground: React.FC<ElevationMeshBackgroundProps> = (
 
           if (avgZ > 1) {
             const intensity = Math.min(avgZ / MAX_LIFT, 1);
-            // Subtle luxury violet glow on lifted segment
-            ctx.strokeStyle = `rgba(192, 132, 252, ${0.06 + intensity * 0.18})`;
+            // Crisp silver/white wireframe glow on lifted segment
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.12 + intensity * 0.35})`;
             ctx.lineWidth = 1;
           } else {
-            ctx.strokeStyle = 'rgba(167, 139, 250, 0.05)';
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
             ctx.lineWidth = 1;
           }
           ctx.stroke();
@@ -189,10 +189,10 @@ export const ElevationMeshBackground: React.FC<ElevationMeshBackgroundProps> = (
 
           if (avgZ > 1) {
             const intensity = Math.min(avgZ / MAX_LIFT, 1);
-            ctx.strokeStyle = `rgba(168, 85, 247, ${0.06 + intensity * 0.18})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.12 + intensity * 0.35})`;
             ctx.lineWidth = 1;
           } else {
-            ctx.strokeStyle = 'rgba(167, 139, 250, 0.05)';
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
             ctx.lineWidth = 1;
           }
           ctx.stroke();
@@ -208,13 +208,13 @@ export const ElevationMeshBackground: React.FC<ElevationMeshBackgroundProps> = (
             const intensity = Math.min(p.z / MAX_LIFT, 1);
             ctx.beginPath();
             ctx.arc(p.x, p.y, 1.2 + intensity * 0.8, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(216, 180, 254, ${0.2 + intensity * 0.4})`;
+            ctx.fillStyle = `rgba(255, 255, 255, ${0.3 + intensity * 0.5})`;
             ctx.fill();
           } else if ((r + c) % 4 === 0) {
             // Ambient faint micro-dot
             ctx.beginPath();
             ctx.arc(p.x, p.y, 1, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(167, 139, 250, 0.12)';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
             ctx.fill();
           }
         }
