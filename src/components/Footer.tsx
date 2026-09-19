@@ -179,11 +179,23 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenFeedback }) =>
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[13px] text-slate-400 gap-4">
           <span>&copy; 2026 IndoWings.</span>
-          <span>Built for aviation-grade operational clarity. DGCA & Aerospace Compliance.</span>
+          <span>Built for aviation-grade operational clarity. DGCA &amp; Aerospace Compliance.</span>
         </div>
+      </div>
+
+      {/* Big brand wordmark — FlytBase style */}
+      <div className="w-full overflow-hidden select-none pointer-events-none mt-6">
+        <p
+          className="text-center font-black leading-none tracking-tighter whitespace-nowrap"
+          style={{
+            fontSize: 'clamp(60px, 14vw, 180px)',
+            color: 'rgba(255,255,255,0.045)',
+            letterSpacing: '-0.03em',
+          }}
+        >
+          INDOWINGS
+        </p>
       </div>
     </footer>
   );
 };
-
-
