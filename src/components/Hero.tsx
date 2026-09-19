@@ -183,29 +183,29 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               )}
 
               {/* Eyebrow */}
-              <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-sm bg-purple-400" />
-                <p className="text-xs sm:text-[13px] font-bold uppercase tracking-[0.2em] text-purple-300/90 font-mono">
-                  INDIA&apos;S AUTONOMOUS DRONE DELIVERY NETWORK
-                </p>
-              </div>
+              <p className="text-xs sm:text-sm font-black uppercase tracking-[0.18em] text-purple-400">
+                India&apos;s Autonomous Drone Delivery Network
+              </p>
 
-              {/* Headline with FlytBase editorial serif display font */}
-              <h1 className="text-[44px] sm:text-[58px] lg:text-[68px] font-normal leading-[1.04] tracking-tight text-white font-['Instrument_Serif',serif]">
-                Deliver Anything, <br />
-                Anywhere in NCR <br className="hidden sm:inline" />
-                <span className="text-white/80 font-normal">
-                  — Under <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-indigo-200 to-purple-200">24 Minutes</span>.
+              {/* Headline */}
+              <h1 className="text-[42px] sm:text-[54px] lg:text-[62px] font-black leading-[1.05] tracking-tight text-white">
+                Deliver Anything,{' '}
+                <span className="relative">
+                  <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(90deg, #c084fc, #818cf8)' }}>
+                    Anywhere in NCR
+                  </span>
                 </span>
+                <br />
+                <span className="text-white/80 text-[38px] sm:text-[46px] lg:text-[52px]">— Under 24 Minutes.</span>
               </h1>
 
               {/* Body */}
-              <p className="text-base sm:text-lg text-white/60 max-w-lg leading-relaxed font-['Plus_Jakarta_Sans',sans-serif]">
+              <p className="text-base sm:text-lg text-white/60 max-w-lg leading-relaxed">
                 IndoWings Cyberone autonomous UAVs fly at 65 km/h above Delhi-NCR traffic — delivering medicine, documents, food and parcels to your rooftop via precision Kevlar winch tether. Contactless. Certified. Instant.
               </p>
 
               {/* Package ticker */}
-              <div className="flex items-center gap-3 font-['Plus_Jakarta_Sans',sans-serif]">
+              <div className="flex items-center gap-3">
                 <span className="text-sm text-white/30 font-medium shrink-0">Now delivering:</span>
                 <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
                   <span className="text-sm font-bold text-white">{PACKAGE_TYPES[activePkg].name}</span>
@@ -243,7 +243,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             </div>
 
             {/* ── Right — Classic Showcase Live Card Stack ── */}
-            <div className="hidden lg:flex flex-col gap-4 font-['Plus_Jakarta_Sans',sans-serif]">
+            <div className="hidden lg:flex flex-col gap-4">
 
               {/* Main live flight showcase card */}
               <div className="rounded-3xl p-6 space-y-5 border border-white/10 backdrop-blur-md"
