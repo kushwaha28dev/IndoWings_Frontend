@@ -179,8 +179,8 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                 style={{ background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.25)', color: '#6ee7b7' }}>
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 <span>
-                  {analytics
-                    ? `${analytics.deliveredOrders || 0} deliveries completed · ${analytics.inFlightOrders || 0} flights active`
+                  {analytics && analytics.deliveredOrders > 0
+                    ? `${analytics.deliveredOrders} deliveries completed · ${analytics.inFlightOrders || 0} flights active`
                     : `${liveCount} drones active over Delhi-NCR right now`}
                 </span>
               </div>
