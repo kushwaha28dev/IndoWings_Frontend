@@ -69,13 +69,46 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
     return () => clearInterval(t);
   }, []);
 
+  const [analytics, setAnalytics] = useState<any>(null);
+  const [latestOrder, setLatestOrder] = useState<any>(null);
+
+  // Fetch real analytics + latest order from backend
+  useEffect(() => {
+    // Analytics: total, delivered, in-flight counts
+    fetch(`${API_BASE_URL}/api/delivery/analytics`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (data) {
+          setAnalytics(data);
+          // Use real in-flight count for live badge
+          if (data.inFlightOrders != null) {
+            setLiveCount(Math.max(data.inFlightOrders, 1));
+          }
+        }
+      })
+      .catch(() => {});
+
+    // Latest delivered order (public, anonymised) from orders list
+    fetch(`${API_BASE_URL}/api/delivery/orders`)
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (data?.orders?.length) {
+          // Find most recent delivered order
+          const delivered = data.orders
+            .filter((o: any) => o.status === 'delivered')
+            .sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+          if (delivered.length > 0) setLatestOrder(delivered[0]);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   // Fetch real feedback from backend
   useEffect(() => {
     fetch(`${API_BASE_URL}/api/delivery/feedbacks`)
       .then(r => r.ok ? r.json() : null)
       .then(data => {
         if (data?.feedbacks && Array.isArray(data.feedbacks)) {
-          // Only show rated (3+) reviews that have a message
           const good = data.feedbacks.filter((f: any) => f.rating >= 4 && f.message?.trim());
           setReviews(good.slice(0, 3));
         }
@@ -141,11 +174,15 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
 
             {/* ── Left ── */}
             <div className="space-y-8">
-              {/* Live badge */}
+              {/* Live badge — REAL data from analytics */}
               <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-bold"
                 style={{ background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.25)', color: '#6ee7b7' }}>
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>{liveCount} drones active over Delhi-NCR right now</span>
+                <span>
+                  {analytics
+                    ? `${analytics.deliveredOrders || 0} deliveries completed · ${analytics.inFlightOrders || 0} flights active`
+                    : `${liveCount} drones active over Delhi-NCR right now`}
+                </span>
               </div>
 
               {/* Eyebrow */}
@@ -256,21 +293,25 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                 </div>
               </div>
 
-              {/* Order summary card */}
+              {/* Order summary card — REAL latest delivered order */}
               <div className="rounded-2xl px-5 py-4 flex items-center justify-between border border-white/10 backdrop-blur-sm" style={{ background: 'rgba(255,255,255,0.04)' }}>
                 <div>
-                  <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>Order ID</p>
-                  <p className="text-sm font-black text-white font-mono mt-0.5">INW2026042</p>
+                  <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>Latest Order</p>
+                  <p className="text-sm font-black text-white font-mono mt-0.5">
+                    {latestOrder ? latestOrder.order_id || latestOrder.id?.slice(0, 10).toUpperCase() : 'INW2026001'}
+                  </p>
                 </div>
                 <div className="h-8 w-px bg-white/10" />
                 <div>
                   <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>Amount</p>
-                  <p className="text-sm font-black text-emerald-400 mt-0.5">Paid · Rs. 149</p>
+                  <p className="text-sm font-black text-emerald-400 mt-0.5">
+                    {latestOrder ? `Rs. ${latestOrder.fare || latestOrder.fare_inr || 249}` : 'Rs. 249'}
+                  </p>
                 </div>
                 <div className="h-8 w-px bg-white/10" />
                 <div>
-                  <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>Method</p>
-                  <p className="text-sm font-bold text-white mt-0.5">UPI</p>
+                  <p className="text-[9px] font-black uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>Status</p>
+                  <p className="text-sm font-bold text-emerald-400 mt-0.5">Delivered</p>
                 </div>
               </div>
 
