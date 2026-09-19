@@ -150,17 +150,28 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenFeedback }) =>
             </ul>
           </div>
 
-          {/* Column 5: Legal */}
           <div>
             <h2 className="text-[15px] font-bold text-white mb-4">Legal</h2>
             <ul className="space-y-3 text-sm text-slate-300/85">
-              <li><a href="#privacy" className="hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#terms" className="hover:text-white transition-colors">Terms of Use</a></li>
-              <li><a href="#security" className="hover:text-white transition-colors">Security Disclosure</a></li>
-              <li><a href="#data-protection" className="hover:text-white transition-colors">Data Protection</a></li>
-              <li className="pt-2 text-[13px] text-slate-400 leading-relaxed">
-                Installer links are managed through release administration.
-              </li>
+              {[
+                { label: 'Privacy Policy', hash: 'privacy' },
+                { label: 'Terms of Use', hash: 'terms' },
+                { label: 'Security Disclosure', hash: 'security' },
+                { label: 'Data Protection', hash: 'data-protection' },
+              ].map(item => (
+                <li key={item.hash}>
+                  <a href={`/legal#${item.hash}`}
+                    onClick={e => {
+                      e.preventDefault();
+                      if (onNavigate) onNavigate('legal');
+                      window.history.pushState({}, '', `/legal#${item.hash}`);
+                      window.scrollTo({ top: 0 });
+                    }}
+                    className="hover:text-white transition-colors">
+                    {item.label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

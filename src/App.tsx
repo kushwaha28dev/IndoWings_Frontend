@@ -24,6 +24,7 @@ import { SupportPage } from './pages/SupportPage';
 import { DocsPage } from './pages/DocsPage';
 import { CompanyPage } from './pages/CompanyPage';
 import { FeedbackPage } from './pages/FeedbackPage';
+import { LegalPage } from './pages/LegalPage';
 import { CommandCenterModal } from './components/CommandCenterModal';
 import { DemoBookingModal } from './components/DemoBookingModal';
 import { FeedbackModal } from './components/FeedbackModal';
@@ -32,7 +33,7 @@ import { API_BASE_URL } from './config/api';
 import { AuthModal, DeliveryUser } from './components/AuthModal';
 import { UserProfile } from './types';
 
-type Page = 'home' | 'platform' | 'command-center' | 'gcs' | 'downloads' | 'versions' | 'order' | 'track' | 'dispatch' | 'login' | 'profile' | 'orders' | 'support' | 'docs' | 'company' | 'feedback';
+type Page = 'home' | 'platform' | 'command-center' | 'gcs' | 'downloads' | 'versions' | 'order' | 'track' | 'dispatch' | 'login' | 'profile' | 'orders' | 'support' | 'docs' | 'company' | 'feedback' | 'legal';
 
 const getInitialPage = (): Page => {
   if (typeof window === 'undefined') return 'home';
@@ -51,6 +52,7 @@ const getInitialPage = (): Page => {
   if (p.includes('/docs') || p.includes('/documentation')) return 'docs';
   if (p.includes('/company')) return 'company';
   if (p.includes('/feedback')) return 'feedback';
+  if (p.includes('/legal') || p.includes('/privacy') || p.includes('/terms') || p.includes('/security-disclosure') || p.includes('/data-protection')) return 'legal';
   if (p.includes('/support') || p.includes('/guide') || p.includes('/fix')) return 'support';
   return 'home';
 };
@@ -202,6 +204,8 @@ export const App: React.FC = () => {
           <CompanyPage onNavigate={handleNavigate} onOpenCommandCenter={() => setIsCommandCenterOpen(true)} onOpenDemoBooking={() => handleOpenDemoBooking()} />
         ) : currentPage === 'feedback' ? (
           <FeedbackPage onNavigate={handleNavigate} currentUser={deliveryUser} />
+        ) : currentPage === 'legal' ? (
+          <LegalPage onNavigate={handleNavigate} section={window.location.hash.replace('#', '') || undefined} />
         ) : (
           <>
             <Hero onOpenCommandCenter={() => setIsCommandCenterOpen(true)} onOpenDemoBooking={() => handleOpenDemoBooking()} onNavigate={handleNavigate} />
