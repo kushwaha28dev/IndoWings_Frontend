@@ -124,7 +124,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
       {/* ══════════════════════════════════════════════════════════════════════
           HERO
          ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative overflow-hidden min-h-[95vh] flex items-center" style={{ background: 'linear-gradient(135deg, #06010f 0%, #0d0520 45%, #10062a 100%)' }}>
+      <section className="relative overflow-hidden flex items-center" style={{ background: 'linear-gradient(135deg, #06010f 0%, #0d0520 45%, #10062a 100%)' }}>
 
         {/* Grid pattern */}
         <div className="absolute inset-0 opacity-[0.07]"
@@ -136,7 +136,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
         <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full opacity-10"
           style={{ background: 'radial-gradient(circle, #4f46e5 0%, transparent 70%)' }} />
 
-        <div className="relative max-w-[1280px] mx-auto px-4 sm:px-6 w-full py-24 sm:py-32">
+        <div className="relative max-w-[1280px] mx-auto px-4 sm:px-6 w-full py-14 sm:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_480px] gap-16 items-center">
 
             {/* ── Left ── */}
