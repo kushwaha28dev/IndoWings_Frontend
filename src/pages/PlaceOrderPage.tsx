@@ -21,9 +21,39 @@ interface PlaceOrderPageProps {
   onOpenAuth: () => void;
 }
 
+export interface AddressSuggestion {
+  name?: string;
+  short?: string;
+  display_name?: string;
+  short_name?: string;
+  lat: number;
+  lng: number;
+  type: string;
+}
+
+export interface PlacedOrderDetails {
+  id: string;
+  pickup_address: string;
+  drop_address: string;
+  package_type: string;
+  weight_kg: number | string;
+  fare_inr: number;
+  payment_method: string;
+  payment_id?: string;
+  drone_model?: string;
+  drone_id?: string;
+  aerial_distance_km?: number;
+  flight_duration_mins?: number;
+  status?: string;
+  recipient_name?: string;
+  recipient_phone?: string;
+  delivery_notes?: string;
+  created_at?: string;
+  [key: string]: any;
+}
+
 const PACKAGE_TYPES = ['Medical Supplies', 'Documents', 'Food Parcel', 'Electronics', 'Personal Items', 'Fragile Items', 'Other'];
 
-// Pre-verified IndoWings NCR Air Corridor Hubs
 const POPULAR_HUBS = [
   { name: 'Sector 62 IndoWings Hub, Noida', short: 'Noida Sec 62', lat: 28.6280, lng: 77.3649, type: 'UAV Hub' },
   { name: 'Connaught Place Outer Circle, Delhi', short: 'CP Metro', lat: 28.6315, lng: 77.2167, type: 'Drop Zone' },
@@ -39,21 +69,18 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
   const [pickupCoords, setPickupCoords] = useState<{ lat: number; lng: number } | null>({ lat: 28.6280, lng: 77.3649 });
   const [dropCoords, setDropCoords] = useState<{ lat: number; lng: number } | null>({ lat: 28.6315, lng: 77.2167 });
   
-  // Saved Addresses from User Profile
   const [savedAddresses, setSavedAddresses] = useState<SavedAddress[]>(currentUser?.saved_addresses || []);
   const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null);
   const [selectedPickupAddressId, setSelectedPickupAddressId] = useState<string | null>(null);
   const [addressTargetMode, setAddressTargetMode] = useState<'drop' | 'pickup'>('drop');
 
-  // Order for Someone Else State
   const [isOrderingForSomeoneElse, setIsOrderingForSomeoneElse] = useState(false);
   const [recipientName, setRecipientName] = useState('');
   const [recipientPhone, setRecipientPhone] = useState('');
   const [deliveryNotes, setDeliveryNotes] = useState('');
 
-  // Autocomplete Suggestions State
-  const [pickupSuggestions, setPickupSuggestions] = useState<any[]>([]);
-  const [dropSuggestions, setDropSuggestions] = useState<any[]>([]);
+  const [pickupSuggestions, setPickupSuggestions] = useState<AddressSuggestion[]>([]);
+  const [dropSuggestions, setDropSuggestions] = useState<AddressSuggestion[]>([]);
   const [showPickupDropdown, setShowPickupDropdown] = useState(false);
   const [showDropDropdown, setShowDropDropdown] = useState(false);
   const [isLocating, setIsLocating] = useState(false);
@@ -69,7 +96,7 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
   const [paymentMethod, setPaymentMethod] = useState<'online' | 'cod'>('online');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [successOrder, setSuccessOrder] = useState<any>(null);
+  const [successOrder, setSuccessOrder] = useState<PlacedOrderDetails | null>(null);
   const [copiedId, setCopiedId] = useState(false);
   const [showCalcExplainer, setShowCalcExplainer] = useState(false);
 
@@ -674,7 +701,7 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                 </div>
 
                 <div className="space-y-3">
-                  {/* ── TRANSIT ROUTE CONTAINER (CONNECTED PICKUP & DROP) ── */}
+                  {/* TRANSIT ROUTE CONTAINER (CONNECTED PICKUP & DROP) */}
                   <div className="space-y-3">
                     {/* PICKUP POINT (DEPARTURE) */}
                     <div className="relative" ref={pickupRef}>
@@ -717,7 +744,7 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                               key={idx}
                               type="button"
                               onClick={() => {
-                                setPickup(item.short_name || item.name || item.display_name.split(',')[0]);
+                                setPickup(item.short_name || item.name || item.display_name?.split(',')[0] || '');
                                 setPickupCoords({ lat: item.lat, lng: item.lng });
                                 setSelectedPickupAddressId(null);
                                 setShowPickupDropdown(false);
@@ -725,7 +752,7 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                               className="w-full text-left px-3 py-2 hover:bg-emerald-50 transition-colors border-b border-zinc-50 last:border-0 flex items-start gap-2 cursor-pointer">
                               <MapPin className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                               <div className="flex-1 min-w-0">
-                                <p className="text-xs font-bold text-zinc-900 truncate">{item.short_name || item.name || item.display_name.split(',')[0]}</p>
+                                <p className="text-xs font-bold text-zinc-900 truncate">{item.short_name || item.name || item.display_name?.split(',')[0] || ''}</p>
                                 <p className="text-[10px] text-zinc-400 truncate">{item.display_name || item.type}</p>
                               </div>
                             </button>
@@ -832,7 +859,7 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                               key={idx}
                               type="button"
                               onClick={() => {
-                                setDrop(item.short_name || item.name || item.display_name.split(',')[0]);
+                                setDrop(item.short_name || item.name || item.display_name?.split(',')[0] || '');
                                 setDropCoords({ lat: item.lat, lng: item.lng });
                                 setSelectedAddressId(null);
                                 setShowDropDropdown(false);
@@ -840,7 +867,7 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                               className="w-full text-left px-3 py-2 hover:bg-zinc-100 transition-colors border-b border-zinc-50 last:border-0 flex items-start gap-2 cursor-pointer">
                               <MapPin className="w-3.5 h-3.5 text-zinc-700 shrink-0 mt-0.5" />
                               <div className="flex-1 min-w-0">
-                                <p className="text-xs font-bold text-zinc-900 truncate">{item.short_name || item.name || item.display_name.split(',')[0]}</p>
+                                <p className="text-xs font-bold text-zinc-900 truncate">{item.short_name || item.name || item.display_name?.split(',')[0] || ''}</p>
                                 <p className="text-[10px] text-zinc-400 truncate">{item.display_name || item.type}</p>
                               </div>
                             </button>
@@ -899,7 +926,7 @@ export const PlaceOrderPage: React.FC<PlaceOrderPageProps> = ({ onNavigate, curr
                       </div>
                     </div>
 
-                    {/* ── 3-METRIC AVIATION TELEMETRY HUB ───────────────────────────── */}
+                    {/* METRIC AVIATION TELEMETRY HUB */}
                     <div className="bg-zinc-950 text-white border border-zinc-800 rounded-xl p-2.5 sm:p-3 shadow-md mt-2.5 min-w-0 w-full overflow-hidden relative">
                       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-zinc-800 via-zinc-400 to-zinc-800"></div>
 

@@ -157,7 +157,7 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
 
   return (
     <div className="min-h-screen bg-[#f8f6fc]">
-      {/* ── HERO BANNER ──────────────────────────────────────────────────────── */}
+      {/* HERO BANNER */}
       <section 
         className="relative text-white pt-16 pb-24 px-6 overflow-hidden text-center"
         style={{ background: 'linear-gradient(135deg, #000000 0%, #09090b 50%, #17171c 100%)' }}>
@@ -200,7 +200,7 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
         </div>
       </section>
 
-      {/* ── 3 PRIMARY TABS BAR ──────────────────────────────────────────────── */}
+      {/* PRIMARY TABS BAR */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 -mt-8 relative z-20">
         <div className="bg-white p-2 rounded-2xl border border-slate-200/90 shadow-xl flex items-center justify-between gap-1 sm:gap-2">
           {[
@@ -228,7 +228,7 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
         </div>
       </div>
 
-      {/* ── MAIN CONTENT CONTAINER ─────────────────────────────────────────── */}
+      {/* MAIN CONTENT CONTAINER */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
         
         {/* ══════════════════════════════════════════════════════════════════════

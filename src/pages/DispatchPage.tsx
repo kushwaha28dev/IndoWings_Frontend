@@ -329,7 +329,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
 
   return (
     <div className="min-h-screen bg-[#09090b] text-white pb-16">
-      {/* ── COMMAND HEADER & REAL-TIME STATS ────────────────────────────────── */}
+      {/* COMMAND HEADER & REAL-TIME STATS */}
       <section className="relative text-white pt-14 pb-12 px-6 shadow-xl border-b border-white/10" style={{ background: 'linear-gradient(135deg, #000000 0%, #09090b 50%, #17171c 100%)' }}>
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -459,7 +459,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
         </div>
       </section>
 
-      {/* ── MAIN DASHBOARD CONTAINER ────────────────────────────────────────── */}
+      {/* MAIN DASHBOARD CONTAINER */}
       <div className="max-w-6xl mx-auto px-6 py-8">
         {/* Navigation Tabs */}
         <div className="flex items-center gap-2 mb-8 overflow-x-auto no-scrollbar border-b border-slate-200 pb-3">
@@ -491,7 +491,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
           ))}
         </div>
 
-        {/* ── TAB 1: ORDERS QUEUE ─────────────────────────────────────────── */}
+        {/* TAB 1: ORDERS QUEUE */}
         {tab === 'orders' && (
           <div className="space-y-4">
             {/* Filter and Search controls */}
@@ -661,7 +661,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
           </div>
         )}
 
-        {/* ── TAB 2: FLEET OPERATIONS ─────────────────────────────────────── */}
+        {/* TAB 2: FLEET OPERATIONS */}
         {tab === 'fleet' && (
           <div className="space-y-6">
             {/* Real Fleet Statistics Overview */}
@@ -841,7 +841,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
           </div>
         )}
 
-        {/* ── TAB 3: REAL ANALYTICS & REVENUE ─────────────────────────────── */}
+        {/* TAB 3: REAL ANALYTICS & REVENUE */}
         {tab === 'analytics' && (
           <div className="space-y-6">
             {/* Financial Overview Cards */}
@@ -951,7 +951,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
           </div>
         )}
 
-        {/* ── TAB 4: EXPERT CALLBACK REQUESTS ─────────────────────────────── */}
+        {/* TAB 4: EXPERT CALLBACK REQUESTS */}
         {tab === 'enquiries' && (
           <div className="space-y-6">
             {/* Top Quick Stats */}
@@ -1156,7 +1156,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
           </div>
         )}
 
-        {/* ── TAB 5: FEEDBACKS & CUSTOMER REVIEWS ───────────────────────── */}
+        {/* TAB 5: FEEDBACKS & CUSTOMER REVIEWS */}
         {tab === 'feedbacks' && (
           <div className="space-y-6">
             {/* Feedback Stats Bar */}
@@ -1354,7 +1354,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
         )}
       </div>
 
-      {/* ── REAL-TIME EMAIL DISPATCH TOAST ────────────────────────────────── */}
+      {/* REAL-TIME EMAIL DISPATCH TOAST */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#171222] text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-zinc-700 flex items-center gap-3 animate-in fade-in slide-in-from-bottom-3 duration-200 max-w-md">
           <div className="w-8 h-8 rounded-xl bg-zinc-800 text-zinc-400 flex items-center justify-center shrink-0">
@@ -1370,7 +1370,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
         </div>
       )}
 
-      {/* ── DRONE TELEMETRY INSPECTOR MODAL ───────────────────────────────── */}
+      {/* DRONE TELEMETRY INSPECTOR MODAL */}
       {selectedDrone && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl w-full max-w-lg shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-150 p-6">
@@ -1471,7 +1471,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
         </div>
       )}
 
-      {/* ── REGISTER NEW UAV MODAL ────────────────────────────────────────── */}
+      {/* REGISTER NEW UAV MODAL */}
       {showRegisterDroneModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-150 p-6">
@@ -1558,7 +1558,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
         </div>
       )}
 
-      {/* ── ADMIN CANCEL MISSION MODAL ────────────────────────────────────── */}
+      {/* ADMIN CANCEL MISSION MODAL */}
       {adminCancelModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-150 p-6">

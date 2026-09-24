@@ -199,7 +199,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
     });
   };
 
-  // ── CORE INTELLIGENCE & API HANDLER ─────────────────────────────────────────
+  // CORE INTELLIGENCE & API HANDLER
   const processUserQuery = async (queryText: string) => {
     const clean = queryText.trim();
     if (!clean) return;
@@ -459,7 +459,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
 
   return (
     <>
-      {/* ── FLOATING TRIGGER LAUNCHER (Bottom-Right) ─────────────────────────── */}
+      {/* FLOATING TRIGGER LAUNCHER (Bottom-Right) */}
       <div className="fixed bottom-3.5 right-3.5 sm:bottom-6 sm:right-6 z-50 flex items-center gap-2 select-none">
         
         {/* Minimal Interactive Teaser Pill */}
@@ -505,14 +505,14 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
         </button>
       </div>
 
-      {/* ── CHAT WINDOW (ELEGANT, COMFORTABLE HEIGHT, ENGLISH & MINIMAL) ────────────────── */}
+      {/* CHAT WINDOW (ELEGANT, COMFORTABLE HEIGHT, ENGLISH & MINIMAL) */}
       {isOpen && (
         <div 
           className={`fixed bottom-20 right-4 sm:bottom-20 sm:right-6 z-50 w-[92vw] sm:w-[380px] bg-white border border-slate-200/90 rounded-2xl shadow-[0_12px_40px_-5px_rgba(0,0,0,0.16)] overflow-hidden flex flex-col transition-all duration-200 animate-in fade-in slide-in-from-bottom-2 ${
             isMinimized ? 'h-[56px]' : 'h-[530px] sm:h-[545px] max-h-[76vh]'
           }`}
         >
-          {/* ── Window Header ── */}
+          {/* Window Header */}
           <div className="bg-white px-3.5 py-2.5 flex items-center justify-between shrink-0 border-b border-slate-100">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-lg bg-zinc-100 text-zinc-900 border border-zinc-200 flex items-center justify-center">
@@ -557,7 +557,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          {/* ── Window Body ── */}
+          {/* Window Body */}
           {!isMinimized && (
             <>
               {/* Messages Scroll Area */}
@@ -618,7 +618,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
                         {renderFormattedText(msg.text)}
                       </div>
 
-                      {/* ── CARD: LIVE FLIGHT TELEMETRY & HUD ── */}
+                      {/* CARD: LIVE FLIGHT TELEMETRY & HUD */}
                       {msg.cardType === 'order_detail' && msg.cardData && (
                         <div className="bg-white rounded-xl border border-slate-200 p-2.5 shadow-xs space-y-2 animate-in fade-in">
                           {/* Order Header */}
@@ -697,7 +697,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
                         </div>
                       )}
 
-                      {/* ── CARD: ORDER LIST FROM OTP ── */}
+                      {/* CARD: ORDER LIST FROM OTP */}
                       {msg.cardType === 'order_list' && Array.isArray(msg.cardData) && (
                         <div className="space-y-1.5">
                           {msg.cardData.map((ord: any) => (
@@ -767,7 +767,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
                         </div>
                       )}
 
-                      {/* ── CARD: DRONES OVERVIEW ── */}
+                      {/* CARD: DRONES OVERVIEW */}
                       {msg.cardType === 'drones_info' && (
                         <div className="bg-white rounded-xl border border-slate-200 p-2.5 space-y-1.5 shadow-xs">
                           <div className="p-1.5 bg-slate-50 rounded-lg border border-slate-100">
@@ -795,7 +795,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
                         </div>
                       )}
 
-                      {/* ── CARD: COMPANY INFO ── */}
+                      {/* CARD: COMPANY INFO */}
                       {msg.cardType === 'company_info' && (
                         <div className="bg-white rounded-xl border border-slate-200 p-2.5 space-y-1 shadow-xs text-[11px] text-slate-600">
                           <p><strong className="text-slate-800">Legal Name:</strong> Indo Wings Private Limited</p>
@@ -836,7 +836,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
                 <div ref={messagesEndRef} />
               </div>
 
-              {/* ── Quick Question Pills Strip ── */}
+              {/* Quick Question Pills Strip */}
               <div className="px-2.5 py-1.5 bg-white border-t border-slate-100 overflow-x-auto flex gap-1.5 no-scrollbar shrink-0">
                 {QUICK_ACTIONS.map((act, idx) => (
                   <button
@@ -850,7 +850,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
                 ))}
               </div>
 
-              {/* ── Input Bar ── */}
+              {/* Input Bar */}
               <form onSubmit={handleSend} className="p-2 bg-white border-t border-slate-100 flex items-center gap-1.5 shrink-0">
                 <div className="flex-1 relative flex items-center bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 focus-within:bg-white focus-within:border-black focus-within:ring-1 focus-within:ring-zinc-300 transition-all">
                   <input

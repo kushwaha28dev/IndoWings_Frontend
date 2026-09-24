@@ -98,7 +98,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
-      {/* ── HERO SECTION ──────────────────── */}
+      {/* HERO SECTION */}
       <section 
         className="relative text-white pt-16 pb-24 px-6 overflow-hidden border-b border-zinc-800" 
         style={{ background: 'linear-gradient(135deg, #09090b 0%, #18181b 50%, #050507 100%)' }}>
@@ -127,7 +127,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
         </div>
       </section>
 
-      {/* ── PUBLIC GUIDE SHOWCASE BANNER ─────────────── */}
+      {/* PUBLIC GUIDE SHOWCASE BANNER */}
       <section className="max-w-6xl mx-auto px-6 -mt-10 relative z-10 mb-14">
         <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-8 shadow-xl shadow-black/5">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
@@ -243,7 +243,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
         </div>
       </section>
 
-      {/* ── STEP-BY-STEP ORDERING GUIDE WALKTHROUGH ──────────── */}
+      {/* STEP-BY-STEP ORDERING GUIDE WALKTHROUGH */}
       <section className="max-w-6xl mx-auto px-6 mb-16">
         <div className="bg-white border border-zinc-200 rounded-3xl p-6 sm:p-10 shadow-sm">
           <div className="max-w-3xl mb-8">
@@ -397,7 +397,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
         </div>
       </section>
 
-      {/* ── DOCUMENTATION CATEGORY FILTER & SEARCH BAR ──────────────────────── */}
+      {/* DOCUMENTATION CATEGORY FILTER & SEARCH BAR */}
       <section className="max-w-6xl mx-auto px-6 mb-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
           {/* Categories */}
@@ -438,7 +438,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
         </div>
       </section>
 
-      {/* ── 6 CORE DOCUMENTATION CARDS ───────────── */}
+      {/* CORE DOCUMENTATION CARDS */}
       <section className="max-w-6xl mx-auto px-6 pb-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCards.map(card => {

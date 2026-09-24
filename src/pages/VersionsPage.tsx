@@ -106,7 +106,7 @@ export const VersionsPage: React.FC<VersionsPageProps> = ({ onNavigate }) => {
 
   return (
     <div className="min-h-screen bg-zinc-50 text-[#171222]">
-      {/* ── HERO SECTION (Aviation Dark Purple Aesthetics) ──────────────────── */}
+      {/* HERO SECTION (Aviation Dark Purple Aesthetics) */}
       <section 
         className="relative text-white pt-16 pb-24 px-6 overflow-hidden" 
         style={{ background: 'linear-gradient(135deg, #09090b 0%, #18181b 50%, #050507 100%)' }}>
@@ -135,7 +135,7 @@ export const VersionsPage: React.FC<VersionsPageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* ── MAIN RELEASE NOTES CONTAINER ────────────────────────────────────── */}
+      {/* MAIN RELEASE NOTES CONTAINER */}
       <section className="max-w-5xl mx-auto px-6 -mt-10 relative z-10 pb-20 space-y-8">
         
         {/* Filter Pills */}

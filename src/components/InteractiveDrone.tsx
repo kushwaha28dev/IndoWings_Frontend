@@ -262,15 +262,15 @@ export const InteractiveDrone: React.FC<InteractiveDroneProps> = ({ onOrderClick
 
   return (
     <div className="relative w-full max-w-[460px] flex flex-col items-center justify-center select-none py-1">
-      {/* ── Soft Ambient Radial Glow behind the Drone (Clean Monochrome) ── */}
+      {/* Soft Ambient Radial Glow behind the Drone (Clean Monochrome) */}
       <div className="absolute inset-0 bg-white/10 blur-[70px] sm:blur-[100px] rounded-full scale-90 pointer-events-none" />
       <div className="absolute w-[220px] h-[220px] sm:w-[300px] sm:h-[300px] bg-zinc-400/10 blur-[50px] sm:blur-[80px] rounded-full pointer-events-none" />
 
-      {/* ── Subtle Elegant Outer Rings ── */}
+      {/* Subtle Elegant Outer Rings */}
       <div className="absolute w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] lg:w-[380px] lg:h-[380px] rounded-full border border-white/[0.05] border-dashed animate-[spin_120s_linear_infinite] pointer-events-none" />
       <div className="absolute w-[190px] h-[190px] sm:w-[250px] sm:h-[250px] lg:w-[300px] lg:h-[300px] rounded-full border border-white/[0.04] pointer-events-none" />
 
-      {/* ── 3D Canvas Mount Container ── */}
+      {/* D Canvas Mount Container */}
       <div
         ref={containerRef}
         className="relative z-10 w-full h-[270px] sm:h-[340px] lg:h-[390px] flex items-center justify-center"
@@ -283,13 +283,13 @@ export const InteractiveDrone: React.FC<InteractiveDroneProps> = ({ onOrderClick
         )}
       </div>
 
-      {/* ── Minimalist Soft Ground Shadow ── */}
+      {/* Minimalist Soft Ground Shadow */}
       <div
         className="w-40 sm:w-52 h-3.5 sm:h-4 rounded-[100%] bg-black/40 blur-[10px] sm:blur-[12px] -mt-5 sm:-mt-6 pointer-events-none z-10"
         style={{ animation: "droneShadowPulse 3.5s ease-in-out infinite" }}
       />
 
-      {/* ── Embedded CSS Animation ── */}
+      {/* Embedded CSS Animation */}
       <style>{`
         @keyframes droneShadowPulse {
           0%, 100% {

@@ -178,7 +178,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
 
   return (
     <div className="min-h-screen bg-zinc-50">
-      {/* ── HERO SECTION ────────────────────────────────────────────────────── */}
+      {/* HERO SECTION */}
       <section className="bg-[#09090b] text-white pt-20 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-zinc-700/10 rounded-full blur-3xl pointer-events-none" />
@@ -237,7 +237,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
         </div>
       </section>
 
-      {/* ── REAL LIVE STATS BAR ────────────────────────────────────────────── */}
+      {/* REAL LIVE STATS BAR */}
       <section className="bg-white border-b border-slate-200 py-6 px-4 sm:px-6 lg:px-8 shadow-xs">
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div className="border-r border-slate-100 last:border-0">
@@ -265,10 +265,10 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
         </div>
       </section>
 
-      {/* ── MAIN CONTENT CONTAINER ─────────────────────────────────────────── */}
+      {/* MAIN CONTENT CONTAINER */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         
-        {/* ── OPTIONAL INLINE SUBMISSION FORM ──────────────────────────────── */}
+        {/* OPTIONAL INLINE SUBMISSION FORM */}
         {showForm && (
           <div className="mb-12 bg-white rounded-2xl border-2 border-zinc-300 shadow-xl overflow-hidden animate-in fade-in slide-in-from-top-4 duration-200">
             <div className="bg-[#fbf9fe] px-6 py-4 border-b border-slate-100 flex items-center justify-between">
@@ -446,7 +446,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
           </div>
         )}
 
-        {/* ── FILTER & SEARCH BAR ──────────────────────────────────────────── */}
+        {/* FILTER & SEARCH BAR */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 bg-white border border-slate-200 rounded-2xl p-4 shadow-xs">
           
           {/* Star Filters */}
@@ -498,7 +498,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
           </div>
         </div>
 
-        {/* ── FEEDBACK REVIEWS GRID ────────────────────────────────────────── */}
+        {/* FEEDBACK REVIEWS GRID */}
         {loading ? (
           <div className="text-center py-20 text-slate-400">
             <div className="w-10 h-10 border-2 border-black border-t-transparent rounded-full animate-spin mx-auto mb-3" />

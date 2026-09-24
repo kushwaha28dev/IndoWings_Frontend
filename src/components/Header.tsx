@@ -102,12 +102,12 @@ export const Header: React.FC<HeaderProps> = ({
     <header className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 w-full max-w-full ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-md border-b border-slate-200/80' : 'bg-white border-b border-slate-200'}`}>
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 flex items-center justify-between h-16 w-full min-w-0">
 
-        {/* ── Brand ─────────────────────────────────────────────────── */}
+        {/* Brand */}
         <a href="/" onClick={nav('home', '/')} className="flex items-center gap-3 group shrink-0">
           <img src="/indowings-logo-dark.svg" alt="IndoWings" className="h-8 w-auto" />
         </a>
 
-        {/* ── Desktop Nav ───────────────────────────────────────────── */}
+        {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-1 text-sm font-bold text-slate-800" ref={dropdownRef}>
 
           {/* Delivery Dropdown */}
@@ -223,7 +223,7 @@ export const Header: React.FC<HeaderProps> = ({
           </a>
         </nav>
 
-        {/* ── Right Actions ─────────────────────────────────────────── */}
+        {/* Right Actions */}
         <div className="flex items-center gap-2.5">
 
           {/* Track Order — quick pill */}
@@ -311,7 +311,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {/* ── Mobile Drawer ─────────────────────────────────────────────── */}
+      {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-t border-slate-100 px-4 py-4 space-y-1 shadow-xl animate-in fade-in slide-in-from-top-2 duration-150">
           {[

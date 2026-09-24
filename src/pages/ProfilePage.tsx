@@ -1212,7 +1212,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
       )}
     </div>
 
-      {/* ── ADDRESS MODAL (Add or Edit) ────────────────────────────────────── */}
+      {/* ADDRESS MODAL (Add or Edit) */}
       {showAddressModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl w-full max-w-lg shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
@@ -1355,7 +1355,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
         </div>
       )}
 
-      {/* ── OTP VERIFY MODAL (Email or Phone) ───────────────────────────────── */}
+      {/* OTP VERIFY MODAL (Email or Phone) */}
       {otpModalTarget && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-150 p-6">
@@ -1426,7 +1426,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
         </div>
       )}
 
-      {/* ── ORDER DETAILS MODAL ─────────────────────────────────────────── */}
+      {/* ORDER DETAILS MODAL */}
       {selectedOrderDetail && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-150">
@@ -1626,7 +1626,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
         </div>
       )}
 
-      {/* ── CANCEL ORDER CONFIRMATION MODAL ─────────────────────────────────── */}
+      {/* CANCEL ORDER CONFIRMATION MODAL */}
       {cancellingOrder && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl border border-slate-100 overflow-hidden animate-in fade-in zoom-in-95 duration-150 p-6">

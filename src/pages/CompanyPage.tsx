@@ -31,7 +31,7 @@ export const CompanyPage: React.FC<CompanyPageProps> = ({
 
   return (
     <div className="min-h-screen bg-white">
-      {/* ── SECTION 1: HERO HEADER ─────────────────────────────────────────── */}
+      {/* SECTION 1: HERO HEADER */}
       <section className="bg-[#09090b] text-white pt-20 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-b border-zinc-800">
         {/* Subtle background radial glow */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none" />
@@ -57,7 +57,7 @@ export const CompanyPage: React.FC<CompanyPageProps> = ({
         </div>
       </section>
 
-      {/* ── SECTION 2: PUBLIC IDENTITY ─────────────────────────────────────── */}
+      {/* SECTION 2: PUBLIC IDENTITY */}
       <section className="bg-[#f8fafc] border-b border-slate-200/80 py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
@@ -214,7 +214,7 @@ export const CompanyPage: React.FC<CompanyPageProps> = ({
         </div>
       </section>
 
-      {/* ── SECTION 3: OWNERSHIP AND DEVELOPMENT ───────────────────────────── */}
+      {/* SECTION 3: OWNERSHIP AND DEVELOPMENT */}
       <section className="bg-white py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-3">
@@ -332,7 +332,7 @@ export const CompanyPage: React.FC<CompanyPageProps> = ({
         </div>
       </section>
 
-      {/* ── SECTION 4: REFERENCES & TRUST ──────────────────────────────────── */}
+      {/* SECTION 4: REFERENCES & TRUST */}
       <section className="bg-zinc-50 border-t border-zinc-200 py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-xs font-bold uppercase tracking-wider text-zinc-500 mb-3">

@@ -10,7 +10,7 @@ interface HeroProps {
   onNavigate?: (page: string) => void;
 }
 
-/* ─── DATA ────────────────────────────────────────────────────────────────── */
+/* DATA */
 const STATS = [
   { value: '24', unit: 'min', label: 'Avg. Delivery Time' },
   { value: '65', unit: 'km/h', label: 'Cruise Speed' },
@@ -49,7 +49,7 @@ const COVERAGE_ZONES = [
   { zone: 'Greater Noida', type: 'Express Zone' },
 ];
 
-/* ─── COMPONENT ──────────────────────────────────────────────────────────── */
+/* COMPONENT */
 export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
   const [activePkg, setActivePkg] = useState(0);
   const [liveCount, setLiveCount] = useState(12);
@@ -181,7 +181,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
         <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 w-full py-8 lg:py-12 pointer-events-none [&_button]:pointer-events-auto [&_a]:pointer-events-auto [&_input]:pointer-events-auto">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_480px] gap-16 items-center">
 
-            {/* ── Left ── */}
+            {/* Left */}
             <div className="space-y-6 sm:space-y-8">
               {/* Live badge — only shown when real deliveries exist */}
               {analytics && analytics.deliveredOrders > 0 && (
@@ -244,7 +244,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               </div>
             </div>
 
-            {/* ── Right Column: Mobile shows original floating character girl, Laptop shows 3D UAV slot ── */}
+            {/* Right Column: Mobile shows original floating character girl, Laptop shows 3D UAV slot */}
             <div className="flex flex-col items-center justify-center pt-2 lg:pt-0">
               {/* Mobile Only: Original Floating Character Girl */}
               <div className="block lg:hidden relative w-full max-w-[320px] flex flex-col items-center justify-center select-none py-3">
