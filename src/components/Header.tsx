@@ -196,7 +196,7 @@ export const Header: React.FC<HeaderProps> = ({
         className={`max-w-[1360px] mx-auto h-[64px] sm:h-[68px] px-4 sm:px-6 rounded-full flex items-center justify-between pointer-events-auto transition-all duration-300 ${
           scrolled
             ? 'bg-white/95 backdrop-blur-2xl border border-slate-200/90 shadow-[0_14px_40px_rgba(59,0,128,0.12),0_2px_8px_rgba(0,0,0,0.06)] ring-1 ring-purple-600/10'
-            : 'bg-white/92 backdrop-blur-2xl border border-white/80 shadow-[0_12px_36px_rgba(0,0,0,0.30),0_2px_6px_rgba(0,0,0,0.10)]'
+            : 'bg-white/90 backdrop-blur-2xl border border-white/80 shadow-[0_12px_36px_rgba(0,0,0,0.30),0_2px_6px_rgba(0,0,0,0.10)]'
         }`}
       >
         {/* ── Brand Logo (Bigger & Crisp) ───────────────────────────── */}

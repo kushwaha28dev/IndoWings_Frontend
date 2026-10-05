@@ -157,7 +157,7 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ currentU
                   Global Operations
                 </span>
               </div>
-              <p className="text-xs text-slate-400">IndoWings Drone Delivery & Asset Provisioning</p>
+              <p className="text-xs text-slate-400">IndoWings Drone Fleet & Asset Provisioning</p>
             </div>
           </div>
 
@@ -204,7 +204,7 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ currentU
               <ShieldCheck className="w-5 h-5 text-emerald-600" />
             </div>
             <p className="text-3xl font-black text-slate-900">{qcPassedDrones}</p>
-            <p className="text-xs text-emerald-600 font-medium mt-1">Ready for Delivery Dispatch</p>
+            <p className="text-xs text-emerald-600 font-medium mt-1">Ready for Corridor Dispatch</p>
           </div>
 
           <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
@@ -377,7 +377,7 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ currentU
             {/* Recent Dispatches */}
             <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
               <h3 className="font-bold text-slate-900 text-base mb-4 flex items-center justify-between">
-                <span>Active Drone Delivery Shipments</span>
+                <span>Active Drone Corridor Sorties</span>
                 <span className="text-xs font-semibold text-purple-600">{orders.length} Total</span>
               </h3>
               <div className="space-y-3">

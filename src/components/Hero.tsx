@@ -102,12 +102,12 @@ const FLEET_MODELS_DATA = [
   {
     id: 'cyberone',
     name: 'Cyberone Max',
-    category: 'Heavy Lift & Winch Tether UAV',
-    desc: 'Engineered for industrial heavy payload transit, emergency defense transport, and tethered winch delivery in harsh terrains.',
+    category: 'Heavy Lift & Precision Payload UAV',
+    desc: 'Engineered for industrial heavy payload transit, emergency defense transport, and precision payload operations in harsh terrains.',
     badge: 'Heavy Cargo',
     badgeColor: 'bg-purple-100 text-purple-700 border-purple-200',
     stats: [
-      { label: 'Payload Capacity', val: '5.0 kg', sub: 'Tether Winch System' },
+      { label: 'Payload Capacity', val: '5.0 kg', sub: 'Precision Release System' },
       { label: 'Cruising Speed', val: '65 km/h', sub: 'Automated Throttle' },
       { label: 'BVLOS Flight Range', val: '25 km', sub: 'Corridor Transit' },
       { label: 'Airborne Endurance', val: '45 mins', sub: 'Dual Smart Battery' },
@@ -242,7 +242,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                     backgroundImage: 'linear-gradient(90deg, #c084fc, #818cf8)',
                   }}
                 >
-                  UAV Fleet Delivery &amp; Handover Hub
+                  UAV Fleet Command &amp; Corridor Control
                 </span>
               </h1>
 

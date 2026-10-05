@@ -52,7 +52,7 @@ export const CompanyPage: React.FC<CompanyPageProps> = ({
           </h1>
 
           <p className="text-base sm:text-lg text-purple-100/80 max-w-3xl leading-relaxed">
-            IndoWings (indowings.com) is the official public portal for Indo Wings Private Limited, India's leading aerospace manufacturer of DGCA type-certified UAVs, autonomous cargo delivery systems, fleet ground control stations, and anti-drone security technologies.
+            IndoWings (indowings.com) is the official public portal for Indo Wings Private Limited, India's leading aerospace manufacturer of DGCA type-certified UAVs, autonomous cargo transit systems, fleet ground control stations, and anti-drone security technologies.
           </p>
         </div>
       </section>
@@ -85,7 +85,7 @@ export const CompanyPage: React.FC<CompanyPageProps> = ({
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-2 h-2 rounded-full bg-[#3b0080] mt-2.5 shrink-0" />
-                  <span>IndoWings GCS supports approved remote pilots with aircraft connection, mission planning, encrypted telemetry, winch readiness, and synchronization.</span>
+                  <span>IndoWings GCS supports approved remote pilots with aircraft connection, mission planning, encrypted telemetry, payload readiness, and synchronization.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <div className="w-2 h-2 rounded-full bg-[#3b0080] mt-2.5 shrink-0" />
@@ -224,7 +224,7 @@ export const CompanyPage: React.FC<CompanyPageProps> = ({
             indowings.com remains the public IndoWings brand.
           </h2>
           <p className="text-slate-600 text-base max-w-3xl leading-relaxed mb-12">
-            Owner and manufacturing details are provided for accountability. The public product brand, autonomous delivery network, GCS workstation downloads, documentation, and operational support routes remain under indowings.com.
+            Owner and manufacturing details are provided for accountability. The public product brand, autonomous transit network, GCS workstation downloads, documentation, and operational support routes remain under indowings.com.
           </p>
 
           {/* 3-Column Card Layout */}
@@ -246,7 +246,7 @@ export const CompanyPage: React.FC<CompanyPageProps> = ({
                   indowings.com
                 </h3>
                 <p className="text-slate-600 text-sm leading-relaxed mb-6">
-                  The website introduces IndoWings UAV platforms, autonomous delivery ecosystem, publishes GCS workstation releases, links documentation, and routes live expert support, orders, security, and feedback inquiries.
+                  The website introduces IndoWings UAV platforms, autonomous fleet ecosystem, publishes GCS workstation releases, links documentation, and routes live expert support, orders, security, and feedback inquiries.
                 </p>
               </div>
 

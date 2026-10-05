@@ -375,7 +375,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
       }
 
       // 8. KNOWLEDGE BASE: DRONES & FLEET
-      const droneKeywords = ['drone', 'fleet', 'cyberone', 's-500', 's500', 'aircraft', 'uav', 'vtol', 'payload', 'winch'];
+      const droneKeywords = ['drone', 'fleet', 'cyberone', 's-500', 's500', 'aircraft', 'uav', 'vtol', 'payload', 'sortie'];
       if (droneKeywords.some(kw => clean.toLowerCase().includes(kw))) {
         addMessage({
           sender: 'bot',
@@ -403,7 +403,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
       if (medicalKeywords.some(kw => clean.toLowerCase().includes(kw))) {
         addMessage({
           sender: 'bot',
-          text: 'Medical Drone Delivery Corridors:\n\n• Active Cold-Chain: 2°C to 8°C temperature control for blood units, vaccines, and diagnostic samples.\n• Sub-15 Minute Transit: Direct emergency hospital-to-hospital corridors.\n• Zero-Touchdown Winch Drop: Motorized tether gently lowers packages from 15 meters without rotor blast.'
+          text: 'Medical Drone Transit Corridors:\n\n• Active Cold-Chain: 2°C to 8°C temperature control for blood units, vaccines, and diagnostic samples.\n• Sub-15 Minute Transit: Direct emergency hospital-to-hospital corridors.\n• Precision Payload Release: Motorized tether gently lowers payloads from 15 meters without rotor blast.'
         });
         setLoading(false);
         return;
@@ -423,7 +423,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
       // 12. DEFAULT INTELLIGENT FALLBACK
       addMessage({
         sender: 'bot',
-        text: 'I am here to assist you! You can ask about:\n\n1. Track Order: Enter your Order ID (e.g. INW-2026-001).\n2. Find Order ID: Enter your 10-digit mobile number to verify via OTP.\n3. Drone Fleet: Inquire about speed, payload, range, or winch drop.\n4. About IndoWings: DGCA approvals, headquarters, or corporate details.'
+        text: 'I am here to assist you! You can ask about:\n\n1. Track Sortie: Enter your Sortie ID (e.g. INW-2026-001).\n2. Find Sortie ID: Enter your 10-digit mobile number to verify via OTP.\n3. Drone Fleet: Inquire about speed, payload, range, or precision release.\n4. About IndoWings: DGCA approvals, headquarters, or corporate details.'
       });
 
     } catch (err: any) {
@@ -771,7 +771,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
                       {msg.cardType === 'drones_info' && (
                         <div className="bg-white rounded-xl border border-slate-200 p-2.5 space-y-1.5 shadow-xs">
                           <div className="p-1.5 bg-slate-50 rounded-lg border border-slate-100">
-                            <p className="font-bold text-slate-800 text-[11px]">Cyberone Pro (Medical Winch)</p>
+                            <p className="font-bold text-slate-800 text-[11px]">Cyberone Pro (Medical Transit)</p>
                             <p className="text-[10px] text-slate-500">5 kg payload • 45 km range • 65 km/h • 2°C–8°C cold box</p>
                           </div>
                           <div className="p-1.5 bg-slate-50 rounded-lg border border-slate-100">

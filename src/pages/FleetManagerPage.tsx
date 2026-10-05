@@ -408,7 +408,7 @@ export const FleetManagerPage: React.FC<FleetManagerPageProps> = ({ currentUser,
                   onChange={e => setNewModel(e.target.value)}
                   className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm font-semibold focus:outline-none focus:border-[#3b0080]"
                 >
-                  <option value="Cyberone Max">Cyberone Max (Heavy Cargo / Winch Tether)</option>
+                  <option value="Cyberone Max">Cyberone Max (Heavy Cargo / Precision Payload)</option>
                   <option value="IndoHawk Alpha">IndoHawk Alpha (High-Altitude Tactical)</option>
                   <option value="StealthPro VTOL">StealthPro VTOL (Long Endurance Survey)</option>
                   <option value="AgriWing X">AgriWing X (Industrial Agriculture & Spraying)</option>

@@ -228,7 +228,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
                   onChange={e => setDroneName(e.target.value)}
                   className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-[#3b0080] focus:bg-white transition-all font-medium"
                 >
-                  <option value="Cyberone Pro (Medical Winch & Express)">Cyberone Pro (Medical Winch & Express)</option>
+                  <option value="Cyberone Pro (Medical Transit & Express)">Cyberone Pro (Medical Transit & Express)</option>
                   <option value="Cyberone Max (Heavy Cargo 15kg)">Cyberone Max (Heavy Cargo 15kg)</option>
                   <option value="Cyberone Lite (High-Speed Metro Dispatch)">Cyberone Lite (High-Speed Metro Dispatch)</option>
                   <option value="S-500 Long-Range Logistics UAV">S-500 Long-Range Logistics UAV</option>
@@ -245,7 +245,7 @@ export const FeedbackModal: React.FC<FeedbackModalProps> = ({
               <div className="grid grid-cols-2 gap-1.5">
                 {[
                   'Delivery Speed & Precision',
-                  'Payload Winch Touchdown',
+                  'Precision Payload Release',
                   'Real-Time Live Telemetry',
                   'Platform Experience',
                   'Customer Support',

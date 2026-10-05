@@ -39,7 +39,7 @@ interface FeedbackPageProps {
 }
 
 const DRONE_OPTIONS = [
-  'Cyberone Pro (Medical Winch & Express)',
+  'Cyberone Pro (Medical Transit & Express)',
   'Cyberone Max (Heavy Cargo 15kg)',
   'Cyberone Lite (High-Speed Metro Dispatch)',
   'S-500 Long-Range Logistics UAV',
@@ -48,7 +48,7 @@ const DRONE_OPTIONS = [
 
 const CATEGORY_OPTIONS = [
   'Delivery Speed & Precision',
-  'Payload Handling & Winch Touchdown',
+  'Payload Handling & Precision Release',
   'Real-Time Live Telemetry & Tracking',
   'Platform Experience & UI',
   'Flight Safety & Weather Handling'
@@ -199,7 +199,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
               </h1>
 
               <p className="text-base sm:text-lg text-purple-100/80 max-w-2xl leading-relaxed">
-                Real-time operational reviews, payload winch touchdown evaluations, and verified flight experiences from healthcare providers, enterprise partners, and retail deliveries across India.
+                Real-time operational reviews, precision payload release evaluations, and verified flight experiences from healthcare providers, enterprise partners, and fleet operations across India.
               </p>
             </div>
 
@@ -419,7 +419,7 @@ export const FeedbackPage: React.FC<FeedbackPageProps> = ({ onNavigate, currentU
                     rows={4}
                     value={message}
                     onChange={e => setMessage(e.target.value)}
-                    placeholder="Describe the payload delivery, flight speed, precision winch landing, or GCS dashboard experience..."
+                    placeholder="Describe the payload transit, flight speed, precision release, or GCS dashboard experience..."
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-800 focus:outline-none focus:border-[#3b0080] focus:bg-white transition-all resize-none"
                   />
                 </div>
