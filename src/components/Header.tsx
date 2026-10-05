@@ -81,11 +81,11 @@ export const Header: React.FC<HeaderProps> = ({
     setMobileMenuOpen(false);
   };
 
-  const DELIVERY_ITEMS = [
-    { icon: Package, label: 'Book Delivery', sub: 'Instant drone dispatch', page: 'order', url: '/order', accent: true },
-    { icon: Navigation, label: 'Track Order', sub: 'Live flight telemetry', page: 'track', url: '/track' },
-    { icon: Clock, label: 'My Orders', sub: 'History & status', page: 'orders', url: '/profile?tab=orders' },
-    { icon: MapPin, label: 'My Profile', sub: 'Addresses & settings', page: 'profile', url: '/profile' },
+  const OPERATIONS_ITEMS = [
+    { icon: Package, label: 'Drone Shipments', sub: 'Fleet unit dispatches & orders', page: 'orders', url: '/profile?tab=orders', accent: true },
+    { icon: Navigation, label: 'Track Transit', sub: 'Live corridor telemetry & ETA', page: 'track', url: '/track' },
+    { icon: LayoutDashboard, label: 'Command Portals', sub: 'Admin, Fleet, Dispatch, Client', page: 'login', url: '/login' },
+    { icon: MapPin, label: 'Base Stations', sub: 'Assembly plants & airbases', page: 'profile', url: '/profile' },
   ];
 
   const RESOURCE_ITEMS = [
@@ -112,19 +112,19 @@ export const Header: React.FC<HeaderProps> = ({
         {/* ── Desktop Nav ───────────────────────────────────────────── */}
         <nav className="hidden lg:flex items-center gap-1 text-sm font-bold text-slate-800" ref={dropdownRef}>
 
-          {/* Delivery Dropdown */}
-          <div className="relative" onMouseEnter={() => handleMouseEnter('delivery')} onMouseLeave={handleMouseLeave}>
-            <button className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all ${openDropdown === 'delivery' ? 'bg-purple-50 text-[#3b0080]' : 'hover:bg-slate-100 hover:text-slate-900'}`}>
-              Delivery
-              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === 'delivery' ? 'rotate-180 text-[#3b0080]' : 'text-slate-400'}`} />
+          {/* Operations Dropdown */}
+          <div className="relative" onMouseEnter={() => handleMouseEnter('operations')} onMouseLeave={handleMouseLeave}>
+            <button className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg transition-all ${openDropdown === 'operations' ? 'bg-purple-50 text-[#3b0080]' : 'hover:bg-slate-100 hover:text-slate-900'}`}>
+              Operations &amp; Fleet
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === 'operations' ? 'rotate-180 text-[#3b0080]' : 'text-slate-400'}`} />
             </button>
-            {openDropdown === 'delivery' && (
+            {openDropdown === 'operations' && (
               <div className="absolute top-full left-0 pt-2 w-72 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                 <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2">
                   <div className="px-3 pt-2 pb-1.5">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Drone Delivery Services</p>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Enterprise Drone Logistics</p>
                   </div>
-                  {DELIVERY_ITEMS.map(item => (
+                  {OPERATIONS_ITEMS.map(item => (
                     <a key={item.label} href={item.url} onClick={nav(item.page, item.url)}
                       className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group ${item.accent ? 'bg-purple-50 hover:bg-purple-100' : 'hover:bg-slate-50'}`}>
                       <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${item.accent ? 'bg-[#3b0080] text-white' : 'bg-slate-100 text-slate-600 group-hover:bg-purple-100 group-hover:text-[#3b0080]'}`}>
@@ -222,11 +222,11 @@ export const Header: React.FC<HeaderProps> = ({
         {/* ── Right Actions ─────────────────────────────────────────── */}
         <div className="flex items-center gap-2.5">
 
-          {/* Track Order — quick pill */}
+          {/* Track Transit — quick pill */}
           <a href="/track" onClick={nav('track', '/track')}
             className="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-bold text-slate-800 hover:text-[#3b0080] hover:bg-purple-50 transition-all">
             <Navigation className="w-4 h-4" />
-            Track
+            Track Transit
           </a>
 
           {/* Auth / Profile */}
@@ -305,7 +305,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button onClick={onOpenAuth}
               className="hidden sm:flex items-center gap-1.5 text-sm font-bold text-slate-800 border border-slate-200 hover:border-purple-300 hover:text-[#3b0080] hover:bg-purple-50 px-4 py-2 rounded-xl transition-all">
               <User className="w-4 h-4" />
-              Sign In
+              Personnel Portal
             </button>
           )}
 

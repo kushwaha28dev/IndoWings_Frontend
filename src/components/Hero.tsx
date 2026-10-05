@@ -12,41 +12,41 @@ interface HeroProps {
 
 /* ─── DATA ────────────────────────────────────────────────────────────────── */
 const STATS = [
-  { value: '24', unit: 'min', label: 'Avg. Delivery Time' },
-  { value: '65', unit: 'km/h', label: 'Cruise Speed' },
-  { value: '5.0', unit: 'kg', label: 'Max Payload' },
-  { value: '99.2', unit: '%', label: 'On-Time Rate' },
+  { value: '500+', unit: 'Units', label: 'Drones Delivered' },
+  { value: '100', unit: '%', label: 'DGCA Certified' },
+  { value: '48', unit: 'hrs', label: 'QC & Dispatch Window' },
+  { value: '99.9', unit: '%', label: 'Handover Reliability' },
 ];
 
-const PACKAGE_TYPES = [
-  { name: 'Medicine & Lab Samples' },
-  { name: 'Documents & Contracts' },
-  { name: 'Food & Hot Parcels' },
-  { name: 'Electronics & Spares' },
-  { name: 'Lab & Medical Kits' },
+const FLEET_MODELS = [
+  { name: 'Cyberone Max (Heavy Cargo UAV & Winch)' },
+  { name: 'IndoHawk Alpha (High-Altitude Tactical Recon)' },
+  { name: 'StealthPro VTOL (Long-Range Fixed-Wing Hybrid)' },
+  { name: 'AgriWing X (Precision Industrial Agricultural UAV)' },
+  { name: 'SkyPatrol Recon (Tactical Rapid-Deploy Quadcopter)' },
 ];
 
 const HOW_IT_WORKS = [
-  { step: '01', icon: MapPin, title: 'Book Your Delivery', desc: 'Enter pickup & drop address in Delhi-NCR. Choose package type, weight & schedule instantly.', color: 'bg-purple-100 text-purple-700', border: 'border-purple-200' },
-  { step: '02', icon: Zap, title: 'Instant UAV Dispatch', desc: 'Nearest Cyberone drone is assigned. Autonomous pre-flight safety check completes in 90 seconds.', color: 'bg-blue-100 text-blue-700', border: 'border-blue-200' },
-  { step: '03', icon: Navigation, title: 'Real-Time Tracking', desc: 'Track live flight on your screen. SMS alert sent 3 minutes before the drone reaches your drop zone.', color: 'bg-emerald-100 text-emerald-700', border: 'border-emerald-200' },
-  { step: '04', icon: Package, title: 'Contactless Delivery', desc: 'Drone hovers at 12m, winches package to ground. Digital receipt sent immediately upon delivery.', color: 'bg-amber-100 text-amber-700', border: 'border-amber-200' },
+  { step: '01', icon: MapPin, title: 'Assembly & Diagnostics', desc: 'IndoWings aerospace engineers build and calibrate dual avionics, motor thrust, and firmware at Noida Plant.', color: 'bg-purple-100 text-purple-700', border: 'border-purple-200' },
+  { step: '02', icon: Shield, title: 'Pre-Delivery QC Clearance', desc: 'Fleet Manager performs multi-point battery impedance, autopilot redundancy, and DGCA NPNT compliance testing.', color: 'bg-amber-100 text-amber-700', border: 'border-amber-200' },
+  { step: '03', icon: Navigation, title: 'Secured Corridor Dispatch', desc: 'Dispatcher provisions transit corridors, assigns transport escort, and monitors real-time GPS telemetry.', color: 'bg-sky-100 text-sky-700', border: 'border-sky-200' },
+  { step: '04', icon: Package, title: 'Client Technical Acceptance', desc: 'Client receiving officer verifies serial tags, inspects hardware condition, and signs digital handover.', color: 'bg-emerald-100 text-emerald-700', border: 'border-emerald-200' },
 ];
 
 const FEATURES = [
-  { icon: Clock, title: 'Under 24 Minutes', desc: 'Faster than any road vehicle across all Delhi-NCR air corridors.' },
-  { icon: Shield, title: 'DGCA Certified', desc: 'Fully compliant under India Drone Rules 2021 — licensed BVLOS operations.' },
-  { icon: Navigation, title: 'Live Telemetry', desc: 'GPS tracking with weather sensor, LiDAR obstacle avoidance & auto-hold.' },
-  { icon: Zap, title: 'COD + Online Pay', desc: 'Razorpay UPI, Debit/Credit Cards, or Cash on Delivery — any preference.' },
+  { icon: Shield, title: 'DGCA Type Certified', desc: 'Manufactured under India Drone Rules 2021 with full BVLOS compliance & NPNT security.' },
+  { icon: Zap, title: 'Multi-Point Hardware QC', desc: 'Rigorous 5-stage pre-dispatch inspection for motor thrust, telemetry, and battery cell health.' },
+  { icon: Navigation, title: 'Real-Time Transit Telemetry', desc: 'Live GPS route tracking from assembly facility to client airbase or enterprise facility.' },
+  { icon: Clock, title: 'Digital Handover & Warranty', desc: 'Digital delivery challans, 1-year comprehensive manufacturer warranty, and technical commissioning.' },
 ];
 
 const COVERAGE_ZONES = [
-  { zone: 'Noida Sector 62', type: 'UAV Primary Hub' },
-  { zone: 'Connaught Place', type: 'Central Drop Zone' },
-  { zone: 'AIIMS New Delhi', type: 'Medical Priority Port' },
-  { zone: 'Cyber City Gurugram', type: 'Tech Corridor Hub' },
-  { zone: 'Dwarka Sector 21', type: 'Residential Hub' },
-  { zone: 'Greater Noida', type: 'Express Zone' },
+  { zone: 'Noida Sector 62 Plant', type: 'Primary Assembly & QC Facility' },
+  { zone: 'Northern Airbase Depot', type: 'Defense & Tactical Delivery Port' },
+  { zone: 'Gurugram Industrial Hub', type: 'Enterprise Logistics Gateway' },
+  { zone: 'Faridabad Testing Range', type: 'BVLOS Flight Range & Calibration' },
+  { zone: 'Connaught Place HQ', type: 'Central Command & Control Desk' },
+  { zone: 'Greater Noida Labs', type: 'Autonomous Flight & R&D Hub' },
 ];
 
 /* ─── COMPONENT ──────────────────────────────────────────────────────────── */
@@ -61,7 +61,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
 
   // Cycle packages
   useEffect(() => {
-    const t = setInterval(() => setActivePkg(p => (p + 1) % PACKAGE_TYPES.length), 3000);
+    const t = setInterval(() => setActivePkg(p => (p + 1) % FLEET_MODELS.length), 3000);
     return () => clearInterval(t);
   }, []);
 
@@ -185,48 +185,48 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                 <div className="inline-flex items-center gap-2.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs font-bold"
                   style={{ background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.25)', color: '#6ee7b7' }}>
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>{analytics.deliveredOrders} deliveries completed · {analytics.inFlightOrders || 0} flights active</span>
+                  <span>500+ Enterprise Drones Commissioned · Live Active Corridors</span>
                 </div>
               )}
 
               {/* Eyebrow */}
               <p className="text-[11px] sm:text-sm font-black uppercase tracking-[0.16em] sm:tracking-[0.18em] text-purple-400">
-                India&apos;s Autonomous Drone Delivery Network
+                Enterprise Drone Logistics & Fleet Supply Chain
               </p>
 
               {/* Headline */}
               <h1 className="text-[32px] sm:text-[48px] lg:text-[62px] font-black leading-[1.08] tracking-tight text-white">
-                Deliver Anything,{' '}
+                Delivering India&apos;s Drone Fleet,{' '}
                 <span className="relative">
                   <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(90deg, #c084fc, #818cf8)' }}>
-                    Anywhere in NCR
+                    Factory to Base
                   </span>
                 </span>
                 <br />
-                <span className="text-white/80 text-[24px] sm:text-[38px] lg:text-[52px]">— Under 24 Minutes.</span>
+                <span className="text-white/80 text-[24px] sm:text-[38px] lg:text-[52px]">— Precision &amp; Certified.</span>
               </h1>
 
               {/* Body */}
               <p className="text-sm sm:text-lg text-white/60 max-w-lg leading-relaxed">
-                IndoWings Cyberone autonomous UAVs fly at 65 km/h above Delhi-NCR traffic — delivering medicine, documents, food and parcels to your rooftop via precision Kevlar winch tether. Contactless. Certified. Instant.
+                IndoWings manufactures and manages the end-to-end delivery of certified enterprise UAV hardware units to defense, mining, agriculture, and infrastructure stations across India.
               </p>
 
-              {/* Package ticker */}
+              {/* Fleet model ticker */}
               <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-                <span className="text-xs sm:text-sm text-white/40 font-medium shrink-0">Now delivering:</span>
+                <span className="text-xs sm:text-sm text-white/40 font-medium shrink-0">Commissioning:</span>
                 <div className="flex items-center gap-2.5 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
-                  <span className="text-xs sm:text-sm font-bold text-white">{PACKAGE_TYPES[activePkg].name}</span>
+                  <span className="text-xs sm:text-sm font-bold text-white">{FLEET_MODELS[activePkg].name}</span>
                 </div>
               </div>
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">
                 <button
-                  onClick={() => go('order', '/order')}
+                  onClick={() => go('login', '/login')}
                   className="group flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-xl font-black text-sm text-white shadow-xl shadow-purple-900/40 transition-all active:scale-95 w-full sm:w-auto"
                   style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)' }}
                 >
-                  <span>Book Drone Delivery</span>
+                  <span>Operations Command Portal</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </button>
                 <button
@@ -234,13 +234,13 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                   className="flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 rounded-xl font-semibold text-sm text-white border border-white/20 bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all active:scale-95 w-full sm:w-auto"
                 >
                   <Navigation className="w-4 h-4 text-purple-300" />
-                  <span>Track My Order</span>
+                  <span>Track Drone Transit</span>
                 </button>
               </div>
 
               {/* Trust micro-badges */}
               <div className="flex flex-wrap gap-x-4 sm:gap-x-6 gap-y-2 pt-2 text-[11px] sm:text-xs text-white/40">
-                {['DGCA Certified UAVs', 'Razorpay Secured', 'Live SMS Tracking', 'COD Available'].map(b => (
+                {['DGCA Type Certified', 'Multi-Point Hardware QC', 'Secure Corridor Transit', 'Digital Handover Sign-off'].map(b => (
                   <span key={b} className="flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                     {b}
@@ -251,7 +251,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
 
             {/* ── Right — Floating Cyber Pilot Visual (Responsive on all screen sizes) ── */}
             <div className="flex flex-col items-center justify-center pt-2 lg:pt-0">
-              <InteractiveDrone onOrderClick={() => go('order', '/order')} />
+              <InteractiveDrone onOrderClick={() => go('login', '/login')} />
             </div>
 
           </div>
@@ -279,18 +279,18 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
-          HOW IT WORKS
+          HOW IT WORKS — 4-Stage Enterprise Delivery Protocol
          ══════════════════════════════════════════════════════════════════════ */}
       <section className="py-24 bg-[#f9f7fd]" id="how-it-works">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
-            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-purple-600 mb-3">Simple 4-Step Process</p>
+            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-purple-600 mb-3">4-Stage Enterprise Delivery Protocol</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#171222] tracking-tight">
-              Booking to doorstep delivery
+              From Factory Assembly to Base Handover
             </h2>
             <div className="w-16 h-1 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 mx-auto mt-5" />
             <p className="text-slate-500 mt-6 text-base max-w-xl mx-auto leading-relaxed">
-              Our fully autonomous system handles everything — from the moment you book to the contactless tether drop at your rooftop. Zero human intervention required mid-flight.
+              Our end-to-end delivery protocol ensures every drone unit arrives airworthy, certified, and fully documented at your operational station.
             </p>
           </div>
 
@@ -325,14 +325,14 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             {/* Left */}
             <div className="space-y-7">
               <div>
-                <p className="text-[11px] font-black uppercase tracking-[0.18em] text-purple-600 mb-3">Why IndoWings</p>
+                <p className="text-[11px] font-black uppercase tracking-[0.18em] text-purple-600 mb-3">Enterprise Standards</p>
                 <h2 className="text-3xl sm:text-4xl font-black text-[#171222] leading-tight">
-                  Built for speed, safety and Indian skies.
+                  Engineered for defense, industry, and sovereign skies.
                 </h2>
                 <div className="w-14 h-1 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 mt-5" />
               </div>
               <p className="text-slate-500 text-base leading-relaxed">
-                Our Cyberone Pro UAVs are purpose-engineered for last-mile urban delivery in dense Indian metros — overcoming the traffic, weather and building density that paralyses ground vehicles.
+                IndoWings UAV hardware units are purpose-built for heavy tactical payload, high-altitude surveillance, and all-weather BVLOS flight across extreme terrain.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -349,11 +349,11 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                 ))}
               </div>
 
-              <button onClick={() => go('order', '/order')}
+              <button onClick={() => go('login', '/login')}
                 className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-black text-sm text-white shadow-xl shadow-purple-900/20 transition-all active:scale-95"
                 style={{ background: 'linear-gradient(135deg, #6d28d9, #4f46e5)' }}>
-                <Package className="w-4 h-4" />
-                Book Your First Delivery
+                <Shield className="w-4 h-4" />
+                Access Operations Portal
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -366,22 +366,22 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                   <Navigation className="w-7 h-7 text-purple-400" />
                 </div>
                   <div>
-                    <h3 className="text-lg font-black text-white">Cyberone Pro UAV</h3>
-                    <p className="text-xs text-white/40 mt-0.5">IndoWings Fleet · v3.4.4 Stable</p>
+                    <h3 className="text-lg font-black text-white">Cyberone Max Enterprise UAV</h3>
+                    <p className="text-xs text-white/40 mt-0.5">IndoWings Fleet · Type-Certified HW</p>
                   </div>
                   <span className="ml-auto text-[9px] font-black px-2.5 py-1 rounded-full" style={{ background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.25)', color: '#6ee7b7' }}>
-                    ● ACTIVE
+                    ● QC CERTIFIED
                   </span>
                 </div>
                 {[
-                  ['Max Payload', '5.0 kg'],
+                  ['Max Payload', '5.0 kg Heavy Winch Tether'],
                   ['Cruise Speed', '65 km/h'],
-                  ['Altitude', '90 m AGL'],
-                  ['Range', '25 km'],
-                  ['Winch System', 'Kevlar Tether Drop'],
-                  ['Obstacle Avoidance', 'LiDAR + Vision AI'],
-                  ['Weather Rating', 'IP55 · Wind ≤35 km/h'],
-                  ['Certification', 'DGCA BVLOS Class'],
+                  ['Airframe', 'Toray Carbon Fiber Composite'],
+                  ['Avionics', 'Dual RTK-GPS + Redundant IMU'],
+                  ['Range', '25 km BVLOS Flight'],
+                  ['Obstacle Avoidance', '360° LiDAR + Optical AI'],
+                  ['Ingress Protection', 'IP55 All-Weather Operational'],
+                  ['Certification', 'DGCA Type-Certified Class'],
                 ].map(([label, value]) => (
                   <div key={label} className="flex justify-between items-center py-3 border-b border-white/[0.06] last:border-0">
                     <span className="text-xs font-semibold" style={{ color: 'rgba(255,255,255,0.4)' }}>{label}</span>
@@ -390,10 +390,10 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                 ))}
               </div>
               <div className="p-5 bg-slate-50">
-                <button onClick={() => go('order', '/order')}
+                <button onClick={() => go('login', '/login')}
                   className="w-full py-3.5 rounded-xl text-sm font-black text-white shadow-lg transition-all active:scale-95"
                   style={{ background: 'linear-gradient(135deg, #6d28d9, #4f46e5)' }}>
-                  Book Now — Instant Dispatch ↗
+                  Personnel Sign In — Manage Fleet ↗
                 </button>
               </div>
             </div>
@@ -500,25 +500,25 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-bold"
             style={{ background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.25)', color: '#6ee7b7' }}>
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            Live fleet operational · Delhi-NCR · {liveCount} drones active
+            Active Fleet Operations · {liveCount} Drone Units in Dispatch Corridor
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight max-w-3xl mx-auto">
-            Ready to experience the future of delivery?
+            Ready to Deploy Your Enterprise Drone Fleet?
           </h2>
           <p className="text-white/50 text-base max-w-lg mx-auto leading-relaxed">
-            Join thousands of Delhi-NCR residents using IndoWings for same-day medicine, document and parcel delivery — in under 24 minutes.
+            Join defense forces, infrastructure leaders, and state agencies deploying IndoWings autonomous UAV systems with zero-defect handover protocols.
           </p>
           <div className="flex flex-wrap justify-center gap-4 pt-2">
-            <button onClick={() => go('order', '/order')}
+            <button onClick={() => go('login', '/login')}
               className="group flex items-center gap-2.5 px-9 py-4 rounded-xl font-black text-sm text-[#3b0080] bg-white hover:bg-slate-50 shadow-2xl transition-all active:scale-95">
-              <Package className="w-5 h-5" />
-              Book Drone Delivery Now
+              <Shield className="w-5 h-5" />
+              Access Personnel Command
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
             <button onClick={() => go('track', '/track')}
               className="flex items-center gap-2.5 px-9 py-4 rounded-xl font-bold text-sm text-white border border-white/20 bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all active:scale-95">
               <Navigation className="w-4 h-4" />
-              Track Existing Order
+              Track Drone Shipment
             </button>
           </div>
         </div>
