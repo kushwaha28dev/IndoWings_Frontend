@@ -208,10 +208,6 @@ export const Header: React.FC<HeaderProps> = ({
           <a href="/" onClick={nav('home', '/')} className="flex items-center gap-3 group">
             <img src="/indowings-logo-dark.svg" alt="IndoWings" className="h-8 w-auto" />
           </a>
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-purple-50 border border-purple-200/70 text-[11px] font-bold text-[#3b0080]">
-            <Lock className="w-3 h-3 text-[#3b0080]" />
-            <span>Operations Gateway</span>
-          </div>
         </div>
 
         {/* ── Desktop Navigation Menu ───────────────────────────────── */}

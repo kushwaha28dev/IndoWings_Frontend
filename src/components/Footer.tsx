@@ -62,15 +62,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-bold text-emerald-400">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Network Active · 2FA Enforced</span>
-            </div>
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-slate-300">
-              <Lock className="w-3.5 h-3.5 text-purple-400" />
-              <span>Internal Personnel Only</span>
-            </div>
+          {/* Clean Aerospace Status */}
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-xs font-semibold text-slate-400">All Corridors Active</span>
           </div>
         </div>
 
@@ -191,7 +186,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         {/* Bottom Bar: Copyright */}
         <div className="pt-6 border-t border-white/[0.07] flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
           <p>&copy; {new Date().getFullYear()} IndoWings Aerospace Technologies Ltd. All rights reserved.</p>
-          <p className="text-[11px] text-slate-400">Confidential · Authorized Internal Personnel Access Only</p>
         </div>
       </div>
     </footer>
