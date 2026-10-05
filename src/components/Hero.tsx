@@ -13,6 +13,7 @@ import {
   Clock,
   Gauge,
   Compass,
+  Headphones,
 } from 'lucide-react';
 import { InteractiveDrone } from './InteractiveDrone';
 import { ElevationMeshBackground } from './ElevationMeshBackground';
@@ -55,14 +56,14 @@ const ROLES_OVERVIEW = [
     cta: 'Open Dispatcher Board',
   },
   {
-    role: 'Client Receiving Officer',
-    path: '/receiving',
-    icon: Package,
-    badge: 'Handover & Acceptance',
+    role: 'Support Desk Officer',
+    path: '/support-desk',
+    icon: Headphones,
+    badge: 'Grievance & Ops',
     badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
-    title: 'Client Receiving Station',
-    desc: 'Inspect incoming drone shipments upon arrival, verify DGCA serial tags, complete physical condition checklists, and sign digital acceptance challans.',
-    cta: 'Open Receiving Portal',
+    title: 'Support & Grievance Desk',
+    desc: 'Manage customer complaints, incoming phone requests, order inquiries, and trigger rapid resolution workflows with instant email notifications.',
+    cta: 'Open Support Desk',
   },
 ];
 

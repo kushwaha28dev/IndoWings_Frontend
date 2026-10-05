@@ -27,7 +27,6 @@ import { FeedbackPage } from './pages/FeedbackPage';
 import { LegalPage } from './pages/LegalPage';
 import { AdminDashboardPage } from './pages/AdminDashboardPage';
 import { FleetManagerPage } from './pages/FleetManagerPage';
-import { ClientReceivingPage } from './pages/ClientReceivingPage';
 import { SupportDeskPage } from './pages/SupportDeskPage';
 import { CommandCenterModal } from './components/CommandCenterModal';
 import { DemoBookingModal } from './components/DemoBookingModal';
@@ -35,14 +34,13 @@ import { API_BASE_URL } from './config/api';
 import { AuthModal, DeliveryUser } from './components/AuthModal';
 import { UserProfile } from './types';
 
-type Page = 'home' | 'platform' | 'command-center' | 'gcs' | 'downloads' | 'versions' | 'order' | 'track' | 'dispatch' | 'login' | 'profile' | 'orders' | 'support' | 'docs' | 'company' | 'feedback' | 'legal' | 'admin' | 'fleet' | 'receiving' | 'support-desk';
+type Page = 'home' | 'platform' | 'command-center' | 'gcs' | 'downloads' | 'versions' | 'order' | 'track' | 'dispatch' | 'login' | 'profile' | 'orders' | 'support' | 'docs' | 'company' | 'feedback' | 'legal' | 'admin' | 'fleet' | 'support-desk';
 
 const getInitialPage = (): Page => {
   if (typeof window === 'undefined') return 'home';
   const p = window.location.pathname;
   if (p.includes('/admin')) return 'admin';
   if (p.includes('/fleet')) return 'fleet';
-  if (p.includes('/receiving')) return 'receiving';
   if (p.includes('/support-desk') || p.includes('/support_desk')) return 'support-desk';
   if (p.includes('/command-center')) return 'command-center';
   if (p.includes('/platform')) return 'platform';
@@ -85,7 +83,7 @@ export const App: React.FC = () => {
 
   // Route Protection & Role Governance for Enterprise Dashboards
   useEffect(() => {
-    const protectedPages: Page[] = ['admin', 'fleet', 'receiving', 'support-desk', 'dispatch'];
+    const protectedPages: Page[] = ['admin', 'fleet', 'support-desk', 'dispatch'];
     if (protectedPages.includes(currentPage)) {
       const token = localStorage.getItem('iw_delivery_token');
       const userStr = localStorage.getItem('iw_delivery_user');
@@ -107,27 +105,18 @@ export const App: React.FC = () => {
           if (role === 'fleet_manager') routeToDesk('fleet', '/fleet');
           else if (role === 'dispatcher') routeToDesk('dispatch', '/dispatch');
           else if (role === 'support') routeToDesk('support-desk', '/support-desk');
-          else if (role === 'client') routeToDesk('receiving', '/receiving');
           else routeToDesk('login', '/login');
         } else if (currentPage === 'fleet' && role !== 'fleet_manager' && role !== 'admin') {
           if (role === 'dispatcher') routeToDesk('dispatch', '/dispatch');
           else if (role === 'support') routeToDesk('support-desk', '/support-desk');
-          else if (role === 'client') routeToDesk('receiving', '/receiving');
           else routeToDesk('login', '/login');
         } else if (currentPage === 'dispatch' && role !== 'dispatcher' && role !== 'admin') {
           if (role === 'fleet_manager') routeToDesk('fleet', '/fleet');
           else if (role === 'support') routeToDesk('support-desk', '/support-desk');
-          else if (role === 'client') routeToDesk('receiving', '/receiving');
           else routeToDesk('login', '/login');
         } else if (currentPage === 'support-desk' && role !== 'support' && role !== 'admin') {
           if (role === 'fleet_manager') routeToDesk('fleet', '/fleet');
           else if (role === 'dispatcher') routeToDesk('dispatch', '/dispatch');
-          else if (role === 'client') routeToDesk('receiving', '/receiving');
-          else routeToDesk('login', '/login');
-        } else if (currentPage === 'receiving' && role !== 'client' && role !== 'admin') {
-          if (role === 'fleet_manager') routeToDesk('fleet', '/fleet');
-          else if (role === 'dispatcher') routeToDesk('dispatch', '/dispatch');
-          else if (role === 'support') routeToDesk('support-desk', '/support-desk');
           else routeToDesk('login', '/login');
         }
       } catch {
@@ -167,7 +156,7 @@ export const App: React.FC = () => {
     setDeliveryUser(null);
     localStorage.removeItem('iw_delivery_token');
     localStorage.removeItem('iw_delivery_user');
-    const protectedPages: Page[] = ['admin', 'fleet', 'receiving', 'support-desk', 'dispatch'];
+    const protectedPages: Page[] = ['admin', 'fleet', 'support-desk', 'dispatch'];
     if (protectedPages.includes(currentPage)) {
       setCurrentPage('login');
       window.history.pushState({}, '', '/login');
@@ -193,7 +182,7 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f7f4fb] text-[#171222] font-sans antialiased w-full max-w-full overflow-x-hidden">
-      {!['login', 'admin', 'fleet', 'receiving', 'support-desk'].includes(currentPage) && (
+      {!['login', 'admin', 'fleet', 'support-desk'].includes(currentPage) && (
         <Header
           currentUser={deliveryUser}
           onOpenCommandCenter={() => setIsCommandCenterOpen(true)}
@@ -211,8 +200,6 @@ export const App: React.FC = () => {
           <AdminDashboardPage currentUser={deliveryUser} onNavigate={handleNavigate} onLogout={handleDeliveryLogout} />
         ) : currentPage === 'fleet' ? (
           <FleetManagerPage currentUser={deliveryUser} onNavigate={handleNavigate} onLogout={handleDeliveryLogout} />
-        ) : currentPage === 'receiving' ? (
-          <ClientReceivingPage currentUser={deliveryUser} onNavigate={handleNavigate} onLogout={handleDeliveryLogout} />
         ) : currentPage === 'support-desk' ? (
           <SupportDeskPage currentUser={deliveryUser} onNavigate={handleNavigate} onLogout={handleDeliveryLogout} />
         ) : currentPage === 'profile' ? (
@@ -252,7 +239,7 @@ export const App: React.FC = () => {
         )}
       </main>
 
-      {!['login', 'admin', 'fleet', 'receiving', 'dispatch'].includes(currentPage) && (
+      {!['login', 'admin', 'fleet', 'dispatch'].includes(currentPage) && (
         <Footer onNavigate={handleNavigate} />
       )}
 

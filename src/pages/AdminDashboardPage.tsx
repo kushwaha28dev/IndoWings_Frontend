@@ -457,7 +457,7 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ currentU
                     required
                     value={newEmail}
                     onChange={e => setNewEmail(e.target.value)}
-                    placeholder="vikram@defenselogistics.in"
+                    placeholder="officer@indowings.com"
                     className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-purple-600"
                   />
                 </div>

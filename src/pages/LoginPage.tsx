@@ -71,9 +71,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
     } else if (user.role === 'dispatcher') {
       onNavigate('dispatch');
       window.history.pushState({}, '', '/dispatch');
-    } else if (user.role === 'client') {
-      onNavigate('receiving');
-      window.history.pushState({}, '', '/receiving');
     } else if (user.role === 'support') {
       onNavigate('support-desk');
       window.history.pushState({}, '', '/support-desk');

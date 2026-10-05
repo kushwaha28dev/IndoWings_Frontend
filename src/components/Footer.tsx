@@ -87,36 +87,31 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
         {/* Links Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-10">
-          {/* Column 1: Operations Workspaces */}
+          {/* Column 1: Operations Gateway */}
           <div>
             <h3 className="text-xs font-black uppercase tracking-[0.16em] text-white/90 mb-4 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
-              Operations Desks
+              Operations Gateway
             </h3>
             <ul className="space-y-2.5 text-xs text-slate-400">
               <li>
                 <a href="/login" onClick={navTo('login', '/login')} className="hover:text-white transition-colors">
-                  Personnel OTP Login
+                  Personnel Portal Sign In
                 </a>
               </li>
               <li>
-                <a href="/admin" onClick={navTo('admin', '/admin')} className="hover:text-white transition-colors">
-                  Super Admin Console
+                <a href="/support" onClick={navTo('support', '/support')} className="hover:text-white transition-colors">
+                  Operations Hotline &amp; Support
                 </a>
               </li>
               <li>
-                <a href="/fleet" onClick={navTo('fleet', '/fleet')} className="hover:text-white transition-colors">
-                  Fleet &amp; Pre-Delivery QC
+                <a href="/track" onClick={navTo('track', '/track')} className="hover:text-white transition-colors">
+                  Live Corridor Telemetry
                 </a>
               </li>
               <li>
-                <a href="/dispatch" onClick={navTo('dispatch', '/dispatch')} className="hover:text-white transition-colors">
-                  Corridor Dispatch Board
-                </a>
-              </li>
-              <li>
-                <a href="/receiving" onClick={navTo('receiving', '/receiving')} className="hover:text-white transition-colors">
-                  Client Receiving Station
+                <a href="/docs" onClick={navTo('docs', '/docs')} className="hover:text-white transition-colors">
+                  Avionics &amp; SOP Guidelines
                 </a>
               </li>
             </ul>

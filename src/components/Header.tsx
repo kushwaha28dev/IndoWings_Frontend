@@ -122,14 +122,6 @@ export const Header: React.FC<HeaderProps> = ({
       badge: 'Dispatch',
     },
     {
-      icon: Package,
-      label: 'Client Receiving Station',
-      sub: 'Arrival checks & digital sign-off',
-      page: 'receiving',
-      url: '/receiving',
-      badge: 'Receiving',
-    },
-    {
       icon: Headphones,
       label: 'Support & Grievance Desk',
       sub: 'Customer queries, callbacks & tickets',
@@ -476,8 +468,6 @@ export const Header: React.FC<HeaderProps> = ({
                           ? '🛠️ Fleet Manager'
                           : currentUser.role === 'dispatcher'
                           ? '🚚 Dispatcher'
-                          : currentUser.role === 'client'
-                          ? '🏢 Client Officer'
                           : currentUser.role === 'support'
                           ? '🎧 Support Desk Officer'
                           : 'Staff'}
@@ -513,16 +503,6 @@ export const Header: React.FC<HeaderProps> = ({
                     >
                       <LayoutDashboard className="w-4 h-4" />
                       Dispatcher Board
-                    </button>
-                  )}
-
-                  {currentUser.role === 'client' && (
-                    <button
-                      onClick={nav('receiving', '/receiving')}
-                      className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-emerald-50 text-emerald-900 text-xs font-bold transition-colors mb-1"
-                    >
-                      <Package className="w-4 h-4" />
-                      Client Receiving Portal
                     </button>
                   )}
 
@@ -630,16 +610,6 @@ export const Header: React.FC<HeaderProps> = ({
                 >
                   <LayoutDashboard className="w-4 h-4" />
                   <span>Corridor Dispatch Board</span>
-                </a>
-              )}
-              {currentUser.role === 'client' && (
-                <a
-                  href="/receiving"
-                  onClick={nav('receiving', '/receiving')}
-                  className="flex items-center gap-2 text-xs font-bold text-[#3b0080]"
-                >
-                  <Package className="w-4 h-4" />
-                  <span>Client Receiving Station</span>
                 </a>
               )}
               {currentUser.role === 'support' && (
