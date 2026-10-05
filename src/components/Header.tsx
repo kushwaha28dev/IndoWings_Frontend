@@ -206,7 +206,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* ── Brand ─────────────────────────────────────────────────── */}
         <div className="flex items-center gap-3 shrink-0">
           <a href="/" onClick={nav('home', '/')} className="flex items-center gap-3 group">
-            <img src="/indowings-logo-dark.svg" alt="IndoWings" className="h-8 w-auto" />
+            <img src="/indofleet-logo-dark.svg" alt="IndoFleet" className="h-8 w-auto" />
           </a>
         </div>
 

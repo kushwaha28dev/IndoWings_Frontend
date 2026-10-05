@@ -234,7 +234,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             <div className="space-y-6">
               {/* Title */}
               <h1 className="text-3xl sm:text-5xl lg:text-[56px] font-black leading-[1.1] tracking-tight text-white">
-                IndoWings Operations Gateway
+                IndoFleet Operations Gateway
                 <span
                   className="block mt-2 text-transparent bg-clip-text"
                   style={{

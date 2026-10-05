@@ -42,7 +42,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             transform: 'translateY(14%)',
           }}
         >
-          indowings
+          indofleet
         </span>
       </div>
 
@@ -52,13 +52,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div className="max-w-xl">
             <a href="/" onClick={navTo('home', '/')} className="inline-flex items-center gap-3">
               <img
-                src="/indowings-logo-white.svg"
-                alt="IndoWings"
+                src="/indofleet-logo-white.svg"
+                alt="IndoFleet"
                 className="h-7 w-auto object-contain"
               />
             </a>
             <p className="text-xs text-slate-400 mt-2.5 leading-relaxed">
-              IndoWings Enterprise UAV Fleet Logistics &amp; Handover Hub. Confidential operations infrastructure governing factory assembly diagnostics, corridor dispatch, and technical acceptance.
+              IndoFleet Enterprise UAV Fleet Logistics &amp; Handover Hub. Operations infrastructure governing factory assembly diagnostics, corridor dispatch, and technical acceptance.
             </p>
           </div>
 
@@ -180,7 +180,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
         {/* Bottom Bar: Copyright */}
         <div className="pt-6 border-t border-white/[0.07] flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
-          <p>&copy; {new Date().getFullYear()} IndoWings Aerospace Technologies Ltd. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} IndoFleet Aerospace Technologies Ltd. All rights reserved.</p>
         </div>
       </div>
     </footer>

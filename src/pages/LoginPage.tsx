@@ -224,7 +224,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
             <span>Back to Home</span>
           </button>
 
-          <img src="/indowings-logo-white.svg" alt="IndoWings" className="h-9 w-auto mb-8" />
+          <img src="/indofleet-logo-white.svg" alt="IndoFleet" className="h-9 w-auto mb-8" />
 
           <h1 className="text-3xl xl:text-4xl font-black text-white leading-tight mb-4 tracking-tight">
             Autonomous Drone Fleet &amp; Delivery Management
@@ -271,7 +271,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
 
         {/* Footer info */}
         <div className="relative z-10 text-[11px] text-white/40">
-          IndoWings Aerospace Technologies Ltd.
+          IndoFleet Aerospace Technologies Ltd.
         </div>
       </div>
 
@@ -279,7 +279,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
       <div className="flex-1 flex flex-col justify-center px-6 sm:px-12 lg:px-16 xl:px-20 bg-white py-12">
         {/* Mobile Header */}
         <div className="lg:hidden flex items-center justify-between mb-8 pb-4 border-b border-slate-100">
-          <img src="/indowings-logo-dark.svg" alt="IndoWings" className="h-7 w-auto" />
+          <img src="/indofleet-logo-dark.svg" alt="IndoFleet" className="h-7 w-auto" />
           <button
             onClick={() => {
               onNavigate('home');
@@ -301,7 +301,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
               </div>
 
               <h2 className="text-2xl font-black text-slate-900 tracking-tight">
-                Sign In to IndoWings
+                Sign In to IndoFleet
               </h2>
               <p className="text-slate-500 text-sm mt-1 mb-6 leading-relaxed">
                 Enter your registered email address or mobile phone to receive a one-time verification code.
@@ -327,7 +327,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
                         setError('');
                       }}
                       required
-                      placeholder="e.g. puneet@indowings.com or 9876543201"
+                      placeholder="e.g. admin@indofleet.com or 9876543201"
                       className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#3b0080] focus:ring-4 focus:ring-purple-50 transition-all font-medium"
                     />
                   </div>
