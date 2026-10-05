@@ -15,7 +15,6 @@ import { CommandCenterPage } from './pages/CommandCenterPage';
 import { GcsPage } from './pages/GcsPage';
 import { DownloadsPage } from './pages/DownloadsPage';
 import { VersionsPage } from './pages/VersionsPage';
-import { PlaceOrderPage } from './pages/PlaceOrderPage';
 import { TrackOrderPage } from './pages/TrackOrderPage';
 import { DispatchPage } from './pages/DispatchPage';
 import { LoginPage } from './pages/LoginPage';
@@ -34,7 +33,7 @@ import { API_BASE_URL } from './config/api';
 import { AuthModal, DeliveryUser } from './components/AuthModal';
 import { UserProfile } from './types';
 
-type Page = 'home' | 'platform' | 'command-center' | 'gcs' | 'downloads' | 'versions' | 'order' | 'track' | 'dispatch' | 'login' | 'profile' | 'orders' | 'support' | 'docs' | 'company' | 'feedback' | 'legal' | 'admin' | 'fleet' | 'support-desk';
+type Page = 'home' | 'platform' | 'command-center' | 'gcs' | 'downloads' | 'versions' | 'track' | 'dispatch' | 'login' | 'profile' | 'orders' | 'support' | 'docs' | 'company' | 'feedback' | 'legal' | 'admin' | 'fleet' | 'support-desk';
 
 const getInitialPage = (): Page => {
   if (typeof window === 'undefined') return 'home';
@@ -47,8 +46,7 @@ const getInitialPage = (): Page => {
   if (p.includes('/gcs')) return 'gcs';
   if (p.includes('/downloads')) return 'downloads';
   if (p.includes('/versions') || p.includes('/release-notes') || p.includes('/release_notes')) return 'versions';
-  if (p.includes('/order')) return 'order';
-  if (p.includes('/track')) return 'track';
+  if (p.includes('/order') || p.includes('/track')) return 'track';
   if (p.includes('/dispatch')) return 'dispatch';
   if (p.includes('/login')) return 'login';
   if (p.includes('/orders')) return 'orders';
@@ -216,8 +214,6 @@ export const App: React.FC = () => {
           <DownloadsPage onNavigate={handleNavigate} onOpenCommandCenter={() => setIsCommandCenterOpen(true)} onOpenDemoBooking={() => handleOpenDemoBooking()} />
         ) : currentPage === 'versions' ? (
           <VersionsPage onNavigate={handleNavigate} onOpenDemoBooking={() => handleOpenDemoBooking()} />
-        ) : currentPage === 'order' ? (
-          <PlaceOrderPage onNavigate={handleNavigate} currentUser={deliveryUser} onOpenAuth={() => { handleNavigate('login'); window.history.pushState({}, '', '/login'); }} />
         ) : currentPage === 'track' ? (
           <TrackOrderPage onNavigate={handleNavigate} />
         ) : currentPage === 'dispatch' ? (

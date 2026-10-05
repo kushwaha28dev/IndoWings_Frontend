@@ -574,7 +574,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
         />
         <div className="relative max-w-4xl mx-auto">
           <button 
-            onClick={() => { onNavigate('order'); window.history.pushState({}, '', '/order'); }}
+            onClick={() => { onNavigate('dispatch'); window.history.pushState({}, '', '/dispatch'); }}
             className="inline-flex items-center gap-2 text-white/70 hover:text-white text-xs font-semibold uppercase tracking-wider mb-6 transition-colors">
             <ArrowLeft className="w-3.5 h-3.5" /> Back to Drone Dispatch
           </button>
@@ -588,17 +588,17 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
                 <div className="flex items-center gap-2 mb-1">
                   <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">{name || 'Customer Account'}</h1>
                   <span className="text-[10px] font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-200 border border-purple-400/30">
-                    {profile?.role === 'admin' ? 'HQ Admin' : 'Verified Customer'}
+                    {profile?.role === 'admin' ? 'HQ Admin' : 'Verified Personnel'}
                   </span>
                 </div>
-                <p className="text-white/70 text-sm">{email || 'IndoWings Drone Delivery Network'}</p>
+                <p className="text-white/70 text-sm">{email || 'IndoWings Drone Fleet Network'}</p>
               </div>
             </div>
 
             <button
-              onClick={() => { onNavigate('order'); window.history.pushState({}, '', '/order'); }}
+              onClick={() => { onNavigate('track'); window.history.pushState({}, '', '/track'); }}
               className="inline-flex items-center justify-center gap-2 bg-white text-[#3b0080] hover:bg-purple-50 font-bold px-5 py-2.5 rounded-xl text-sm transition-all shadow-md active:scale-95">
-              <Package className="w-4 h-4" /> Place New Order
+              <Radio className="w-4 h-4 text-purple-600 animate-pulse" /> Live Telemetry Radar
             </button>
           </div>
 
@@ -936,9 +936,9 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
                 </button>
                 <button
                   type="button"
-                  onClick={() => { onNavigate('order'); window.history.pushState({}, '', '/order'); }}
+                  onClick={() => { onNavigate('track'); window.history.pushState({}, '', '/track'); }}
                   className="inline-flex items-center gap-2 bg-[#3b0080] hover:bg-[#2a005c] text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow-sm shadow-purple-900/10 cursor-pointer">
-                  <Package className="w-3.5 h-3.5" /> Book New Flight
+                  <Radio className="w-3.5 h-3.5" /> Corridor Radar
                 </button>
               </div>
             </div>
@@ -1042,18 +1042,18 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
                 <Plane className="w-7 h-7" />
               </div>
               <h3 className="text-base font-bold text-[#171222] mb-1">
-                {orderSearch ? 'No matching orders found' : 'No Drone Orders Found'}
+                {orderSearch ? 'No matching logs found' : 'No Corridor Sorties Found'}
               </h3>
               <p className="text-xs text-slate-400 max-w-sm mx-auto mb-5 leading-relaxed">
                 {orderSearch 
                   ? 'Try checking for typos or searching by another keyword.' 
-                  : 'You have not booked any autonomous drone deliveries yet. Schedule your first instant drop-off today!'}
+                  : 'No active flight corridors or dispatch records found for your account.'}
               </p>
               <button
                 type="button"
-                onClick={() => { onNavigate('order'); window.history.pushState({}, '', '/order'); }}
+                onClick={() => { onNavigate('track'); window.history.pushState({}, '', '/track'); }}
                 className="inline-flex items-center gap-2 bg-[#3b0080] hover:bg-[#2a005c] text-white font-bold text-xs px-5 py-2.5 rounded-xl transition-all shadow-md cursor-pointer">
-                <Package className="w-4 h-4" /> Book a Drone Delivery
+                <Radio className="w-4 h-4" /> Live Corridor Telemetry
               </button>
             </div>
           ) : (

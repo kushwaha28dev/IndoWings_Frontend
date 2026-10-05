@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { 
-  BookOpen, Shield, DownloadCloud, Book, Terminal, Compass, Package, 
+  BookOpen, Shield, DownloadCloud, Book, Terminal, Compass, 
   MapPin, Truck, CheckCircle2, ChevronRight, ArrowRight, ExternalLink, 
   Sparkles, AlertCircle, Clock, Search, Layers, Radio, HelpCircle, 
-  FileText, Zap, ShieldCheck, Check, Navigation, CreditCard, Award, User
+  FileText, Zap, ShieldCheck, Check, Navigation, CreditCard, Award, User,
+  Wrench, Activity, CheckSquare
 } from 'lucide-react';
 
 interface DocsPageProps {
@@ -17,18 +18,17 @@ export const DocsPage: React.FC<DocsPageProps> = ({
   onOpenCommandCenter, 
   onOpenDemoBooking 
 }) => {
-  const [activeTab, setActiveTab] = useState<'all' | 'ordering' | 'platform' | 'gcs' | 'admin' | 'safety'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'qc' | 'platform' | 'gcs' | 'admin' | 'safety'>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedDocId, setSelectedDocId] = useState<string | null>('doc-ordering');
 
   const docCards = [
     {
       id: 'doc-platform',
-      tag: 'Platform Overview',
+      tag: 'Platform Architecture',
       tagColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
       icon: ShieldCheck,
-      title: 'How the IndoWings ecosystem works',
-      desc: 'Command Center, GCS, account access, role-based permissions, trusted devices, aircraft lifecycle, releases, support, and audit review.',
+      title: 'How the IndoFleet Enterprise Ecosystem Works',
+      desc: 'Centralized Command Center, GCS, role-based governance, secure telemetry downlinks, aircraft lifecycle records, releases, and operational audit trail.',
       linkText: 'Open platform overview',
       category: 'platform',
       targetPage: 'platform'
@@ -38,41 +38,42 @@ export const DocsPage: React.FC<DocsPageProps> = ({
       tag: 'Quick Start',
       tagColor: 'bg-teal-50 text-teal-700 border-teal-200',
       icon: DownloadCloud,
-      title: 'Install and prepare IndoWings GCS',
-      desc: 'Start with the latest installer metadata, SHA-256 checksum, system requirements, Windows installation, and safe ground setup guidance.',
+      title: 'Install & Configure IndoFleet GCS',
+      desc: 'Start with the latest installer metadata, SHA-256 checksums, system prerequisites, Windows workstation setup, and ground control link guidance.',
       linkText: 'Open quick start',
       category: 'gcs',
       targetPage: 'downloads'
     },
     {
-      id: 'doc-ordering',
-      tag: 'Delivery Guide',
+      id: 'doc-qc-dispatch',
+      tag: 'Hardware QC & SOP',
       tagColor: 'bg-purple-50 text-[#3b0080] border-purple-200',
-      icon: Package,
+      icon: Wrench,
       featured: true,
-      title: 'How to Order & Dispatch Drone Deliveries',
-      desc: 'Complete operational walkthrough: entering pickup/drop coordinates, payload limits, live distance & fare calculation, Razorpay/COD payment, and live radar flight tracking.',
-      linkText: 'Open ordering guide',
-      category: 'ordering'
+      title: 'Pre-Flight Hardware QC & Corridor Clearance SOP',
+      desc: 'Complete technical standard operating procedure: 4-point avionics diagnostics, dual-IMU calibration, battery cell impedance testing, DGCA NPNT compliance token verification, and corridor transit clearance sign-off.',
+      linkText: 'Open QC & Dispatch SOP',
+      category: 'qc',
+      targetPage: 'fleet'
     },
     {
       id: 'doc-admin',
-      tag: 'Admin Guide',
+      tag: 'Dispatch Command',
       tagColor: 'bg-blue-50 text-blue-700 border-blue-200',
       icon: Shield,
-      title: 'Command Center administration & Dispatch Board',
-      desc: 'Accounts, organizations, users, role permissions, fleet operations, live radar telemetry, flight corridor holds, and callback enquiry management.',
-      linkText: 'View admin guidance',
+      title: 'Corridor Dispatch Board & Mission Control',
+      desc: 'Corridor scheduling, escort pilot assignment, live telemetry flight streams, active air corridor locks, and mission milestone broadcasting.',
+      linkText: 'View dispatch guidance',
       category: 'admin',
       targetPage: 'dispatch'
     },
     {
       id: 'doc-pilot',
-      tag: 'Pilot Guide',
+      tag: 'GCS Flight Guide',
       tagColor: 'bg-sky-50 text-sky-700 border-sky-200',
       icon: Compass,
-      title: 'Mission planning and autonomous flight mode',
-      desc: 'Aircraft connection, waypoint planning, preflight calibrations, live telemetry downlinks, failsafe geofence return, and synced field workflows.',
+      title: 'Mission Waypoints & Autonomous Corridor Flight',
+      desc: 'Aircraft telemetry connection, corridor waypoint planning, pre-flight sensor zeroing, live RF/4G telemetry downlinks, and fail-safe geofence return.',
       linkText: 'Open pilot guidance',
       category: 'gcs',
       targetPage: 'gcs'
@@ -82,10 +83,11 @@ export const DocsPage: React.FC<DocsPageProps> = ({
       tag: 'Safety & DGCA',
       tagColor: 'bg-amber-50 text-amber-700 border-amber-200',
       icon: Award,
-      title: 'Terrace Landing & DGCA Airspace Compliance',
-      desc: 'Digital Sky Green Zone corridor rules, 3×3 metre clear terrace criteria, winch tether protocols, wind limits, and contactless handover safety.',
+      title: 'DGCA DigitalSky & Air Corridor Safety Compliance',
+      desc: 'DigitalSky Green/Yellow zone flight permissions, NPNT (No Permission No Takeoff) cryptographic compliance, ADS-B transponder escort guidelines, and fail-safe geofencing protocols.',
       linkText: 'View compliance guidance',
-      category: 'safety'
+      category: 'safety',
+      targetPage: 'docs'
     }
   ];
 
@@ -98,7 +100,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
 
   return (
     <div className="min-h-screen bg-[#f7f4fb] text-[#171222]">
-      {/* ── HERO SECTION (Exact SkyGrid Purple Aesthetics) ──────────────────── */}
+      {/* ── HERO SECTION ────────────────────────────────────────────────────── */}
       <section 
         className="relative text-white pt-16 pb-24 px-6 overflow-hidden" 
         style={{ background: 'linear-gradient(135deg, #1e0940 0%, #2b114d 50%, #1a0835 100%)' }}>
@@ -114,51 +116,51 @@ export const DocsPage: React.FC<DocsPageProps> = ({
           </div>
 
           <p className="text-xs font-bold tracking-[0.25em] uppercase text-purple-300 mb-3">
-            DOCUMENTATION
+            DOCUMENTATION &amp; SOP
           </p>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 tracking-tight max-w-3xl leading-[1.1]">
-            IndoWings documentation library
+            IndoFleet technical library
           </h1>
 
           <p className="text-white/70 text-base sm:text-lg max-w-2xl leading-relaxed">
-            Public operating references for GCS, Command Center workflows, autonomous drone delivery ordering, downloads, and flight operations support.
+            Standard Operating Procedures (SOP), Hardware QC compliance, Air Corridor Dispatch protocols, and Telemetry Command references.
           </p>
         </div>
       </section>
 
-      {/* ── PUBLIC GUIDE SHOWCASE BANNER (Matches Screenshot 2) ─────────────── */}
+      {/* ── PUBLIC GUIDE SHOWCASE BANNER ────────────────────────────────────── */}
       <section className="max-w-6xl mx-auto px-6 -mt-10 relative z-10 mb-14">
         <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xl shadow-purple-950/5">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <div>
               <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#3b0080] bg-purple-50 px-2.5 py-1 rounded-md border border-purple-100 inline-block mb-2">
-                PUBLIC GUIDE
+                OPERATIONAL MANUAL
               </span>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-[#171222] tracking-tight">
-                Professional docs for operators, customers, and fleet administrators.
+                Standard Operating Procedures &amp; Hardware Clearance Manuals
               </h2>
             </div>
 
             <div className="flex items-center gap-3 shrink-0">
               <button
-                onClick={() => { onNavigate('order'); window.history.pushState({}, '', '/order'); }}
+                onClick={() => { onNavigate('track'); window.history.pushState({}, '', '/track'); }}
                 className="flex items-center gap-2 bg-[#3b0080] hover:bg-[#280058] text-white text-xs sm:text-sm font-bold px-5 py-3 rounded-xl shadow-md transition-all active:scale-95 cursor-pointer">
-                <Package className="w-4 h-4" />
-                <span>Place Delivery Order</span>
+                <Navigation className="w-4 h-4" />
+                <span>Live Corridor Telemetry</span>
               </button>
               <button
                 onClick={() => { onNavigate('gcs'); window.history.pushState({}, '', '/gcs'); }}
                 className="hidden sm:flex items-center gap-2 border border-slate-200 hover:border-[#3b0080] text-slate-700 hover:text-[#3b0080] text-xs sm:text-sm font-semibold px-4 py-3 rounded-xl transition-all cursor-pointer">
                 <Book className="w-4 h-4" />
-                <span>Open GCS guide</span>
+                <span>Open GCS Guide</span>
               </button>
             </div>
           </div>
 
-          {/* 3 Visual Mini-Dashboards (Matches Screenshot 2 Layout) */}
+          {/* 3 Visual Mini-Dashboards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {/* Card 1: Dispatch & Coordinates */}
+            {/* Card 1: Corridor Lock */}
             <div className="bg-gradient-to-b from-[#0f172a] to-[#1e1b4b] rounded-2xl p-5 text-white border border-slate-800 shadow-md flex flex-col justify-between min-h-[220px]">
               <div>
                 <div className="flex items-center justify-between text-xs text-slate-400 mb-4">
@@ -177,89 +179,89 @@ export const DocsPage: React.FC<DocsPageProps> = ({
                 </div>
               </div>
               <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-300">Transit & Route Mapping</span>
-                <span className="text-[10px] bg-purple-500/30 text-purple-200 px-2 py-0.5 rounded font-mono">Step 1</span>
+                <span className="text-xs font-bold text-slate-300">Transit &amp; Route Mapping</span>
+                <span className="text-[10px] bg-white/10 px-2 py-0.5 rounded font-mono text-purple-200">Step 1</span>
               </div>
             </div>
 
-            {/* Card 2: Mission Archive & Orders */}
-            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between min-h-[220px]">
+            {/* Card 2: Mission Telemetry */}
+            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col justify-between min-h-[220px]">
               <div>
-                <div className="flex items-center justify-between text-xs text-slate-500 mb-3">
-                  <span className="font-bold uppercase text-[11px] tracking-wider">Mission Archive</span>
-                  <span className="bg-purple-100 text-[#3b0080] font-bold text-[10px] px-2 py-0.5 rounded-full">ACTIVE</span>
+                <div className="flex items-center justify-between text-xs text-slate-500 mb-4">
+                  <span className="font-bold uppercase tracking-wider text-[11px] text-slate-600">ACTIVE MISSIONS</span>
+                  <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-bold text-[10px]">ACTIVE</span>
                 </div>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-200/80 text-xs">
-                    <div className="flex items-center gap-2">
+                <div className="space-y-2.5 my-2">
+                  <div className="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl border border-slate-100 text-xs">
+                    <span className="font-mono font-bold text-slate-800 flex items-center gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-                      <span className="font-mono font-bold text-slate-700">ORD-782190</span>
-                    </div>
-                    <span className="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded text-[10px]">Delivered</span>
+                      FLT-782190
+                    </span>
+                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">Completed</span>
                   </div>
-                  <div className="flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-200/80 text-xs">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-sky-500 animate-ping"></span>
-                      <span className="font-mono font-bold text-slate-700">ORD-419205</span>
-                    </div>
-                    <span className="text-sky-700 font-bold bg-sky-50 px-2 py-0.5 rounded text-[10px]">In-Flight</span>
+                  <div className="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl border border-slate-100 text-xs">
+                    <span className="font-mono font-bold text-slate-800 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
+                      FLT-419205
+                    </span>
+                    <span className="text-[10px] font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded">In-Corridor</span>
                   </div>
                 </div>
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-700">Orders Queue & Archive</span>
-                <span className="text-[10px] bg-slate-200 text-slate-700 px-2 py-0.5 rounded font-mono">Step 2</span>
+              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                <span className="text-xs font-bold text-slate-700">Flight Queue &amp; Archive</span>
+                <span className="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono font-semibold">Step 2</span>
               </div>
             </div>
 
-            {/* Card 3: Analytics & Review */}
-            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-5 flex flex-col justify-between min-h-[220px]">
+            {/* Card 3: Performance Insights */}
+            <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col justify-between min-h-[220px]">
               <div>
-                <div className="flex items-center justify-between text-xs text-slate-500 mb-3">
-                  <span className="font-bold uppercase text-[11px] tracking-wider">Performance Insights</span>
-                  <span className="text-[10px] font-mono text-slate-400">NCR Hub</span>
+                <div className="flex items-center justify-between text-xs text-slate-500 mb-4">
+                  <span className="font-bold uppercase tracking-wider text-[11px] text-slate-600">PERFORMANCE INSIGHTS</span>
+                  <span className="text-[10px] text-slate-400 font-mono">NCR Hub</span>
                 </div>
-                <div className="grid grid-cols-3 gap-2 text-center my-1">
-                  <div className="bg-white p-2 rounded-xl border border-slate-200/70">
-                    <span className="text-base font-bold text-purple-700 font-mono block">99.4%</span>
-                    <span className="text-[9px] text-slate-400 font-bold">SUCCESS</span>
+                <div className="grid grid-cols-3 gap-2 my-2 text-center">
+                  <div className="bg-purple-50/50 border border-purple-100 rounded-xl p-2.5">
+                    <span className="text-lg font-extrabold text-[#3b0080] block">99.4%</span>
+                    <span className="text-[9px] uppercase font-bold text-slate-500">QC Pass</span>
                   </div>
-                  <div className="bg-white p-2 rounded-xl border border-slate-200/70">
-                    <span className="text-base font-bold text-purple-700 font-mono block">&lt;24m</span>
-                    <span className="text-[9px] text-slate-400 font-bold">AVG ETA</span>
+                  <div className="bg-purple-50/50 border border-purple-100 rounded-xl p-2.5">
+                    <span className="text-lg font-extrabold text-[#3b0080] block">&lt;24m</span>
+                    <span className="text-[9px] uppercase font-bold text-slate-500">Avg Transit</span>
                   </div>
-                  <div className="bg-white p-2 rounded-xl border border-slate-200/70">
-                    <span className="text-base font-bold text-purple-700 font-mono block">0</span>
-                    <span className="text-[9px] text-slate-400 font-bold">INCIDENT</span>
+                  <div className="bg-purple-50/50 border border-purple-100 rounded-xl p-2.5">
+                    <span className="text-lg font-extrabold text-[#3b0080] block">0</span>
+                    <span className="text-[9px] uppercase font-bold text-slate-500">Incidents</span>
                   </div>
                 </div>
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between">
+              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
                 <span className="text-xs font-bold text-slate-700">Flight Safety Telemetry</span>
-                <span className="text-[10px] bg-slate-200 text-slate-700 px-2 py-0.5 rounded font-mono">Step 3</span>
+                <span className="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono font-semibold">Step 3</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── STEP-BY-STEP ORDERING GUIDE WALKTHROUGH (CORE REQUEST) ──────────── */}
+      {/* ── STEP-BY-STEP OPERATIONAL SOP MANUAL ─────────────────────────────── */}
       <section className="max-w-6xl mx-auto px-6 mb-16">
         <div className="bg-gradient-to-br from-white via-purple-50/40 to-blue-50/30 border-2 border-purple-200/80 rounded-3xl p-6 sm:p-10 shadow-lg">
           <div className="max-w-3xl mb-8">
             <div className="inline-flex items-center gap-2 bg-[#3b0080] text-white text-xs font-bold px-3 py-1 rounded-full mb-3">
               <Sparkles className="w-3.5 h-3.5 text-purple-300" />
-              <span>STEP-BY-STEP MANUAL</span>
+              <span>STANDARD OPERATING PROCEDURE</span>
             </div>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-[#171222] tracking-tight mb-3">
-              How to Place a Drone Courier Delivery Order
+              Drone Pre-Flight Dispatch &amp; Corridor Clearance SOP
             </h2>
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              IndoWings enables instant autonomous aerial transit across Delhi NCR in 6 clear steps. Follow this guide to prepare your package, book a flight corridor, and receive contactless delivery.
+              Standard 6-step flight clearance protocol enforced across all IndoFleet assembly depots and transit corridors to guarantee 100% DGCA compliance and flight safety.
             </p>
           </div>
 
-          {/* 6 Step Interactive Cards Grid */}
+          {/* 6 Step SOP Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {/* Step 1 */}
             <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs hover:border-purple-300 transition-all flex flex-col justify-between">
@@ -268,15 +270,15 @@ export const DocsPage: React.FC<DocsPageProps> = ({
                   01
                 </div>
                 <h3 className="text-base font-bold text-[#171222] mb-1.5 flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4 text-[#3b0080]" />
-                  <span>Choose Corridors</span>
+                  <Wrench className="w-4 h-4 text-[#3b0080]" />
+                  <span>Hardware &amp; Avionics QC</span>
                 </h3>
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  Select predefined verified hubs (Noida Sec 62, Connaught Place, Cyber City Gurugram, Faridabad) or type any residential/office location. OpenStreetMap geocodes your precise GPS coordinates automatically.
+                  Fleet technician conducts mandatory 4-point hardware diagnostics: Dual IMU redundancy, magnetometer calibration, motor RPM response, and battery cell internal impedance test.
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-purple-700 font-semibold">
-                Tip: Use "Use Saved Address" for 1-click fill
+                SOP Standard: Verified via Fleet Manager Desk
               </div>
             </div>
 
@@ -287,15 +289,15 @@ export const DocsPage: React.FC<DocsPageProps> = ({
                   02
                 </div>
                 <h3 className="text-base font-bold text-[#171222] mb-1.5 flex items-center gap-1.5">
-                  <Layers className="w-4 h-4 text-[#3b0080]" />
-                  <span>Package Type & Weight</span>
+                  <ShieldCheck className="w-4 h-4 text-[#3b0080]" />
+                  <span>DGCA NPNT Authorization</span>
                 </h3>
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  Choose package category (Medical Supplies, Critical Documents, Electronics, Lab Samples) and enter weight (up to 5.0 kg DGCA limit). Our algorithm selects the optimal drone model (Cyberone Lite, Max, or Pro).
+                  DigitalSky No-Permission-No-Takeoff (NPNT) cryptographic token is validated on onboard flight hardware. Autonomous motors remain locked until the digital flight permission is active.
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-purple-700 font-semibold">
-                Standard payload capacity: 0.5 kg to 5.0 kg
+                Compliant with DGCA Drone Rules 2021
               </div>
             </div>
 
@@ -306,15 +308,15 @@ export const DocsPage: React.FC<DocsPageProps> = ({
                   03
                 </div>
                 <h3 className="text-base font-bold text-[#171222] mb-1.5 flex items-center gap-1.5">
-                  <Zap className="w-4 h-4 text-[#3b0080]" />
-                  <span>Real-Time Fare & ETA</span>
+                  <MapPin className="w-4 h-4 text-[#3b0080]" />
+                  <span>Corridor Waypoints Lock</span>
                 </h3>
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  The system calculates true aerial distance via GPS coordinates (~14.8 km) and shows exact base fare (₹149 + ₹15/km + ₹25/kg) with guaranteed 18 to 24 minute transit window.
+                  Flight path is mapped through approved airspace corridors between base depots. Geofencing buffers and 120m AGL ceiling constraints are loaded into the autopilot.
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-purple-700 font-semibold">
-                Transparent: Zero hidden surge charges
+                Autonomous geofence &amp; RTL enabled
               </div>
             </div>
 
@@ -325,15 +327,15 @@ export const DocsPage: React.FC<DocsPageProps> = ({
                   04
                 </div>
                 <h3 className="text-base font-bold text-[#171222] mb-1.5 flex items-center gap-1.5">
-                  <CreditCard className="w-4 h-4 text-[#3b0080]" />
-                  <span>Payment Gateway or COD</span>
+                  <Radio className="w-4 h-4 text-[#3b0080]" />
+                  <span>Escort Crew Assignment</span>
                 </h3>
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  Pay securely via Razorpay (UPI QR, Google Pay, PhonePe, Cards, NetBanking) or choose Cash on Delivery (COD) to pay upon safe package drop. Automated invoice and receipt is immediately issued.
+                  Dispatcher assigns certified pilot-in-command and field escort vehicle with handheld telemetry override controller. Digital pre-departure manifest is recorded in the system ledger.
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-purple-700 font-semibold">
-                Instant Razorpay checkout modal supported
+                Dual redundant link: 4G LTE + RF Telemetry
               </div>
             </div>
 
@@ -344,15 +346,15 @@ export const DocsPage: React.FC<DocsPageProps> = ({
                   05
                 </div>
                 <h3 className="text-base font-bold text-[#171222] mb-1.5 flex items-center gap-1.5">
-                  <Radio className="w-4 h-4 text-[#3b0080]" />
+                  <Navigation className="w-4 h-4 text-[#3b0080]" />
                   <span>Live Radar Telemetry</span>
                 </h3>
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  Upon dispatch, you receive an Air Tracking ID (e.g. <code>ORD-892140</code>). Visit <code>/track</code> to watch your drone's live GPS coordinates, altitude (120m AGL), airspeed (65 km/h), and battery percentage.
+                  Once airborne, real-time telemetry streams into the Command Center radar. Operators monitor GPS position, altitude, airspeed, battery drain, and wind vector milestones every 4 seconds.
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-purple-700 font-semibold">
-                Live flight updates synced every 4 seconds
+                Continuous ADS-B transponder broadcast
               </div>
             </div>
 
@@ -363,15 +365,15 @@ export const DocsPage: React.FC<DocsPageProps> = ({
                   06
                 </div>
                 <h3 className="text-base font-bold text-[#171222] mb-1.5 flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-[#3b0080]" />
-                  <span>Terrace Winch Drop & OTP</span>
+                  <CheckSquare className="w-4 h-4 text-[#3b0080]" />
+                  <span>Arrival &amp; Mission Sign-Off</span>
                 </h3>
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  The drone hovers safely at 15m above your clear 3×3m terrace. A motorized winch tether gently lowers the package to ground level. Enter the 4-digit SMS OTP to release and complete delivery.
+                  Upon landing at the designated hub, hardware condition checklist is reviewed, flight data logs are archived into the telemetry cloud, and the mission is formally completed in the registry.
                 </p>
               </div>
               <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] text-purple-700 font-semibold">
-                100% contactless and DGCA certified
+                Permanent flight log &amp; sensor audit record
               </div>
             </div>
           </div>
@@ -380,17 +382,17 @@ export const DocsPage: React.FC<DocsPageProps> = ({
           <div className="mt-8 pt-6 border-t border-purple-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-[#3b0080] text-white flex items-center justify-center shrink-0">
-                <Truck className="w-5 h-5" />
+                <Navigation className="w-5 h-5" />
               </div>
               <div>
-                <p className="text-sm font-bold text-[#171222]">Ready to dispatch your first aerial delivery?</p>
-                <p className="text-xs text-slate-500">Average courier dispatch time: 4 minutes from order submission.</p>
+                <p className="text-sm font-bold text-[#171222]">Monitor Active Corridors in Real Time</p>
+                <p className="text-xs text-slate-500">Live ADS-B flight telemetry and transit tracking across Delhi-NCR airspace.</p>
               </div>
             </div>
             <button
-              onClick={() => { onNavigate('order'); window.history.pushState({}, '', '/order'); }}
+              onClick={() => { onNavigate('track'); window.history.pushState({}, '', '/track'); }}
               className="bg-[#3b0080] hover:bg-[#260052] text-white text-xs sm:text-sm font-bold px-6 py-3 rounded-xl shadow-md transition-all active:scale-95 flex items-center gap-2 cursor-pointer shrink-0">
-              <span>Go to Order Dispatch Page</span>
+              <span>Open Live Radar Telemetry</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -403,11 +405,11 @@ export const DocsPage: React.FC<DocsPageProps> = ({
           {/* Categories */}
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
             {[
-              { id: 'all', label: 'All Docs' },
-              { id: 'ordering', label: 'Drone Delivery' },
-              { id: 'platform', label: 'Platform & Architecture' },
+              { id: 'all', label: 'All Manuals' },
+              { id: 'qc', label: 'Hardware QC & SOP' },
+              { id: 'platform', label: 'Platform Architecture' },
               { id: 'gcs', label: 'GCS Workstation' },
-              { id: 'admin', label: 'Admin & Dispatch' },
+              { id: 'admin', label: 'Dispatch & Ops' },
               { id: 'safety', label: 'Safety & DGCA' }
             ].map(tab => (
               <button
@@ -438,7 +440,7 @@ export const DocsPage: React.FC<DocsPageProps> = ({
         </div>
       </section>
 
-      {/* ── 6 CORE DOCUMENTATION CARDS (Exact Screenshot 3 Layout) ───────────── */}
+      {/* ── CORE DOCUMENTATION CARDS ────────────────────────────────────────── */}
       <section className="max-w-6xl mx-auto px-6 pb-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredCards.map(card => {
@@ -476,12 +478,9 @@ export const DocsPage: React.FC<DocsPageProps> = ({
                       if (card.targetPage) {
                         onNavigate(card.targetPage);
                         window.history.pushState({}, '', `/${card.targetPage}`);
-                      } else if (card.id === 'doc-ordering') {
-                        onNavigate('order');
-                        window.history.pushState({}, '', '/order');
                       } else {
                         onNavigate('support');
-                        window.history.pushState({}, '', '/support?tab=guide');
+                        window.history.pushState({}, '', '/support');
                       }
                     }}
                     className="text-xs font-bold text-[#3b0080] hover:text-[#250052] flex items-center gap-1.5 transition-colors cursor-pointer group-hover:translate-x-1 duration-150"

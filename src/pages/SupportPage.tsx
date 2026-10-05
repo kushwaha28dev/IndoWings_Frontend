@@ -87,70 +87,82 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
     }
   };
 
-  const FIX_ITEMS = [
+  interface FixItem {
+    id: string;
+    category: string;
+    title: string;
+    summary: string;
+    solution: string;
+    actionLabel: string;
+    actionPage?: string;
+    tabSwitch?: string;
+  }
+
+  const FIX_ITEMS: FixItem[] = [
     {
       id: 'fix-1',
       category: 'weather',
-      title: 'Drone flight is showing "On Hold" — What happened and when will it resume?',
-      summary: 'Automated meteorological hold triggered by DigitalSky wind or precipitation thresholds.',
-      solution: `IndoWings autonomous UAVs are calibrated for maximum safety. If wind gusts exceed 35 km/h or active rainfall is detected along the flight corridor, the Command Center places the flight on "Weather Hold".
+      title: 'Corridor Sortie is showing "Weather Hold" — Meteorological Safety Thresholds',
+      summary: 'Automated safety hold triggered by real-time anemometer or precipitation telemetry.',
+      solution: `IndoWings autonomous UAVs enforce DGCA safety limits. If corridor sustained winds exceed 38 km/h or active rainfall is detected, the Command Center immediately initiates Weather Hold.
       
-      • Automatic Resumption: The telemetry system polls live weather sensors every 3 minutes. As soon as the corridor clears, the drone automatically resumes cruising.
-      • No Action Required: You will receive real-time SMS updates. Your package remains securely locked in the vibration-isolated cargo pod.
-      • Emergency Reroute: If hold exceeds 20 minutes, Admin Dispatch reroutes via an alternate low-altitude green corridor.`,
-      actionLabel: 'Check Live Flight Telemetry',
+      • Automatic Resumption: The telemetry engine polls environmental sensors every 2 minutes. Once wind levels normalize, cruising resumes automatically.
+      • No Action Required: Technical teams receive real-time telemetry updates. The aircraft maintains safe loiter altitude until corridor clearance is confirmed.
+      • Alternate Routing: If hold exceeds 20 minutes, Dispatch can divert the UAV via an alternate low-altitude green corridor or recall to base.`,
+      actionLabel: 'Check Live Corridor Telemetry',
       actionPage: 'track'
     },
     {
       id: 'fix-2',
       category: 'gps',
-      title: 'My building, flat or society is not showing up in search — How do I fix it?',
-      summary: 'Quick guide to setting accurate coordinates using OpenStreetMap or GPS Auto-Detect.',
-      solution: `If your exact building number or newly developed society does not appear in the address dropdown:
+      title: 'RTK Centimeter-Fix Latency or Low Satellite Constellation Count — Troubleshooting',
+      summary: 'Standard procedure to resolve RTK baseline drift and achieve Fixed-Float precision.',
+      solution: `If the UAV reports Float status or satellite count falls below 14:
       
-      1. Use "GPS Auto-Detect": Tap the GPS icon inside the Departure/Drop field on your mobile phone to fetch precise satellite coordinates.
-      2. Choose the Nearest Verified Hub: Select a nearby hub (e.g. Noida Sector 62 Hub or CP Metro), and write your exact flat/tower number in the "Delivery Notes" field.
-      3. Landmark Search: Search by major nearby landmarks (e.g. "Near Fortis Hospital Noida" or "Cyber Hub Gate 3") instead of private society names.`,
-      actionLabel: 'Go to Order Page',
-      actionPage: 'order'
+      1. Verify Base Station Link: Ensure the RTK NTRIP caster is transmitting differential corrections over cellular/UHF link.
+      2. Obstacle Clearance: Ensure the UAV launch area is clear of multi-path reflective metal structures or high-voltage lines.
+      3. Antenna Lock: Wait 90 seconds for dual-band GNSS multi-constellation lock (GPS + GLONASS + NavIC).`,
+      actionLabel: 'View Flight Telemetry',
+      actionPage: 'track'
     },
     {
       id: 'fix-3',
-      category: 'refund',
-      title: 'Order was cancelled or delivery could not be completed — When will I get my refund?',
-      summary: 'Automated Razorpay instant refund settlement timeline and status.',
-      solution: `If an order is cancelled before takeoff, or if the drone cannot find a safe landing zone and aborts delivery back to the hub:
+      category: 'npnt',
+      title: 'DigitalSky Permission Artifact Mismatch or NPNT Validation Error',
+      summary: 'How to regenerate and flash cryptographic flight permission tokens.',
+      solution: `Under DGCA DigitalSky regulations, motors cannot be armed without a valid cryptographic flight permission token:
       
-      • Online UPI / Cards: Razorpay triggers an automated refund instantly. UPI refunds reflect in 15 to 30 minutes, while debit/credit cards take 24–48 hours depending on your bank.
-      • Cash on Delivery (COD): No payment was collected, so zero deduction occurred.
-      • Check Refund Status: You can view transaction status in your Profile under "My Orders & History" or share your Order ID with our expert desk.`,
-      actionLabel: 'View My Orders & History',
-      actionPage: 'orders'
+      • Expired Token: Permission tokens are valid for designated corridor flight windows. If launch is delayed, regenerate a clearance token from the Dispatch Board.
+      • Cryptographic Checksum Error: Ensure the UAV firmware public key matches your registered IndoWings DigitalSky vendor certificate.
+      • Emergency Override: Ground Command Center can re-issue permission tokens within 60 seconds via the DGCA API bridge.`,
+      actionLabel: 'Open Dispatch Board',
+      actionPage: 'dispatch'
     },
     {
       id: 'fix-4',
-      category: 'landing',
-      title: 'The drone is hovering above my terrace but not lowering the package — What should I do?',
-      summary: 'Sensory obstacle clearance protocol for precision winch tether drop.',
-      solution: `IndoWings Cyberone UAVs descend to 12 meters altitude and lower your package via a precision Kevlar winch wire. If the drone hovers without lowering:
+      category: 'telemetry',
+      title: 'Primary 5G Cellular Telemetry Link Lost — Failover & RF Backup Protocol',
+      summary: 'Automated dual-SIM APN switching and long-range UHF backup telemetry handshake.',
+      solution: `IndoWings flight controllers feature tri-redundant command links:
       
-      1. Obstacle Detection: Downward LiDAR sensors may have spotted loose clothing lines, pets, or people standing directly under the drop point.
-      2. Keep Clear: Ensure everyone stays at least 3 meters away from the open drop zone.
-      3. Wait 60 Seconds: Once the landing zone is visually unobstructed, the winch automatically descends and soft-releases the payload onto the ground.`,
-      actionLabel: 'Talk to Flight Engineer',
-      tabSwitch: 'expert'
+      1. Hot-Standby Cellular Failover: Upon primary carrier signal degradation, the system switches to secondary cellular APN in <120ms.
+      2. 900MHz RF Backup: If cellular data drops entirely, the drone automatically switches to direct RF Ground Control telemetry.
+      3. Failsafe RTH: If both links drop for more than 45 seconds, the UAV climbs to clearance ceiling (120m AGL) and returns autonomously to home base.`,
+      actionLabel: 'Inspect Telemetry Radar',
+      actionPage: 'track'
     },
     {
       id: 'fix-5',
-      category: 'rules',
-      title: 'Can I change the drop destination address while the UAV is already airborne?',
-      summary: 'DGCA airspace geo-fencing regulations and mid-air flight route constraints.',
-      solution: `Under DGCA DigitalSky flight clearance regulations, autonomous commercial UAV flight paths are pre-locked in an active green air corridor.
+      category: 'avionics',
+      title: 'Dual-IMU Redundancy Warning or Compass Calibration Drift',
+      summary: 'Avionics pre-flight sensor diagnostics and magnetic declination alignment.',
+      solution: `If pre-flight health checks flag an IMU inconsistency or compass heading error:
       
-      • Mid-Air Destination Change: Prohibited once the drone has taken off, as flight corridors are pre-coordinated with regional airspace grids.
-      • Emergency Return: If you urgently need to abort the delivery, you or the Admin can trigger "Hold in Air" or "Recall to Base" from the Track Order page or Dispatch Board.`,
-      actionLabel: 'Track Current Flight',
-      actionPage: 'track'
+      • Accelerometer Calibration: Place UAV on a level surface and execute 6-axis calibration via IndoWings GCS.
+      • Magnetic Interference: Keep the aircraft away from reinforced concrete slabs containing rebar.
+      • Motor ESC Diagnostics: Verify all electronic speed controller telemetry reports uniform RPM and temperature before flight authorization.`,
+      actionLabel: 'Open Operations Docs',
+      actionPage: 'docs'
     }
   ];
 
@@ -633,7 +645,7 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
                       <p>• Medicines & Lab Samples</p>
                       <p>• Documents & Contracts</p>
                       <p>• Electronics & Small Spares</p>
-                      <p>• Food & Parcel Courier</p>
+                      <p>• Scientific & Survey Payloads</p>
                     </div>
                     <div className="p-2.5 bg-rose-50/70 border border-rose-200 rounded-xl text-rose-900 space-y-1">
                       <strong className="block text-rose-800 font-bold">✗ PROHIBITED:</strong>
@@ -646,52 +658,52 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
                 </div>
               </div>
 
-              {/* Module 2: Drop Zone & Rooftop Safety */}
+              {/* Module 2: Launch Port & Ground Crew Safety */}
               <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-2xl bg-purple-50 text-[#3b0080] flex items-center justify-center font-black">
                     2
                   </div>
                   <div>
-                    <h3 className="text-base font-bold text-[#171222]">Drop Zone Safety (The 3×3m Rule)</h3>
-                    <p className="text-xs text-slate-400">Terrace & Open Ground Clearance</p>
+                    <h3 className="text-base font-bold text-[#171222]">Launch Port Safety (5m Perimeter Rule)</h3>
+                    <p className="text-xs text-slate-400">Hub Ground Pad Clearance & Crew Protocols</p>
                   </div>
                 </div>
 
                 <div className="p-3.5 bg-purple-50/60 rounded-2xl border border-purple-100 text-xs space-y-2">
                   <p className="font-bold text-[#3b0080]">
-                    🎯 Precision Hover & Winch Delivery:
+                    🛡️ Rotor Blast & Takeoff Safety Zone:
                   </p>
                   <p className="text-slate-600 leading-relaxed text-[11px]">
-                    The UAV does NOT land on your rooftop tiles. It hovers stably at <strong>12 meters altitude</strong> and smoothly winches down the package via a high-tensile Kevlar tether.
+                    Ground crew must maintain an active <strong>5-meter perimeter buffer</strong> during vertical climb and landing. High-velocity rotor downwash requires eye protection and clear landing pads.
                   </p>
                 </div>
 
                 <ul className="space-y-2 text-xs text-slate-600">
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span><strong>Clear 3×3m Area:</strong> Remove potted plants, drying clothes, or loose outdoor furniture.</span>
+                    <span><strong>Landing Pad Clear:</strong> Ensure zero loose debris, tools, or obstacles within the circular launch perimeter.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span><strong>Overhead Clearance:</strong> Ensure there are no overhead cables or tree branches directly above the spot.</span>
+                    <span><strong>Overhead Clearance:</strong> Verify zero power lines, antennas, or crane booms along the ascent vector.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span><strong>Safe Distance:</strong> Stay 2 to 3 meters back while the cable lowers the cargo.</span>
+                    <span><strong>RTK Base Link:</strong> Confirm stable RTK GNSS fix before dispatch clearance sign-off.</span>
                   </li>
                 </ul>
               </div>
 
-              {/* Module 3: 4-Stage Flight Lifecycle */}
+              {/* Module 3: 3-Stage Flight Lifecycle */}
               <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-2xl bg-sky-50 text-sky-700 flex items-center justify-center font-black">
                     3
                   </div>
                   <div>
-                    <h3 className="text-base font-bold text-[#171222]">Autonomous Flight Stages</h3>
-                    <p className="text-xs text-slate-400">What happens during the 24-minute flight</p>
+                    <h3 className="text-base font-bold text-[#171222]">Autonomous Sortie Stages</h3>
+                    <p className="text-xs text-slate-400">DGCA corridor transit execution workflow</p>
                   </div>
                 </div>
 
@@ -699,66 +711,66 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
                   <div className="flex items-center gap-3 p-2.5 bg-slate-50 rounded-xl">
                     <span className="w-6 h-6 rounded-full bg-[#3b0080] text-white text-[10px] font-bold flex items-center justify-center">1</span>
                     <div>
-                      <strong className="text-[#171222]">Hub Dispatch & Vertical Climb</strong>
-                      <p className="text-[11px] text-slate-500">Autonomous vertical ascent to 90m cruising altitude.</p>
+                      <strong className="text-[#171222]">NPNT Handshake & Vertical Climb</strong>
+                      <p className="text-[11px] text-slate-500">Autonomous motor arming upon token validation and climb to 120m AGL.</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 p-2.5 bg-slate-50 rounded-xl">
                     <span className="w-6 h-6 rounded-full bg-[#3b0080] text-white text-[10px] font-bold flex items-center justify-center">2</span>
                     <div>
-                      <strong className="text-[#171222]">Green Corridor Cruise @ 65 km/h</strong>
-                      <p className="text-[11px] text-slate-500">Direct straight-line transit above city street traffic.</p>
+                      <strong className="text-[#171222]">Corridor Cruise @ 65–85 km/h</strong>
+                      <p className="text-[11px] text-slate-500">Encrypted 5G telemetry link and geofenced waypoint navigation.</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 p-2.5 bg-slate-50 rounded-xl">
                     <span className="w-6 h-6 rounded-full bg-[#3b0080] text-white text-[10px] font-bold flex items-center justify-center">3</span>
                     <div>
-                      <strong className="text-[#171222]">Waypoint Descent & Tether Drop</strong>
-                      <p className="text-[11px] text-slate-500">Precision GPS positioning + automated winch soft landing.</p>
+                      <strong className="text-[#171222]">Terminal Descent & Hub Recovery</strong>
+                      <p className="text-[11px] text-slate-500">RTK precision approach and automated motor shutdown on pad touchdown.</p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Module 4: Secure Handover & OTP Verification */}
+              {/* Module 4: Mission Debrief & Telemetry Audit */}
               <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center font-black">
                     4
                   </div>
                   <div>
-                    <h3 className="text-base font-bold text-[#171222]">Secure Handover & Proof</h3>
-                    <p className="text-xs text-slate-400">Verifying receipt & unhooking</p>
+                    <h3 className="text-base font-bold text-[#171222]">Mission Telemetry Audit & Log</h3>
+                    <p className="text-xs text-slate-400">Post-flight compliance & engineering sign-off</p>
                   </div>
                 </div>
 
                 <div className="p-3.5 bg-amber-50/70 border border-amber-200 rounded-2xl text-xs space-y-2">
                   <p className="font-bold text-amber-900">
-                    🔐 Contactless Delivery Protocol:
+                    📋 DGCA Flight Log Compliance:
                   </p>
                   <p className="text-amber-800 text-[11px] leading-relaxed">
-                    Once the payload touches down, the mechanical clamp releases automatically. The cable retracts smoothly up to the drone, and you receive an instant digital receipt.
+                    Following touchdown, blackbox flight telemetry and battery cell impedance metrics are automatically synced with DGCA DigitalSky and the IndoFleet Command Center.
                   </p>
                 </div>
 
                 <div className="p-3 bg-slate-50 rounded-xl text-xs text-slate-600 space-y-1">
-                  <p>• <strong>SMS Arrival Notification:</strong> Sent 3 minutes before drone arrival.</p>
-                  <p>• <strong>Live Camera Confirmation:</strong> Downward sensor records touchdown timestamp.</p>
-                  <p>• <strong>COD / Payment:</strong> Pay online prior to dispatch or pay on arrival via dynamic UPI QR.</p>
+                  <p>• <strong>Arrival Radar Notification:</strong> Automated corridor transponder proximity alerts.</p>
+                  <p>• <strong>Live Telemetry Confirmation:</strong> Downward sensor records touchdown timestamp.</p>
+                  <p>• <strong>Mission Sign-off:</strong> Base technician and pilot verify return-to-hub telemetry.</p>
                 </div>
               </div>
             </div>
 
-            {/* Quick Action Button to Place Order */}
+            {/* Quick Action Button to Track Telemetry */}
             <div className="p-6 bg-gradient-to-r from-purple-900 to-[#3b0080] rounded-3xl text-white flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl">
               <div>
-                <h3 className="text-lg font-bold">Ready to dispatch your first aerial parcel?</h3>
-                <p className="text-xs text-white/70 mt-0.5">Instant booking across Delhi-NCR autonomous air corridors.</p>
+                <h3 className="text-lg font-bold">Monitor Active Drone Corridors & Telemetry</h3>
+                <p className="text-xs text-white/70 mt-0.5">Real-time GPS tracking and avionics diagnostics across Delhi-NCR airspace.</p>
               </div>
               <button
-                onClick={() => onNavigate('order')}
+                onClick={() => { onNavigate('track'); window.history.pushState({}, '', '/track'); }}
                 className="px-6 py-3 bg-white text-[#3b0080] font-black rounded-xl text-xs sm:text-sm hover:bg-slate-100 transition-all shrink-0 cursor-pointer shadow-md">
-                Book Drone Delivery →
+                Live Flight Radar →
               </button>
             </div>
           </div>
@@ -778,18 +790,18 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
                 Fix Common Issues
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 mt-1 mb-6">
-                Resolve weather holds, coordinate pins, refund timelines, and delivery questions instantly without waiting in call queues.
+                Resolve weather holds, RTK satellite fix, DGCA permission tokens, and telemetry links instantly.
               </p>
 
               {/* Category Filter Pills */}
               <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
                 {[
-                  { id: 'all', label: 'All Issues' },
+                  { id: 'all', label: 'All Operations' },
                   { id: 'weather', label: '🌧️ Weather & Holds' },
-                  { id: 'gps', label: '📍 Address & GPS Pins' },
-                  { id: 'refund', label: '💸 Refunds & Billing' },
-                  { id: 'landing', label: '🎯 Rooftop & Winch' },
-                  { id: 'rules', label: '🛡️ DGCA Airspace' }
+                  { id: 'gps', label: '🛰️ RTK & GPS Sync' },
+                  { id: 'npnt', label: '🛡️ DGCA DigitalSky' },
+                  { id: 'telemetry', label: '📡 5G Telemetry' },
+                  { id: 'avionics', label: '⚙️ Avionics & IMU' }
                 ].map(c => (
                   <button
                     key={c.id}

@@ -376,10 +376,10 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
               </button>
 
               <button
-                onClick={() => { onNavigate('order'); window.history.pushState({}, '', '/order'); }}
+                onClick={() => { onNavigate('track'); window.history.pushState({}, '', '/track'); }}
                 className="flex items-center gap-2 px-4 py-2.5 bg-white text-[#3b0080] hover:bg-purple-50 font-bold rounded-xl text-xs transition-all cursor-pointer shadow-md active:scale-95">
-                <Package className="w-3.5 h-3.5 text-[#3b0080]" />
-                <span>Place Test Order</span>
+                <Radio className="w-3.5 h-3.5 text-[#3b0080] animate-pulse" />
+                <span>Live Corridor Radar</span>
               </button>
             </div>
           </div>
@@ -1504,7 +1504,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
                   className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-xs font-semibold text-[#171222] focus:outline-none focus:border-[#3b0080] bg-white">
                   <option value="Cyberone Max">Cyberone Max (Heavy Cargo • 5 kg payload)</option>
                   <option value="Cyberone Pro">Cyberone Pro (High Speed • 3 kg payload)</option>
-                  <option value="Cyberone Lite">Cyberone Lite (Rapid Courier • 1.5 kg payload)</option>
+                  <option value="Cyberone Lite">Cyberone Lite (Rapid Sortie • 1.5 kg payload)</option>
                   <option value="SkyCarrier X">SkyCarrier X (Long Range Inter-City • 10 kg payload)</option>
                 </select>
               </div>

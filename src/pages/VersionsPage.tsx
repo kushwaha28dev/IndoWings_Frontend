@@ -27,53 +27,54 @@ interface ReleaseNote {
 
 const RELEASES: ReleaseNote[] = [
   {
-    version: 'IndoWings Drone Delivery & GCS v3.4.4',
+    version: 'IndoWings Fleet Command & GCS v3.4.4',
     date: 'SEPTEMBER 19, 2026',
     isLatest: true,
     status: 'Stable',
-    summary: 'IndoWings v3.4.4 delivers end-to-end Delhi NCR autonomous courier corridors, 15-meter motorized terrace winch lowering, dual Razorpay UPI & Cash on Delivery (COD) payment dispatch, and live customer consultation callback integration.',
+    summary: 'IndoWings v3.4.4 delivers enterprise corridor dispatch locks, Dual-IMU redundancy calibration, DGCA DigitalSky NPNT cryptographic clearance integration, and real-time ADS-B radar telemetry streaming.',
     installerName: 'IndoWings-GCS-v3.4.4-Win64.exe',
     sha256: 'B2AC90D806AFD53E89CB5F288083EAC07CDF8AAB3F5D9112A8A794402AECB69F',
     newFeatures: [
-      'Autonomous NCR Air Corridors: High-speed aerial transit connecting Noida Sector 62, Connaught Place, Cyber City Gurugram, and Faridabad Hubs at regulated 120m AGL.',
-      'Contactless Terrace Winch Protocol: Motorized winch mechanism deployed during 15-meter hover descent, eliminating propeller proximity to residential structures.',
-      'Dual Settlement Gateway: Live checkout support for instant Razorpay UPI QR, Cards, NetBanking, and verified Cash on Delivery (COD) arrival payment.',
-      'Expert Consultation Flight Desk: Direct 1-click consultation booking for terrace clearance audits with live WhatsApp and phone dispatch sync.'
+      'DigitalSky NPNT Integration: Cryptographic flight permission artifact validation before motor arming is permitted.',
+      'Corridor Waypoint Locking: Enforces regulated 120m AGL ceiling constraints and geofenced no-fly corridor buffers.',
+      'Dual-IMU Redundancy Calibrations: Automated pre-flight sensor diagnostics verifying gyroscope and accelerometer thresholds.',
+      'Escort Ground Logistics Assignment: Real-time coordination and dispatch tracking for base technical crews.'
     ],
     improvements: [
-      'Telemetry Sync Frequency: Live drone coordinates, airspeed (65 km/h), altitude, and battery metrics stream refreshed every 3 seconds.',
-      'Dynamic Aircraft Allocation: Smart weight classification routing payloads up to 1.5kg to Cyberone Lite, up to 3kg to Cyberone Max, and up to 5kg to Cyberone Pro.',
-      'Cross-wind Stabilization: Optimized flight controller PID algorithms maintaining corridor stability in winds up to 35 km/h.',
-      'Automated Customer Email Triggers: Real-time HTML status emails dispatched when orders move from In-Flight to Approaching and Delivered.'
+      'Telemetry Stream Frequency: Live UAV GPS coordinates, altitude, airspeed, and dual battery cell voltages sync every 2 seconds.',
+      'Payload Balance Diagnostics: Real-time center-of-gravity (CoG) and motor thrust differential monitoring prior to takeoff.',
+      'Cross-wind Stabilization: Adaptive flight controller PID loops maintaining corridor stability in gusts up to 38 km/h.',
+      'Automated Support Escalation: Instant alerting to Support Desk engineers upon failover or anomalous motor current draw.'
     ],
     bugFixes: [
-      'GPS Pin Snapping: Corrected street-level coordinate snapping discrepancies in densely clustered NCR residential sectors.',
-      'SMS OTP Arrival Verification: Eliminated latency in 4-digit handover OTP delivery sent to recipient mobile devices upon drone arrival.',
-      'Battery Discharge Estimation: Fixed nonlinear battery gauge calculation during motorized winch retrieval on windy days.',
-      'Geofence Altitude Buffers: Resolved altitude buffer margin conflicts near designated metro rail lines and overhead power corridors.'
+      'RTK Coordinate Snapping: Fixed centimeter-level RTK fix drift when switching between primary and secondary base stations.',
+      'Compass Calibration Drift: Mitigated electromagnetic interference near high-voltage industrial transmission lines.',
+      'Battery Cell Voltage Variance: Corrected nonlinear discharge calculation on cold-weather early morning sorties.',
+      'Telemetry Reconnection Logic: Accelerated automatic 4G/5G socket re-handshake latency upon corridor cell handover.'
     ],
     limitations: [
-      'DGCA Airspace Corridor Mandate: Flights are strictly scheduled within DGCA Digital Sky Green & Yellow authorized airspace.',
-      'Terrace Drop Zone Clearance: Requires a 3m × 3m unobstructed flat terrace or open ground landing zone free of overhead wires.',
-      'Adverse Weather Thresholds: Missions automatically place on safety hold if sustained wind speeds exceed 38 km/h or during torrential rainfall.'
+      'DGCA Airspace Corridor Mandate: Sorties are strictly restricted to authorized Green & Yellow corridors.',
+      'Pre-Flight Checklist Requirement: All 6 stages of hardware inspection must be completed before arming authorization.',
+      'Severe Weather Protocol: Operations automatically enter safety hold when sustained winds exceed 40 km/h or during precipitation.'
     ]
   },
   {
     version: 'IndoWings Fleet Command v3.4.0',
     date: 'JULY 15, 2026',
+    isLatest: false,
     status: 'LTS',
-    summary: 'Core autonomous logistics platform release delivering 4G/5G encrypted Command Center telemetry, multi-UAV live fleet tracking, and automated Return-to-Hub failsafes.',
+    summary: 'Core enterprise UAV fleet telemetry platform delivering encrypted Ground Control Station (GCS) telemetry, multi-aircraft airspace monitoring, and automated Return-to-Hub (RTH) failsafes.',
     installerName: 'IndoWings-GCS-v3.4.0-Win64.exe',
     sha256: 'F92C784198234DBC89021E47983210ABCE891745678912344567891234567890',
     newFeatures: [
-      'Multi-UAV Fleet Command: Centralized dispatch board monitoring up to 50 active airborne missions across NCR regional hubs.',
-      'Dual LTE/5G Telemetry Failsafe: Redundant cellular data uplink with automatic hot-standby failover upon signal attenuation.',
-      'Tamper-Evident Parcel Pods: Digital latch sensor verifying package integrity throughout autonomous transit.'
+      'Multi-UAV Fleet Command: Centralized dispatch board tracking up to 50 active airborne missions across NCR corridors.',
+      'Dual LTE/5G Telemetry Failsafe: Redundant cellular data uplink with automatic hot-standby failover upon signal drop.',
+      'Hardware Avionics Telemetry: Real-time ESC temperature, RPM, and vibration spectrum logging.'
     ],
     improvements: [
-      '3D Elevation Mapping: Integrated surveyor-grade LiDAR terrain elevation models to prevent low-altitude obstacles.',
-      'Sub-80ms Command Latency: Optimized Command Center telemetry socket throughput over 5G mesh networks.',
-      'Enhanced Battery Pre-heating: Cold-weather battery thermal management for consistent high-discharge cruising.'
+      '3D Terrain Elevation Mapping: Integrated surveyor-grade LiDAR elevation data preventing low-altitude obstacle risks.',
+      'Sub-80ms Command Latency: Optimized GCS telemetry socket throughput over 5G enterprise private APN networks.',
+      'Battery Thermal Conditioning: Cold-weather battery thermal management for consistent high-discharge cruising.'
     ],
     bugFixes: [
       'Fixed compass calibration drift caused by proximity to high-voltage ground transformers.',
@@ -130,7 +131,7 @@ export const VersionsPage: React.FC<VersionsPageProps> = ({ onNavigate }) => {
           </h1>
 
           <p className="text-white/70 text-base sm:text-lg max-w-2xl leading-relaxed">
-            Review new drone courier features, flight corridor updates, winch tether upgrades, telemetry improvements, and DGCA operational parameters for each release.
+            Review firmware changelogs, DGCA DigitalSky compliance upgrades, hardware diagnostics, telemetry protocols, and GCS operating parameters for each release.
           </p>
         </div>
       </section>
@@ -162,11 +163,11 @@ export const VersionsPage: React.FC<VersionsPageProps> = ({ onNavigate }) => {
 
           <div className="flex items-center gap-2">
             <button
-              onClick={() => { onNavigate('order'); window.history.pushState({}, '', '/order'); }}
+              onClick={() => { onNavigate('track'); window.history.pushState({}, '', '/track'); }}
               className="flex items-center gap-1.5 text-xs font-bold text-[#3b0080] hover:underline cursor-pointer pr-2"
             >
-              <Package className="w-4 h-4" />
-              <span>Place Delivery Order</span>
+              <Radio className="w-4 h-4 text-purple-600 animate-pulse" />
+              <span>Live Corridor Telemetry</span>
             </button>
             <button
               onClick={() => { onNavigate('downloads'); window.history.pushState({}, '', '/downloads'); }}

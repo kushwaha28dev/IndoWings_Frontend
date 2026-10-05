@@ -780,17 +780,17 @@ export const Chatbot: React.FC<ChatbotProps> = ({ onNavigate }) => {
                           </div>
                           <div className="p-1.5 bg-slate-50 rounded-lg border border-slate-100">
                             <p className="font-bold text-slate-800 text-[11px]">Cyberone Lite (Metro Express)</p>
-                            <p className="text-[10px] text-slate-500">3 kg payload • 35 km range • 85 km/h • Courier dispatch</p>
+                            <p className="text-[10px] text-slate-500">3 kg payload • 35 km range • 85 km/h • Rapid corridor transit</p>
                           </div>
                           <div className="p-1.5 bg-slate-50 rounded-lg border border-slate-100">
                             <p className="font-bold text-slate-800 text-[11px]">S-500 Logistics VTOL</p>
                             <p className="text-[10px] text-slate-500">10 kg payload • 120 km range • 110 km/h • Fixed-wing inter-city</p>
                           </div>
                           <button
-                            onClick={() => { setIsOpen(false); nav('order', '/order'); }}
+                            onClick={() => { setIsOpen(false); nav('track', '/track'); }}
                             className="w-full py-1.5 bg-[#5a00b8] hover:bg-[#4a0099] text-white font-semibold text-[11px] rounded-lg cursor-pointer transition-colors"
                           >
-                            Book a Drone Flight Now
+                            View Live Corridor Radar
                           </button>
                         </div>
                       )}
