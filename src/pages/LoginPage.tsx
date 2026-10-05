@@ -324,7 +324,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
 
         {/* Footer info */}
         <div className="relative z-10 text-[11px] text-white/40">
-          IndoFleet Aerospace Technologies Ltd. &middot; Internal Operations Portal
+          Copyright &copy; 2026 IndoWings. All rights reserved.
         </div>
       </div>
 

@@ -60,17 +60,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               IndoFleet Enterprise UAV Fleet Logistics &amp; Handover Hub. Operations infrastructure governing factory assembly diagnostics, corridor dispatch, and technical acceptance.
             </p>
           </div>
-
-          <div className="flex items-center gap-3 text-xs text-slate-400">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 font-medium text-[12px]">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              DGCA NPNT Airspace Compliant
-            </span>
-            <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 font-medium text-[12px]">
-              <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
-              AS9100D Aerospace Standard
-            </span>
-          </div>
         </div>
 
         {/* Links Grid with slightly larger readable font */}
@@ -184,7 +173,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
         {/* Bottom Bar: Copyright on Left, 24/7 Operations Support on Right */}
         <div className="pt-6 border-t border-white/[0.08] flex flex-col lg:flex-row items-center justify-between text-[13px] text-slate-400 gap-4">
-          <p>&copy; {new Date().getFullYear()} IndoFleet Aerospace Technologies Ltd. All rights reserved.</p>
+          <p>Copyright &copy; 2026 IndoWings. All rights reserved.</p>
 
           <div className="flex flex-wrap items-center justify-center lg:justify-end gap-2.5 sm:gap-3 text-[12.5px] sm:text-[13px] text-slate-300">
             <span className="text-purple-400 font-bold flex items-center gap-1.5">
