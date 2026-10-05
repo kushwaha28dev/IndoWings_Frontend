@@ -62,11 +62,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </p>
           </div>
 
-          {/* Clean Aerospace Status */}
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-xs font-semibold text-slate-400">All Corridors Active</span>
-          </div>
         </div>
 
         {/* Links Grid */}
