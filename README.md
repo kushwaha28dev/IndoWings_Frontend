@@ -2,6 +2,14 @@
 
 Modern, real-time autonomous drone delivery and logistics command center built with React, TypeScript, Vite, Tailwind CSS, and Lucide Icons.
 
+## Environment Variables (.env)
+
+Create a `.env` file in the root of the `client` directory with the following variables:
+
+```env
+VITE_RAZORPAY_KEY_ID=rzp_live_SKjbolJvdxju2R
+```
+
 ## Features
 - **Live Drone Tracking**: Real-time GPS flight simulation, altitude, speed gauges, and interactive radar map.
 - **Flight Dispatch & Order Booking**: Instant multi-point corridor routing, aerial distance calculation, and Razorpay integration.
@@ -38,4 +46,3 @@ npm run dev
 npm run build
 npm run preview
 ```
-
