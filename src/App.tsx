@@ -31,6 +31,7 @@ import { CommandCenterModal } from './components/CommandCenterModal';
 import { DemoBookingModal } from './components/DemoBookingModal';
 import { API_BASE_URL } from './config/api';
 import { AuthModal, DeliveryUser } from './components/AuthModal';
+import { SEOHead } from './components/SEOHead';
 import { UserProfile } from './types';
 
 type Page = 'home' | 'platform' | 'command-center' | 'gcs' | 'downloads' | 'versions' | 'track' | 'dispatch' | 'login' | 'profile' | 'orders' | 'support' | 'docs' | 'company' | 'feedback' | 'legal' | 'admin' | 'fleet' | 'support-desk';
@@ -180,6 +181,7 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f7f4fb] text-[#171222] font-sans antialiased w-full max-w-full">
+      <SEOHead currentPage={currentPage} />
       {currentPage !== 'login' && (
         <Header
           currentUser={deliveryUser}
@@ -230,13 +232,13 @@ export const App: React.FC = () => {
           <LegalPage onNavigate={handleNavigate} section={window.location.hash.replace('#', '') || undefined} />
         ) : (
           <>
-            <Hero onOpenCommandCenter={() => setIsCommandCenterOpen(true)} onOpenDemoBooking={() => handleOpenDemoBooking()} onNavigate={handleNavigate} />
+            <Hero currentUser={deliveryUser} onOpenCommandCenter={() => setIsCommandCenterOpen(true)} onOpenDemoBooking={() => handleOpenDemoBooking()} onNavigate={handleNavigate} />
           </>
         )}
       </main>
 
       {currentPage !== 'login' && (
-        <Footer onNavigate={handleNavigate} />
+        <Footer onNavigate={handleNavigate} currentUser={deliveryUser} />
       )}
 
       <CommandCenterModal isOpen={isCommandCenterOpen} onClose={() => setIsCommandCenterOpen(false)} currentUser={currentUser} onLoginSuccess={handleLoginSuccess} onLogout={handleLogout} />

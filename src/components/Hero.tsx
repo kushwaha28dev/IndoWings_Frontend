@@ -18,7 +18,10 @@ import {
 import { InteractiveDrone } from './InteractiveDrone';
 import { ElevationMeshBackground } from './ElevationMeshBackground';
 
+import { DeliveryUser } from './AuthModal';
+
 interface HeroProps {
+  currentUser?: DeliveryUser | null;
   onOpenCommandCenter?: () => void;
   onOpenDemoBooking?: () => void;
   onNavigate?: (page: string) => void;
@@ -27,6 +30,8 @@ interface HeroProps {
 const ROLES_OVERVIEW = [
   {
     role: 'Super Admin',
+    roleKey: 'admin',
+    page: 'admin',
     path: '/admin',
     icon: Shield,
     badge: 'Security Level 1',
@@ -37,6 +42,8 @@ const ROLES_OVERVIEW = [
   },
   {
     role: 'Fleet Manager',
+    roleKey: 'fleet_manager',
+    page: 'fleet',
     path: '/fleet',
     icon: Wrench,
     badge: 'Hardware & QC',
@@ -47,6 +54,8 @@ const ROLES_OVERVIEW = [
   },
   {
     role: 'Dispatcher',
+    roleKey: 'dispatcher',
+    page: 'dispatch',
     path: '/dispatch',
     icon: LayoutDashboard,
     badge: 'Airspace & Transit',
@@ -57,12 +66,14 @@ const ROLES_OVERVIEW = [
   },
   {
     role: 'Support Desk Officer',
+    roleKey: 'support',
+    page: 'support-desk',
     path: '/support-desk',
     icon: Headphones,
-    badge: 'Grievance & Ops',
+    badge: 'Operations Support',
     badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
-    title: 'Support & Grievance Desk',
-    desc: 'Manage customer complaints, incoming phone requests, order inquiries, and trigger rapid resolution workflows with instant email notifications.',
+    title: 'Operations Support Desk',
+    desc: 'Manage ground support tickets, client queries, technical escalations, and live pilot assistance during transit sorties.',
     cta: 'Open Support Desk',
   },
 ];
@@ -193,7 +204,7 @@ const FLEET_MODELS_DATA = [
   },
 ];
 
-export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
+export const Hero: React.FC<HeroProps> = ({ onNavigate, currentUser }) => {
   const [selectedModel, setSelectedModel] = useState(0);
   const [showDiagnostics, setShowDiagnostics] = useState(false);
 
@@ -203,6 +214,45 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
     onNavigate?.(page);
     window.history.pushState({}, '', url);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const getRoleDashboard = (role?: string) => {
+    switch (role) {
+      case 'admin':
+        return { page: 'admin', path: '/admin', label: 'Enter Admin Console' };
+      case 'fleet_manager':
+        return { page: 'fleet', path: '/fleet', label: 'Access Fleet Desk' };
+      case 'dispatcher':
+        return { page: 'dispatch', path: '/dispatch', label: 'Open Dispatcher Board' };
+      case 'support':
+        return { page: 'support-desk', path: '/support-desk', label: 'Enter Support Desk' };
+      default:
+        return { page: 'profile', path: '/profile', label: 'Open Operations Desk' };
+    }
+  };
+
+  const handlePrimaryAuthAction = () => {
+    if (currentUser) {
+      const desk = getRoleDashboard(currentUser.role);
+      go(desk.page, desk.path);
+    } else {
+      go('login', '/login');
+    }
+  };
+
+  const handleRoleDeskClick = (r: (typeof ROLES_OVERVIEW)[0]) => {
+    if (currentUser) {
+      if (currentUser.role === 'admin') {
+        go(r.page, r.path);
+      } else if (currentUser.role === r.roleKey) {
+        go(r.page, r.path);
+      } else {
+        const desk = getRoleDashboard(currentUser.role);
+        go(desk.page, desk.path);
+      }
+    } else {
+      go('login', '/login');
+    }
   };
 
   return (
@@ -254,20 +304,30 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               {/* CTAs */}
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <button
-                  onClick={() => go('login', '/login')}
-                  className="flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-black text-sm text-white shadow-xl shadow-purple-900/40 transition-all active:scale-95"
+                  onClick={handlePrimaryAuthAction}
+                  className="flex items-center gap-2.5 px-7 py-3.5 rounded-xl font-black text-sm text-white shadow-xl shadow-purple-900/40 transition-all hover:scale-[1.02] active:scale-95 cursor-pointer"
                   style={{
                     background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)',
                   }}
                 >
-                  <Lock className="w-4 h-4" />
-                  <span>Personnel OTP Login</span>
-                  <ArrowRight className="w-4 h-4 ml-1" />
+                  {currentUser ? (
+                    <>
+                      <Shield className="w-4 h-4 text-purple-200" />
+                      <span>{getRoleDashboard(currentUser.role).label}</span>
+                      <ArrowRight className="w-4 h-4 ml-1" />
+                    </>
+                  ) : (
+                    <>
+                      <Lock className="w-4 h-4" />
+                      <span>Personnel OTP Login</span>
+                      <ArrowRight className="w-4 h-4 ml-1" />
+                    </>
+                  )}
                 </button>
 
                 <button
                   onClick={() => go('track', '/track')}
-                  className="flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white border border-white/20 bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all active:scale-95"
+                  className="flex items-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white border border-white/20 bg-white/5 hover:bg-white/10 backdrop-blur-sm transition-all active:scale-95 cursor-pointer"
                 >
                   <Navigation className="w-4 h-4 text-purple-300" />
                   <span>Track Drone Transit</span>
@@ -277,7 +337,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
 
             {/* ── Right Column: Floating Cyber Mascot ── */}
             <div className="flex flex-col items-center justify-center">
-              <InteractiveDrone onOrderClick={() => go('login', '/login')} />
+              <InteractiveDrone onOrderClick={handlePrimaryAuthAction} />
             </div>
           </div>
         </div>
@@ -321,10 +381,14 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
 
                 <div className="pt-6 mt-6 border-t border-slate-100">
                   <button
-                    onClick={() => go('login', '/login')}
-                    className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold text-slate-700 bg-slate-50 hover:bg-[#3b0080] hover:text-white border border-slate-200 hover:border-[#3b0080] transition-all"
+                    onClick={() => handleRoleDeskClick(r)}
+                    className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold text-slate-700 bg-slate-50 hover:bg-[#3b0080] hover:text-white border border-slate-200 hover:border-[#3b0080] transition-all cursor-pointer"
                   >
-                    <span>{r.cta}</span>
+                    <span>
+                      {currentUser && (currentUser.role === 'admin' || currentUser.role === r.roleKey)
+                        ? `Open ${r.role} Desk`
+                        : r.cta}
+                    </span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>

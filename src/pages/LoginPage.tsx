@@ -24,6 +24,33 @@ interface LoginPageProps {
 }
 
 export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) => {
+  // Automatically forward logged in users to their role dashboard
+  useEffect(() => {
+    const token = localStorage.getItem('iw_delivery_token');
+    const userStr = localStorage.getItem('iw_delivery_user');
+    if (token && userStr) {
+      try {
+        const u = JSON.parse(userStr) as DeliveryUser;
+        if (u.role === 'admin') {
+          onNavigate('admin');
+          window.history.pushState({}, '', '/admin');
+        } else if (u.role === 'fleet_manager') {
+          onNavigate('fleet');
+          window.history.pushState({}, '', '/fleet');
+        } else if (u.role === 'dispatcher') {
+          onNavigate('dispatch');
+          window.history.pushState({}, '', '/dispatch');
+        } else if (u.role === 'support') {
+          onNavigate('support-desk');
+          window.history.pushState({}, '', '/support-desk');
+        } else {
+          onNavigate('profile');
+          window.history.pushState({}, '', '/profile');
+        }
+      } catch {}
+    }
+  }, [onNavigate]);
+
   // Login method: 'email' or 'phone'
   const [authMethod, setAuthMethod] = useState<'email' | 'phone'>('email');
 

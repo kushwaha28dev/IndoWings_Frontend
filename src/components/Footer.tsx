@@ -1,11 +1,13 @@
 import React from 'react';
+import { DeliveryUser } from './AuthModal';
 
 interface FooterProps {
+  currentUser?: DeliveryUser | null;
   onNavigate?: (page: string) => void;
   onOpenFeedback?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigate, currentUser }) => {
   const navTo = (page: string, url: string, hash?: string) => (e: React.MouseEvent) => {
     e.preventDefault();
     if (onNavigate) onNavigate(page);
@@ -72,9 +74,45 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </h3>
             <ul className="space-y-3 text-[13.5px] sm:text-sm text-slate-400">
               <li>
-                <a href="/login" onClick={navTo('login', '/login')} className="hover:text-white transition-colors">
-                  Personnel Portal Sign In
-                </a>
+                {currentUser ? (
+                  <a
+                    href={
+                      currentUser.role === 'admin'
+                        ? '/admin'
+                        : currentUser.role === 'fleet_manager'
+                        ? '/fleet'
+                        : currentUser.role === 'dispatcher'
+                        ? '/dispatch'
+                        : '/support-desk'
+                    }
+                    onClick={navTo(
+                      currentUser.role === 'admin'
+                        ? 'admin'
+                        : currentUser.role === 'fleet_manager'
+                        ? 'fleet'
+                        : currentUser.role === 'dispatcher'
+                        ? 'dispatch'
+                        : 'support-desk',
+                      currentUser.role === 'admin'
+                        ? '/admin'
+                        : currentUser.role === 'fleet_manager'
+                        ? '/fleet'
+                        : currentUser.role === 'dispatcher'
+                        ? '/dispatch'
+                        : '/support-desk'
+                    )}
+                    className="hover:text-white transition-colors flex items-center gap-1.5 text-purple-300 font-semibold"
+                  >
+                    <span>Operations Console</span>
+                    <span className="text-[10px] bg-purple-900/60 text-purple-200 px-1.5 py-0.5 rounded border border-purple-700/50 uppercase">
+                      {currentUser.role.replace('_', ' ')}
+                    </span>
+                  </a>
+                ) : (
+                  <a href="/login" onClick={navTo('login', '/login')} className="hover:text-white transition-colors">
+                    Personnel Portal Sign In
+                  </a>
+                )}
               </li>
               <li>
                 <a href="/support" onClick={navTo('support', '/support')} className="hover:text-white transition-colors">

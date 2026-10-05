@@ -298,194 +298,174 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmitExpertRequest} className="space-y-4">
+                <form onSubmit={handleSubmitExpertRequest} className="space-y-6">
                   {formError && (
-                    <div className="p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded-xl flex items-center gap-2">
+                    <div className="p-3.5 bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded-xl flex items-center gap-2">
                       <AlertCircle className="w-4 h-4 shrink-0" />
                       <span>{formError}</span>
                     </div>
                   )}
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {/* Step 1: Contact Details */}
+                  <div className="space-y-4">
+                    <h3 className="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-purple-600" />
+                      1. Contact Information
+                    </h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                          Full Name *
+                        </label>
+                        <div className="relative">
+                          <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                          <input
+                            type="text"
+                            value={name}
+                            onChange={e => setName(e.target.value)}
+                            placeholder="e.g. Ramesh Chandra"
+                            required
+                            className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 transition-all"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                          Mobile Phone *
+                        </label>
+                        <div className="relative">
+                          <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                          <input
+                            type="tel"
+                            value={phone}
+                            onChange={e => setPhone(e.target.value)}
+                            placeholder="10-digit number"
+                            required
+                            className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 transition-all"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="sm:col-span-2">
+                        <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                          Email Address *
+                        </label>
+                        <div className="relative">
+                          <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                          <input
+                            type="email"
+                            required
+                            value={email}
+                            onChange={e => setEmail(e.target.value)}
+                            placeholder="name@company.com"
+                            className="w-full pl-10 pr-3.5 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 transition-all"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Step 2: Query & Urgency */}
+                  <div className="space-y-4 pt-2 border-t border-slate-100">
+                    <h3 className="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-purple-600" />
+                      2. Issue &amp; Priority Details
+                    </h3>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                          Category *
+                        </label>
+                        <select
+                          value={category}
+                          onChange={e => setCategory(e.target.value)}
+                          className="w-full px-3.5 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 font-medium">
+                          <option value="Corridor Flight & Dispatch Inquiries">Corridor Flight &amp; Dispatch Inquiries</option>
+                          <option value="Hardware QC & Diagnostics Inspection">Hardware QC &amp; Diagnostics Inspection</option>
+                          <option value="Delivery Site Acceptance & Sign-off">Delivery Site Acceptance &amp; Sign-off</option>
+                          <option value="Transit Weather & Airspace Hold">Transit Weather &amp; Airspace Hold</option>
+                          <option value="Billing, Invoicing & Challans">Billing, Invoicing &amp; Challans</option>
+                          <option value="General Enterprise UAV Support">General Enterprise UAV Support</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                          Priority Level
+                        </label>
+                        <div className="grid grid-cols-3 gap-1.5">
+                          {[
+                            { id: 'normal', label: 'Normal' },
+                            { id: 'high', label: 'High' },
+                            { id: 'urgent', label: 'Critical' },
+                          ].map(p => (
+                            <button
+                              key={p.id}
+                              type="button"
+                              onClick={() => setPriority(p.id)}
+                              className={`py-2 px-2 rounded-xl border text-center text-xs font-bold transition-all cursor-pointer ${
+                                priority === p.id
+                                  ? 'bg-[#3b0080] text-white border-[#3b0080] shadow-sm'
+                                  : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                              }`}
+                            >
+                              {p.label}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
                     <div>
-                      <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                        Your Full Name
+                      <label className="block text-xs font-bold text-slate-700 mb-1.5">
+                        Describe Your Query / Issue *
                       </label>
-                      <div className="relative">
-                        <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                      <textarea
+                        rows={3}
+                        required
+                        value={message}
+                        onChange={e => setMessage(e.target.value)}
+                        placeholder="Provide details about your query so our flight operations engineers can review background telemetry..."
+                        className="w-full px-3.5 py-2.5 bg-slate-50/50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 resize-none font-medium"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Optional Order / Drone Reference */}
+                  <details className="group border border-slate-200 rounded-2xl bg-slate-50/50 overflow-hidden">
+                    <summary className="px-4 py-3 text-xs font-bold text-slate-700 cursor-pointer flex items-center justify-between group-open:bg-white group-open:border-b group-open:border-slate-200">
+                      <span>➕ Add Order / Drone Serial Reference (Optional)</span>
+                      <span className="text-[10px] text-slate-400 group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-3 bg-white">
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+                          Order ID / Challan
+                        </label>
                         <input
                           type="text"
-                          value={name}
-                          onChange={e => setName(e.target.value)}
-                          placeholder="e.g. Puneet Kushwaha"
-                          required
-                          className="w-full pl-10 pr-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100"
+                          value={orderId}
+                          onChange={e => setOrderId(e.target.value)}
+                          placeholder="e.g. INW-2026-005"
+                          className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono focus:outline-none focus:border-[#3b0080]"
                         />
                       </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                        Mobile Phone (For Callback) *
-                      </label>
-                      <div className="relative">
-                        <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                      <div>
+                        <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+                          Drone Serial Number
+                        </label>
                         <input
-                          type="tel"
-                          value={phone}
-                          onChange={e => setPhone(e.target.value)}
-                          placeholder="e.g. 9876543210"
-                          required
-                          className="w-full pl-10 pr-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100"
+                          type="text"
+                          value={droneSerial}
+                          onChange={e => setDroneSerial(e.target.value)}
+                          placeholder="e.g. INDO-UAV-1001"
+                          className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono focus:outline-none focus:border-[#3b0080]"
                         />
                       </div>
                     </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                        Email Address (For Resolution Updates) *
-                      </label>
-                      <div className="relative">
-                        <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                        <input
-                          type="email"
-                          required
-                          value={email}
-                          onChange={e => setEmail(e.target.value)}
-                          placeholder="name@company.com"
-                          className="w-full pl-10 pr-3 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                        Inquiry Category
-                      </label>
-                      <select
-                        value={category}
-                        onChange={e => setCategory(e.target.value)}
-                        className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 bg-white font-medium">
-                        <option value="Corridor Flight & Dispatch Inquiries">Corridor Flight &amp; Dispatch Inquiries</option>
-                        <option value="Hardware QC & Diagnostics Inspection">Hardware QC &amp; Diagnostics Inspection</option>
-                        <option value="Delivery Site Acceptance & Sign-off">Delivery Site Acceptance &amp; Sign-off</option>
-                        <option value="Transit Weather & Airspace Hold">Transit Weather &amp; Airspace Hold</option>
-                        <option value="Billing, Invoicing & Challans">Billing, Invoicing &amp; Challans</option>
-                        <option value="General Enterprise UAV Support">General Enterprise UAV Support</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  {/* Order Context: Order ID & Drone Serial */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-purple-50/50 p-3.5 rounded-2xl border border-purple-100/80">
-                    <div>
-                      <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
-                        Associated Order ID (If Applicable)
-                      </label>
-                      <input
-                        type="text"
-                        value={orderId}
-                        onChange={e => setOrderId(e.target.value)}
-                        placeholder="e.g. INW-2026-005"
-                        className="w-full px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs font-mono focus:outline-none focus:border-[#3b0080]"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
-                        Drone Serial / Unit ID (Optional)
-                      </label>
-                      <input
-                        type="text"
-                        value={droneSerial}
-                        onChange={e => setDroneSerial(e.target.value)}
-                        placeholder="e.g. IW-CYB-2026-101"
-                        className="w-full px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs font-mono focus:outline-none focus:border-[#3b0080]"
-                      />
-                    </div>
-
-                    <div className="sm:col-span-2">
-                      <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
-                        Delivery Site Drop Address
-                      </label>
-                      <input
-                        type="text"
-                        value={deliveryAddress}
-                        onChange={e => setDeliveryAddress(e.target.value)}
-                        placeholder="e.g. Sector 62 Hub, Noida / Northern Base Landing Depot"
-                        className="w-full px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-[#3b0080]"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Priority Selector */}
-                  <div>
-                    <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                      Urgency / Priority Level
-                    </label>
-                    <div className="grid grid-cols-3 gap-2">
-                      {[
-                        { id: 'normal', label: 'Normal Inquiry', desc: 'Standard response' },
-                        { id: 'high', label: 'High Priority', desc: 'Active corridor shipment' },
-                        { id: 'urgent', label: 'Critical / Urgent', desc: 'Safety or grounded unit' },
-                      ].map(p => (
-                        <button
-                          key={p.id}
-                          type="button"
-                          onClick={() => setPriority(p.id)}
-                          className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
-                            priority === p.id
-                              ? 'bg-purple-50 text-[#3b0080] border-[#3b0080] ring-1 ring-[#3b0080]'
-                              : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
-                          }`}
-                        >
-                          <span className="block text-xs font-bold">{p.label}</span>
-                          <span className="text-[10px] text-slate-400 block">{p.desc}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                      Preferred Callback Window
-                    </label>
-                    <div className="grid grid-cols-3 gap-2">
-                      {[
-                        'Immediate Callback (15 mins)',
-                        'Within 1 Hour',
-                        'Evening (5 PM - 8 PM)'
-                      ].map((t) => (
-                        <button
-                          key={t}
-                          type="button"
-                          onClick={() => setPreferredTime(t)}
-                          className={`py-2 px-2 text-[11px] font-bold rounded-xl border transition-all text-center cursor-pointer ${
-                            preferredTime === t
-                              ? 'bg-purple-50 text-[#3b0080] border-[#3b0080] ring-1 ring-[#3b0080]'
-                              : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
-                          }`}>
-                          {t}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                      Query Description &amp; Technical Symptoms *
-                    </label>
-                    <textarea
-                      rows={3}
-                      required
-                      value={message}
-                      onChange={e => setMessage(e.target.value)}
-                      placeholder="Please explain the issue or query in detail so our operations specialist can review the diagnostic telemetry before calling..."
-                      className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 resize-none font-medium"
-                    />
-                  </div>
+                  </details>
 
                   <button
                     type="submit"
@@ -494,7 +474,7 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
                     {isSubmitting ? (
                       <>
                         <RefreshCw className="w-4 h-4 animate-spin" />
-                        <span>Submitting Query to Support Desk...</span>
+                        <span>Submitting Request...</span>
                       </>
                     ) : (
                       <>
