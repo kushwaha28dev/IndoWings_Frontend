@@ -4,7 +4,6 @@ import {
   X,
   User,
   LogOut,
-  Package,
   LayoutDashboard,
   Clock,
   ChevronDown,
@@ -67,7 +66,7 @@ export const Header: React.FC<HeaderProps> = ({
   }, []);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
+    const onScroll = () => setScrolled(window.scrollY > 15);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -191,24 +190,28 @@ export const Header: React.FC<HeaderProps> = ({
   ];
 
   return (
-    <header
-      className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 w-full max-w-full ${
-        scrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-md border-b border-slate-200/80'
-          : 'bg-white border-b border-slate-200'
-      }`}
-    >
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 flex items-center justify-between h-16 w-full min-w-0">
-
-        {/* ── Brand ─────────────────────────────────────────────────── */}
+    <header className="sticky top-2.5 sm:top-3.5 left-0 right-0 z-50 w-full px-3 sm:px-6 pointer-events-none transition-all duration-300">
+      {/* ── Floating Cylindrical Glassmorphic Capsule ────────────────── */}
+      <div
+        className={`max-w-[1360px] mx-auto h-[64px] sm:h-[68px] px-4 sm:px-6 rounded-full flex items-center justify-between pointer-events-auto transition-all duration-300 ${
+          scrolled
+            ? 'bg-white/90 backdrop-blur-2xl border border-slate-200/90 shadow-[0_12px_36px_rgba(59,0,128,0.09),0_2px_8px_rgba(0,0,0,0.04)] ring-1 ring-purple-600/10'
+            : 'bg-white/80 backdrop-blur-xl border border-white/70 shadow-[0_8px_30px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.03)]'
+        }`}
+      >
+        {/* ── Brand Logo (Bigger & Crisp) ───────────────────────────── */}
         <div className="flex items-center gap-3 shrink-0">
           <a href="/" onClick={nav('home', '/')} className="flex items-center gap-3 group">
-            <img src="/indofleet-logo-dark.svg" alt="IndoFleet" className="h-8 w-auto" />
+            <img
+              src="/indofleet-logo-dark.svg"
+              alt="IndoFleet"
+              className="h-9 sm:h-10 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+            />
           </a>
         </div>
 
-        {/* ── Desktop Navigation Menu ───────────────────────────────── */}
-        <nav className="hidden lg:flex items-center gap-1 text-sm font-bold text-slate-800" ref={dropdownRef}>
+        {/* ── Desktop Navigation Menu (Cylindrical Pills) ───────────── */}
+        <nav className="hidden lg:flex items-center gap-1.5 text-[14.5px] font-bold text-slate-800" ref={dropdownRef}>
 
           {/* 1. Operations Desks Dropdown (ONLY visible to Super Admin when logged in) */}
           {currentUser?.role === 'admin' && (
@@ -218,10 +221,10 @@ export const Header: React.FC<HeaderProps> = ({
               onMouseLeave={handleMouseLeave}
             >
               <button
-                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl transition-all ${
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-full transition-all ${
                   openDropdown === 'operations'
-                    ? 'bg-purple-50 text-[#3b0080]'
-                    : 'hover:bg-slate-100 hover:text-slate-900'
+                    ? 'bg-purple-100 text-[#3b0080]'
+                    : 'hover:bg-slate-100/90 hover:text-slate-900'
                 }`}
               >
                 <Shield className="w-3.5 h-3.5 text-[#3b0080]" />
@@ -234,8 +237,8 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
 
               {openDropdown === 'operations' && (
-                <div className="absolute top-full left-0 pt-2 w-80 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                  <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2">
+                <div className="absolute top-[calc(100%+10px)] left-0 pt-1 w-80 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                  <div className="bg-white/95 backdrop-blur-2xl border border-slate-200 rounded-2xl shadow-2xl shadow-purple-950/15 p-2">
                     <div className="px-3 pt-2 pb-1.5 flex items-center justify-between">
                       <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                         Admin Workspace Access
@@ -295,10 +298,10 @@ export const Header: React.FC<HeaderProps> = ({
             onMouseLeave={handleMouseLeave}
           >
             <button
-              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[14px] font-bold transition-all ${
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-full transition-all ${
                 openDropdown === 'transit'
-                  ? 'bg-purple-50 text-[#3b0080]'
-                  : 'hover:bg-slate-100 hover:text-slate-900'
+                  ? 'bg-purple-100 text-[#3b0080]'
+                  : 'hover:bg-slate-100/90 hover:text-slate-900'
               }`}
             >
               <span>Transit &amp; Telemetry</span>
@@ -310,8 +313,8 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             {openDropdown === 'transit' && (
-              <div className="absolute top-full left-0 pt-2 w-72 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2">
+              <div className="absolute top-[calc(100%+10px)] left-0 pt-1 w-72 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                <div className="bg-white/95 backdrop-blur-2xl border border-slate-200 rounded-2xl shadow-2xl shadow-purple-950/15 p-2">
                   <div className="px-3 pt-2 pb-1.5">
                     <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                       Live Telemetry &amp; Logs
@@ -352,8 +355,10 @@ export const Header: React.FC<HeaderProps> = ({
             onMouseLeave={handleMouseLeave}
           >
             <button
-              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[14px] font-bold transition-all ${
-                openDropdown === 'sop' ? 'bg-purple-50 text-[#3b0080]' : 'hover:bg-slate-100 hover:text-slate-900'
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-full transition-all ${
+                openDropdown === 'sop'
+                  ? 'bg-purple-100 text-[#3b0080]'
+                  : 'hover:bg-slate-100/90 hover:text-slate-900'
               }`}
             >
               <span>Protocols &amp; SOP</span>
@@ -365,8 +370,8 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             {openDropdown === 'sop' && (
-              <div className="absolute top-full left-0 pt-2 w-72 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2">
+              <div className="absolute top-[calc(100%+10px)] left-0 pt-1 w-72 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                <div className="bg-white/95 backdrop-blur-2xl border border-slate-200 rounded-2xl shadow-2xl shadow-purple-950/15 p-2">
                   <div className="px-3 pt-2 pb-1.5">
                     <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                       Standard Operating Procedures
@@ -404,20 +409,20 @@ export const Header: React.FC<HeaderProps> = ({
           <a
             href="/company"
             onClick={nav('company', '/company')}
-            className="px-3.5 py-2 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all text-[14px] font-bold"
+            className="px-4 py-2 rounded-full hover:bg-slate-100/90 hover:text-slate-900 transition-all"
           >
             IndoWings Aerospace
           </a>
         </nav>
 
         {/* ── Right Actions ─────────────────────────────────────────── */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2 sm:gap-2.5">
 
           {/* Quick Track Transit Pill */}
           <a
             href="/track"
             onClick={nav('track', '/track')}
-            className="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[13px] font-bold text-slate-700 hover:text-[#3b0080] hover:bg-purple-50 border border-slate-200 hover:border-purple-200 transition-all"
+            className="hidden md:flex items-center gap-1.5 px-4 py-2 rounded-full text-[13.5px] font-bold text-slate-700 hover:text-[#3b0080] hover:bg-purple-50/80 border border-slate-200/90 hover:border-purple-200 transition-all shadow-sm"
           >
             <Navigation className="w-3.5 h-3.5 text-purple-600" />
             <span>Track Transit</span>
@@ -428,9 +433,9 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="relative" ref={profileRef}>
               <button
                 onClick={() => setOpenDropdown(openDropdown === 'profile' ? null : 'profile')}
-                className="flex items-center gap-2 pl-1.5 pr-3 py-1.5 rounded-xl border border-slate-200 hover:border-purple-300 hover:bg-purple-50 transition-all"
+                className="flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full border border-slate-200/90 hover:border-purple-300 hover:bg-purple-50/80 bg-white/70 backdrop-blur-sm transition-all shadow-sm"
               >
-                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#3b0080] to-purple-600 flex items-center justify-center text-white text-xs font-black">
+                <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#3b0080] to-purple-600 flex items-center justify-center text-white text-xs font-black">
                   {currentUser.name?.[0]?.toUpperCase() || 'U'}
                 </div>
                 <div className="text-left hidden sm:block">
@@ -449,7 +454,7 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
 
               {openDropdown === 'profile' && (
-                <div className="absolute top-[calc(100%+8px)] right-0 w-64 bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2 animate-in fade-in slide-in-from-top-2 duration-150 z-50">
+                <div className="absolute top-[calc(100%+10px)] right-0 w-64 bg-white/95 backdrop-blur-2xl border border-slate-200 rounded-2xl shadow-2xl shadow-purple-950/15 p-2 animate-in fade-in slide-in-from-top-2 duration-150 z-50">
                   <div className="px-3.5 py-3 mb-1 bg-gradient-to-br from-purple-50 to-slate-50 rounded-xl">
                     <div className="flex items-center gap-2.5">
                       <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#3b0080] to-purple-600 flex items-center justify-center text-white text-sm font-black">
@@ -542,7 +547,7 @@ export const Header: React.FC<HeaderProps> = ({
           ) : (
             <button
               onClick={onOpenAuth}
-              className="flex items-center gap-2 text-[13.5px] font-bold text-white bg-[#3b0080] hover:bg-[#2c0060] px-4.5 py-2 rounded-xl shadow-sm transition-all active:scale-95"
+              className="flex items-center gap-2 text-[14px] font-bold text-white bg-gradient-to-r from-[#3b0080] to-[#5100a8] hover:from-[#2c0060] hover:to-[#3e0082] px-5 py-2.5 rounded-full shadow-md shadow-purple-900/20 transition-all active:scale-95"
             >
               <User className="w-3.5 h-3.5" />
               <span>Sign In</span>
@@ -552,7 +557,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors ml-1"
+            className="lg:hidden p-2 rounded-full text-slate-600 hover:bg-slate-100 transition-colors ml-1"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -561,7 +566,7 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* ── Mobile Drawer ─────────────────────────────────────────────── */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-slate-100 px-4 py-4 space-y-1 shadow-xl animate-in fade-in slide-in-from-top-2 duration-150 max-h-[calc(100vh-4rem)] overflow-y-auto">
+        <div className="lg:hidden mt-2.5 max-w-[1360px] mx-auto bg-white/95 backdrop-blur-2xl border border-slate-200/90 rounded-3xl px-5 py-4 space-y-1 shadow-2xl shadow-purple-950/15 animate-in fade-in slide-in-from-top-2 duration-150 max-h-[calc(100vh-5.5rem)] overflow-y-auto pointer-events-auto">
           {/* Only Super Admin sees full Operations in Mobile */}
           {currentUser?.role === 'admin' && (
             <>
