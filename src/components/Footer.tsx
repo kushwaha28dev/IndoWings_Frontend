@@ -83,7 +83,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </li>
               <li>
                 <a href="/track" onClick={navTo('track', '/track')} className="hover:text-white transition-colors">
-                  Live Corridor Telemetry
+                  Live Drone Tracking
                 </a>
               </li>
               <li>
@@ -94,11 +94,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </ul>
           </div>
 
-          {/* Column 2: Transit & Telemetry */}
+          {/* Column 2: Flight Tracking */}
           <div>
             <h3 className="text-xs sm:text-[13px] font-black uppercase tracking-[0.16em] text-white/90 mb-4 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
-              Transit &amp; Telemetry
+              Flight Tracking
             </h3>
             <ul className="space-y-3 text-[13.5px] sm:text-sm text-slate-400">
               <li>

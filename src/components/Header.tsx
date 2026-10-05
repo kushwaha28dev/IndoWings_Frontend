@@ -13,8 +13,6 @@ import {
   Headphones,
   Wrench,
   Shield,
-  ExternalLink,
-  Phone,
 } from 'lucide-react';
 import { DeliveryUser } from './AuthModal';
 
@@ -115,25 +113,18 @@ export const Header: React.FC<HeaderProps> = ({
   const TRANSIT_ITEMS = [
     {
       icon: Navigation,
-      label: 'Live Corridor Telemetry',
-      sub: 'Real-time GPS transit tracking',
+      label: 'Live Drone Tracking',
+      sub: 'Real-time GPS flight path & status',
       page: 'track',
       url: '/track',
       badge: 'Live',
     },
     {
       icon: Clock,
-      label: 'Drone Shipment History',
+      label: 'Flight & Dispatch History',
       sub: 'Dispatches, transit logs & challans',
       page: 'orders',
       url: '/profile?tab=orders',
-    },
-    {
-      icon: ExternalLink,
-      label: 'Telemetry Data Exports',
-      sub: 'Flight records & sensor logs',
-      page: 'downloads',
-      url: '/downloads',
     },
   ];
 
@@ -196,7 +187,7 @@ export const Header: React.FC<HeaderProps> = ({
             </a>
           )}
 
-          {/* 1. Transit & Telemetry Dropdown */}
+          {/* 1. Track Drone Dropdown */}
           <div
             className="relative"
             onMouseEnter={() => handleMouseEnter('transit')}
@@ -210,7 +201,7 @@ export const Header: React.FC<HeaderProps> = ({
               }`}
             >
               <Navigation className="w-3.5 h-3.5 text-purple-600" />
-              <span>Corridor Telemetry</span>
+              <span>Track Drone</span>
               <ChevronDown
                 className={`w-3 h-3 transition-transform duration-200 ${
                   openDropdown === 'transit' ? 'rotate-180 text-[#3b0080]' : 'text-slate-400'
@@ -223,7 +214,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <div className="dropdown-glass rounded-2xl p-2">
                   <div className="px-3 pt-2 pb-1.5">
                     <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                      Live Telemetry &amp; Logs
+                      Live Flight Tracking
                     </p>
                   </div>
                   {TRANSIT_ITEMS.map((item) => (
@@ -337,26 +328,6 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* ── Right Actions ─────────────────────────────────────────── */}
         <div className="flex items-center gap-2 sm:gap-2.5">
-          {/* Quick 24/7 Hotline Toll-Free Link */}
-          <a
-            href="/support"
-            onClick={nav('support', '/support')}
-            className="hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-slate-700 hover:text-[#3b0080] hover:bg-purple-50/80 border border-slate-200/80 transition-all shadow-xs"
-          >
-            <Phone className="w-3 h-3 text-emerald-600" />
-            <span>1800 572 7363</span>
-          </a>
-
-          {/* Quick Live Radar Pill */}
-          <a
-            href="/track"
-            onClick={nav('track', '/track')}
-            className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-[#3b0080] to-purple-600 hover:from-[#2e0066] hover:to-purple-700 transition-all shadow-sm active:scale-95"
-          >
-            <Navigation className="w-3.5 h-3.5 text-purple-200" />
-            <span>Live Radar</span>
-          </a>
-
           {/* User Auth / Profile Dropdown */}
           {currentUser ? (
             <div
@@ -510,7 +481,7 @@ export const Header: React.FC<HeaderProps> = ({
 
           <div className="px-3 pt-2 pb-1">
             <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">
-              Transit &amp; Telemetry
+              Flight &amp; Drone Tracking
             </p>
           </div>
           {TRANSIT_ITEMS.map((item) => (
