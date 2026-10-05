@@ -83,6 +83,60 @@ export const App: React.FC = () => {
     }
   }, []);
 
+  // Route Protection & Role Governance for Enterprise Dashboards
+  useEffect(() => {
+    const protectedPages: Page[] = ['admin', 'fleet', 'receiving', 'support-desk', 'dispatch'];
+    if (protectedPages.includes(currentPage)) {
+      const token = localStorage.getItem('iw_delivery_token');
+      const userStr = localStorage.getItem('iw_delivery_user');
+      if (!token || !userStr) {
+        setCurrentPage('login');
+        window.history.pushState({}, '', '/login');
+        return;
+      }
+      try {
+        const user = JSON.parse(userStr) as DeliveryUser;
+        const role = user.role;
+
+        const routeToDesk = (targetPage: Page, path: string) => {
+          setCurrentPage(targetPage);
+          window.history.pushState({}, '', path);
+        };
+
+        if (currentPage === 'admin' && role !== 'admin') {
+          if (role === 'fleet_manager') routeToDesk('fleet', '/fleet');
+          else if (role === 'dispatcher') routeToDesk('dispatch', '/dispatch');
+          else if (role === 'support') routeToDesk('support-desk', '/support-desk');
+          else if (role === 'client') routeToDesk('receiving', '/receiving');
+          else routeToDesk('login', '/login');
+        } else if (currentPage === 'fleet' && role !== 'fleet_manager' && role !== 'admin') {
+          if (role === 'dispatcher') routeToDesk('dispatch', '/dispatch');
+          else if (role === 'support') routeToDesk('support-desk', '/support-desk');
+          else if (role === 'client') routeToDesk('receiving', '/receiving');
+          else routeToDesk('login', '/login');
+        } else if (currentPage === 'dispatch' && role !== 'dispatcher' && role !== 'admin') {
+          if (role === 'fleet_manager') routeToDesk('fleet', '/fleet');
+          else if (role === 'support') routeToDesk('support-desk', '/support-desk');
+          else if (role === 'client') routeToDesk('receiving', '/receiving');
+          else routeToDesk('login', '/login');
+        } else if (currentPage === 'support-desk' && role !== 'support' && role !== 'admin') {
+          if (role === 'fleet_manager') routeToDesk('fleet', '/fleet');
+          else if (role === 'dispatcher') routeToDesk('dispatch', '/dispatch');
+          else if (role === 'client') routeToDesk('receiving', '/receiving');
+          else routeToDesk('login', '/login');
+        } else if (currentPage === 'receiving' && role !== 'client' && role !== 'admin') {
+          if (role === 'fleet_manager') routeToDesk('fleet', '/fleet');
+          else if (role === 'dispatcher') routeToDesk('dispatch', '/dispatch');
+          else if (role === 'support') routeToDesk('support-desk', '/support-desk');
+          else routeToDesk('login', '/login');
+        }
+      } catch {
+        setCurrentPage('login');
+        window.history.pushState({}, '', '/login');
+      }
+    }
+  }, [currentPage, deliveryUser]);
+
   // Browser back/forward
   useEffect(() => {
     const handlePopState = () => setCurrentPage(getInitialPage());
@@ -113,6 +167,11 @@ export const App: React.FC = () => {
     setDeliveryUser(null);
     localStorage.removeItem('iw_delivery_token');
     localStorage.removeItem('iw_delivery_user');
+    const protectedPages: Page[] = ['admin', 'fleet', 'receiving', 'support-desk', 'dispatch'];
+    if (protectedPages.includes(currentPage)) {
+      setCurrentPage('login');
+      window.history.pushState({}, '', '/login');
+    }
   };
 
   const handleLoginSuccess = (user: UserProfile, token: string) => {

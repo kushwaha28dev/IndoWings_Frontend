@@ -11,12 +11,9 @@ import {
   Zap,
   Navigation,
   BookOpen,
-  Building2,
-  Shield,
   Headphones,
   Wrench,
-  Lock,
-  ArrowRight,
+  Shield,
   ExternalLink,
 } from 'lucide-react';
 import { DeliveryUser } from './AuthModal';
@@ -97,7 +94,7 @@ export const Header: React.FC<HeaderProps> = ({
     setMobileMenuOpen(false);
   };
 
-  // 1. Operations & Role Workspaces
+  // 1. Operations & Role Workspaces (Only for Admin users)
   const OPERATIONS_ITEMS = [
     {
       icon: Shield,
@@ -221,80 +218,83 @@ export const Header: React.FC<HeaderProps> = ({
         {/* ── Desktop Navigation Menu ───────────────────────────────── */}
         <nav className="hidden lg:flex items-center gap-1 text-sm font-bold text-slate-800" ref={dropdownRef}>
 
-          {/* 1. Operations Desks Dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => handleMouseEnter('operations')}
-            onMouseLeave={handleMouseLeave}
-          >
-            <button
-              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl transition-all ${
-                openDropdown === 'operations'
-                  ? 'bg-purple-50 text-[#3b0080]'
-                  : 'hover:bg-slate-100 hover:text-slate-900'
-              }`}
+          {/* 1. Operations Desks Dropdown (ONLY visible to Super Admin when logged in) */}
+          {currentUser?.role === 'admin' && (
+            <div
+              className="relative"
+              onMouseEnter={() => handleMouseEnter('operations')}
+              onMouseLeave={handleMouseLeave}
             >
-              <span>Operations Desks</span>
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                  openDropdown === 'operations' ? 'rotate-180 text-[#3b0080]' : 'text-slate-400'
+              <button
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl transition-all ${
+                  openDropdown === 'operations'
+                    ? 'bg-purple-50 text-[#3b0080]'
+                    : 'hover:bg-slate-100 hover:text-slate-900'
                 }`}
-              />
-            </button>
+              >
+                <Shield className="w-3.5 h-3.5 text-[#3b0080]" />
+                <span>Admin Desks</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    openDropdown === 'operations' ? 'rotate-180 text-[#3b0080]' : 'text-slate-400'
+                  }`}
+                />
+              </button>
 
-            {openDropdown === 'operations' && (
-              <div className="absolute top-full left-0 pt-2 w-80 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2">
-                  <div className="px-3 pt-2 pb-1.5 flex items-center justify-between">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                      Role Workspaces
-                    </p>
-                    <span className="text-[10px] font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full">
-                      5 Active Desks
-                    </span>
-                  </div>
+              {openDropdown === 'operations' && (
+                <div className="absolute top-full left-0 pt-2 w-80 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                  <div className="bg-white border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 p-2">
+                    <div className="px-3 pt-2 pb-1.5 flex items-center justify-between">
+                      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                        Admin Workspace Access
+                      </p>
+                      <span className="text-[10px] font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full">
+                        Super Admin
+                      </span>
+                    </div>
 
-                  {OPERATIONS_ITEMS.map((item) => (
-                    <a
-                      key={item.label}
-                      href={item.url}
-                      onClick={nav(item.page, item.url)}
-                      className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group ${
-                        item.accent ? 'bg-purple-50/70 hover:bg-purple-100/80' : 'hover:bg-slate-50'
-                      }`}
-                    >
-                      <div
-                        className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
-                          item.accent
-                            ? 'bg-[#3b0080] text-white'
-                            : 'bg-slate-100 text-slate-600 group-hover:bg-purple-100 group-hover:text-[#3b0080]'
+                    {OPERATIONS_ITEMS.map((item) => (
+                      <a
+                        key={item.label}
+                        href={item.url}
+                        onClick={nav(item.page, item.url)}
+                        className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group ${
+                          item.accent ? 'bg-purple-50/70 hover:bg-purple-100/80' : 'hover:bg-slate-50'
                         }`}
                       >
-                        <item.icon className="w-4 h-4" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between gap-1">
-                          <p
-                            className={`text-xs font-bold truncate ${
-                              item.accent ? 'text-[#3b0080]' : 'text-slate-800'
-                            }`}
-                          >
-                            {item.label}
-                          </p>
-                          {item.badge && (
-                            <span className="text-[9px] font-black uppercase px-1.5 py-0.2 rounded bg-slate-100 text-slate-600 group-hover:bg-purple-200 group-hover:text-purple-900 shrink-0">
-                              {item.badge}
-                            </span>
-                          )}
+                        <div
+                          className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+                            item.accent
+                              ? 'bg-[#3b0080] text-white'
+                              : 'bg-slate-100 text-slate-600 group-hover:bg-purple-100 group-hover:text-[#3b0080]'
+                          }`}
+                        >
+                          <item.icon className="w-4 h-4" />
                         </div>
-                        <p className="text-[11px] text-slate-400 truncate mt-0.5">{item.sub}</p>
-                      </div>
-                    </a>
-                  ))}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-1">
+                            <p
+                              className={`text-xs font-bold truncate ${
+                                item.accent ? 'text-[#3b0080]' : 'text-slate-800'
+                              }`}
+                            >
+                              {item.label}
+                            </p>
+                            {item.badge && (
+                              <span className="text-[9px] font-black uppercase px-1.5 py-0.2 rounded bg-slate-100 text-slate-600 group-hover:bg-purple-200 group-hover:text-purple-900 shrink-0">
+                                {item.badge}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-[11px] text-slate-400 truncate mt-0.5">{item.sub}</p>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
 
           {/* 2. Transit & Tracking Dropdown */}
           <div
@@ -485,14 +485,14 @@ export const Header: React.FC<HeaderProps> = ({
                     </div>
                   </div>
 
-                  {/* Direct Dashboard Link */}
+                  {/* Direct Dedicated Workspace Link */}
                   {currentUser.role === 'admin' && (
                     <button
                       onClick={nav('admin', '/admin')}
                       className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-purple-50 text-[#3b0080] text-xs font-bold transition-colors mb-1"
                     >
                       <LayoutDashboard className="w-4 h-4" />
-                      Admin Command Center
+                      Admin Command Console
                     </button>
                   )}
 
@@ -582,24 +582,78 @@ export const Header: React.FC<HeaderProps> = ({
       {/* ── Mobile Drawer ─────────────────────────────────────────────── */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-t border-slate-100 px-4 py-4 space-y-1 shadow-xl animate-in fade-in slide-in-from-top-2 duration-150 max-h-[calc(100vh-4rem)] overflow-y-auto">
-          <div className="px-3 py-1 mb-2">
-            <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">
-              Operations Desks
-            </p>
-          </div>
-          {OPERATIONS_ITEMS.map((item) => (
-            <a
-              key={item.label}
-              href={item.url}
-              onClick={nav(item.page, item.url)}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                item.accent ? 'bg-purple-50 text-[#3b0080]' : 'text-slate-700 hover:bg-slate-50'
-              }`}
-            >
-              <item.icon className="w-4 h-4 text-purple-600 shrink-0" />
-              <span>{item.label}</span>
-            </a>
-          ))}
+          {/* Only Super Admin sees full Operations in Mobile */}
+          {currentUser?.role === 'admin' && (
+            <>
+              <div className="px-3 py-1 mb-2">
+                <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">
+                  Admin Command Desks
+                </p>
+              </div>
+              {OPERATIONS_ITEMS.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.url}
+                  onClick={nav(item.page, item.url)}
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition-all ${
+                    item.accent ? 'bg-purple-50 text-[#3b0080]' : 'text-slate-700 hover:bg-slate-50'
+                  }`}
+                >
+                  <item.icon className="w-4 h-4 text-purple-600 shrink-0" />
+                  <span>{item.label}</span>
+                </a>
+              ))}
+            </>
+          )}
+
+          {/* If another role is logged in, show their dedicated desk in mobile */}
+          {currentUser && currentUser.role !== 'admin' && (
+            <div className="px-3 py-2 mb-2 bg-purple-50 rounded-xl">
+              <p className="text-[10px] font-black uppercase tracking-wider text-purple-700 mb-1">
+                Your Operational Desk
+              </p>
+              {currentUser.role === 'fleet_manager' && (
+                <a
+                  href="/fleet"
+                  onClick={nav('fleet', '/fleet')}
+                  className="flex items-center gap-2 text-xs font-bold text-[#3b0080]"
+                >
+                  <Wrench className="w-4 h-4" />
+                  <span>Fleet &amp; QC Command</span>
+                </a>
+              )}
+              {currentUser.role === 'dispatcher' && (
+                <a
+                  href="/dispatch"
+                  onClick={nav('dispatch', '/dispatch')}
+                  className="flex items-center gap-2 text-xs font-bold text-[#3b0080]"
+                >
+                  <LayoutDashboard className="w-4 h-4" />
+                  <span>Corridor Dispatch Board</span>
+                </a>
+              )}
+              {currentUser.role === 'client' && (
+                <a
+                  href="/receiving"
+                  onClick={nav('receiving', '/receiving')}
+                  className="flex items-center gap-2 text-xs font-bold text-[#3b0080]"
+                >
+                  <Package className="w-4 h-4" />
+                  <span>Client Receiving Station</span>
+                </a>
+              )}
+              {currentUser.role === 'support' && (
+                <a
+                  href="/support-desk"
+                  onClick={nav('support-desk', '/support-desk')}
+                  className="flex items-center gap-2 text-xs font-bold text-[#3b0080]"
+                >
+                  <Headphones className="w-4 h-4" />
+                  <span>Support &amp; Grievance Desk</span>
+                </a>
+              )}
+            </div>
+          )}
 
           <div className="px-3 pt-3 pb-1">
             <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">
