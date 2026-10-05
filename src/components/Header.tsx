@@ -167,9 +167,7 @@ export const Header: React.FC<HeaderProps> = ({
       {/* ── Floating Cylindrical Glassmorphic Capsule ────────────────── */}
       <div
         className={`max-w-[1360px] mx-auto h-[64px] sm:h-[68px] px-4 sm:px-6 rounded-full flex items-center justify-between pointer-events-auto transition-all duration-300 ${
-          scrolled
-            ? 'bg-white/80 backdrop-blur-2xl border border-white/60 shadow-[0_12px_36px_rgba(59,0,128,0.14),inset_0_1px_1px_rgba(255,255,255,0.9)] ring-1 ring-purple-600/10'
-            : 'bg-white/75 backdrop-blur-xl border border-white/50 shadow-[0_12px_36px_rgba(0,0,0,0.22),inset_0_1px_1px_rgba(255,255,255,0.85)] ring-1 ring-white/30'
+          scrolled ? 'navbar-glass-capsule-scrolled' : 'navbar-glass-capsule'
         }`}
       >
         {/* ── Brand Logo (Bigger & Crisp) ───────────────────────────── */}
@@ -229,7 +227,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             {openDropdown === 'transit' && (
               <div className="absolute top-[calc(100%+10px)] left-0 pt-1 w-72 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                <div className="bg-white/95 backdrop-blur-2xl border border-slate-200 rounded-2xl shadow-2xl shadow-purple-950/15 p-2">
+                <div className="dropdown-glass rounded-2xl p-2">
                   <div className="px-3 pt-2 pb-1.5">
                     <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                       Live Telemetry &amp; Logs
@@ -286,7 +284,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             {openDropdown === 'sop' && (
               <div className="absolute top-[calc(100%+10px)] left-0 pt-1 w-72 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                <div className="bg-white/95 backdrop-blur-2xl border border-slate-200 rounded-2xl shadow-2xl shadow-purple-950/15 p-2">
+                <div className="dropdown-glass rounded-2xl p-2">
                   <div className="px-3 pt-2 pb-1.5">
                     <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
                       Standard Operating Procedures
@@ -374,7 +372,7 @@ export const Header: React.FC<HeaderProps> = ({
               </button>
 
               {openDropdown === 'profile' && (
-                <div className="absolute top-[calc(100%+10px)] right-0 w-64 bg-white/95 backdrop-blur-2xl border border-slate-200 rounded-2xl shadow-2xl shadow-purple-950/15 p-2 animate-in fade-in slide-in-from-top-2 duration-150 z-50">
+                <div className="absolute top-[calc(100%+10px)] right-0 w-64 dropdown-glass rounded-2xl p-2 animate-in fade-in slide-in-from-top-2 duration-150 z-50">
                   <div className="px-3.5 py-3 mb-1 bg-gradient-to-br from-purple-50 to-slate-50 rounded-xl">
                     <div className="flex items-center gap-2.5">
                       <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#3b0080] to-purple-600 flex items-center justify-center text-white text-sm font-black">
@@ -461,7 +459,7 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* ── Mobile Drawer ─────────────────────────────────────────────── */}
       {mobileMenuOpen && (
-        <div className="lg:hidden mt-2.5 max-w-[1360px] mx-auto bg-white/95 backdrop-blur-2xl border border-slate-200/90 rounded-3xl px-5 py-4 space-y-1 shadow-2xl shadow-purple-950/15 animate-in fade-in slide-in-from-top-2 duration-150 max-h-[calc(100vh-5.5rem)] overflow-y-auto pointer-events-auto">
+        <div className="lg:hidden mt-2.5 max-w-[1360px] mx-auto dropdown-glass rounded-3xl px-5 py-4 space-y-1 animate-in fade-in slide-in-from-top-2 duration-150 max-h-[calc(100vh-5.5rem)] overflow-y-auto pointer-events-auto">
           {/* Home Link for Mobile */}
           <a
             href="/"
