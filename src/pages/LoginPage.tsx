@@ -1,5 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Mail, Phone, Lock, Loader2, Shield, ArrowRight, CheckCircle2, ArrowLeft, RefreshCw, KeyRound, Radio } from 'lucide-react';
+import {
+  Mail,
+  Phone,
+  Loader2,
+  Shield,
+  ArrowRight,
+  CheckCircle2,
+  ArrowLeft,
+  KeyRound,
+  Zap,
+  Package,
+} from 'lucide-react';
 import { DeliveryUser } from '../components/AuthModal';
 import { API_BASE_URL } from '../config/api';
 
@@ -15,6 +26,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
   const [otpDestination, setOtpDestination] = useState('');
   const [detectedRole, setDetectedRole] = useState<string | null>(null);
   const [resendTimer, setResendTimer] = useState(60);
+  const [canResend, setCanResend] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -23,7 +35,15 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
   useEffect(() => {
     let interval: any = null;
     if (otpStep && resendTimer > 0) {
-      interval = setInterval(() => setResendTimer(p => p - 1), 1000);
+      interval = setInterval(() => {
+        setResendTimer((prev) => {
+          if (prev <= 1) {
+            setCanResend(true);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
     }
     return () => clearInterval(interval);
   }, [otpStep, resendTimer]);
@@ -31,7 +51,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
   const handleSendOtp = async (overrideVal?: string) => {
     const val = (overrideVal || identifier).trim();
     if (!val) {
-      setError('Please enter your registered email address or 10-digit mobile number');
+      setError('Please enter your email address or 10-digit mobile number');
       return;
     }
 
@@ -50,11 +70,11 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
       const res = await fetch(`${API_BASE_URL}/api/delivery/auth/send-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(isEmail ? { email: val } : { phone: cleanPhone })
+        body: JSON.stringify(isEmail ? { email: val } : { phone: cleanPhone }),
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || 'Access Denied: Account not registered. Contact your Administrator.');
+        setError(data.error || 'Access Denied: Account not registered. Please contact Administrator.');
         return;
       }
 
@@ -62,6 +82,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
       setDetectedRole(data.role || null);
       setOtpStep(true);
       setResendTimer(60);
+      setCanResend(false);
       setOtpDigits(['', '', '', '', '', '']);
       setTimeout(() => otpInputsRef.current[0]?.focus(), 150);
     } catch {
@@ -92,8 +113,8 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
         body: JSON.stringify({
           email: isEmail ? identifier.trim() : undefined,
           phone: !isEmail ? cleanPhone : undefined,
-          otp: fullOtp
-        })
+          otp: fullOtp,
+        }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -101,21 +122,25 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
         return;
       }
 
-      // Successful verification
-      onSuccess(data.user, data.token);
+      const user: DeliveryUser = data.user;
+      const token: string = data.token;
 
-      // Route immediately based on user role
-      const role = data.user?.role;
-      if (role === 'admin') {
+      localStorage.setItem('iw_delivery_token', token);
+      localStorage.setItem('iw_delivery_user', JSON.stringify(user));
+
+      onSuccess(user, token);
+
+      // Auto-route based on role
+      if (user.role === 'admin') {
         onNavigate('admin');
         window.history.pushState({}, '', '/admin');
-      } else if (role === 'fleet_manager') {
+      } else if (user.role === 'fleet_manager') {
         onNavigate('fleet');
         window.history.pushState({}, '', '/fleet');
-      } else if (role === 'dispatcher') {
+      } else if (user.role === 'dispatcher') {
         onNavigate('dispatch');
         window.history.pushState({}, '', '/dispatch');
-      } else if (role === 'client') {
+      } else if (user.role === 'client') {
         onNavigate('receiving');
         window.history.pushState({}, '', '/receiving');
       } else {
@@ -129,231 +154,351 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
     }
   };
 
-  const handleRoleQuickSelect = (emailVal: string) => {
+  const handleDigitChange = (index: number, val: string) => {
+    const char = val.slice(-1);
+    const updated = [...otpDigits];
+    updated[index] = char;
+    setOtpDigits(updated);
+
+    if (char && index < 5) {
+      otpInputsRef.current[index + 1]?.focus();
+    }
+  };
+
+  const handleDigitKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Backspace' && !otpDigits[index] && index > 0) {
+      otpInputsRef.current[index - 1]?.focus();
+    }
+  };
+
+  const handlePasteOtp = (e: React.ClipboardEvent) => {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData('text').replace(/[^0-9]/g, '').slice(0, 6);
+    if (pasted.length > 0) {
+      const updated = [...otpDigits];
+      for (let i = 0; i < 6; i++) {
+        updated[i] = pasted[i] || '';
+      }
+      setOtpDigits(updated);
+      const nextFocus = Math.min(pasted.length, 5);
+      otpInputsRef.current[nextFocus]?.focus();
+    }
+  };
+
+  const handleQuickRoleFill = (emailVal: string) => {
     setIdentifier(emailVal);
     setError('');
     handleSendOtp(emailVal);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#09021a] via-[#12072e] to-[#09021a] text-white flex flex-col justify-between selection:bg-purple-600 selection:text-white">
-      {/* Top Bar */}
-      <header className="px-6 py-5 max-w-7xl mx-auto w-full flex items-center justify-between">
-        <button
-          onClick={() => { onNavigate('home'); window.history.pushState({}, '', '/'); }}
-          className="flex items-center gap-2 text-xs font-bold text-white/60 hover:text-white transition-colors group"
-        >
-          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-          <span>Back to IndoWings Main Site</span>
-        </button>
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-purple-500/20 bg-purple-950/40 text-[11px] font-bold text-purple-300">
-          <Shield className="w-3.5 h-3.5 text-purple-400" />
-          <span>Restricted Personnel Access Only</span>
+    <div className="min-h-screen flex flex-col lg:flex-row bg-white">
+      {/* ── LEFT: Classic Branding Panel ───────────────────────────── */}
+      <div
+        className="hidden lg:flex lg:w-[48%] flex-col justify-between p-12 xl:p-16 relative overflow-hidden"
+        style={{
+          background: 'linear-gradient(135deg, #1b0736 0%, #290f4d 55%, #15062c 100%)',
+        }}
+      >
+        {/* Subtle grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.06] pointer-events-none"
+          style={{
+            backgroundImage:
+              'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
+            backgroundSize: '40px 40px',
+          }}
+        />
+
+        {/* Ambient atmospheric glow */}
+        <div
+          className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-20 pointer-events-none"
+          style={{ background: 'radial-gradient(circle, #7c3aed 0%, transparent 70%)' }}
+        />
+
+        {/* Top brand header */}
+        <div className="relative z-10">
+          <button
+            onClick={() => {
+              onNavigate('home');
+              window.history.pushState({}, '', '/');
+            }}
+            className="flex items-center gap-2 text-white/60 hover:text-white text-xs font-bold transition-colors mb-10 group"
+          >
+            <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+            <span>Back to Home</span>
+          </button>
+
+          <img src="/indowings-logo-white.svg" alt="IndoWings" className="h-9 w-auto mb-8" />
+
+          <h1 className="text-3xl xl:text-4xl font-black text-white leading-tight mb-4 tracking-tight">
+            Autonomous Drone Fleet &amp; Delivery Management
+          </h1>
+
+          <p className="text-white/70 text-sm leading-relaxed max-w-md">
+            Connect directly with your authorized role terminal to oversee factory assembly, pre-delivery hardware QC, air corridor dispatch, and base handovers.
+          </p>
         </div>
-      </header>
 
-      {/* Main Login Card */}
-      <main className="flex-1 flex items-center justify-center px-4 py-8">
-        <div className="w-full max-w-md bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-8 sm:p-10 shadow-2xl shadow-purple-950/50 relative overflow-hidden">
-          
-          {/* Subtle Glow Orb in Card */}
-          <div className="absolute -top-24 -right-24 w-48 h-48 bg-purple-600/30 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-[#bc13fe]/20 rounded-full blur-3xl pointer-events-none" />
-
-          {/* Logo & Headline */}
-          <div className="relative text-center mb-8">
-            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#3b0080] via-purple-600 to-[#bc13fe] shadow-lg shadow-purple-900/40 text-white mb-4">
-              <KeyRound className="w-7 h-7" />
-            </div>
-            <h1 className="text-2xl font-black tracking-tight text-white mb-1.5">
-              Operations Command Portal
-            </h1>
-            <p className="text-xs text-white/60 font-medium max-w-xs mx-auto">
-              IndoWings Enterprise Drone Delivery & Fleet Supply Chain Management
-            </p>
-          </div>
-
-          {/* Policy Banner: No Signup */}
-          <div className="mb-6 p-3.5 rounded-2xl bg-purple-900/30 border border-purple-500/30 text-xs text-purple-200/90 flex items-start gap-3">
-            <Lock className="w-4 h-4 text-purple-400 shrink-0 mt-0.5" />
-            <div className="leading-relaxed">
-              <strong className="text-white font-semibold">Strict Provisioning:</strong> Public registration is disabled. User IDs and roles are assigned directly by the Administrator.
-            </div>
-          </div>
-
-          {!otpStep ? (
-            /* Step 1: Identifier Entry */
-            <div className="space-y-4">
+        {/* Key Operational Features */}
+        <div className="relative z-10 space-y-3.5 my-8">
+          {[
+            {
+              icon: Zap,
+              title: 'Real-Time Flight Telemetry',
+              desc: 'Live corridor route tracking and waypoint milestones',
+            },
+            {
+              icon: Shield,
+              title: 'Multi-Point Hardware QC',
+              desc: 'Dual-avionics, battery impedance, and DGCA NPNT compliance',
+            },
+            {
+              icon: Package,
+              title: 'Digital Technical Handover',
+              desc: 'Serial verification and digital acceptance challan sign-off',
+            },
+          ].map(({ icon: Icon, title, desc }) => (
+            <div
+              key={title}
+              className="flex items-center gap-4 bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 backdrop-blur-sm"
+            >
+              <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
+                <Icon className="w-5 h-5 text-purple-200" />
+              </div>
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-white/70 mb-2">
-                  Registered Email or Mobile Phone
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={identifier}
-                    onChange={e => { setIdentifier(e.target.value); setError(''); }}
-                    placeholder="e.g. puneet@indowings.com or 9876543201"
-                    className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 text-white text-sm placeholder:text-white/30 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 font-medium"
-                    onKeyDown={e => { if (e.key === 'Enter') handleSendOtp(); }}
-                  />
-                </div>
+                <p className="text-white text-xs font-bold">{title}</p>
+                <p className="text-white/50 text-[11px] mt-0.5">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Footer info */}
+        <div className="relative z-10 text-[11px] text-white/40">
+          IndoWings Aerospace Technologies Ltd.
+        </div>
+      </div>
+
+      {/* ── RIGHT: Clean, Light Form Panel ─────────────────────────── */}
+      <div className="flex-1 flex flex-col justify-center px-6 sm:px-12 lg:px-16 xl:px-20 bg-white py-12">
+        {/* Mobile Header */}
+        <div className="lg:hidden flex items-center justify-between mb-8 pb-4 border-b border-slate-100">
+          <img src="/indowings-logo-dark.svg" alt="IndoWings" className="h-7 w-auto" />
+          <button
+            onClick={() => {
+              onNavigate('home');
+              window.history.pushState({}, '', '/');
+            }}
+            className="flex items-center gap-1.5 text-slate-500 hover:text-slate-800 text-xs font-bold"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Back</span>
+          </button>
+        </div>
+
+        <div className="w-full max-w-md mx-auto">
+          {!otpStep ? (
+            /* ── STEP 1: Email / Phone Entry ─────────────────────── */
+            <div>
+              <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-100 flex items-center justify-center text-[#3b0080] mb-5 shadow-sm">
+                <KeyRound className="w-6 h-6 text-[#3b0080]" />
               </div>
 
-              {error && (
-                <div className="text-xs text-rose-300 bg-rose-950/50 border border-rose-500/30 rounded-xl p-3 font-medium">
-                  {error}
-                </div>
-              )}
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+                Sign In to IndoWings
+              </h2>
+              <p className="text-slate-500 text-sm mt-1 mb-6 leading-relaxed">
+                Enter your registered email address or mobile phone to receive a one-time verification code.
+              </p>
 
-              <button
-                type="button"
-                onClick={() => handleSendOtp()}
-                disabled={loading}
-                className="w-full py-4 rounded-xl font-black text-sm text-white transition-all shadow-xl shadow-purple-900/40 flex items-center justify-center gap-2 disabled:opacity-60 active:scale-[0.99]"
-                style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)' }}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSendOtp();
+                }}
+                className="space-y-4"
               >
-                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
-                <span>{loading ? 'Checking Authorization...' : 'Send Secure OTP Code'}</span>
-                {!loading && <ArrowRight className="w-4 h-4" />}
-              </button>
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">
+                    Registered Email or Phone
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={identifier}
+                      onChange={(e) => {
+                        setIdentifier(e.target.value);
+                        setError('');
+                      }}
+                      required
+                      placeholder="e.g. puneet@indowings.com or 9876543201"
+                      className="w-full px-4 py-3.5 rounded-xl border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#3b0080] focus:ring-4 focus:ring-purple-50 transition-all font-medium"
+                    />
+                  </div>
+                </div>
 
-              {/* 4 Roles Quick Test Bar */}
-              <div className="mt-8 pt-6 border-t border-white/10">
-                <p className="text-[11px] font-bold uppercase tracking-wider text-white/40 mb-3 text-center">
-                  Instant Access for Seeded Roles (Click to Test)
+                {error && (
+                  <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-600 font-medium leading-relaxed">
+                    {error}
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full py-3.5 rounded-xl font-bold text-sm text-white bg-[#3b0080] hover:bg-[#2c0060] transition-all shadow-md shadow-purple-900/10 flex items-center justify-center gap-2 disabled:opacity-60 active:scale-[0.99] mt-2"
+                >
+                  {loading ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <ArrowRight className="w-4 h-4" />
+                  )}
+                  <span>{loading ? 'Sending Code...' : 'Send Verification OTP'}</span>
+                </button>
+              </form>
+
+              {/* Quick Select Role Credentials for Ease of Testing */}
+              <div className="mt-8 pt-6 border-t border-slate-100">
+                <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-3 text-center">
+                  Quick Select Role (1-Click Test)
                 </p>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-2 text-xs">
                   <button
                     type="button"
-                    onClick={() => handleRoleQuickSelect('puneet@indowings.com')}
-                    className="p-3 text-left rounded-xl border border-white/10 bg-white/[0.02] hover:bg-purple-900/30 hover:border-purple-500/50 transition-all group"
+                    onClick={() => handleQuickRoleFill('puneet@indowings.com')}
+                    className="p-2.5 text-left rounded-xl border border-slate-200 bg-slate-50 hover:bg-purple-50 hover:border-purple-200 transition-all group"
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-white group-hover:text-purple-300">👑 Super Admin</span>
-                    </div>
-                    <p className="text-[10px] text-white/50 truncate">puneet@indowings.com</p>
+                    <p className="font-bold text-slate-800 group-hover:text-[#3b0080]">
+                      👑 Super Admin
+                    </p>
+                    <p className="text-[10px] text-slate-400 truncate">puneet@indowings.com</p>
                   </button>
 
                   <button
                     type="button"
-                    onClick={() => handleRoleQuickSelect('fleet@indowings.com')}
-                    className="p-3 text-left rounded-xl border border-white/10 bg-white/[0.02] hover:bg-purple-900/30 hover:border-purple-500/50 transition-all group"
+                    onClick={() => handleQuickRoleFill('fleet@indowings.com')}
+                    className="p-2.5 text-left rounded-xl border border-slate-200 bg-slate-50 hover:bg-amber-50 hover:border-amber-200 transition-all group"
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-white group-hover:text-purple-300">🛠️ Fleet Manager</span>
-                    </div>
-                    <p className="text-[10px] text-white/50 truncate">fleet@indowings.com</p>
+                    <p className="font-bold text-slate-800 group-hover:text-amber-800">
+                      🛠️ Fleet Manager
+                    </p>
+                    <p className="text-[10px] text-slate-400 truncate">fleet@indowings.com</p>
                   </button>
 
                   <button
                     type="button"
-                    onClick={() => handleRoleQuickSelect('dispatch@indowings.com')}
-                    className="p-3 text-left rounded-xl border border-white/10 bg-white/[0.02] hover:bg-purple-900/30 hover:border-purple-500/50 transition-all group"
+                    onClick={() => handleQuickRoleFill('dispatch@indowings.com')}
+                    className="p-2.5 text-left rounded-xl border border-slate-200 bg-slate-50 hover:bg-sky-50 hover:border-sky-200 transition-all group"
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-white group-hover:text-purple-300">🚚 Dispatcher</span>
-                    </div>
-                    <p className="text-[10px] text-white/50 truncate">dispatch@indowings.com</p>
+                    <p className="font-bold text-slate-800 group-hover:text-sky-800">
+                      🚚 Dispatcher
+                    </p>
+                    <p className="text-[10px] text-slate-400 truncate">dispatch@indowings.com</p>
                   </button>
 
                   <button
                     type="button"
-                    onClick={() => handleRoleQuickSelect('client@defenselogistics.in')}
-                    className="p-3 text-left rounded-xl border border-white/10 bg-white/[0.02] hover:bg-purple-900/30 hover:border-purple-500/50 transition-all group"
+                    onClick={() => handleQuickRoleFill('client@defenselogistics.in')}
+                    className="p-2.5 text-left rounded-xl border border-slate-200 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-200 transition-all group"
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-white group-hover:text-purple-300">🏢 Client Officer</span>
-                    </div>
-                    <p className="text-[10px] text-white/50 truncate">client@defenselogistics.in</p>
+                    <p className="font-bold text-slate-800 group-hover:text-emerald-800">
+                      🏢 Client Officer
+                    </p>
+                    <p className="text-[10px] text-slate-400 truncate">client@defenselogistics.in</p>
                   </button>
                 </div>
               </div>
             </div>
           ) : (
-            /* Step 2: 6-Digit OTP Verification */
-            <form onSubmit={handleVerifyOtp} className="space-y-5">
-              <div className="text-center">
-                {detectedRole && (
-                  <span className="inline-block px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-purple-500/20 text-purple-300 border border-purple-500/30 mb-2">
-                    Authorized Role: {detectedRole.replace('_', ' ')}
-                  </span>
-                )}
-                <p className="text-xs text-white/70">
-                  Enter the 6-digit verification code sent to <br />
-                  <strong className="text-white font-bold">{otpDestination}</strong>
-                </p>
-              </div>
-
-              {/* 6 Inputs */}
-              <div className="flex justify-center gap-2 sm:gap-2.5">
-                {otpDigits.map((digit, idx) => (
-                  <input
-                    key={idx}
-                    ref={el => otpInputsRef.current[idx] = el}
-                    type="text"
-                    maxLength={1}
-                    value={digit}
-                    onChange={e => {
-                      const val = e.target.value.replace(/[^0-9]/g, '');
-                      const copy = [...otpDigits];
-                      copy[idx] = val;
-                      setOtpDigits(copy);
-                      if (val && idx < 5) otpInputsRef.current[idx + 1]?.focus();
-                    }}
-                    onKeyDown={e => {
-                      if (e.key === 'Backspace' && !otpDigits[idx] && idx > 0) {
-                        otpInputsRef.current[idx - 1]?.focus();
-                      }
-                    }}
-                    className="w-11 sm:w-12 h-14 text-center text-xl font-black rounded-xl bg-white/10 border border-white/20 text-white focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20"
-                  />
-                ))}
-              </div>
-
-              {error && (
-                <div className="text-xs text-rose-300 bg-rose-950/50 border border-rose-500/30 rounded-xl p-3 font-medium text-center">
-                  {error}
-                </div>
-              )}
-
+            /* ── STEP 2: 6-Digit OTP Verification ────────────────── */
+            <div>
               <button
-                type="submit"
-                disabled={loading || otpDigits.join('').length < 6}
-                className="w-full py-4 rounded-xl font-black text-sm text-white transition-all shadow-xl shadow-purple-900/40 flex items-center justify-center gap-2 disabled:opacity-60"
-                style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)' }}
+                onClick={() => {
+                  setOtpStep(false);
+                  setError('');
+                }}
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-[#3b0080] mb-6 transition-colors"
               >
-                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />}
-                <span>{loading ? 'Authenticating Personnel...' : 'Verify OTP & Open Dashboard'}</span>
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Back to email/phone</span>
               </button>
 
-              <div className="flex items-center justify-between text-xs text-white/50 pt-1">
-                <button
-                  type="button"
-                  onClick={() => setOtpStep(false)}
-                  className="hover:text-white transition-colors"
-                >
-                  Change Account ID
-                </button>
-                <button
-                  type="button"
-                  disabled={resendTimer > 0}
-                  onClick={() => handleSendOtp()}
-                  className="text-purple-400 font-bold hover:text-purple-300 disabled:opacity-50 disabled:no-underline"
-                >
-                  {resendTimer > 0 ? `Resend OTP in ${resendTimer}s` : 'Resend OTP'}
-                </button>
+              <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-100 flex items-center justify-center text-[#3b0080] mb-5 shadow-sm">
+                <Mail className="w-6 h-6 text-[#3b0080]" />
               </div>
-            </form>
+
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+                Enter Verification Code
+              </h2>
+              <p className="text-slate-500 text-sm mt-1 mb-6 leading-relaxed">
+                We sent a 6-digit OTP code to{' '}
+                <span className="font-bold text-slate-900">{otpDestination}</span>
+              </p>
+
+              <form onSubmit={handleVerifyOtp} className="space-y-6">
+                <div>
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 text-center">
+                    Enter 6-Digit Code
+                  </label>
+                  <div
+                    className="flex gap-2 sm:gap-3 justify-center"
+                    onPaste={handlePasteOtp}
+                  >
+                    {otpDigits.map((digit, idx) => (
+                      <input
+                        key={idx}
+                        ref={(el) => (otpInputsRef.current[idx] = el)}
+                        type="text"
+                        inputMode="numeric"
+                        maxLength={1}
+                        value={digit}
+                        onChange={(e) => handleDigitChange(idx, e.target.value)}
+                        onKeyDown={(e) => handleDigitKeyDown(idx, e)}
+                        className="w-11 h-14 sm:w-13 sm:h-16 text-center text-xl sm:text-2xl font-bold text-slate-900 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-[#3b0080] focus:ring-4 focus:ring-purple-50 transition-all bg-slate-50/50"
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {error && (
+                  <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-600 font-medium text-center">
+                    {error}
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={loading || otpDigits.join('').length !== 6}
+                  className="w-full py-3.5 rounded-xl font-bold text-sm text-white bg-[#3b0080] hover:bg-[#2c0060] transition-all shadow-md shadow-purple-900/10 flex items-center justify-center gap-2 disabled:opacity-50 active:scale-[0.99]"
+                >
+                  {loading ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <CheckCircle2 className="w-4 h-4" />
+                  )}
+                  <span>{loading ? 'Verifying...' : 'Verify & Continue'}</span>
+                </button>
+
+                <div className="flex items-center justify-between text-xs text-slate-500 pt-2">
+                  <span>Didn't receive code?</span>
+                  {canResend ? (
+                    <button
+                      type="button"
+                      onClick={() => handleSendOtp()}
+                      className="font-bold text-[#3b0080] hover:underline"
+                    >
+                      Resend OTP
+                    </button>
+                  ) : (
+                    <span className="text-slate-400">Resend in {resendTimer}s</span>
+                  )}
+                </div>
+              </form>
+            </div>
           )}
-
         </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="py-4 text-center text-[11px] text-white/40">
-        © 2026 IndoWings Aerospace Pvt. Ltd. · Enterprise UAV Logistics & Defense Fulfillment Architecture
-      </footer>
+      </div>
     </div>
   );
 };

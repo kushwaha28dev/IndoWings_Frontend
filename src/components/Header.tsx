@@ -540,24 +540,13 @@ export const Header: React.FC<HeaderProps> = ({
               )}
             </div>
           ) : (
-            <div className="flex items-center gap-2">
-              <button
-                onClick={onOpenAuth}
-                className="flex items-center gap-1.5 text-xs font-bold text-slate-700 border border-slate-200 hover:border-purple-300 hover:text-[#3b0080] hover:bg-purple-50 px-3.5 py-2 rounded-xl transition-all"
-              >
-                <User className="w-3.5 h-3.5" />
-                <span>Personnel Portal</span>
-              </button>
-
-              <button
-                onClick={onOpenAuth}
-                className="hidden sm:flex items-center gap-1.5 text-xs font-bold text-white bg-[#3b0080] hover:bg-[#2c0060] px-4 py-2 rounded-xl shadow-md transition-all active:scale-95"
-              >
-                <Lock className="w-3.5 h-3.5" />
-                <span>Launch Desk</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </div>
+            <button
+              onClick={onOpenAuth}
+              className="flex items-center gap-2 text-xs font-bold text-white bg-[#3b0080] hover:bg-[#2c0060] px-4 py-2 rounded-xl shadow-sm transition-all active:scale-95"
+            >
+              <User className="w-3.5 h-3.5" />
+              <span>Sign In</span>
+            </button>
           )}
 
           {/* Mobile hamburger */}
