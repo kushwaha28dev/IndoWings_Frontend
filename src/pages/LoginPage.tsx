@@ -72,7 +72,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
   const [ftConfirmPass, setFtConfirmPass] = useState('');
   const [ftLoading, setFtLoading] = useState(false);
   const [ftError, setFtError] = useState('');
-  const [ftDebugOtp, setFtDebugOtp] = useState<string | null>(null);
 
   const handleSendFirstTimeOtp = async () => {
     if (!pendingUser) return;
@@ -91,7 +90,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
         return;
       }
       setFtOtpSent(true);
-      if (data.otp) setFtDebugOtp(data.otp);
     } catch {
       setFtError('Connection error sending security code.');
     } finally {
@@ -672,13 +670,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
                 </div>
               ) : (
                 <form onSubmit={handleCompleteFirstTimePassword} className="space-y-4">
-                  {ftDebugOtp && (
-                    <div className="p-3 bg-purple-50 border border-purple-200 rounded-xl text-xs text-[#3b0080] font-medium flex items-center justify-between">
-                      <span>Security OTP Dispatched:</span>
-                      <span className="font-mono font-black text-sm bg-white px-2 py-0.5 rounded border border-purple-200">{ftDebugOtp}</span>
-                    </div>
-                  )}
-
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
                       6-Digit Security OTP
@@ -834,7 +825,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
                           setError('');
                         }}
                         required
-                        placeholder="e.g. puneet@indowings.com"
+                        placeholder="name@indowings.com"
                         className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#3b0080] focus:ring-4 focus:ring-purple-50 transition-all font-medium"
                       />
                     </div>
@@ -908,7 +899,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
                         }}
                         autoFocus
                         required
-                        placeholder="Enter password (e.g. 123 123)"
+                        placeholder="Enter your account password"
                         className="w-full pl-10 pr-11 py-3 rounded-xl border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#3b0080] focus:ring-4 focus:ring-purple-50 transition-all font-medium"
                       />
                       <button
@@ -1047,7 +1038,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
                             }}
                             autoFocus
                             required
-                            placeholder="Enter password (e.g. 123 123)"
+                            placeholder="Enter your account password"
                             className="w-full pl-10 pr-11 py-3 rounded-xl border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#3b0080] focus:ring-4 focus:ring-purple-50 transition-all font-medium"
                           />
                           <button

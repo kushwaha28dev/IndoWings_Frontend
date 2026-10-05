@@ -1400,7 +1400,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
                   value={otpCode}
                   onChange={e => setOtpCode(e.target.value.replace(/[^0-9]/g, ''))}
                   required
-                  placeholder="123456"
+                  placeholder="······"
                   className="w-full text-center text-2xl font-bold tracking-[0.3em] py-3.5 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-[#3b0080] focus:ring-4 focus:ring-purple-100 text-[#171222] bg-slate-50/50"
                 />
               </div>

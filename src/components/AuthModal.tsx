@@ -169,7 +169,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
                     type="text"
                     value={identifier}
                     onChange={e => { setIdentifier(e.target.value); setError(''); }}
-                    placeholder="e.g. puneet@indowings.com or 9876543201"
+                    placeholder="Enter registered corporate email or mobile"
                     className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100"
                     onKeyDown={e => { if (e.key === 'Enter') handleSendOtp(); }}
                   />

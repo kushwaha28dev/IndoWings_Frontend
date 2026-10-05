@@ -41,7 +41,7 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ currentU
   const [provRole, setProvRole] = useState<'admin' | 'fleet_manager' | 'dispatcher' | 'support'>('dispatcher');
   const [provStation, setProvStation] = useState('Noida Sector 62 Assembly Plant');
   const [provOrg, setProvOrg] = useState('IndoWings Aerospace Operations');
-  const [provTempPass, setProvTempPass] = useState('123123');
+  const [provTempPass, setProvTempPass] = useState('');
   
   // Admin Security OTP State for Provisioning
   const [adminOtpChannel, setAdminOtpChannel] = useState<'email' | 'phone'>('email');
@@ -49,7 +49,6 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ currentU
   const [adminOtp, setAdminOtp] = useState('');
   const [adminOtpLoading, setAdminOtpLoading] = useState(false);
   const [adminOtpError, setAdminOtpError] = useState('');
-  const [adminDebugOtp, setAdminDebugOtp] = useState<string | null>(null);
   const [provisioningSuccess, setProvisioningSuccess] = useState<any | null>(null);
 
   // Fleet Add State
@@ -139,9 +138,6 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ currentU
         return;
       }
       setAdminOtpSent(true);
-      if (data.debug_otp) {
-        setAdminDebugOtp(data.debug_otp);
-      }
       showToast(`Security OTP sent to ${adminOtpChannel === 'phone' ? 'Phone' : 'Email'}!`);
     } catch {
       setAdminOtpError('Cannot connect to authorization server.');
@@ -159,6 +155,10 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ currentU
     }
     if (!adminOtp.trim()) {
       setAdminOtpError('Please enter your 6-digit Admin Security OTP.');
+      return;
+    }
+    if (!provTempPass.trim() || provTempPass.trim().length < 6) {
+      setAdminOtpError('Please provide a temporary password (min 6 characters) or click Generate.');
       return;
     }
 
@@ -182,7 +182,7 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ currentU
           role: provRole,
           station: provStation,
           organization: provOrg,
-          temporaryPassword: provTempPass.trim() || '123123'
+          temporaryPassword: provTempPass.trim()
         })
       });
 
@@ -207,10 +207,9 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ currentU
     setProvEmail('');
     setProvPhone('');
     setProvRole('dispatcher');
-    setProvTempPass('123123');
+    setProvTempPass('');
     setAdminOtpSent(false);
     setAdminOtp('');
-    setAdminDebugOtp(null);
     setAdminOtpError('');
     setProvisioningSuccess(null);
   };
@@ -832,7 +831,7 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ currentU
                 </p>
                 <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 max-w-md mx-auto text-left text-xs space-y-2 font-mono">
                   <p><span className="text-slate-400 font-bold font-sans">Login Email:</span> {provisioningSuccess.email}</p>
-                  <p><span className="text-slate-400 font-bold font-sans">Temporary Pass:</span> {provTempPass || '123123'}</p>
+                  <p><span className="text-slate-400 font-bold font-sans">Temporary Pass:</span> {provTempPass || 'Provisioned Passkey'}</p>
                   <p><span className="text-slate-400 font-bold font-sans">First-Time Action:</span> User will be prompted to change password via OTP upon first login.</p>
                 </div>
                 <div className="pt-2 flex justify-center gap-3">
@@ -939,7 +938,7 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ currentU
                             type="text"
                             value={provTempPass}
                             onChange={e => setProvTempPass(e.target.value)}
-                            placeholder="e.g. 123123"
+                            placeholder="Enter initial temporary passkey (min 6 chars)"
                             className="flex-1 px-4 py-2.5 rounded-xl border border-slate-200 text-sm font-mono focus:outline-none focus:border-[#3b0080] bg-slate-50/50"
                           />
                           <button
@@ -1026,16 +1025,6 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ currentU
                               placeholder="Enter 6-Digit OTP"
                               className="px-4 py-2.5 rounded-xl border border-purple-300 text-sm font-mono tracking-widest text-center focus:outline-none focus:border-[#3b0080] bg-white font-bold"
                             />
-                            {adminDebugOtp && (
-                              <button
-                                type="button"
-                                onClick={() => setAdminOtp(adminDebugOtp)}
-                                className="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase cursor-pointer"
-                                title="Click to auto-fill demo OTP"
-                              >
-                                Test Code: {adminDebugOtp}
-                              </button>
-                            )}
                           </div>
                         )}
                       </div>

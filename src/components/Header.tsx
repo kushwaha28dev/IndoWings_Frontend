@@ -175,18 +175,6 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* ── Desktop Navigation Menu (Cylindrical Pills) ───────────── */}
         <nav className="hidden lg:flex items-center gap-1.5 text-[14px] font-bold text-slate-800" ref={dropdownRef}>
-          {/* Role Dashboard Link (Only visible when logged in) */}
-          {dashboardInfo && (
-            <a
-              href={dashboardInfo.url}
-              onClick={nav(dashboardInfo.page, dashboardInfo.url)}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-full transition-all bg-gradient-to-r from-[#3b0080] to-purple-600 hover:from-[#2e0066] hover:to-purple-700 text-white shadow-sm"
-            >
-              <dashboardInfo.icon className="w-3.5 h-3.5 text-white" />
-              <span>{dashboardInfo.label}</span>
-            </a>
-          )}
-
           {/* 1. Track Drone Dropdown */}
           <div
             className="relative"

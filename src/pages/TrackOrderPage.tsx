@@ -156,32 +156,9 @@ export const TrackOrderPage: React.FC<TrackOrderPageProps> = ({ onNavigate, init
               <Search className="w-7 h-7" />
             </div>
             <h3 className="text-xl font-bold text-[#171222] mb-2">Track Any Flight or Consignment</h3>
-            <p className="text-slate-500 text-sm max-w-md mx-auto mb-6 leading-relaxed">
+            <p className="text-slate-500 text-sm max-w-md mx-auto leading-relaxed">
               Enter a Flight Sortie or Consignment ID above to view live GPS coordinates, altitude, battery telemetry, and dispatch checkpoints.
             </p>
-            <div className="inline-flex items-center gap-2 p-1.5 px-3.5 rounded-full bg-slate-50 border border-slate-200 text-xs text-slate-600 flex-wrap justify-center">
-              <span className="font-semibold text-slate-400">Quick Test:</span>
-              <button
-                type="button"
-                onClick={() => {
-                  setOrderId('INW-2026-001');
-                  handleSearch(undefined, 'INW-2026-001');
-                }}
-                className="px-2.5 py-1 rounded-full bg-white border border-slate-200 hover:border-purple-300 hover:text-[#3b0080] font-bold text-slate-700 transition-all cursor-pointer shadow-xs"
-              >
-                INW-2026-001
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setOrderId('INW-2024-1004');
-                  handleSearch(undefined, 'INW-2024-1004');
-                }}
-                className="px-2.5 py-1 rounded-full bg-white border border-slate-200 hover:border-purple-300 hover:text-[#3b0080] font-bold text-slate-700 transition-all cursor-pointer shadow-xs"
-              >
-                INW-2024-1004
-              </button>
-            </div>
           </div>
         )}
 
