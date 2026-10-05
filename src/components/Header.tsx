@@ -133,6 +133,14 @@ export const Header: React.FC<HeaderProps> = ({
       badge: 'Receiving',
     },
     {
+      icon: Headphones,
+      label: 'Support & Grievance Desk',
+      sub: 'Customer queries, callbacks & tickets',
+      page: 'support-desk',
+      url: '/support-desk',
+      badge: 'Support',
+    },
+    {
       icon: Zap,
       label: 'Telemetry Command Center',
       sub: 'Live air corridor flight stream',
@@ -242,7 +250,7 @@ export const Header: React.FC<HeaderProps> = ({
                       Role Workspaces
                     </p>
                     <span className="text-[10px] font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full">
-                      4 Active Desks
+                      5 Active Desks
                     </span>
                   </div>
 
@@ -470,6 +478,8 @@ export const Header: React.FC<HeaderProps> = ({
                           ? '🚚 Dispatcher'
                           : currentUser.role === 'client'
                           ? '🏢 Client Officer'
+                          : currentUser.role === 'support'
+                          ? '🎧 Support Desk Officer'
                           : 'Staff'}
                       </span>
                     </div>
@@ -513,6 +523,16 @@ export const Header: React.FC<HeaderProps> = ({
                     >
                       <Package className="w-4 h-4" />
                       Client Receiving Portal
+                    </button>
+                  )}
+
+                  {currentUser.role === 'support' && (
+                    <button
+                      onClick={nav('support-desk', '/support-desk')}
+                      className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-purple-50 text-[#3b0080] text-xs font-bold transition-colors mb-1"
+                    >
+                      <Headphones className="w-4 h-4" />
+                      Support Command Desk
                     </button>
                   )}
 

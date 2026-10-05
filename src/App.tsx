@@ -28,13 +28,14 @@ import { LegalPage } from './pages/LegalPage';
 import { AdminDashboardPage } from './pages/AdminDashboardPage';
 import { FleetManagerPage } from './pages/FleetManagerPage';
 import { ClientReceivingPage } from './pages/ClientReceivingPage';
+import { SupportDeskPage } from './pages/SupportDeskPage';
 import { CommandCenterModal } from './components/CommandCenterModal';
 import { DemoBookingModal } from './components/DemoBookingModal';
 import { API_BASE_URL } from './config/api';
 import { AuthModal, DeliveryUser } from './components/AuthModal';
 import { UserProfile } from './types';
 
-type Page = 'home' | 'platform' | 'command-center' | 'gcs' | 'downloads' | 'versions' | 'order' | 'track' | 'dispatch' | 'login' | 'profile' | 'orders' | 'support' | 'docs' | 'company' | 'feedback' | 'legal' | 'admin' | 'fleet' | 'receiving';
+type Page = 'home' | 'platform' | 'command-center' | 'gcs' | 'downloads' | 'versions' | 'order' | 'track' | 'dispatch' | 'login' | 'profile' | 'orders' | 'support' | 'docs' | 'company' | 'feedback' | 'legal' | 'admin' | 'fleet' | 'receiving' | 'support-desk';
 
 const getInitialPage = (): Page => {
   if (typeof window === 'undefined') return 'home';
@@ -42,6 +43,7 @@ const getInitialPage = (): Page => {
   if (p.includes('/admin')) return 'admin';
   if (p.includes('/fleet')) return 'fleet';
   if (p.includes('/receiving')) return 'receiving';
+  if (p.includes('/support-desk') || p.includes('/support_desk')) return 'support-desk';
   if (p.includes('/command-center')) return 'command-center';
   if (p.includes('/platform')) return 'platform';
   if (p.includes('/gcs')) return 'gcs';
@@ -132,7 +134,7 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f7f4fb] text-[#171222] font-sans antialiased w-full max-w-full overflow-x-hidden">
-      {!['login', 'admin', 'fleet', 'receiving'].includes(currentPage) && (
+      {!['login', 'admin', 'fleet', 'receiving', 'support-desk'].includes(currentPage) && (
         <Header
           currentUser={deliveryUser}
           onOpenCommandCenter={() => setIsCommandCenterOpen(true)}
@@ -152,6 +154,8 @@ export const App: React.FC = () => {
           <FleetManagerPage currentUser={deliveryUser} onNavigate={handleNavigate} onLogout={handleDeliveryLogout} />
         ) : currentPage === 'receiving' ? (
           <ClientReceivingPage currentUser={deliveryUser} onNavigate={handleNavigate} onLogout={handleDeliveryLogout} />
+        ) : currentPage === 'support-desk' ? (
+          <SupportDeskPage currentUser={deliveryUser} onNavigate={handleNavigate} onLogout={handleDeliveryLogout} />
         ) : currentPage === 'profile' ? (
           <ProfilePage onNavigate={handleNavigate} currentUser={deliveryUser} onUpdateUser={setDeliveryUser} />
         ) : currentPage === 'orders' ? (

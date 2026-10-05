@@ -21,7 +21,7 @@ export interface DeliveryUser {
   name: string;
   email: string;
   phone?: string;
-  role: 'admin' | 'fleet_manager' | 'dispatcher' | 'client' | 'customer';
+  role: 'admin' | 'fleet_manager' | 'dispatcher' | 'client' | 'customer' | 'support';
   station?: string;
   organization?: string;
   is_email_verified?: boolean;

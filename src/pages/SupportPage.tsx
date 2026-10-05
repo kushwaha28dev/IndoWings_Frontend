@@ -22,7 +22,11 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
   const [name, setName] = useState(currentUser?.name || '');
   const [phone, setPhone] = useState(currentUser?.phone || '');
   const [email, setEmail] = useState(currentUser?.email || '');
-  const [category, setCategory] = useState('Terrace Landing Feasibility');
+  const [orderId, setOrderId] = useState('');
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [droneSerial, setDroneSerial] = useState('');
+  const [priority, setPriority] = useState('normal');
+  const [category, setCategory] = useState('Corridor Flight & Dispatch Inquiries');
   const [preferredTime, setPreferredTime] = useState('Immediate Callback (15 mins)');
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -65,6 +69,10 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
           phone: phone.trim(),
           email: email.trim(),
           category,
+          priority,
+          order_id: orderId.trim() || null,
+          delivery_address: deliveryAddress.trim() || null,
+          drone_serial: droneSerial.trim() || null,
           preferred_time: preferredTime,
           message: message.trim()
         })
@@ -325,12 +333,13 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                        Email Address (Optional)
+                        Email Address (For Resolution Updates) *
                       </label>
                       <div className="relative">
                         <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                         <input
                           type="email"
+                          required
                           value={email}
                           onChange={e => setEmail(e.target.value)}
                           placeholder="name@company.com"
@@ -341,18 +350,89 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
 
                     <div>
                       <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                        Consultation Topic
+                        Inquiry Category
                       </label>
                       <select
                         value={category}
                         onChange={e => setCategory(e.target.value)}
-                        className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 bg-white">
-                        <option value="Terrace Landing Feasibility">Terrace / Rooftop Landing Feasibility</option>
-                        <option value="Bulk Medical & Industrial Courier">Bulk Medical & Industrial Courier</option>
-                        <option value="Active Order / Corridor Hold Support">Active Order / Corridor Hold Support</option>
-                        <option value="Custom UAV Enterprise Fleet">Custom UAV Enterprise Fleet Inquiry</option>
-                        <option value="General Drone Flight Rules">General DGCA & Drone Rules Query</option>
+                        className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 bg-white font-medium">
+                        <option value="Corridor Flight & Dispatch Inquiries">Corridor Flight &amp; Dispatch Inquiries</option>
+                        <option value="Hardware QC & Diagnostics Inspection">Hardware QC &amp; Diagnostics Inspection</option>
+                        <option value="Delivery Site Acceptance & Sign-off">Delivery Site Acceptance &amp; Sign-off</option>
+                        <option value="Transit Weather & Airspace Hold">Transit Weather &amp; Airspace Hold</option>
+                        <option value="Billing, Invoicing & Challans">Billing, Invoicing &amp; Challans</option>
+                        <option value="General Enterprise UAV Support">General Enterprise UAV Support</option>
                       </select>
+                    </div>
+                  </div>
+
+                  {/* Order Context: Order ID & Drone Serial */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-purple-50/50 p-3.5 rounded-2xl border border-purple-100/80">
+                    <div>
+                      <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
+                        Associated Order ID (If Applicable)
+                      </label>
+                      <input
+                        type="text"
+                        value={orderId}
+                        onChange={e => setOrderId(e.target.value)}
+                        placeholder="e.g. INW-2026-005"
+                        className="w-full px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs font-mono focus:outline-none focus:border-[#3b0080]"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
+                        Drone Serial / Unit ID (Optional)
+                      </label>
+                      <input
+                        type="text"
+                        value={droneSerial}
+                        onChange={e => setDroneSerial(e.target.value)}
+                        placeholder="e.g. IW-CYB-2026-101"
+                        className="w-full px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs font-mono focus:outline-none focus:border-[#3b0080]"
+                      />
+                    </div>
+
+                    <div className="sm:col-span-2">
+                      <label className="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">
+                        Delivery Site Drop Address
+                      </label>
+                      <input
+                        type="text"
+                        value={deliveryAddress}
+                        onChange={e => setDeliveryAddress(e.target.value)}
+                        placeholder="e.g. Sector 62 Hub, Noida / Northern Base Landing Depot"
+                        className="w-full px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs focus:outline-none focus:border-[#3b0080]"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Priority Selector */}
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
+                      Urgency / Priority Level
+                    </label>
+                    <div className="grid grid-cols-3 gap-2">
+                      {[
+                        { id: 'normal', label: 'Normal Inquiry', desc: 'Standard response' },
+                        { id: 'high', label: 'High Priority', desc: 'Active corridor shipment' },
+                        { id: 'urgent', label: 'Critical / Urgent', desc: 'Safety or grounded unit' },
+                      ].map(p => (
+                        <button
+                          key={p.id}
+                          type="button"
+                          onClick={() => setPriority(p.id)}
+                          className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
+                            priority === p.id
+                              ? 'bg-purple-50 text-[#3b0080] border-[#3b0080] ring-1 ring-[#3b0080]'
+                              : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
+                          }`}
+                        >
+                          <span className="block text-xs font-bold">{p.label}</span>
+                          <span className="text-[10px] text-slate-400 block">{p.desc}</span>
+                        </button>
+                      ))}
                     </div>
                   </div>
 
@@ -383,14 +463,15 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
 
                   <div>
                     <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1">
-                      Specific Notes or Coordinates (Optional)
+                      Query Description &amp; Technical Symptoms *
                     </label>
                     <textarea
                       rows={3}
+                      required
                       value={message}
                       onChange={e => setMessage(e.target.value)}
-                      placeholder="e.g. My rooftop has high trees nearby; want to confirm tether winch clearance for 3kg medical box..."
-                      className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 resize-none"
+                      placeholder="Please explain the issue or query in detail so our operations specialist can review the diagnostic telemetry before calling..."
+                      className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 resize-none font-medium"
                     />
                   </div>
 
@@ -401,12 +482,12 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
                     {isSubmitting ? (
                       <>
                         <RefreshCw className="w-4 h-4 animate-spin" />
-                        <span>Submitting Request...</span>
+                        <span>Submitting Query to Support Desk...</span>
                       </>
                     ) : (
                       <>
-                        <Phone className="w-4 h-4" />
-                        <span>Request Engineer Callback Now</span>
+                        <Send className="w-4 h-4" />
+                        <span>Submit Support Query</span>
                       </>
                     )}
                   </button>
@@ -433,32 +514,51 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
                   Skip the phone queue! Send your location pin or delivery question directly to our Active Flight Control room via WhatsApp.
                 </p>
                 <a
-                  href={`https://wa.me/919876543210?text=${encodeURIComponent('Hi IndoWings Operations Desk, I need assistance with drone delivery and flight corridors.')}`}
+                  href={`https://wa.me/917669478937?text=${encodeURIComponent('Hi IndoFleet Support Operations Desk, I need assistance with my drone delivery and corridor status.')}`}
                   target="_blank"
                   rel="noreferrer"
                   className="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-black rounded-xl text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-lg">
                   <MessageCircle className="w-4 h-4" />
-                  <span>Start WhatsApp Conversation</span>
+                  <span>Start WhatsApp (+91 7669478937)</span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
               </div>
 
-              {/* Direct Toll-Free Operations Hotline */}
-              <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
-                <div className="flex items-center gap-3 mb-3">
+              {/* Direct Toll-Free & Direct Operations Hotline */}
+              <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm space-y-4">
+                <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-purple-50 text-[#3b0080] flex items-center justify-center">
                     <Headphones className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="text-sm font-bold text-[#171222]">24/7 Operations Hotline</h4>
-                    <p className="text-xs text-slate-400">Emergency & Dispatch Control</p>
+                    <h4 className="text-sm font-bold text-[#171222]">24/7 Operations Support</h4>
+                    <p className="text-xs text-slate-400">Emergency &amp; Technical Helpdesk</p>
                   </div>
                 </div>
-                <p className="text-xl font-black text-[#3b0080] font-mono tracking-tight">
-                  +91 (120) 456-7890
-                </p>
-                <p className="text-[11px] text-slate-500 mt-1">
-                  Active during all scheduled Delhi-NCR flight corridor hours.
+
+                <div className="space-y-2 pt-1 border-t border-slate-100">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-slate-500">Direct Support Phone:</span>
+                    <a href="tel:+917669478937" className="font-mono text-base font-black text-[#3b0080] hover:underline">
+                      +91 7669478937
+                    </a>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-slate-500">National Toll-Free:</span>
+                    <span className="font-mono text-base font-black text-slate-800">
+                      1800 572 7363
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between pt-1">
+                    <span className="text-xs text-slate-500">Support Email:</span>
+                    <a href="mailto:connect@indowings.com" className="text-xs font-bold text-[#3b0080] hover:underline">
+                      connect@indowings.com
+                    </a>
+                  </div>
+                </div>
+
+                <p className="text-[11px] text-slate-400">
+                  Active during all scheduled India airspace flight corridor hours.
                 </p>
               </div>
 
@@ -469,7 +569,7 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
                   <span>DGCA Certified Flight Engineers</span>
                 </div>
                 <p className="leading-relaxed text-[11px]">
-                  All IndoWings flight advisors hold Remote Pilot Licences (RPL) certified under DGCA Drone Rules 2021, ensuring safety-critical aerial compliance.
+                  All IndoFleet flight advisors hold Remote Pilot Licences (RPL) certified under DGCA Drone Rules, ensuring safety-critical aerial compliance.
                 </p>
               </div>
             </div>

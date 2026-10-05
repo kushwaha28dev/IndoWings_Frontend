@@ -62,6 +62,27 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </p>
           </div>
 
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-6 text-xs text-slate-400">
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-3.5 px-4 backdrop-blur-sm">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-purple-300 block mb-1">
+                24/7 Operations Support
+              </span>
+              <div className="flex items-center gap-3">
+                <a href="tel:+917669478937" className="font-mono text-white font-bold hover:text-purple-300 transition-colors">
+                  +91 7669478937
+                </a>
+                <span className="text-white/20">|</span>
+                <span className="font-mono text-slate-300">
+                  Toll-Free: 1800 572 7363
+                </span>
+              </div>
+              <div className="mt-1">
+                <a href="mailto:connect@indowings.com" className="text-[11px] text-purple-300 hover:underline">
+                  connect@indowings.com
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Links Grid */}
