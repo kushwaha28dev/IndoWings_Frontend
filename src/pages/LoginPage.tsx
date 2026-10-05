@@ -13,6 +13,7 @@ import {
   KeyRound,
   Zap,
   Package,
+  ShieldAlert,
 } from 'lucide-react';
 import { DeliveryUser } from '../components/AuthModal';
 import { API_BASE_URL } from '../config/api';
@@ -58,7 +59,97 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const otpInputsRef = useRef<(HTMLInputElement | null)[]>([]);
+  const [otpInputsRef] = [useRef<(HTMLInputElement | null)[]>([])];
+
+  // First-time login mandatory password change state
+  const [showFirstTimeModal, setShowFirstTimeModal] = useState(false);
+  const [pendingUser, setPendingUser] = useState<DeliveryUser | null>(null);
+  const [pendingToken, setPendingToken] = useState<string>('');
+  const [ftChannel, setFtChannel] = useState<'email' | 'phone'>('email');
+  const [ftOtpSent, setFtOtpSent] = useState(false);
+  const [ftOtp, setFtOtp] = useState('');
+  const [ftNewPass, setFtNewPass] = useState('');
+  const [ftConfirmPass, setFtConfirmPass] = useState('');
+  const [ftLoading, setFtLoading] = useState(false);
+  const [ftError, setFtError] = useState('');
+  const [ftDebugOtp, setFtDebugOtp] = useState<string | null>(null);
+
+  const handleSendFirstTimeOtp = async () => {
+    if (!pendingUser) return;
+    setFtLoading(true);
+    setFtError('');
+    try {
+      const target = ftChannel === 'email' ? pendingUser.email : pendingUser.phone;
+      const res = await fetch(`${API_BASE_URL}/api/delivery/auth/send-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(ftChannel === 'email' ? { email: target } : { phone: target }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setFtError(data.error || 'Failed to dispatch verification code');
+        return;
+      }
+      setFtOtpSent(true);
+      if (data.otp) setFtDebugOtp(data.otp);
+    } catch {
+      setFtError('Connection error sending security code.');
+    } finally {
+      setFtLoading(false);
+    }
+  };
+
+  const handleCompleteFirstTimePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!pendingUser) return;
+    if (!ftOtp.trim()) {
+      setFtError('Please enter the 6-digit OTP code.');
+      return;
+    }
+    if (ftNewPass.length < 6) {
+      setFtError('New permanent password must be at least 6 characters.');
+      return;
+    }
+    if (ftNewPass !== ftConfirmPass) {
+      setFtError('Passwords do not match. Please verify.');
+      return;
+    }
+
+    setFtLoading(true);
+    setFtError('');
+
+    try {
+      const target = ftChannel === 'email' ? pendingUser.email : pendingUser.phone;
+      const res = await fetch(`${API_BASE_URL}/api/delivery/auth/first-time-change-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: pendingUser.id,
+          target,
+          otp: ftOtp.trim(),
+          newPassword: ftNewPass.trim(),
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setFtError(data.error || 'Failed to update permanent password.');
+        return;
+      }
+
+      const finalUser = data.user;
+      const finalToken = data.token;
+      localStorage.setItem('iw_delivery_token', finalToken);
+      localStorage.setItem('iw_delivery_user', JSON.stringify(finalUser));
+
+      onSuccess(finalUser, finalToken);
+      routeByRole(finalUser);
+    } catch {
+      setFtError('Connection error updating security password.');
+    } finally {
+      setFtLoading(false);
+    }
+  };
 
   useEffect(() => {
     let interval: any = null;
@@ -160,6 +251,14 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
       const user: DeliveryUser = data.user;
       const token: string = data.token;
 
+      if (data.must_change_password) {
+        setPendingUser(user);
+        setPendingToken(token);
+        setShowFirstTimeModal(true);
+        setFtChannel('email');
+        return;
+      }
+
       localStorage.setItem('iw_delivery_token', token);
       localStorage.setItem('iw_delivery_user', JSON.stringify(user));
 
@@ -237,6 +336,14 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
 
       const user: DeliveryUser = data.user;
       const token: string = data.token;
+
+      if (data.must_change_password) {
+        setPendingUser(user);
+        setPendingToken(token);
+        setShowFirstTimeModal(true);
+        setFtChannel('phone');
+        return;
+      }
 
       localStorage.setItem('iw_delivery_token', token);
       localStorage.setItem('iw_delivery_user', JSON.stringify(user));
@@ -319,6 +426,14 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
 
       const user: DeliveryUser = data.user;
       const token: string = data.token;
+
+      if (data.must_change_password) {
+        setPendingUser(user);
+        setPendingToken(token);
+        setShowFirstTimeModal(true);
+        setFtChannel('phone');
+        return;
+      }
 
       localStorage.setItem('iw_delivery_token', token);
       localStorage.setItem('iw_delivery_user', JSON.stringify(user));
@@ -470,10 +585,191 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
         </div>
 
         <div className="w-full max-w-md mx-auto">
-          {/* Header icon & title */}
-          <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-100 flex items-center justify-center text-[#3b0080] mb-5 shadow-sm">
-            <KeyRound className="w-6 h-6 text-[#3b0080]" />
-          </div>
+          {showFirstTimeModal && pendingUser ? (
+            <div className="animate-in fade-in slide-in-from-right-3 duration-200">
+              <div className="w-12 h-12 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 mb-5 shadow-sm">
+                <ShieldAlert className="w-6 h-6" />
+              </div>
+
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-[11px] font-bold uppercase tracking-wider mb-2">
+                Mandatory Security Setup
+              </div>
+              <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+                First-Time Password Reset
+              </h2>
+              <p className="text-slate-500 text-xs mt-1 mb-6 leading-relaxed">
+                Welcome <span className="font-bold text-slate-900">{pendingUser.name}</span> ({pendingUser.role.toUpperCase()}).
+                Your account was provisioned with a temporary passkey. You must verify identity via OTP and set a permanent password to continue.
+              </p>
+
+              {/* Channel Selector: Email or Phone */}
+              <div className="mb-4">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-2">
+                  Send Verification OTP To
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setFtChannel('email');
+                      setFtOtpSent(false);
+                      setFtError('');
+                    }}
+                    className={`p-3 rounded-xl border text-left transition-all ${
+                      ftChannel === 'email'
+                        ? 'border-[#3b0080] bg-purple-50/50 ring-2 ring-[#3b0080]/20'
+                        : 'border-slate-200 hover:border-slate-300 bg-white'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <Mail className={`w-4 h-4 ${ftChannel === 'email' ? 'text-[#3b0080]' : 'text-slate-400'}`} />
+                      <span className="text-xs font-bold text-slate-900">Email</span>
+                    </div>
+                    <p className="text-[11px] text-slate-500 truncate mt-1">{pendingUser.email || 'N/A'}</p>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setFtChannel('phone');
+                      setFtOtpSent(false);
+                      setFtError('');
+                    }}
+                    className={`p-3 rounded-xl border text-left transition-all ${
+                      ftChannel === 'phone'
+                        ? 'border-[#3b0080] bg-purple-50/50 ring-2 ring-[#3b0080]/20'
+                        : 'border-slate-200 hover:border-slate-300 bg-white'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <Phone className={`w-4 h-4 ${ftChannel === 'phone' ? 'text-[#3b0080]' : 'text-slate-400'}`} />
+                      <span className="text-xs font-bold text-slate-900">SMS / Mobile</span>
+                    </div>
+                    <p className="text-[11px] text-slate-500 truncate mt-1">+91 {pendingUser.phone || 'N/A'}</p>
+                  </button>
+                </div>
+              </div>
+
+              {!ftOtpSent ? (
+                <div className="space-y-4">
+                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 leading-relaxed">
+                    Click below to generate an authorized one-time security passkey sent to your selected delivery channel.
+                  </div>
+                  {ftError && (
+                    <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-600 font-medium text-center">
+                      {ftError}
+                    </div>
+                  )}
+                  <button
+                    type="button"
+                    onClick={handleSendFirstTimeOtp}
+                    disabled={ftLoading}
+                    className="w-full py-3.5 rounded-xl font-bold text-sm text-white bg-[#3b0080] hover:bg-[#2c0060] transition-all shadow-md shadow-purple-900/10 flex items-center justify-center gap-2 disabled:opacity-50"
+                  >
+                    {ftLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Lock className="w-4 h-4" />}
+                    <span>{ftLoading ? 'Sending OTP...' : 'Send Security OTP'}</span>
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleCompleteFirstTimePassword} className="space-y-4">
+                  {ftDebugOtp && (
+                    <div className="p-3 bg-purple-50 border border-purple-200 rounded-xl text-xs text-[#3b0080] font-medium flex items-center justify-between">
+                      <span>Security OTP Dispatched:</span>
+                      <span className="font-mono font-black text-sm bg-white px-2 py-0.5 rounded border border-purple-200">{ftDebugOtp}</span>
+                    </div>
+                  )}
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+                      6-Digit Security OTP
+                    </label>
+                    <input
+                      type="text"
+                      maxLength={6}
+                      value={ftOtp}
+                      onChange={(e) => setFtOtp(e.target.value.replace(/[^0-9]/g, ''))}
+                      placeholder="Enter 6-digit OTP"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 text-center tracking-widest font-mono text-lg font-bold text-slate-900 focus:outline-none focus:border-[#3b0080] focus:ring-4 focus:ring-purple-50"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+                      Create Permanent Password
+                    </label>
+                    <input
+                      type="password"
+                      value={ftNewPass}
+                      onChange={(e) => setFtNewPass(e.target.value)}
+                      placeholder="At least 6 characters"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-semibold text-slate-900 focus:outline-none focus:border-[#3b0080] focus:ring-4 focus:ring-purple-50"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+                      Confirm Permanent Password
+                    </label>
+                    <input
+                      type="password"
+                      value={ftConfirmPass}
+                      onChange={(e) => setFtConfirmPass(e.target.value)}
+                      placeholder="Re-enter password"
+                      className="w-full px-4 py-3 rounded-xl border border-slate-200 text-sm font-semibold text-slate-900 focus:outline-none focus:border-[#3b0080] focus:ring-4 focus:ring-purple-50"
+                      required
+                    />
+                  </div>
+
+                  {ftError && (
+                    <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-xs text-red-600 font-medium text-center">
+                      {ftError}
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={ftLoading || ftOtp.length !== 6 || !ftNewPass || ftNewPass !== ftConfirmPass}
+                    className="w-full py-3.5 rounded-xl font-bold text-sm text-white bg-emerald-600 hover:bg-emerald-700 transition-all shadow-md shadow-emerald-900/10 flex items-center justify-center gap-2 disabled:opacity-50"
+                  >
+                    {ftLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />}
+                    <span>{ftLoading ? 'Saving Password...' : 'Verify OTP & Activate Account'}</span>
+                  </button>
+
+                  <div className="flex items-center justify-between text-xs text-slate-500 pt-1">
+                    <button
+                      type="button"
+                      onClick={handleSendFirstTimeOtp}
+                      className="text-[#3b0080] font-bold hover:underline"
+                    >
+                      Resend OTP
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowFirstTimeModal(false);
+                        setPendingUser(null);
+                        setPendingToken('');
+                        setFtOtpSent(false);
+                        setFtOtp('');
+                        setFtNewPass('');
+                        setFtConfirmPass('');
+                      }}
+                      className="text-slate-400 hover:text-slate-700"
+                    >
+                      Cancel & Return
+                    </button>
+                  </div>
+                </form>
+              )}
+            </div>
+          ) : (
+            <>
+              {/* Header icon & title */}
+              <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-100 flex items-center justify-center text-[#3b0080] mb-5 shadow-sm">
+                <KeyRound className="w-6 h-6 text-[#3b0080]" />
+              </div>
 
           <h2 className="text-2xl font-black text-slate-900 tracking-tight">
             Sign In to IndoFleet
@@ -926,7 +1222,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
               Contact Support Desk
             </a>
           </div>
-        </div>
+        </>
+      )}
+    </div>
       </div>
     </div>
   );

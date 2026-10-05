@@ -222,17 +222,17 @@ export const SupportDeskPage: React.FC<SupportDeskPageProps> = ({ currentUser, o
   });
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-900 pb-16 font-sans">
-      {/* ── TOP HEADER / IDENTITY ────────────────────────────────────── */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div className="min-h-screen bg-[#f8fafc] text-slate-900 pt-24 sm:pt-28 pb-16 font-sans">
+      {/* ── TOP BANNER / IDENTITY ────────────────────────────────────── */}
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 mb-6">
+        <div className="bg-white border border-slate-200 rounded-3xl p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-purple-50 text-[#3b0080] flex items-center justify-center font-black shadow-xs">
+            <div className="w-11 h-11 rounded-2xl bg-purple-50 text-[#3b0080] flex items-center justify-center font-black shadow-xs">
               <Headphones className="w-5 h-5 text-[#3b0080]" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-base font-black tracking-tight text-slate-900">
+                <h1 className="text-lg font-black tracking-tight text-slate-900">
                   IndoFleet Support Command Desk
                 </h1>
                 <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
@@ -292,7 +292,7 @@ export const SupportDeskPage: React.FC<SupportDeskPageProps> = ({ currentUser, o
             </button>
           </div>
         </div>
-      </header>
+      </div>
 
       {/* ── REAL-TIME NEW QUERY BANNER ───────────────────────────────── */}
       {newTicketAlert && (

@@ -141,49 +141,32 @@ export const FleetManagerPage: React.FC<FleetManagerPageProps> = ({ currentUser,
 
   return (
     <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col">
-      {/* Top Header */}
-      <header className="bg-slate-900 border-b border-slate-800 text-white sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center font-black text-slate-900 shadow-md">
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-24 sm:pt-28 pb-12 flex-1 w-full space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-3xl border border-slate-200 shadow-xs">
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-700 flex items-center justify-center font-black text-xl border border-amber-500/20">
               🛠️
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-white text-base tracking-tight">Fleet & Asset Command</span>
-                <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                <h1 className="text-xl font-black text-slate-900 tracking-tight">Fleet & Asset Command</h1>
+                <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
                   Fleet Manager
                 </span>
               </div>
-              <p className="text-xs text-slate-400">Drone Hardware Inventory, Pre-Delivery QC & Airworthiness Certification</p>
+              <p className="text-xs text-slate-500 mt-0.5">Drone Hardware Inventory, Pre-Delivery QC & Airworthiness Certification</p>
             </div>
           </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              onClick={fetchFleet}
-              disabled={refreshing}
-              className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors"
-              title="Refresh Fleet"
-            >
-              <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
-            </button>
-            <div className="h-6 w-px bg-slate-800" />
-            <div className="flex items-center gap-2 text-xs">
-              <span className="text-slate-300 font-semibold">{currentUser?.name || 'Rajesh Sharma'}</span>
-              <button
-                onClick={onLogout}
-                className="px-2.5 py-1.5 rounded-lg bg-rose-950/40 text-rose-300 hover:bg-rose-900/60 font-medium transition-colors"
-              >
-                Sign Out
-              </button>
-            </div>
-          </div>
+          <button
+            onClick={fetchFleet}
+            disabled={refreshing}
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors cursor-pointer self-start sm:self-auto"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? 'animate-spin' : ''}`} />
+            <span>Refresh Fleet</span>
+          </button>
         </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full space-y-6">
         
         {/* Metric Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
