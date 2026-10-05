@@ -93,49 +93,22 @@ export const Header: React.FC<HeaderProps> = ({
     setMobileMenuOpen(false);
   };
 
-  // 1. Operations & Role Workspaces (Only for Admin users)
-  const OPERATIONS_ITEMS = [
-    {
-      icon: Shield,
-      label: 'Admin Command Console',
-      sub: 'User provisioning & role governance',
-      page: 'admin',
-      url: '/admin',
-      accent: true,
-      badge: 'Super Admin',
-    },
-    {
-      icon: Wrench,
-      label: 'Fleet & Pre-Delivery QC',
-      sub: 'Hardware registry & diagnostics',
-      page: 'fleet',
-      url: '/fleet',
-      badge: 'QC Lead',
-    },
-    {
-      icon: LayoutDashboard,
-      label: 'Corridor Dispatch Board',
-      sub: 'Transit scheduling & escort tracking',
-      page: 'dispatch',
-      url: '/dispatch',
-      badge: 'Dispatch',
-    },
-    {
-      icon: Headphones,
-      label: 'Support & Grievance Desk',
-      sub: 'Customer queries, callbacks & tickets',
-      page: 'support-desk',
-      url: '/support-desk',
-      badge: 'Support',
-    },
-    {
-      icon: Zap,
-      label: 'Telemetry Command Center',
-      sub: 'Live air corridor flight stream',
-      page: 'command-center',
-      url: '/command-center',
-    },
-  ];
+  const getDashboardInfo = (role?: string) => {
+    switch (role) {
+      case 'admin':
+        return { label: 'Admin Dashboard', page: 'admin', url: '/admin', icon: Shield, badge: 'Super Admin' };
+      case 'fleet_manager':
+        return { label: 'Fleet Dashboard', page: 'fleet', url: '/fleet', icon: Wrench, badge: 'QC Lead' };
+      case 'dispatcher':
+        return { label: 'Dispatch Board', page: 'dispatch', url: '/dispatch', icon: LayoutDashboard, badge: 'Dispatcher' };
+      case 'support':
+        return { label: 'Support Desk', page: 'support-desk', url: '/support-desk', icon: Headphones, badge: 'Support' };
+      default:
+        return null;
+    }
+  };
+
+  const dashboardInfo = currentUser ? getDashboardInfo(currentUser.role) : null;
 
   // 2. Transit & Tracking
   const TRANSIT_ITEMS = [
@@ -195,8 +168,8 @@ export const Header: React.FC<HeaderProps> = ({
       <div
         className={`max-w-[1360px] mx-auto h-[64px] sm:h-[68px] px-4 sm:px-6 rounded-full flex items-center justify-between pointer-events-auto transition-all duration-300 ${
           scrolled
-            ? 'bg-white/95 backdrop-blur-2xl border border-slate-200/90 shadow-[0_14px_40px_rgba(59,0,128,0.12),0_2px_8px_rgba(0,0,0,0.06)] ring-1 ring-purple-600/10'
-            : 'bg-white/90 backdrop-blur-2xl border border-white/80 shadow-[0_12px_36px_rgba(0,0,0,0.30),0_2px_6px_rgba(0,0,0,0.10)]'
+            ? 'bg-white/80 backdrop-blur-2xl border border-white/60 shadow-[0_12px_36px_rgba(59,0,128,0.14),inset_0_1px_1px_rgba(255,255,255,0.9)] ring-1 ring-purple-600/10'
+            : 'bg-white/75 backdrop-blur-xl border border-white/50 shadow-[0_12px_36px_rgba(0,0,0,0.22),inset_0_1px_1px_rgba(255,255,255,0.85)] ring-1 ring-white/30'
         }`}
       >
         {/* ── Brand Logo (Bigger & Crisp) ───────────────────────────── */}
@@ -212,83 +185,25 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* ── Desktop Navigation Menu (Cylindrical Pills) ───────────── */}
         <nav className="hidden lg:flex items-center gap-1.5 text-[14.5px] font-bold text-slate-800" ref={dropdownRef}>
+          {/* Home Link */}
+          <a
+            href="/"
+            onClick={nav('home', '/')}
+            className="px-3.5 py-2 rounded-full hover:bg-slate-100/80 hover:text-slate-900 transition-all text-slate-700"
+          >
+            Home
+          </a>
 
-          {/* 1. Operations Desks Dropdown (ONLY visible to Super Admin when logged in) */}
-          {currentUser?.role === 'admin' && (
-            <div
-              className="relative"
-              onMouseEnter={() => handleMouseEnter('operations')}
-              onMouseLeave={handleMouseLeave}
+          {/* Role Dashboard Link (Only visible when logged in) */}
+          {dashboardInfo && (
+            <a
+              href={dashboardInfo.url}
+              onClick={nav(dashboardInfo.page, dashboardInfo.url)}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full transition-all bg-purple-50/90 hover:bg-purple-100 text-[#3b0080] border border-purple-200/80 shadow-sm"
             >
-              <button
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-full transition-all ${
-                  openDropdown === 'operations'
-                    ? 'bg-purple-100 text-[#3b0080]'
-                    : 'hover:bg-slate-100/90 hover:text-slate-900'
-                }`}
-              >
-                <Shield className="w-3.5 h-3.5 text-[#3b0080]" />
-                <span>Admin Desks</span>
-                <ChevronDown
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                    openDropdown === 'operations' ? 'rotate-180 text-[#3b0080]' : 'text-slate-400'
-                  }`}
-                />
-              </button>
-
-              {openDropdown === 'operations' && (
-                <div className="absolute top-[calc(100%+10px)] left-0 pt-1 w-80 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                  <div className="bg-white/95 backdrop-blur-2xl border border-slate-200 rounded-2xl shadow-2xl shadow-purple-950/15 p-2">
-                    <div className="px-3 pt-2 pb-1.5 flex items-center justify-between">
-                      <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">
-                        Admin Workspace Access
-                      </p>
-                      <span className="text-[10px] font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full">
-                        Super Admin
-                      </span>
-                    </div>
-
-                    {OPERATIONS_ITEMS.map((item) => (
-                      <a
-                        key={item.label}
-                        href={item.url}
-                        onClick={nav(item.page, item.url)}
-                        className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group ${
-                          item.accent ? 'bg-purple-50/70 hover:bg-purple-100/80' : 'hover:bg-slate-50'
-                        }`}
-                      >
-                        <div
-                          className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
-                            item.accent
-                              ? 'bg-[#3b0080] text-white'
-                              : 'bg-slate-100 text-slate-600 group-hover:bg-purple-100 group-hover:text-[#3b0080]'
-                          }`}
-                        >
-                          <item.icon className="w-4 h-4" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center justify-between gap-1">
-                            <p
-                              className={`text-xs font-bold truncate ${
-                                item.accent ? 'text-[#3b0080]' : 'text-slate-800'
-                              }`}
-                            >
-                              {item.label}
-                            </p>
-                            {item.badge && (
-                              <span className="text-[9px] font-black uppercase px-1.5 py-0.2 rounded bg-slate-100 text-slate-600 group-hover:bg-purple-200 group-hover:text-purple-900 shrink-0">
-                                {item.badge}
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-[11px] text-slate-400 truncate mt-0.5">{item.sub}</p>
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
+              <dashboardInfo.icon className="w-3.5 h-3.5 text-[#3b0080]" />
+              <span>{dashboardInfo.label}</span>
+            </a>
           )}
 
           {/* 2. Transit & Tracking Dropdown */}
@@ -430,7 +345,12 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* User Auth / Profile Dropdown */}
           {currentUser ? (
-            <div className="relative" ref={profileRef}>
+            <div
+              className="relative"
+              ref={profileRef}
+              onMouseEnter={() => handleMouseEnter('profile')}
+              onMouseLeave={handleMouseLeave}
+            >
               <button
                 onClick={() => setOpenDropdown(openDropdown === 'profile' ? null : 'profile')}
                 className="flex items-center gap-2 pl-2 pr-3.5 py-1.5 rounded-full border border-slate-200/90 hover:border-purple-300 hover:bg-purple-50/80 bg-white/70 backdrop-blur-sm transition-all shadow-sm"
@@ -481,43 +401,18 @@ export const Header: React.FC<HeaderProps> = ({
                   </div>
 
                   {/* Direct Dedicated Workspace Link */}
-                  {currentUser.role === 'admin' && (
+                  {dashboardInfo && (
                     <button
-                      onClick={nav('admin', '/admin')}
-                      className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-purple-50 text-[#3b0080] text-xs font-bold transition-colors mb-1"
+                      onClick={nav(dashboardInfo.page, dashboardInfo.url)}
+                      className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-[#3b0080] text-xs font-bold transition-colors mb-1.5 border border-purple-200/60 group"
                     >
-                      <LayoutDashboard className="w-4 h-4" />
-                      Admin Command Console
-                    </button>
-                  )}
-
-                  {currentUser.role === 'fleet_manager' && (
-                    <button
-                      onClick={nav('fleet', '/fleet')}
-                      className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-amber-50 text-amber-900 text-xs font-bold transition-colors mb-1"
-                    >
-                      <Wrench className="w-4 h-4" />
-                      Fleet &amp; QC Command
-                    </button>
-                  )}
-
-                  {currentUser.role === 'dispatcher' && (
-                    <button
-                      onClick={nav('dispatch', '/dispatch')}
-                      className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-sky-50 text-sky-900 text-xs font-bold transition-colors mb-1"
-                    >
-                      <LayoutDashboard className="w-4 h-4" />
-                      Dispatcher Board
-                    </button>
-                  )}
-
-                  {currentUser.role === 'support' && (
-                    <button
-                      onClick={nav('support-desk', '/support-desk')}
-                      className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-purple-50 text-[#3b0080] text-xs font-bold transition-colors mb-1"
-                    >
-                      <Headphones className="w-4 h-4" />
-                      Support Command Desk
+                      <div className="flex items-center gap-2">
+                        <dashboardInfo.icon className="w-4 h-4 text-[#3b0080]" />
+                        <span>Go to {dashboardInfo.label}</span>
+                      </div>
+                      <span className="text-[9px] bg-purple-200/80 text-purple-900 px-2 py-0.5 rounded-full font-black uppercase">
+                        Workspace
+                      </span>
                     </button>
                   )}
 
@@ -567,66 +462,29 @@ export const Header: React.FC<HeaderProps> = ({
       {/* ── Mobile Drawer ─────────────────────────────────────────────── */}
       {mobileMenuOpen && (
         <div className="lg:hidden mt-2.5 max-w-[1360px] mx-auto bg-white/95 backdrop-blur-2xl border border-slate-200/90 rounded-3xl px-5 py-4 space-y-1 shadow-2xl shadow-purple-950/15 animate-in fade-in slide-in-from-top-2 duration-150 max-h-[calc(100vh-5.5rem)] overflow-y-auto pointer-events-auto">
-          {/* Only Super Admin sees full Operations in Mobile */}
-          {currentUser?.role === 'admin' && (
-            <>
-              <div className="px-3 py-1 mb-2">
-                <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">
-                  Admin Command Desks
-                </p>
-              </div>
-              {OPERATIONS_ITEMS.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.url}
-                  onClick={nav(item.page, item.url)}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                    item.accent ? 'bg-purple-50 text-[#3b0080]' : 'text-slate-700 hover:bg-slate-50'
-                  }`}
-                >
-                  <item.icon className="w-4 h-4 text-purple-600 shrink-0" />
-                  <span>{item.label}</span>
-                </a>
-              ))}
-            </>
-          )}
+          {/* Home Link for Mobile */}
+          <a
+            href="/"
+            onClick={nav('home', '/')}
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
+          >
+            <span>Home</span>
+          </a>
 
-          {/* If another role is logged in, show their dedicated desk in mobile */}
-          {currentUser && currentUser.role !== 'admin' && (
-            <div className="px-3 py-2 mb-2 bg-purple-50 rounded-xl">
+          {/* If user is logged in, show their dedicated role dashboard button */}
+          {dashboardInfo && (
+            <div className="px-3 py-2 my-2 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-100 rounded-2xl">
               <p className="text-[10px] font-black uppercase tracking-wider text-purple-700 mb-1">
-                Your Operational Desk
+                Your Operations Workspace
               </p>
-              {currentUser.role === 'fleet_manager' && (
-                <a
-                  href="/fleet"
-                  onClick={nav('fleet', '/fleet')}
-                  className="flex items-center gap-2 text-xs font-bold text-[#3b0080]"
-                >
-                  <Wrench className="w-4 h-4" />
-                  <span>Fleet &amp; QC Command</span>
-                </a>
-              )}
-              {currentUser.role === 'dispatcher' && (
-                <a
-                  href="/dispatch"
-                  onClick={nav('dispatch', '/dispatch')}
-                  className="flex items-center gap-2 text-xs font-bold text-[#3b0080]"
-                >
-                  <LayoutDashboard className="w-4 h-4" />
-                  <span>Corridor Dispatch Board</span>
-                </a>
-              )}
-              {currentUser.role === 'support' && (
-                <a
-                  href="/support-desk"
-                  onClick={nav('support-desk', '/support-desk')}
-                  className="flex items-center gap-2 text-xs font-bold text-[#3b0080]"
-                >
-                  <Headphones className="w-4 h-4" />
-                  <span>Support &amp; Grievance Desk</span>
-                </a>
-              )}
+              <a
+                href={dashboardInfo.url}
+                onClick={nav(dashboardInfo.page, dashboardInfo.url)}
+                className="flex items-center gap-2.5 py-1 text-xs font-bold text-[#3b0080]"
+              >
+                <dashboardInfo.icon className="w-4 h-4 text-[#3b0080]" />
+                <span>{dashboardInfo.label}</span>
+              </a>
             </div>
           )}
 

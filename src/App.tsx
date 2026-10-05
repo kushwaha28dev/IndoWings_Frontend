@@ -180,7 +180,7 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f7f4fb] text-[#171222] font-sans antialiased w-full max-w-full">
-      {!['login', 'admin', 'fleet', 'support-desk'].includes(currentPage) && (
+      {currentPage !== 'login' && (
         <Header
           currentUser={deliveryUser}
           onOpenCommandCenter={() => setIsCommandCenterOpen(true)}
@@ -235,7 +235,7 @@ export const App: React.FC = () => {
         )}
       </main>
 
-      {!['login', 'admin', 'fleet', 'dispatch'].includes(currentPage) && (
+      {currentPage !== 'login' && (
         <Footer onNavigate={handleNavigate} />
       )}
 
