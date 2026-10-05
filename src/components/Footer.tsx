@@ -1,5 +1,4 @@
 import React from 'react';
-import { Shield, Lock, ExternalLink } from 'lucide-react';
 
 interface FooterProps {
   onNavigate?: (page: string) => void;
@@ -47,53 +46,42 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       </div>
 
       <div className="relative z-10 max-w-[1360px] mx-auto">
-        {/* Top bar: Brand + Security Status */}
+        {/* Top bar: Brand */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-10 border-b border-white/[0.07]">
-          <div className="max-w-xl">
+          <div className="max-w-2xl">
             <a href="/" onClick={navTo('home', '/')} className="inline-flex items-center gap-3">
               <img
                 src="/indofleet-logo-white.svg"
                 alt="IndoFleet"
-                className="h-7 w-auto object-contain"
+                className="h-8 w-auto object-contain"
               />
             </a>
-            <p className="text-xs text-slate-400 mt-2.5 leading-relaxed">
+            <p className="text-[13.5px] sm:text-sm text-slate-400 mt-3 leading-relaxed">
               IndoFleet Enterprise UAV Fleet Logistics &amp; Handover Hub. Operations infrastructure governing factory assembly diagnostics, corridor dispatch, and technical acceptance.
             </p>
           </div>
 
-          <div className="flex flex-wrap sm:flex-nowrap items-center gap-6 text-xs text-slate-400">
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-3.5 px-4 backdrop-blur-sm">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-purple-300 block mb-1">
-                24/7 Operations Support
-              </span>
-              <div className="flex items-center gap-3">
-                <a href="tel:+917669478937" className="font-mono text-white font-bold hover:text-purple-300 transition-colors">
-                  +91 7669478937
-                </a>
-                <span className="text-white/20">|</span>
-                <span className="font-mono text-slate-300">
-                  Toll-Free: 1800 572 7363
-                </span>
-              </div>
-              <div className="mt-1">
-                <a href="mailto:connect@indowings.com" className="text-[11px] text-purple-300 hover:underline">
-                  connect@indowings.com
-                </a>
-              </div>
-            </div>
+          <div className="flex items-center gap-3 text-xs text-slate-400">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 font-medium text-[12px]">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              DGCA NPNT Airspace Compliant
+            </span>
+            <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 font-medium text-[12px]">
+              <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
+              AS9100D Aerospace Standard
+            </span>
           </div>
         </div>
 
-        {/* Links Grid */}
+        {/* Links Grid with slightly larger readable font */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-10">
           {/* Column 1: Operations Gateway */}
           <div>
-            <h3 className="text-xs font-black uppercase tracking-[0.16em] text-white/90 mb-4 flex items-center gap-2">
+            <h3 className="text-xs sm:text-[13px] font-black uppercase tracking-[0.16em] text-white/90 mb-4 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
               Operations Gateway
             </h3>
-            <ul className="space-y-2.5 text-xs text-slate-400">
+            <ul className="space-y-3 text-[13.5px] sm:text-sm text-slate-400">
               <li>
                 <a href="/login" onClick={navTo('login', '/login')} className="hover:text-white transition-colors">
                   Personnel Portal Sign In
@@ -119,11 +107,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
           {/* Column 2: Transit & Telemetry */}
           <div>
-            <h3 className="text-xs font-black uppercase tracking-[0.16em] text-white/90 mb-4 flex items-center gap-2">
+            <h3 className="text-xs sm:text-[13px] font-black uppercase tracking-[0.16em] text-white/90 mb-4 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
               Transit &amp; Telemetry
             </h3>
-            <ul className="space-y-2.5 text-xs text-slate-400">
+            <ul className="space-y-3 text-[13.5px] sm:text-sm text-slate-400">
               <li>
                 <a href="/track" onClick={navTo('track', '/track')} className="hover:text-white transition-colors">
                   Live Drone Transit Tracking
@@ -144,11 +132,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
           {/* Column 3: Protocols & Specifications */}
           <div>
-            <h3 className="text-xs font-black uppercase tracking-[0.16em] text-white/90 mb-4 flex items-center gap-2">
+            <h3 className="text-xs sm:text-[13px] font-black uppercase tracking-[0.16em] text-white/90 mb-4 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
               SOP Protocols
             </h3>
-            <ul className="space-y-2.5 text-xs text-slate-400">
+            <ul className="space-y-3 text-[13.5px] sm:text-sm text-slate-400">
               <li>
                 <a href="/docs" onClick={navTo('docs', '/docs')} className="hover:text-white transition-colors">
                   Hardware QC SOP Checklist
@@ -169,11 +157,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
           {/* Column 4: Compliance & Governance */}
           <div>
-            <h3 className="text-xs font-black uppercase tracking-[0.16em] text-white/90 mb-4 flex items-center gap-2">
+            <h3 className="text-xs sm:text-[13px] font-black uppercase tracking-[0.16em] text-white/90 mb-4 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-rose-400" />
               Compliance
             </h3>
-            <ul className="space-y-2.5 text-xs text-slate-400">
+            <ul className="space-y-3 text-[13.5px] sm:text-sm text-slate-400">
               <li>
                 <span className="text-slate-300">DGCA Type Certified</span>
               </li>
@@ -194,9 +182,27 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright */}
-        <div className="pt-6 border-t border-white/[0.07] flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+        {/* Bottom Bar: Copyright on Left, 24/7 Operations Support on Right */}
+        <div className="pt-6 border-t border-white/[0.08] flex flex-col lg:flex-row items-center justify-between text-[13px] text-slate-400 gap-4">
           <p>&copy; {new Date().getFullYear()} IndoFleet Aerospace Technologies Ltd. All rights reserved.</p>
+
+          <div className="flex flex-wrap items-center justify-center lg:justify-end gap-2.5 sm:gap-3 text-[12.5px] sm:text-[13px] text-slate-300">
+            <span className="text-purple-400 font-bold flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              24/7 Support:
+            </span>
+            <a href="tel:+917669478937" className="font-mono text-white hover:text-purple-300 transition-colors font-bold">
+              +91 7669478937
+            </a>
+            <span className="text-white/20">|</span>
+            <span className="font-mono text-slate-300">
+              Toll-Free: 1800 572 7363
+            </span>
+            <span className="text-white/20">|</span>
+            <a href="mailto:connect@indowings.com" className="text-purple-300 hover:text-white transition-colors font-medium">
+              connect@indowings.com
+            </a>
+          </div>
         </div>
       </div>
     </footer>

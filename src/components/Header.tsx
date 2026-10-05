@@ -295,7 +295,7 @@ export const Header: React.FC<HeaderProps> = ({
             onMouseLeave={handleMouseLeave}
           >
             <button
-              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl transition-all ${
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[14px] font-bold transition-all ${
                 openDropdown === 'transit'
                   ? 'bg-purple-50 text-[#3b0080]'
                   : 'hover:bg-slate-100 hover:text-slate-900'
@@ -352,7 +352,7 @@ export const Header: React.FC<HeaderProps> = ({
             onMouseLeave={handleMouseLeave}
           >
             <button
-              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl transition-all ${
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[14px] font-bold transition-all ${
                 openDropdown === 'sop' ? 'bg-purple-50 text-[#3b0080]' : 'hover:bg-slate-100 hover:text-slate-900'
               }`}
             >
@@ -404,7 +404,7 @@ export const Header: React.FC<HeaderProps> = ({
           <a
             href="/company"
             onClick={nav('company', '/company')}
-            className="px-3.5 py-2 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all text-xs font-bold"
+            className="px-3.5 py-2 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-all text-[14px] font-bold"
           >
             IndoWings Aerospace
           </a>
@@ -417,7 +417,7 @@ export const Header: React.FC<HeaderProps> = ({
           <a
             href="/track"
             onClick={nav('track', '/track')}
-            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 hover:text-[#3b0080] hover:bg-purple-50 border border-slate-200 hover:border-purple-200 transition-all"
+            className="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[13px] font-bold text-slate-700 hover:text-[#3b0080] hover:bg-purple-50 border border-slate-200 hover:border-purple-200 transition-all"
           >
             <Navigation className="w-3.5 h-3.5 text-purple-600" />
             <span>Track Transit</span>
@@ -542,7 +542,7 @@ export const Header: React.FC<HeaderProps> = ({
           ) : (
             <button
               onClick={onOpenAuth}
-              className="flex items-center gap-2 text-xs font-bold text-white bg-[#3b0080] hover:bg-[#2c0060] px-4 py-2 rounded-xl shadow-sm transition-all active:scale-95"
+              className="flex items-center gap-2 text-[13.5px] font-bold text-white bg-[#3b0080] hover:bg-[#2c0060] px-4.5 py-2 rounded-xl shadow-sm transition-all active:scale-95"
             >
               <User className="w-3.5 h-3.5" />
               <span>Sign In</span>
