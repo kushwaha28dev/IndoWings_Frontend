@@ -39,7 +39,6 @@ export const TrackOrderPage: React.FC<TrackOrderPageProps> = ({ onNavigate, init
       const params = new URLSearchParams(window.location.search);
       const q = params.get('id');
       if (q) return q;
-      return localStorage.getItem('iw_last_order_id') || '';
     }
     return '';
   });
@@ -72,20 +71,15 @@ export const TrackOrderPage: React.FC<TrackOrderPageProps> = ({ onNavigate, init
     return () => clearInterval(interval);
   }, [order]);
 
-  React.useEffect(() => {
-    if (orderId.trim()) {
-      handleSearch();
-    }
-  }, []);
-
-  const handleSearch = async (e?: React.FormEvent) => {
+  const handleSearch = async (e?: React.FormEvent, customId?: string) => {
     e?.preventDefault();
-    if (!orderId.trim()) return;
+    const queryId = (customId || orderId).trim();
+    if (!queryId) return;
     setLoading(true); setError(''); setOrder(null); setSearched(true);
     try {
-      const res = await fetch(`${API_BASE_URL}/api/delivery/orders/${orderId.trim()}`);
+      const res = await fetch(`${API_BASE_URL}/api/delivery/orders/${queryId}`);
       const data = await res.json();
-      if (!res.ok) { setError('Order not found. Please check the Order ID and try again.'); return; }
+      if (!res.ok) { setError('Flight or consignment record not found. Please verify the ID and try again.'); return; }
       setOrder(data.order);
       // If delivered upon initial load
       if (data.order.status === 'delivered') {
@@ -94,9 +88,21 @@ export const TrackOrderPage: React.FC<TrackOrderPageProps> = ({ onNavigate, init
           onOpenFeedback?.(data.order);
         }
       }
-    } catch { setError('Could not connect to server.'); }
+    } catch { setError('Could not connect to tracking server.'); }
     finally { setLoading(false); }
   };
+
+  React.useEffect(() => {
+    // Clear out any legacy local storage cache that was causing orders to auto-populate
+    try {
+      localStorage.removeItem('iw_last_order_id');
+    } catch {}
+
+    const queryId = initialOrderId || (typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('id') : null);
+    if (queryId && queryId.trim()) {
+      handleSearch(undefined, queryId);
+    }
+  }, []);
 
   const formatTime = (iso: string | null) => {
     if (!iso) return null;
@@ -105,26 +111,25 @@ export const TrackOrderPage: React.FC<TrackOrderPageProps> = ({ onNavigate, init
 
   return (
     <div className="min-h-screen bg-[#f7f4fb]">
-      <section className="relative text-white pt-28 sm:pt-36 pb-24 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #1e0940 0%, #2b114d 50%, #1a0835 100%)' }}>
+      <section className="relative text-white pt-28 sm:pt-36 pb-20 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #1e0940 0%, #2b114d 50%, #1a0835 100%)' }}>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         <div className="relative max-w-4xl mx-auto">
           <div className="w-14 h-14 bg-white/15 border border-white/20 rounded-xl flex items-center justify-center mb-5">
             <MapPin className="w-7 h-7 text-white" />
           </div>
-          <p className="text-xs font-bold tracking-[0.2em] uppercase text-white/70 mb-3">Live Telemetry</p>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight max-w-xl">Real-time drone telemetry & corridor radar</h1>
-          <p className="text-white/70 text-base max-w-xl leading-relaxed mb-8">Enter your Order ID to see live status, drone assignment, and delivery timeline.</p>
+          <p className="text-xs font-bold tracking-[0.2em] uppercase text-white/70 mb-3">Flight Operations</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight max-w-xl">Real-time Drone Flight Tracking</h1>
+          <p className="text-white/70 text-base max-w-xl leading-relaxed mb-8">Enter your Flight or Consignment ID to see live flight status, drone assignment, and transit checkpoints.</p>
           <form onSubmit={handleSearch} className="flex gap-3 max-w-xl">
             <div className="flex-1 relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/50" />
-              <input value={orderId} onChange={e => setOrderId(e.target.value)} placeholder="Enter Order ID (e.g. INW-2026-001)"
+              <input value={orderId} onChange={e => setOrderId(e.target.value)} placeholder="Enter Flight or Consignment ID (e.g. INW-2026-001)"
                 className="w-full pl-12 pr-4 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/50 text-sm font-medium focus:outline-none focus:border-white/50 focus:bg-white/15" />
             </div>
-            <button type="submit" className="px-6 py-4 bg-white text-[#3b0080] font-bold rounded-xl hover:bg-white/90 transition-colors whitespace-nowrap">
+            <button type="submit" className="px-6 py-4 bg-white text-[#3b0080] font-bold rounded-xl hover:bg-white/90 transition-colors whitespace-nowrap cursor-pointer">
               Track
             </button>
           </form>
-          <p className="text-white/40 text-xs mt-3">Demo: try INW-2026-001, INW-2024-1004</p>
         </div>
       </section>
 
@@ -140,8 +145,43 @@ export const TrackOrderPage: React.FC<TrackOrderPageProps> = ({ onNavigate, init
             <div className="w-16 h-16 rounded-full bg-red-50 border border-red-100 flex items-center justify-center mb-4">
               <AlertCircle className="w-8 h-8 text-red-400" />
             </div>
-            <h3 className="text-lg font-bold text-[#171222] mb-2">Order Not Found</h3>
+            <h3 className="text-lg font-bold text-[#171222] mb-2">Record Not Found</h3>
             <p className="text-slate-500 text-sm">{error}</p>
+          </div>
+        )}
+
+        {!order && !loading && !error && (
+          <div className="bg-white border border-[#e2e8f0] rounded-3xl p-8 sm:p-12 text-center shadow-xs max-w-2xl mx-auto my-4">
+            <div className="w-16 h-16 rounded-2xl bg-purple-50 border border-purple-100 flex items-center justify-center mx-auto mb-5 text-[#3b0080]">
+              <Search className="w-7 h-7" />
+            </div>
+            <h3 className="text-xl font-bold text-[#171222] mb-2">Track Any Flight or Consignment</h3>
+            <p className="text-slate-500 text-sm max-w-md mx-auto mb-6 leading-relaxed">
+              Enter a Flight Sortie or Consignment ID above to view live GPS coordinates, altitude, battery telemetry, and dispatch checkpoints.
+            </p>
+            <div className="inline-flex items-center gap-2 p-1.5 px-3.5 rounded-full bg-slate-50 border border-slate-200 text-xs text-slate-600 flex-wrap justify-center">
+              <span className="font-semibold text-slate-400">Quick Test:</span>
+              <button
+                type="button"
+                onClick={() => {
+                  setOrderId('INW-2026-001');
+                  handleSearch(undefined, 'INW-2026-001');
+                }}
+                className="px-2.5 py-1 rounded-full bg-white border border-slate-200 hover:border-purple-300 hover:text-[#3b0080] font-bold text-slate-700 transition-all cursor-pointer shadow-xs"
+              >
+                INW-2026-001
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setOrderId('INW-2024-1004');
+                  handleSearch(undefined, 'INW-2024-1004');
+                }}
+                className="px-2.5 py-1 rounded-full bg-white border border-slate-200 hover:border-purple-300 hover:text-[#3b0080] font-bold text-slate-700 transition-all cursor-pointer shadow-xs"
+              >
+                INW-2024-1004
+              </button>
+            </div>
           </div>
         )}
 
