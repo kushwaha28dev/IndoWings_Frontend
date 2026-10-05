@@ -139,12 +139,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
     }
   };
 
-  const handleQuickFill = (emailVal: string) => {
-    setIdentifier(emailVal);
-    setError('');
-    handleSendOtp(emailVal);
-  };
-
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-md p-4 animate-in fade-in duration-200" onClick={onClose}>
       <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl p-6 sm:p-8" onClick={e => e.stopPropagation()}>
@@ -153,7 +147,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
         </button>
 
         {/* Header */}
-        <div className="flex items-center gap-3.5 mb-5">
+        <div className="flex items-center gap-3.5 mb-6">
           <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#3b0080] to-purple-600 flex items-center justify-center shadow-lg shadow-purple-900/20 text-white">
             <Shield className="w-5 h-5" />
           </div>
@@ -161,14 +155,6 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
             <h3 className="font-extrabold text-[#171222] text-lg leading-tight">Operations Portal</h3>
             <p className="text-xs text-slate-500 font-medium">Enterprise Drone Delivery & Fleet Control</p>
           </div>
-        </div>
-
-        {/* Security Notice */}
-        <div className="mb-5 p-3 rounded-xl bg-purple-50/80 border border-purple-100 flex items-start gap-2.5">
-          <Lock className="w-4 h-4 text-[#3b0080] shrink-0 mt-0.5" />
-          <p className="text-xs text-purple-900 leading-relaxed font-medium">
-            <strong>Restricted Access:</strong> User IDs are strictly provisioned by the Administrator. Only authorized personnel can sign in via OTP.
-          </p>
         </div>
 
         {!otpStep ? (
@@ -208,46 +194,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
               </button>
             </div>
 
-            {/* Quick Demo Personnel Selector */}
-            <div className="mt-6 pt-5 border-t border-slate-100">
-              <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2.5">
-                Quick Test Authorized Roles
-              </p>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleQuickFill('puneet@indowings.com')}
-                  className="px-2.5 py-2 text-left rounded-xl border border-slate-200 hover:border-purple-300 hover:bg-purple-50 transition-all text-xs"
-                >
-                  <p className="font-bold text-slate-800">👑 Super Admin</p>
-                  <p className="text-[10px] text-slate-400 truncate">puneet@indowings.com</p>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleQuickFill('fleet@indowings.com')}
-                  className="px-2.5 py-2 text-left rounded-xl border border-slate-200 hover:border-purple-300 hover:bg-purple-50 transition-all text-xs"
-                >
-                  <p className="font-bold text-slate-800">🛠️ Fleet Manager</p>
-                  <p className="text-[10px] text-slate-400 truncate">fleet@indowings.com</p>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleQuickFill('dispatch@indowings.com')}
-                  className="px-2.5 py-2 text-left rounded-xl border border-slate-200 hover:border-purple-300 hover:bg-purple-50 transition-all text-xs"
-                >
-                  <p className="font-bold text-slate-800">🚚 Dispatcher</p>
-                  <p className="text-[10px] text-slate-400 truncate">dispatch@indowings.com</p>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleQuickFill('client@defenselogistics.in')}
-                  className="px-2.5 py-2 text-left rounded-xl border border-slate-200 hover:border-purple-300 hover:bg-purple-50 transition-all text-xs"
-                >
-                  <p className="font-bold text-slate-800">🏢 Client Officer</p>
-                  <p className="text-[10px] text-slate-400 truncate">client@defenselogistics.in</p>
-                </button>
-              </div>
-            </div>
+
           </div>
         ) : (
           <form onSubmit={handleVerifyOtp} className="space-y-4">

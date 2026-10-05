@@ -185,11 +185,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
     }
   };
 
-  const handleQuickRoleFill = (emailVal: string) => {
-    setIdentifier(emailVal);
-    setError('');
-    handleSendOtp(emailVal);
-  };
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-white">
@@ -358,56 +353,20 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigate, onSuccess }) =
                 </button>
               </form>
 
-              {/* Quick Select Role Credentials for Ease of Testing */}
-              <div className="mt-8 pt-6 border-t border-slate-100">
-                <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-3 text-center">
-                  Quick Select Role (1-Click Test)
-                </p>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <button
-                    type="button"
-                    onClick={() => handleQuickRoleFill('puneet@indowings.com')}
-                    className="p-2.5 text-left rounded-xl border border-slate-200 bg-slate-50 hover:bg-purple-50 hover:border-purple-200 transition-all group"
-                  >
-                    <p className="font-bold text-slate-800 group-hover:text-[#3b0080]">
-                      👑 Super Admin
-                    </p>
-                    <p className="text-[10px] text-slate-400 truncate">puneet@indowings.com</p>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => handleQuickRoleFill('fleet@indowings.com')}
-                    className="p-2.5 text-left rounded-xl border border-slate-200 bg-slate-50 hover:bg-amber-50 hover:border-amber-200 transition-all group"
-                  >
-                    <p className="font-bold text-slate-800 group-hover:text-amber-800">
-                      🛠️ Fleet Manager
-                    </p>
-                    <p className="text-[10px] text-slate-400 truncate">fleet@indowings.com</p>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => handleQuickRoleFill('dispatch@indowings.com')}
-                    className="p-2.5 text-left rounded-xl border border-slate-200 bg-slate-50 hover:bg-sky-50 hover:border-sky-200 transition-all group"
-                  >
-                    <p className="font-bold text-slate-800 group-hover:text-sky-800">
-                      🚚 Dispatcher
-                    </p>
-                    <p className="text-[10px] text-slate-400 truncate">dispatch@indowings.com</p>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => handleQuickRoleFill('client@defenselogistics.in')}
-                    className="p-2.5 text-left rounded-xl border border-slate-200 bg-slate-50 hover:bg-emerald-50 hover:border-emerald-200 transition-all group"
-                  >
-                    <p className="font-bold text-slate-800 group-hover:text-emerald-800">
-                      🏢 Client Officer
-                    </p>
-                    <p className="text-[10px] text-slate-400 truncate">client@defenselogistics.in</p>
-                  </button>
-                </div>
+              {/* Clean Enterprise Assistance */}
+              <div className="mt-8 pt-6 border-t border-slate-100 text-center text-xs text-slate-400">
+                <span>Need assistance with your account? </span>
+                <a
+                  href="/support"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onNavigate('support');
+                    window.history.pushState({}, '', '/support');
+                  }}
+                  className="text-[#3b0080] font-semibold hover:underline"
+                >
+                  Contact Support
+                </a>
               </div>
             </div>
           ) : (
