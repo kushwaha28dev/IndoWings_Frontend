@@ -25,6 +25,9 @@ import { DocsPage } from './pages/DocsPage';
 import { CompanyPage } from './pages/CompanyPage';
 import { FeedbackPage } from './pages/FeedbackPage';
 import { LegalPage } from './pages/LegalPage';
+import { AdminDashboardPage } from './pages/AdminDashboardPage';
+import { FleetManagerPage } from './pages/FleetManagerPage';
+import { ClientReceivingPage } from './pages/ClientReceivingPage';
 import { CommandCenterModal } from './components/CommandCenterModal';
 import { DemoBookingModal } from './components/DemoBookingModal';
 import { FeedbackModal } from './components/FeedbackModal';
@@ -33,11 +36,14 @@ import { API_BASE_URL } from './config/api';
 import { AuthModal, DeliveryUser } from './components/AuthModal';
 import { UserProfile } from './types';
 
-type Page = 'home' | 'platform' | 'command-center' | 'gcs' | 'downloads' | 'versions' | 'order' | 'track' | 'dispatch' | 'login' | 'profile' | 'orders' | 'support' | 'docs' | 'company' | 'feedback' | 'legal';
+type Page = 'home' | 'platform' | 'command-center' | 'gcs' | 'downloads' | 'versions' | 'order' | 'track' | 'dispatch' | 'login' | 'profile' | 'orders' | 'support' | 'docs' | 'company' | 'feedback' | 'legal' | 'admin' | 'fleet' | 'receiving';
 
 const getInitialPage = (): Page => {
   if (typeof window === 'undefined') return 'home';
   const p = window.location.pathname;
+  if (p.includes('/admin')) return 'admin';
+  if (p.includes('/fleet')) return 'fleet';
+  if (p.includes('/receiving')) return 'receiving';
   if (p.includes('/command-center')) return 'command-center';
   if (p.includes('/platform')) return 'platform';
   if (p.includes('/gcs')) return 'gcs';
@@ -161,7 +167,7 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f7f4fb] text-[#171222] font-sans antialiased w-full max-w-full overflow-x-hidden">
-      {currentPage !== 'login' && (
+      {!['login', 'admin', 'fleet', 'receiving'].includes(currentPage) && (
         <Header
           currentUser={deliveryUser}
           onOpenCommandCenter={() => setIsCommandCenterOpen(true)}
@@ -176,6 +182,12 @@ export const App: React.FC = () => {
       <main className="flex-1 w-full max-w-full min-w-0">
         {currentPage === 'login' ? (
           <LoginPage onNavigate={handleNavigate} onSuccess={handleDeliveryLogin} />
+        ) : currentPage === 'admin' ? (
+          <AdminDashboardPage currentUser={deliveryUser} onNavigate={handleNavigate} onLogout={handleDeliveryLogout} />
+        ) : currentPage === 'fleet' ? (
+          <FleetManagerPage currentUser={deliveryUser} onNavigate={handleNavigate} onLogout={handleDeliveryLogout} />
+        ) : currentPage === 'receiving' ? (
+          <ClientReceivingPage currentUser={deliveryUser} onNavigate={handleNavigate} onLogout={handleDeliveryLogout} />
         ) : currentPage === 'profile' ? (
           <ProfilePage onNavigate={handleNavigate} currentUser={deliveryUser} onUpdateUser={setDeliveryUser} />
         ) : currentPage === 'orders' ? (
@@ -213,7 +225,7 @@ export const App: React.FC = () => {
         )}
       </main>
 
-      {currentPage !== 'login' && (
+      {!['login', 'admin', 'fleet', 'receiving', 'dispatch'].includes(currentPage) && (
         <Footer onNavigate={handleNavigate} onOpenFeedback={() => { setFeedbackOrder(null); setIsFeedbackModalOpen(true); }} />
       )}
 

@@ -252,27 +252,45 @@ export const Header: React.FC<HeaderProps> = ({
                         <p className="text-xs text-slate-400 truncate">{currentUser.email || currentUser.phone}</p>
                       </div>
                     </div>
-                    {currentUser.role === 'admin' && (
-                      <span className="inline-block mt-2 text-[10px] font-black bg-[#3b0080] text-white px-2 py-0.5 rounded-full tracking-wide">ADMIN</span>
-                    )}
+                    <div className="mt-2 flex items-center gap-1.5">
+                      <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded-full tracking-wide bg-[#3b0080] text-white">
+                        {currentUser.role === 'admin' ? '👑 Super Admin' :
+                         currentUser.role === 'fleet_manager' ? '🛠️ Fleet Manager' :
+                         currentUser.role === 'dispatcher' ? '🚚 Dispatcher' :
+                         currentUser.role === 'client' ? '🏢 Client Officer' : 'Staff'}
+                      </span>
+                    </div>
                   </div>
-                  {[
-                    { icon: User, label: 'My Profile', page: 'profile', url: '/profile' },
-                    { icon: Clock, label: 'My Orders', page: 'orders', url: '/profile?tab=orders' },
-                    { icon: Package, label: 'Book Delivery', page: 'order', url: '/order' },
-                    { icon: Navigation, label: 'Track Order', page: 'track', url: '/track' },
-                  ].map(i => (
-                    <button key={i.label} onClick={nav(i.page, i.url)} className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-[#3b0080] text-sm font-medium transition-colors">
-                      <i.icon className="w-4 h-4 text-slate-400" />
-                      {i.label}
-                    </button>
-                  ))}
+
+                  {/* Role-Specific Direct Dashboard Links */}
                   {currentUser.role === 'admin' && (
-                    <button onClick={nav('dispatch', '/dispatch')} className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-[#3b0080] text-sm font-medium transition-colors">
-                      <LayoutDashboard className="w-4 h-4 text-slate-400" />
-                      Dispatch Board
+                    <button onClick={nav('admin', '/admin')} className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-purple-50 text-[#3b0080] text-sm font-bold transition-colors mb-1">
+                      <LayoutDashboard className="w-4 h-4" />
+                      Admin Command Center
                     </button>
                   )}
+
+                  {currentUser.role === 'fleet_manager' && (
+                    <button onClick={nav('fleet', '/fleet')} className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-amber-50 text-amber-900 text-sm font-bold transition-colors mb-1">
+                      <Wrench className="w-4 h-4" />
+                      Fleet & QC Command
+                    </button>
+                  )}
+
+                  {currentUser.role === 'dispatcher' && (
+                    <button onClick={nav('dispatch', '/dispatch')} className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-sky-50 text-sky-900 text-sm font-bold transition-colors mb-1">
+                      <LayoutDashboard className="w-4 h-4" />
+                      Dispatcher Board
+                    </button>
+                  )}
+
+                  {currentUser.role === 'client' && (
+                    <button onClick={nav('receiving', '/receiving')} className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-emerald-50 text-emerald-900 text-sm font-bold transition-colors mb-1">
+                      <Package className="w-4 h-4" />
+                      Client Receiving Portal
+                    </button>
+                  )}
+
                   <div className="border-t border-slate-100 mt-1 pt-1">
                     <button onClick={() => { onLogout?.(); setOpenDropdown(null); }}
                       className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl hover:bg-red-50 text-slate-500 hover:text-red-600 text-sm font-medium transition-colors">

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, Mail, Phone, User, Lock, Loader2, Package2 } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { X, Mail, Phone, Lock, Loader2, Shield, ArrowRight, RotateCcw, CheckCircle2 } from 'lucide-react';
 import { API_BASE_URL } from '../config/api';
 
 export interface SavedAddress {
@@ -21,7 +21,9 @@ export interface DeliveryUser {
   name: string;
   email: string;
   phone?: string;
-  role: 'customer' | 'admin';
+  role: 'admin' | 'fleet_manager' | 'dispatcher' | 'client' | 'customer';
+  station?: string;
+  organization?: string;
   is_email_verified?: boolean;
   is_phone_verified?: boolean;
   saved_addresses?: SavedAddress[];
@@ -31,119 +33,294 @@ interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: (user: DeliveryUser, token: string) => void;
-  defaultMode?: 'login' | 'register';
 }
 
-export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess, defaultMode = 'login' }) => {
-  const [mode, setMode] = useState<'login' | 'register'>(defaultMode);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [password, setPassword] = useState('');
+export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess }) => {
+  const [identifier, setIdentifier] = useState('');
+  const [otpStep, setOtpStep] = useState(false);
+  const [otpDigits, setOtpDigits] = useState(['', '', '', '', '', '']);
+  const [otpDestination, setOtpDestination] = useState('');
+  const [detectedRole, setDetectedRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [resendTimer, setResendTimer] = useState(60);
 
-  const isAdmin = email.toLowerCase().endsWith('@indowings.com');
+  const otpInputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  useEffect(() => {
+    let t: any = null;
+    if (otpStep && resendTimer > 0) {
+      t = setInterval(() => setResendTimer(p => p - 1), 1000);
+    }
+    return () => clearInterval(t);
+  }, [otpStep, resendTimer]);
+
+  if (!isOpen) return null;
+
+  const handleSendOtp = async (targetId?: string) => {
+    const val = (targetId || identifier).trim();
+    if (!val) {
+      setError('Please enter your registered email address or mobile number');
+      return;
+    }
+
+    const isEmail = val.includes('@');
+    const cleanPhone = val.replace(/[^0-9]/g, '').slice(-10);
+
+    if (!isEmail && cleanPhone.length < 10) {
+      setError('Please enter a valid 10-digit mobile number or email address');
+      return;
+    }
+
     setLoading(true);
     setError('');
+
     try {
-      const endpoint = mode === 'register'
-        ? `${API_BASE_URL}/api/delivery/auth/register`
-        : `${API_BASE_URL}/api/delivery/auth/login`;
-      const body = mode === 'register'
-        ? { name, email, phone }
-        : isAdmin ? { email, password } : { email, phone };
-      const res = await fetch(endpoint, {
+      const res = await fetch(`${API_BASE_URL}/api/delivery/auth/send-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
+        body: JSON.stringify(isEmail ? { email: val } : { phone: cleanPhone })
       });
       const data = await res.json();
-      if (!res.ok) { setError(data.error || 'Something went wrong'); return; }
-      onSuccess(data.user, data.token);
-      onClose();
-      setEmail(''); setPhone(''); setName(''); setPassword('');
+      if (!res.ok) {
+        setError(data.error || 'Account not found or access denied');
+        return;
+      }
+
+      setOtpDestination(data.destination || val);
+      setDetectedRole(data.role || null);
+      setOtpStep(true);
+      setResendTimer(60);
+      setOtpDigits(['', '', '', '', '', '']);
+      setTimeout(() => otpInputsRef.current[0]?.focus(), 150);
     } catch {
-      setError('Could not connect to server. Make sure the backend is running on port 5000.');
+      setError('Could not connect to authentication service. Verify backend is running.');
     } finally {
       setLoading(false);
     }
   };
 
-  if (!isOpen) return null;
+  const handleVerifyOtp = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const fullOtp = otpDigits.join('');
+    if (fullOtp.length !== 6) {
+      setError('Please enter the complete 6-digit verification code');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    const isEmail = identifier.includes('@');
+    const cleanPhone = identifier.replace(/[^0-9]/g, '').slice(-10);
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/delivery/auth/verify-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: isEmail ? identifier.trim() : undefined,
+          phone: !isEmail ? cleanPhone : undefined,
+          otp: fullOtp
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error || 'Invalid verification code');
+        return;
+      }
+
+      onSuccess(data.user, data.token);
+      onClose();
+    } catch {
+      setError('Verification failed. Server connection error.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleQuickFill = (emailVal: string) => {
+    setIdentifier(emailVal);
+    setError('');
+    handleSendOtp(emailVal);
+  };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
-      <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-8 mx-4" onClick={e => e.stopPropagation()}>
-        <button onClick={onClose} className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 transition-colors">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-md p-4 animate-in fade-in duration-200" onClick={onClose}>
+      <div className="relative w-full max-w-md bg-white rounded-3xl shadow-2xl p-6 sm:p-8" onClick={e => e.stopPropagation()}>
+        <button onClick={onClose} className="absolute top-5 right-5 text-slate-400 hover:text-slate-700 transition-colors p-1">
           <X className="w-5 h-5" />
         </button>
-        <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 rounded-xl bg-[#3b0080] flex items-center justify-center">
-            <Package2 className="w-5 h-5 text-white" />
+
+        {/* Header */}
+        <div className="flex items-center gap-3.5 mb-5">
+          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#3b0080] to-purple-600 flex items-center justify-center shadow-lg shadow-purple-900/20 text-white">
+            <Shield className="w-5 h-5" />
           </div>
           <div>
-            <p className="font-bold text-[#171222] text-base leading-tight">IndoWings Delivery</p>
-            <p className="text-xs text-slate-400">Drone Delivery Platform</p>
+            <h3 className="font-extrabold text-[#171222] text-lg leading-tight">Operations Portal</h3>
+            <p className="text-xs text-slate-500 font-medium">Enterprise Drone Delivery & Fleet Control</p>
           </div>
         </div>
-        <div className="flex gap-1 bg-slate-100 rounded-xl p-1 mb-6">
-          {(['login', 'register'] as const).map(m => (
-            <button key={m} onClick={() => { setMode(m); setError(''); }}
-              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all ${mode === m ? 'bg-white text-[#3b0080] shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}>
-              {m === 'login' ? 'Sign In' : 'Create Account'}
+
+        {/* Security Notice */}
+        <div className="mb-5 p-3 rounded-xl bg-purple-50/80 border border-purple-100 flex items-start gap-2.5">
+          <Lock className="w-4 h-4 text-[#3b0080] shrink-0 mt-0.5" />
+          <p className="text-xs text-purple-900 leading-relaxed font-medium">
+            <strong>Restricted Access:</strong> User IDs are strictly provisioned by the Administrator. Only authorized personnel can sign in via OTP.
+          </p>
+        </div>
+
+        {!otpStep ? (
+          <div>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+                  Registered Mobile or Email
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={identifier}
+                    onChange={e => { setIdentifier(e.target.value); setError(''); }}
+                    placeholder="e.g. puneet@indowings.com or 9876543201"
+                    className="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm font-medium focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100"
+                    onKeyDown={e => { if (e.key === 'Enter') handleSendOtp(); }}
+                  />
+                </div>
+              </div>
+
+              {error && (
+                <div className="text-xs text-rose-600 bg-rose-50 border border-rose-200 rounded-xl p-3 font-medium">
+                  {error}
+                </div>
+              )}
+
+              <button
+                type="button"
+                onClick={() => handleSendOtp()}
+                disabled={loading}
+                className="w-full py-3.5 bg-[#3b0080] hover:bg-[#2d006b] text-white font-bold rounded-xl transition-all shadow-lg shadow-purple-900/20 flex items-center justify-center gap-2 disabled:opacity-60"
+              >
+                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+                <span>{loading ? 'Verifying Authorization...' : 'Send Secure OTP'}</span>
+                {!loading && <ArrowRight className="w-4 h-4" />}
+              </button>
+            </div>
+
+            {/* Quick Demo Personnel Selector */}
+            <div className="mt-6 pt-5 border-t border-slate-100">
+              <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2.5">
+                Quick Test Authorized Roles
+              </p>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleQuickFill('puneet@indowings.com')}
+                  className="px-2.5 py-2 text-left rounded-xl border border-slate-200 hover:border-purple-300 hover:bg-purple-50 transition-all text-xs"
+                >
+                  <p className="font-bold text-slate-800">👑 Super Admin</p>
+                  <p className="text-[10px] text-slate-400 truncate">puneet@indowings.com</p>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleQuickFill('fleet@indowings.com')}
+                  className="px-2.5 py-2 text-left rounded-xl border border-slate-200 hover:border-purple-300 hover:bg-purple-50 transition-all text-xs"
+                >
+                  <p className="font-bold text-slate-800">🛠️ Fleet Manager</p>
+                  <p className="text-[10px] text-slate-400 truncate">fleet@indowings.com</p>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleQuickFill('dispatch@indowings.com')}
+                  className="px-2.5 py-2 text-left rounded-xl border border-slate-200 hover:border-purple-300 hover:bg-purple-50 transition-all text-xs"
+                >
+                  <p className="font-bold text-slate-800">🚚 Dispatcher</p>
+                  <p className="text-[10px] text-slate-400 truncate">dispatch@indowings.com</p>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleQuickFill('client@defenselogistics.in')}
+                  className="px-2.5 py-2 text-left rounded-xl border border-slate-200 hover:border-purple-300 hover:bg-purple-50 transition-all text-xs"
+                >
+                  <p className="font-bold text-slate-800">🏢 Client Officer</p>
+                  <p className="text-[10px] text-slate-400 truncate">client@defenselogistics.in</p>
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <form onSubmit={handleVerifyOtp} className="space-y-4">
+            <div className="text-center pb-2">
+              <span className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-purple-100 text-[#3b0080] mb-2">
+                {detectedRole ? `Role: ${detectedRole.replace('_', ' ')}` : 'Authorized'}
+              </span>
+              <p className="text-xs text-slate-600">
+                Enter the 6-digit OTP code dispatched to <br />
+                <strong className="text-slate-900 font-bold">{otpDestination}</strong>
+              </p>
+            </div>
+
+            {/* 6-digit inputs */}
+            <div className="flex justify-center gap-2">
+              {otpDigits.map((digit, idx) => (
+                <input
+                  key={idx}
+                  ref={el => otpInputsRef.current[idx] = el}
+                  type="text"
+                  maxLength={1}
+                  value={digit}
+                  onChange={e => {
+                    const val = e.target.value.replace(/[^0-9]/g, '');
+                    const copy = [...otpDigits];
+                    copy[idx] = val;
+                    setOtpDigits(copy);
+                    if (val && idx < 5) otpInputsRef.current[idx + 1]?.focus();
+                  }}
+                  onKeyDown={e => {
+                    if (e.key === 'Backspace' && !otpDigits[idx] && idx > 0) {
+                      otpInputsRef.current[idx - 1]?.focus();
+                    }
+                  }}
+                  className="w-11 h-13 text-center text-lg font-black border border-slate-200 rounded-xl focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100 bg-slate-50"
+                />
+              ))}
+            </div>
+
+            {error && (
+              <div className="text-xs text-rose-600 bg-rose-50 border border-rose-200 rounded-xl p-3 font-medium text-center">
+                {error}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading || otpDigits.join('').length < 6}
+              className="w-full py-3.5 bg-[#3b0080] hover:bg-[#2d006b] text-white font-bold rounded-xl transition-all shadow-lg shadow-purple-900/20 flex items-center justify-center gap-2 disabled:opacity-60"
+            >
+              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle2 className="w-4 h-4" />}
+              <span>{loading ? 'Authenticating...' : 'Verify OTP & Enter'}</span>
             </button>
-          ))}
-        </div>
-        {isAdmin && mode === 'login' && (
-          <div className="mb-4 px-3 py-2 bg-purple-50 border border-purple-200 rounded-lg text-xs text-[#3b0080] font-medium">
-            🔐 Admin login detected
-          </div>
+
+            <div className="flex items-center justify-between text-xs text-slate-500 pt-2">
+              <button
+                type="button"
+                onClick={() => setOtpStep(false)}
+                className="hover:text-slate-800 font-medium"
+              >
+                Change ID / Mobile
+              </button>
+              <button
+                type="button"
+                disabled={resendTimer > 0}
+                onClick={() => handleSendOtp()}
+                className="text-[#3b0080] font-bold hover:underline disabled:opacity-50 disabled:no-underline"
+              >
+                {resendTimer > 0 ? `Resend in ${resendTimer}s` : 'Resend OTP'}
+              </button>
+            </div>
+          </form>
         )}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {mode === 'register' && (
-            <div className="relative">
-              <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <input value={name} onChange={e => setName(e.target.value)} required placeholder="Full Name"
-                className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100" />
-            </div>
-          )}
-          <div className="relative">
-            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <input type="email" value={email} onChange={e => setEmail(e.target.value)} required placeholder="Email Address"
-              className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100" />
-          </div>
-          {(!isAdmin || mode === 'register') && (
-            <div className="relative">
-              <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <input type="tel" value={phone} onChange={e => setPhone(e.target.value)} required placeholder="Phone Number"
-                className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100" />
-            </div>
-          )}
-          {isAdmin && mode === 'login' && (
-            <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <input type="password" value={password} onChange={e => setPassword(e.target.value)} required placeholder="Admin Password"
-                className="w-full pl-10 pr-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-[#3b0080] focus:ring-2 focus:ring-purple-100" />
-            </div>
-          )}
-          {error && <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">{error}</p>}
-          <button type="submit" disabled={loading}
-            className="w-full py-3 bg-[#3b0080] hover:bg-[#2d006b] text-white font-bold rounded-xl transition-colors flex items-center justify-center gap-2 disabled:opacity-70">
-            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
-            {loading ? 'Please wait...' : mode === 'login' ? 'Sign In' : 'Create Account'}
-          </button>
-        </form>
-        <p className="text-center text-xs text-slate-400 mt-5">
-          {mode === 'login' ? 'New user? ' : 'Already have account? '}
-          <button onClick={() => { setMode(mode === 'login' ? 'register' : 'login'); setError(''); }}
-            className="text-[#3b0080] font-semibold hover:underline">
-            {mode === 'login' ? 'Create account' : 'Sign in'}
-          </button>
-        </p>
       </div>
     </div>
   );
