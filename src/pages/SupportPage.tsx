@@ -530,20 +530,14 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
 
                 <div className="space-y-2 pt-1 border-t border-slate-100">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-slate-500">Direct Support Phone:</span>
-                    <a href="tel:+917669478937" className="font-mono text-base font-black text-[#3b0080] hover:underline">
-                      +91 7669478937
-                    </a>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-slate-500">National Toll-Free:</span>
-                    <span className="font-mono text-base font-black text-slate-800">
-                      1800 572 7363
+                    <span className="text-xs text-slate-500">Digital Ticketing:</span>
+                    <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      Active (24/7 Monitored)
                     </span>
                   </div>
                   <div className="flex items-center justify-between pt-1">
-                    <span className="text-xs text-slate-500">Support Email:</span>
-                    <a href="mailto:connect@indowings.com" className="text-xs font-bold text-[#3b0080] hover:underline">
+                    <span className="text-xs text-slate-500">Support Desk Email:</span>
+                    <a href="mailto:connect@indowings.com" className="text-xs font-bold text-[#3b0080] hover:underline font-mono">
                       connect@indowings.com
                     </a>
                   </div>
