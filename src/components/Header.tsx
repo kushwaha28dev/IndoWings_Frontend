@@ -14,6 +14,7 @@ import {
   Wrench,
   Shield,
   ExternalLink,
+  Phone,
 } from 'lucide-react';
 import { DeliveryUser } from './AuthModal';
 
@@ -182,44 +183,36 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* ── Desktop Navigation Menu (Cylindrical Pills) ───────────── */}
-        <nav className="hidden lg:flex items-center gap-1.5 text-[14.5px] font-bold text-slate-800" ref={dropdownRef}>
-          {/* Home Link */}
-          <a
-            href="/"
-            onClick={nav('home', '/')}
-            className="px-3.5 py-2 rounded-full hover:bg-slate-100/80 hover:text-slate-900 transition-all text-slate-700"
-          >
-            Home
-          </a>
-
+        <nav className="hidden lg:flex items-center gap-1.5 text-[14px] font-bold text-slate-800" ref={dropdownRef}>
           {/* Role Dashboard Link (Only visible when logged in) */}
           {dashboardInfo && (
             <a
               href={dashboardInfo.url}
               onClick={nav(dashboardInfo.page, dashboardInfo.url)}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-full transition-all bg-purple-50/90 hover:bg-purple-100 text-[#3b0080] border border-purple-200/80 shadow-sm"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full transition-all bg-gradient-to-r from-[#3b0080] to-purple-600 hover:from-[#2e0066] hover:to-purple-700 text-white shadow-sm"
             >
-              <dashboardInfo.icon className="w-3.5 h-3.5 text-[#3b0080]" />
+              <dashboardInfo.icon className="w-3.5 h-3.5 text-white" />
               <span>{dashboardInfo.label}</span>
             </a>
           )}
 
-          {/* 2. Transit & Tracking Dropdown */}
+          {/* 1. Transit & Telemetry Dropdown */}
           <div
             className="relative"
             onMouseEnter={() => handleMouseEnter('transit')}
             onMouseLeave={handleMouseLeave}
           >
             <button
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-full transition-all ${
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full transition-all ${
                 openDropdown === 'transit'
-                  ? 'bg-purple-100 text-[#3b0080]'
-                  : 'hover:bg-slate-100/90 hover:text-slate-900'
+                  ? 'bg-purple-100/80 text-[#3b0080]'
+                  : 'hover:bg-slate-100/80 text-slate-700 hover:text-slate-900'
               }`}
             >
-              <span>Transit &amp; Telemetry</span>
+              <Navigation className="w-3.5 h-3.5 text-purple-600" />
+              <span>Corridor Telemetry</span>
               <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                className={`w-3 h-3 transition-transform duration-200 ${
                   openDropdown === 'transit' ? 'rotate-180 text-[#3b0080]' : 'text-slate-400'
                 }`}
               />
@@ -261,22 +254,23 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </div>
 
-          {/* 3. Protocols & SOP Dropdown */}
+          {/* 2. Protocols & SOP */}
           <div
             className="relative"
             onMouseEnter={() => handleMouseEnter('sop')}
             onMouseLeave={handleMouseLeave}
           >
             <button
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-full transition-all ${
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full transition-all ${
                 openDropdown === 'sop'
-                  ? 'bg-purple-100 text-[#3b0080]'
-                  : 'hover:bg-slate-100/90 hover:text-slate-900'
+                  ? 'bg-purple-100/80 text-[#3b0080]'
+                  : 'hover:bg-slate-100/80 text-slate-700 hover:text-slate-900'
               }`}
             >
+              <BookOpen className="w-3.5 h-3.5 text-amber-600" />
               <span>Protocols &amp; SOP</span>
               <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                className={`w-3 h-3 transition-transform duration-200 ${
                   openDropdown === 'sop' ? 'rotate-180 text-[#3b0080]' : 'text-slate-400'
                 }`}
               />
@@ -318,11 +312,24 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </div>
 
-          {/* Direct Link: Company / Platform */}
+          {/* 3. Direct Support Desk Link with Inquiries Form & Numbers */}
+          <a
+            href="/support"
+            onClick={nav('support', '/support')}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-full hover:bg-purple-50 hover:text-[#3b0080] transition-all text-slate-700 font-bold group"
+          >
+            <Headphones className="w-3.5 h-3.5 text-emerald-600 group-hover:scale-110 transition-transform" />
+            <span>Support Desk</span>
+            <span className="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.2 rounded-full bg-emerald-100 text-emerald-800">
+              24/7
+            </span>
+          </a>
+
+          {/* 4. Direct Link: IndoWings Aerospace */}
           <a
             href="/company"
             onClick={nav('company', '/company')}
-            className="px-4 py-2 rounded-full hover:bg-slate-100/90 hover:text-slate-900 transition-all"
+            className="px-3.5 py-2 rounded-full hover:bg-slate-100/80 hover:text-slate-900 transition-all text-slate-700 font-bold"
           >
             IndoWings Aerospace
           </a>
@@ -330,15 +337,24 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* ── Right Actions ─────────────────────────────────────────── */}
         <div className="flex items-center gap-2 sm:gap-2.5">
+          {/* Quick 24/7 Hotline Toll-Free Link */}
+          <a
+            href="/support"
+            onClick={nav('support', '/support')}
+            className="hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-slate-700 hover:text-[#3b0080] hover:bg-purple-50/80 border border-slate-200/80 transition-all shadow-xs"
+          >
+            <Phone className="w-3 h-3 text-emerald-600" />
+            <span>1800 572 7363</span>
+          </a>
 
-          {/* Quick Track Transit Pill */}
+          {/* Quick Live Radar Pill */}
           <a
             href="/track"
             onClick={nav('track', '/track')}
-            className="hidden md:flex items-center gap-1.5 px-4 py-2 rounded-full text-[13.5px] font-bold text-slate-700 hover:text-[#3b0080] hover:bg-purple-50/80 border border-slate-200/90 hover:border-purple-200 transition-all shadow-sm"
+            className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-[#3b0080] to-purple-600 hover:from-[#2e0066] hover:to-purple-700 transition-all shadow-sm active:scale-95"
           >
-            <Navigation className="w-3.5 h-3.5 text-purple-600" />
-            <span>Track Transit</span>
+            <Navigation className="w-3.5 h-3.5 text-purple-200" />
+            <span>Live Radar</span>
           </a>
 
           {/* User Auth / Profile Dropdown */}
@@ -460,18 +476,9 @@ export const Header: React.FC<HeaderProps> = ({
       {/* ── Mobile Drawer ─────────────────────────────────────────────── */}
       {mobileMenuOpen && (
         <div className="lg:hidden mt-2.5 max-w-[1360px] mx-auto dropdown-glass rounded-3xl px-5 py-4 space-y-1 animate-in fade-in slide-in-from-top-2 duration-150 max-h-[calc(100vh-5.5rem)] overflow-y-auto pointer-events-auto">
-          {/* Home Link for Mobile */}
-          <a
-            href="/"
-            onClick={nav('home', '/')}
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-800 hover:bg-slate-50"
-          >
-            <span>Home</span>
-          </a>
-
           {/* If user is logged in, show their dedicated role dashboard button */}
           {dashboardInfo && (
-            <div className="px-3 py-2 my-2 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-100 rounded-2xl">
+            <div className="px-3 py-2 mb-2 bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-100 rounded-2xl">
               <p className="text-[10px] font-black uppercase tracking-wider text-purple-700 mb-1">
                 Your Operations Workspace
               </p>
@@ -486,7 +493,22 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           )}
 
-          <div className="px-3 pt-3 pb-1">
+          {/* Direct Support Desk Link in Mobile */}
+          <a
+            href="/support"
+            onClick={nav('support', '/support')}
+            className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-800 bg-emerald-50/70 border border-emerald-100 hover:bg-emerald-100/80 transition-all mb-1"
+          >
+            <div className="flex items-center gap-2.5">
+              <Headphones className="w-4 h-4 text-emerald-600" />
+              <span>Support Desk &amp; Inquiries</span>
+            </div>
+            <span className="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-600 text-white">
+              24/7
+            </span>
+          </a>
+
+          <div className="px-3 pt-2 pb-1">
             <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">
               Transit &amp; Telemetry
             </p>
@@ -503,7 +525,7 @@ export const Header: React.FC<HeaderProps> = ({
             </a>
           ))}
 
-          <div className="px-3 pt-3 pb-1">
+          <div className="px-3 pt-2 pb-1">
             <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">
               Protocols &amp; SOP
             </p>
@@ -519,6 +541,16 @@ export const Header: React.FC<HeaderProps> = ({
               <span>{item.label}</span>
             </a>
           ))}
+
+          <div className="px-3 pt-2 pb-1">
+            <a
+              href="/company"
+              onClick={nav('company', '/company')}
+              className="flex items-center gap-2 text-xs font-bold text-slate-700 hover:text-[#3b0080]"
+            >
+              <span>IndoWings Aerospace Platform</span>
+            </a>
+          </div>
 
           <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
             {currentUser ? (

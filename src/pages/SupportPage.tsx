@@ -196,7 +196,7 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
             How can our flight desk help you today?
           </h1>
           <p className="text-white/75 text-sm sm:text-base max-w-xl mx-auto leading-relaxed mb-8">
-            Connect directly with Flight Operations Engineers, explore the Drone Delivery User Manual, or find instant self-serve fixes.
+            Connect directly with Flight Operations Engineers, explore the Flight Operations User Manual, or find instant self-serve fixes.
           </p>
 
           {/* Quick Search Input */}
