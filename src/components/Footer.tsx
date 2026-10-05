@@ -256,20 +256,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenFeedback }) =>
           </div>
         </div>
 
-        {/* Bottom Bar: Copyright & Compliance */}
+        {/* Bottom Bar: Copyright */}
         <div className="pt-8 pb-4 border-t border-white/[0.07] flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
           <div className="flex items-center gap-4">
-            <span>&copy; {new Date().getFullYear()} IndoWings Technologies.</span>
-            <span className="hidden sm:inline text-white/20">|</span>
-            <span className="text-slate-400">Make in India · DGCA BVLOS Certified</span>
-          </div>
-          <div className="flex items-center gap-3 text-slate-400">
-            <span className="inline-flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              Network Online
-            </span>
-            <span className="text-white/20">·</span>
-            <span>256-bit Encrypted Telemetry</span>
+            <span>&copy; {new Date().getFullYear()} IndoWings Aerospace. All rights reserved.</span>
           </div>
         </div>
       </div>

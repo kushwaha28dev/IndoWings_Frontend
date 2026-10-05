@@ -260,25 +260,6 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
-          STATS BAR — Count-up animation
-         ══════════════════════════════════════════════════════════════════════ */}
-      <section ref={statsRef} style={{ background: 'linear-gradient(90deg, #2e0068, #3b0080, #2e0068)' }} className="py-8 sm:py-10">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-y-6 gap-x-2 md:gap-0 md:divide-x divide-white/10">
-            {STATS.map((s, i) => (
-              <div key={s.label} className="text-center py-1 sm:py-2 px-2 sm:px-4">
-                <p className="text-2xl sm:text-3xl lg:text-[44px] font-black text-white tabular-nums leading-none">
-                  {formatStat(displayStats[i], s.value)}
-                  <span className="text-base sm:text-lg lg:text-2xl font-bold text-purple-300 ml-1">{s.unit}</span>
-                </p>
-                <p className="text-[11px] sm:text-xs font-semibold text-white/50 mt-1.5 sm:mt-2 tracking-wide">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════════
           HOW IT WORKS — 4-Stage Enterprise Delivery Protocol
          ══════════════════════════════════════════════════════════════════════ */}
       <section className="py-24 bg-[#f9f7fd]" id="how-it-works">
