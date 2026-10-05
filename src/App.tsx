@@ -30,8 +30,6 @@ import { FleetManagerPage } from './pages/FleetManagerPage';
 import { ClientReceivingPage } from './pages/ClientReceivingPage';
 import { CommandCenterModal } from './components/CommandCenterModal';
 import { DemoBookingModal } from './components/DemoBookingModal';
-import { FeedbackModal } from './components/FeedbackModal';
-import { Chatbot } from './components/Chatbot';
 import { API_BASE_URL } from './config/api';
 import { AuthModal, DeliveryUser } from './components/AuthModal';
 import { UserProfile } from './types';
@@ -68,8 +66,6 @@ export const App: React.FC = () => {
   const [deliveryUser, setDeliveryUser] = useState<DeliveryUser | null>(null);
   const [isCommandCenterOpen, setIsCommandCenterOpen] = useState(false);
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
-  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
-  const [feedbackOrder, setFeedbackOrder] = useState<any | null>(null);
   const [selectedDroneForDemo, setSelectedDroneForDemo] = useState<string | undefined>(undefined);
   const [currentPage, setCurrentPage] = useState<Page>(getInitialPage);
 
@@ -132,38 +128,7 @@ export const App: React.FC = () => {
     setIsDemoModalOpen(true);
   };
 
-  // Automated One-Time Feedback Prompt on Order Completion
-  useEffect(() => {
-    const checkPendingFeedback = async () => {
-      try {
-        const token = localStorage.getItem('iw_delivery_token');
-        if (!token) return;
-        const res = await fetch(`${API_BASE_URL}/api/delivery/orders/my`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        const data = await res.json();
-        if (data?.orders && Array.isArray(data.orders)) {
-          // Find first delivered order not yet submitted and not yet prompted
-          const deliveredOrder = data.orders.find((o: any) => 
-            o.status === 'delivered' && 
-            !o.feedback_submitted && 
-            !localStorage.getItem(`iw_feedback_prompted_${o.id}`) &&
-            !localStorage.getItem(`iw_feedback_submitted_${o.id}`)
-          );
-          if (deliveredOrder) {
-            // Prompt only ONCE per order ("sirf ek baar dena hai")
-            localStorage.setItem(`iw_feedback_prompted_${deliveredOrder.id}`, 'true');
-            setFeedbackOrder(deliveredOrder);
-            setIsFeedbackModalOpen(true);
-          }
-        }
-      } catch {}
-    };
 
-    checkPendingFeedback();
-    const interval = setInterval(checkPendingFeedback, 6000);
-    return () => clearInterval(interval);
-  }, [deliveryUser]);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f7f4fb] text-[#171222] font-sans antialiased w-full max-w-full overflow-x-hidden">
@@ -172,7 +137,6 @@ export const App: React.FC = () => {
           currentUser={deliveryUser}
           onOpenCommandCenter={() => setIsCommandCenterOpen(true)}
           onOpenDemoBooking={() => handleOpenDemoBooking()}
-          onOpenFeedback={() => { setFeedbackOrder(null); setIsFeedbackModalOpen(true); }}
           onNavigate={handleNavigate}
           onOpenAuth={() => { handleNavigate('login'); window.history.pushState({}, '', '/login'); }}
           onLogout={handleDeliveryLogout}
@@ -205,7 +169,7 @@ export const App: React.FC = () => {
         ) : currentPage === 'order' ? (
           <PlaceOrderPage onNavigate={handleNavigate} currentUser={deliveryUser} onOpenAuth={() => { handleNavigate('login'); window.history.pushState({}, '', '/login'); }} />
         ) : currentPage === 'track' ? (
-          <TrackOrderPage onNavigate={handleNavigate} onOpenFeedback={(order) => { setFeedbackOrder(order); setIsFeedbackModalOpen(true); }} />
+          <TrackOrderPage onNavigate={handleNavigate} />
         ) : currentPage === 'dispatch' ? (
           <DispatchPage onNavigate={handleNavigate} currentUser={deliveryUser} />
         ) : currentPage === 'support' ? (
@@ -226,19 +190,11 @@ export const App: React.FC = () => {
       </main>
 
       {!['login', 'admin', 'fleet', 'receiving', 'dispatch'].includes(currentPage) && (
-        <Footer onNavigate={handleNavigate} onOpenFeedback={() => { setFeedbackOrder(null); setIsFeedbackModalOpen(true); }} />
+        <Footer onNavigate={handleNavigate} />
       )}
 
       <CommandCenterModal isOpen={isCommandCenterOpen} onClose={() => setIsCommandCenterOpen(false)} currentUser={currentUser} onLoginSuccess={handleLoginSuccess} onLogout={handleLogout} />
       <DemoBookingModal isOpen={isDemoModalOpen} onClose={() => setIsDemoModalOpen(false)} preselectedDrone={selectedDroneForDemo} />
-      <FeedbackModal 
-        isOpen={isFeedbackModalOpen} 
-        onClose={() => { setIsFeedbackModalOpen(false); setFeedbackOrder(null); }} 
-        currentUser={deliveryUser}
-        prefilledOrder={feedbackOrder}
-        onNavigate={handleNavigate}
-      />
-      <Chatbot onNavigate={handleNavigate} />
     </div>
   );
 };
