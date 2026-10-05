@@ -179,7 +179,7 @@ export const App: React.FC = () => {
 
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f7f4fb] text-[#171222] font-sans antialiased w-full max-w-full overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-[#f7f4fb] text-[#171222] font-sans antialiased w-full max-w-full">
       {!['login', 'admin', 'fleet', 'support-desk'].includes(currentPage) && (
         <Header
           currentUser={deliveryUser}

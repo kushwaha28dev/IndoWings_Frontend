@@ -1,4 +1,4 @@
-﻿import React, { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Shield, Lock, FileText, Database } from "lucide-react";
 
 interface LegalPageProps {
@@ -29,12 +29,12 @@ export const LegalPage: React.FC<LegalPageProps> = ({ section }) => {
     <div className="min-h-screen bg-[#f9f7fd]">
       {/* Header */}
       <div className="bg-white border-b border-slate-200">
-        <div className="max-w-[900px] mx-auto px-4 sm:px-6 py-12">
+        <div className="max-w-[900px] mx-auto px-4 sm:px-6 pt-28 sm:pt-36 pb-12">
           <p className="text-[11px] font-black uppercase tracking-[0.18em] text-purple-600 mb-3">Legal</p>
           <h1 className="text-3xl sm:text-4xl font-black text-[#171222]">Legal &amp; Compliance</h1>
           <div className="w-14 h-1 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 mt-4" />
           <p className="text-slate-500 text-sm mt-4 leading-relaxed max-w-xl">
-            IndoWings Technologies operates autonomous drone delivery services across Delhi-NCR under DGCA Drone Rules 2021.
+            IndoWings Technologies operates enterprise UAV flight corridors, hardware QC, and aerospace fleet operations under DGCA Drone Rules 2021.
             These documents govern your use of our platform, data practices, and security standards.
           </p>
           <div className="flex flex-wrap gap-3 mt-6">

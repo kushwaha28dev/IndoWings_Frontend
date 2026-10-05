@@ -330,7 +330,7 @@ export const DispatchPage: React.FC<DispatchPageProps> = ({ onNavigate, currentU
   return (
     <div className="min-h-screen bg-[#f7f4fb] pb-16">
       {/* ── COMMAND HEADER & REAL-TIME STATS ────────────────────────────────── */}
-      <section className="relative text-white pt-14 pb-12 px-6 shadow-xl" style={{ background: 'linear-gradient(135deg, #180533 0%, #290d52 50%, #15032e 100%)' }}>
+      <section className="relative text-white pt-28 sm:pt-36 pb-12 px-6 shadow-xl" style={{ background: 'linear-gradient(135deg, #180533 0%, #290d52 50%, #15032e 100%)' }}>
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>

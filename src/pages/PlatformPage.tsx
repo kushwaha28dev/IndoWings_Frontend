@@ -185,7 +185,7 @@ export const PlatformPage: React.FC<PlatformPageProps> = ({
     <div className="w-full bg-[#fbf9fd] text-[#171222]">
       {/* 1. Page Hero: Full Viewport Hero ("screen tak rakho pura") */}
       <section 
-        className="w-full min-h-[calc(100vh-70px)] flex items-center py-12 sm:py-16 lg:py-20 text-white relative overflow-hidden"
+        className="w-full min-h-screen flex items-center pt-28 sm:pt-36 pb-16 sm:pb-20 text-white relative overflow-hidden"
         style={{
           background: 'linear-gradient(180deg, #2b114d 0%, #240c42 100%)'
         }}

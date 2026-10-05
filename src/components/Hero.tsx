@@ -229,7 +229,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           style={{ background: 'radial-gradient(circle, #4f46e5 0%, transparent 70%)' }}
         />
 
-        <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 w-full pt-10 pb-16 sm:pt-14 sm:pb-20 pointer-events-none [&_button]:pointer-events-auto [&_a]:pointer-events-auto">
+        <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 w-full pt-28 pb-16 sm:pt-36 sm:pb-24 pointer-events-none [&_button]:pointer-events-auto [&_a]:pointer-events-auto">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_480px] gap-12 lg:gap-16 items-center">
             {/* ── Left Column: Operations Banner ── */}
             <div className="space-y-6">

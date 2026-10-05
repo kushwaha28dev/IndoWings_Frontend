@@ -179,7 +179,7 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate, currentUse
     <div className="min-h-screen bg-[#f8f6fc]">
       {/* ── HERO BANNER ──────────────────────────────────────────────────────── */}
       <section 
-        className="relative text-white pt-16 pb-24 px-6 overflow-hidden text-center"
+        className="relative text-white pt-28 sm:pt-36 pb-24 px-6 overflow-hidden text-center"
         style={{ background: 'linear-gradient(135deg, #1b073a 0%, #2b114d 50%, #15062a 100%)' }}>
         <div 
           className="absolute inset-0 opacity-15"

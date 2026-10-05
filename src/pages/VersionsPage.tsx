@@ -109,7 +109,7 @@ export const VersionsPage: React.FC<VersionsPageProps> = ({ onNavigate }) => {
     <div className="min-h-screen bg-[#f7f4fb] text-[#171222]">
       {/* ── HERO SECTION (Aviation Dark Purple Aesthetics) ──────────────────── */}
       <section 
-        className="relative text-white pt-16 pb-24 px-6 overflow-hidden" 
+        className="relative text-white pt-28 sm:pt-36 pb-24 px-6 overflow-hidden" 
         style={{ background: 'linear-gradient(135deg, #1e0940 0%, #2b114d 50%, #1a0835 100%)' }}>
         <div 
           className="absolute inset-0 opacity-10" 

@@ -105,14 +105,14 @@ export const TrackOrderPage: React.FC<TrackOrderPageProps> = ({ onNavigate, init
 
   return (
     <div className="min-h-screen bg-[#f7f4fb]">
-      <section className="relative text-white pt-16 pb-24 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #1e0940 0%, #2b114d 50%, #1a0835 100%)' }}>
+      <section className="relative text-white pt-28 sm:pt-36 pb-24 px-6 overflow-hidden" style={{ background: 'linear-gradient(135deg, #1e0940 0%, #2b114d 50%, #1a0835 100%)' }}>
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 30% 50%, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
         <div className="relative max-w-4xl mx-auto">
           <div className="w-14 h-14 bg-white/15 border border-white/20 rounded-xl flex items-center justify-center mb-5">
             <MapPin className="w-7 h-7 text-white" />
           </div>
-          <p className="text-xs font-bold tracking-[0.2em] uppercase text-white/70 mb-3">Track Order</p>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight max-w-xl">Real-time drone delivery tracking</h1>
+          <p className="text-xs font-bold tracking-[0.2em] uppercase text-white/70 mb-3">Live Telemetry</p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight max-w-xl">Real-time drone telemetry & corridor radar</h1>
           <p className="text-white/70 text-base max-w-xl leading-relaxed mb-8">Enter your Order ID to see live status, drone assignment, and delivery timeline.</p>
           <form onSubmit={handleSearch} className="flex gap-3 max-w-xl">
             <div className="flex-1 relative">

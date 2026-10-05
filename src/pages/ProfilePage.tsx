@@ -566,7 +566,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({ onNavigate, currentUse
     <div className="min-h-screen bg-[#f7f4fb] pb-24">
       {/* Header Banner */}
       <section 
-        className="relative text-white pt-16 pb-20 px-6 overflow-hidden" 
+        className="relative text-white pt-28 sm:pt-36 pb-20 px-6 overflow-hidden" 
         style={{ background: 'linear-gradient(135deg, #1e0940 0%, #2b114d 55%, #1a0835 100%)' }}>
         <div 
           className="absolute inset-0 opacity-10" 

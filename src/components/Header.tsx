@@ -190,13 +190,13 @@ export const Header: React.FC<HeaderProps> = ({
   ];
 
   return (
-    <header className="sticky top-2.5 sm:top-3.5 left-0 right-0 z-50 w-full px-3 sm:px-6 pointer-events-none transition-all duration-300">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full pt-2.5 sm:pt-3.5 px-3 sm:px-6 pointer-events-none transition-all duration-300">
       {/* ── Floating Cylindrical Glassmorphic Capsule ────────────────── */}
       <div
         className={`max-w-[1360px] mx-auto h-[64px] sm:h-[68px] px-4 sm:px-6 rounded-full flex items-center justify-between pointer-events-auto transition-all duration-300 ${
           scrolled
-            ? 'bg-white/90 backdrop-blur-2xl border border-slate-200/90 shadow-[0_12px_36px_rgba(59,0,128,0.09),0_2px_8px_rgba(0,0,0,0.04)] ring-1 ring-purple-600/10'
-            : 'bg-white/80 backdrop-blur-xl border border-white/70 shadow-[0_8px_30px_rgba(0,0,0,0.06),0_1px_3px_rgba(0,0,0,0.03)]'
+            ? 'bg-white/95 backdrop-blur-2xl border border-slate-200/90 shadow-[0_14px_40px_rgba(59,0,128,0.12),0_2px_8px_rgba(0,0,0,0.06)] ring-1 ring-purple-600/10'
+            : 'bg-white/92 backdrop-blur-2xl border border-white/80 shadow-[0_12px_36px_rgba(0,0,0,0.30),0_2px_6px_rgba(0,0,0,0.10)]'
         }`}
       >
         {/* ── Brand Logo (Bigger & Crisp) ───────────────────────────── */}
