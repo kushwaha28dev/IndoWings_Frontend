@@ -8,13 +8,11 @@ import {
   Wrench,
   LayoutDashboard,
   ChevronRight,
-  Radio,
-  Activity,
+  CheckCircle2,
   Cpu,
-  Zap,
-  Crosshair,
-  Sliders,
-  CheckCircle,
+  Clock,
+  Gauge,
+  Compass,
 } from 'lucide-react';
 import { InteractiveDrone } from './InteractiveDrone';
 import { ElevationMeshBackground } from './ElevationMeshBackground';
@@ -99,121 +97,111 @@ const HOW_IT_WORKS = [
   },
 ];
 
-const FLEET_INSPECTOR_MODELS = [
+const FLEET_MODELS_DATA = [
   {
     id: 'cyberone',
     name: 'Cyberone Max',
-    tagline: 'Heavy Cargo UAV with Winch Tether',
-    tag: 'Heavy Winch',
-    color: '#a855f7',
-    badgeStyle: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
-    payload: '5.0 kg',
-    payloadPct: 90,
-    speed: '65 km/h',
-    speedPct: 70,
-    range: '25 km BVLOS',
-    rangePct: 60,
-    endurance: '45 min',
-    batteryHealth: '99.4%',
-    avionics: 'Dual RTK-GPS + Redundant IMU',
-    parachute: 'Pyro-Release Active',
-    activeWaypoint: 'WP-04 · Noida Air Corridor',
-    radarPoints: [
-      { x: 30, y: 35, label: 'Assembly Hub' },
-      { x: 60, y: 65, label: 'Corridor Transit' },
-      { x: 82, y: 40, label: 'Destination Base' },
+    category: 'Heavy Lift & Winch Tether UAV',
+    desc: 'Engineered for industrial heavy payload transit, emergency defense transport, and tethered winch delivery in harsh terrains.',
+    badge: 'Heavy Cargo',
+    badgeColor: 'bg-purple-100 text-purple-700 border-purple-200',
+    stats: [
+      { label: 'Payload Capacity', val: '5.0 kg', sub: 'Tether Winch System' },
+      { label: 'Cruising Speed', val: '65 km/h', sub: 'Automated Throttle' },
+      { label: 'BVLOS Flight Range', val: '25 km', sub: 'Corridor Transit' },
+      { label: 'Airborne Endurance', val: '45 mins', sub: 'Dual Smart Battery' },
     ],
+    features: [
+      'Dual RTK-GPS + Triple Redundant IMU',
+      'Toray Aerospace-Grade Carbon Fiber Structure',
+      'IP55 All-Weather Operational Ingress Rating',
+      'DGCA Type-Certified & NPNT Enabled',
+    ],
+    currentStation: 'Noida Assembly Plant',
+    targetStation: 'Northern Airbase Depot',
+    corridor: 'Corridor Alpha-4 (Active)',
   },
   {
     id: 'indohawk',
     name: 'IndoHawk Alpha',
-    tagline: 'High-Altitude Tactical Recon UAV',
-    tag: 'Tactical Recon',
-    color: '#38bdf8',
-    badgeStyle: 'bg-sky-500/20 text-sky-300 border-sky-500/30',
-    payload: '3.2 kg',
-    payloadPct: 65,
-    speed: '85 km/h',
-    speedPct: 88,
-    range: '40 km BVLOS',
-    rangePct: 80,
-    endurance: '75 min',
-    batteryHealth: '98.8%',
-    avionics: 'Encrypted Datalink + Optical EO/IR',
-    parachute: 'Dual Redundant Air-Chute',
-    activeWaypoint: 'WP-12 · High Altitude Grid',
-    radarPoints: [
-      { x: 25, y: 45, label: 'North Airbase' },
-      { x: 55, y: 30, label: 'Surveillance Sector' },
-      { x: 75, y: 70, label: 'Forward Outpost' },
+    category: 'High-Altitude Tactical Recon UAV',
+    desc: 'High-endurance tactical quadcopter with dual EO/IR night-vision payload and encrypted military-grade communication link.',
+    badge: 'Tactical Recon',
+    badgeColor: 'bg-sky-100 text-sky-700 border-sky-200',
+    stats: [
+      { label: 'Payload Capacity', val: '3.2 kg', sub: 'Dual Thermal Gimbal' },
+      { label: 'Cruising Speed', val: '85 km/h', sub: 'High-Altitude Thrust' },
+      { label: 'BVLOS Flight Range', val: '40 km', sub: 'Secured Air Link' },
+      { label: 'Airborne Endurance', val: '75 mins', sub: 'Hybrid High-Density Cell' },
     ],
+    features: [
+      'Encrypted 5.8 GHz Telemetry Datalink',
+      'High-Altitude Propellers (Up to 5,500m AMSL)',
+      'Dual Redundant Auto-Deploy Parachute',
+      'Pre-Delivery Avionics QC Signed Off',
+    ],
+    currentStation: 'Noida Technical Facility',
+    targetStation: 'Frontier Surveillance Station',
+    corridor: 'Corridor Bravo-7 (Clear)',
   },
   {
     id: 'stealthpro',
     name: 'StealthPro VTOL',
-    tagline: 'Long-Range Fixed-Wing Hybrid UAV',
-    tag: 'Fixed-Wing VTOL',
-    color: '#10b981',
-    badgeStyle: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
-    payload: '4.0 kg',
-    payloadPct: 75,
-    speed: '110 km/h',
-    speedPct: 98,
-    range: '120 km BVLOS',
-    rangePct: 95,
-    endurance: '150 min',
-    batteryHealth: '99.9%',
-    avionics: 'Hybrid Transition Quad-to-Wing',
-    parachute: 'Autopilot Emergency Safe-Land',
-    activeWaypoint: 'WP-28 · Regional Intercity Airway',
-    radarPoints: [
-      { x: 18, y: 70, label: 'Plant Depot' },
-      { x: 50, y: 40, label: 'Transit Altitude 400m' },
-      { x: 86, y: 25, label: 'Regional Base Station' },
+    category: 'Long-Range Fixed-Wing Hybrid UAV',
+    desc: 'Combines the vertical takeoff convenience of a quadcopter with the extended high-speed range of a fixed-wing airplane.',
+    badge: 'Long Range VTOL',
+    badgeColor: 'bg-emerald-100 text-emerald-700 border-emerald-200',
+    stats: [
+      { label: 'Payload Capacity', val: '4.0 kg', sub: 'Modular Sensor Bay' },
+      { label: 'Cruising Speed', val: '110 km/h', sub: 'Fixed-Wing Glide' },
+      { label: 'BVLOS Flight Range', val: '120 km', sub: 'Inter-City Transit' },
+      { label: 'Airborne Endurance', val: '150 mins', sub: 'Long-Range Cruising' },
     ],
+    features: [
+      'Hybrid VTOL Automatic Transition Engine',
+      'Triple-Redundant Flight Control Computer',
+      'Optical Collision Avoidance & AI Nav',
+      'Zero-Defect Technical Acceptance Certificate',
+    ],
+    currentStation: 'Faridabad Testing Range',
+    targetStation: 'State Logistics Hub',
+    corridor: 'Corridor Charlie-2 (Scheduled)',
   },
   {
     id: 'agriwing',
     name: 'AgriWing X',
-    tagline: 'Precision Industrial Agro & Spray UAV',
-    tag: 'Agro Industrial',
-    color: '#f59e0b',
-    badgeStyle: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
-    payload: '10.0 L',
-    payloadPct: 95,
-    speed: '45 km/h',
-    speedPct: 50,
-    range: '15 km Sub-Corridor',
-    rangePct: 45,
-    endurance: '35 min',
-    batteryHealth: '98.2%',
-    avionics: 'Centimeter RTK Swath Guidance',
-    parachute: 'Terrain-Follow Collision Radar',
-    activeWaypoint: 'WP-02 · Agro Testing Range',
-    radarPoints: [
-      { x: 35, y: 60, label: 'Logistics Port' },
-      { x: 65, y: 50, label: 'Faridabad Range' },
-      { x: 78, y: 80, label: 'Agronomy Depot' },
+    category: 'Precision Industrial Agriculture UAV',
+    desc: 'Centimeter-precision agricultural payload delivery platform with automatic terrain-following radar and high-pressure spray nozzles.',
+    badge: 'Agro Industrial',
+    badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
+    stats: [
+      { label: 'Tank Capacity', val: '10.0 L', sub: 'High-Pressure Swath' },
+      { label: 'Cruising Speed', val: '45 km/h', sub: 'Precision Spraying' },
+      { label: 'BVLOS Flight Range', val: '15 km', sub: 'Farm Sector Transit' },
+      { label: 'Airborne Endurance', val: '35 mins', sub: 'Rapid Swap Battery' },
     ],
+    features: [
+      'Centimeter-Accurate RTK Swath Guidance',
+      'Millimeter-Wave Terrain Following Radar',
+      'Corrosion-Resistant Composite Material',
+      'Factory Calibrated & Ready for Delivery',
+    ],
+    currentStation: 'Noida Assembly Plant',
+    targetStation: 'Punjab Agronomy Station',
+    corridor: 'Corridor Delta-1 (Assigned)',
   },
 ];
 
 export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
-  const [selectedDrone, setSelectedDrone] = useState(0);
-  const [activeHudTab, setActiveHudTab] = useState<'radar' | 'telemetry' | 'avionics'>('radar');
-  const [simulating, setSimulating] = useState(false);
+  const [selectedModel, setSelectedModel] = useState(0);
+  const [showDiagnostics, setShowDiagnostics] = useState(false);
 
-  const drone = FLEET_INSPECTOR_MODELS[selectedDrone];
+  const model = FLEET_MODELS_DATA[selectedModel];
 
   const go = (page: string, url: string) => {
     onNavigate?.(page);
     window.history.pushState({}, '', url);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleSimulate = () => {
-    setSimulating(true);
-    setTimeout(() => setSimulating(false), 2400);
   };
 
   return (
@@ -385,354 +373,184 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
-          INTERACTIVE FLEET COMMAND HUD & RADAR MATRIX (REPLACED STATIC SPECS)
+          MINIMAL & ELEGANT LIGHT-THEMED FLEET SHOWCASE
          ══════════════════════════════════════════════════════════════════════ */}
-      <section className="py-20 bg-[#0a0518] text-white border-t border-purple-900/30 relative overflow-hidden">
-        {/* Subtle grid background */}
-        <div
-          className="absolute inset-0 opacity-[0.07] pointer-events-none"
-          style={{
-            backgroundImage:
-              'linear-gradient(to right, #a855f7 1px, transparent 1px), linear-gradient(to bottom, #a855f7 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
-          }}
-        />
+      <section className="py-20 bg-white border-t border-slate-200">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6">
 
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 relative z-10">
-          {/* Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-6 border-b border-white/10">
-            <div>
-              <div className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-purple-400 mb-2">
-                <Crosshair className="w-4 h-4 text-purple-400" />
-                <span>Interactive Fleet Inspector</span>
-              </div>
-              <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-                Live UAV Telemetry &amp; Flight Matrix
-              </h2>
-              <p className="text-xs sm:text-sm text-white/50 mt-1.5 max-w-xl">
-                Real-time avionics, radar waypoint tracking, and multi-point hardware clearance metrics.
-              </p>
-            </div>
+          {/* Section Header */}
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
+              Enterprise Fleet Models
+            </h2>
+            <p className="text-slate-500 text-sm sm:text-base mt-2.5 leading-relaxed">
+              DGCA type-certified UAV platforms built for heavy cargo transport, tactical reconnaissance, and precision operations.
+            </p>
 
-            {/* Model Selector Tabs */}
-            <div className="flex flex-wrap gap-2">
-              {FLEET_INSPECTOR_MODELS.map((m, idx) => (
+            {/* Clean Minimal Tabs */}
+            <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
+              {FLEET_MODELS_DATA.map((m, idx) => (
                 <button
                   key={m.id}
-                  onClick={() => setSelectedDrone(idx)}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 border ${
-                    selectedDrone === idx
-                      ? 'bg-purple-600/30 text-white border-purple-500 shadow-lg shadow-purple-900/40'
-                      : 'bg-white/5 text-white/60 border-white/10 hover:bg-white/10 hover:text-white'
+                  onClick={() => {
+                    setSelectedModel(idx);
+                    setShowDiagnostics(false);
+                  }}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${
+                    selectedModel === idx
+                      ? 'bg-[#3b0080] text-white border-[#3b0080] shadow-md shadow-purple-900/10'
+                      : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100 hover:text-slate-900'
                   }`}
                 >
-                  <span
-                    className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: m.color }}
-                  />
-                  <span>{m.name}</span>
+                  {m.name}
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Interactive Console Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* Main Showcase Card */}
+          <div className="bg-[#fbfafd] rounded-3xl border border-slate-200/90 p-6 sm:p-10 shadow-sm">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 
-            {/* Left: Interactive Radar & Flight Path Display (7 cols) */}
-            <div className="lg:col-span-7 bg-white/[0.03] border border-white/10 rounded-2xl p-6 backdrop-blur-sm relative overflow-hidden flex flex-col justify-between">
-              {/* Radar Header */}
-              <div className="flex items-center justify-between pb-4 border-b border-white/10">
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
-                    <Radio className="w-5 h-5 animate-pulse" />
+              {/* Left Column: Drone Overview & Specs (7 cols) */}
+              <div className="lg:col-span-7 space-y-6">
+                <div>
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className={`text-[11px] font-black uppercase px-2.5 py-0.5 rounded-full border ${model.badgeColor}`}>
+                      {model.badge}
+                    </span>
+                    <span className="text-xs font-semibold text-slate-400">
+                      IndoWings Certified Platform
+                    </span>
                   </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                      <span>{drone.name}</span>
-                      <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full border ${drone.badgeStyle}`}>
-                        {drone.tag}
-                      </span>
-                    </h3>
-                    <p className="text-[11px] text-white/40">{drone.tagline}</p>
-                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+                    {model.name}
+                  </h3>
+                  <p className="text-sm text-slate-500 mt-2 leading-relaxed">
+                    {model.desc}
+                  </p>
                 </div>
 
-                <div className="flex items-center gap-1.5">
-                  <button
-                    onClick={() => setActiveHudTab('radar')}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors ${
-                      activeHudTab === 'radar' ? 'bg-purple-600 text-white' : 'text-white/40 hover:text-white'
-                    }`}
-                  >
-                    Radar
-                  </button>
-                  <button
-                    onClick={() => setActiveHudTab('telemetry')}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors ${
-                      activeHudTab === 'telemetry' ? 'bg-purple-600 text-white' : 'text-white/40 hover:text-white'
-                    }`}
-                  >
-                    Sensors
-                  </button>
-                  <button
-                    onClick={() => setActiveHudTab('avionics')}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-colors ${
-                      activeHudTab === 'avionics' ? 'bg-purple-600 text-white' : 'text-white/40 hover:text-white'
-                    }`}
-                  >
-                    Diagnostics
-                  </button>
-                </div>
-              </div>
-
-              {/* Main Interactive Screen Content */}
-              <div className="my-6 min-h-[260px] flex items-center justify-center relative">
-                {activeHudTab === 'radar' && (
-                  <div className="relative w-full max-w-[340px] aspect-square rounded-full border border-purple-500/20 flex items-center justify-center bg-black/40 overflow-hidden shadow-inner">
-                    {/* Concentric radar rings */}
-                    <div className="absolute w-[75%] aspect-square rounded-full border border-purple-500/20" />
-                    <div className="absolute w-[50%] aspect-square rounded-full border border-purple-500/20" />
-                    <div className="absolute w-[25%] aspect-square rounded-full border border-purple-500/20" />
-                    {/* Crosshair lines */}
-                    <div className="absolute w-full h-[1px] bg-purple-500/20" />
-                    <div className="absolute h-full w-[1px] bg-purple-500/20" />
-
-                    {/* Rotating Radar Sweep Line */}
+                {/* 4 Stats Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {model.stats.map((s) => (
                     <div
-                      className="absolute inset-0 rounded-full pointer-events-none"
-                      style={{
-                        background:
-                          'conic-gradient(from 0deg, rgba(168,85,247,0.3) 0deg, rgba(168,85,247,0) 60deg, transparent 360deg)',
-                        animation: 'spin 4s linear infinite',
-                      }}
-                    />
+                      key={s.label}
+                      className="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm text-center"
+                    >
+                      <p className="text-[11px] font-bold text-slate-400">{s.label}</p>
+                      <p className="text-lg font-black text-slate-900 mt-1">{s.val}</p>
+                      <p className="text-[10px] text-purple-700 font-medium mt-0.5">{s.sub}</p>
+                    </div>
+                  ))}
+                </div>
 
-                    {/* Radar Waypoints */}
-                    {drone.radarPoints.map((pt, i) => (
-                      <div
-                        key={i}
-                        className="absolute group/pt cursor-pointer transition-transform hover:scale-125"
-                        style={{ left: `${pt.x}%`, top: `${pt.y}%` }}
-                      >
-                        <div
-                          className="w-3 h-3 rounded-full animate-ping absolute opacity-75"
-                          style={{ backgroundColor: drone.color }}
-                        />
-                        <div
-                          className="w-3 h-3 rounded-full relative shadow-md"
-                          style={{ backgroundColor: drone.color }}
-                        />
-                        <div className="hidden group-hover/pt:block absolute left-4 top-[-8px] whitespace-nowrap bg-black/90 border border-purple-500/40 text-[10px] font-bold text-purple-200 px-2 py-0.5 rounded shadow-lg z-20">
-                          {pt.label}
-                        </div>
+                {/* Features Checklist */}
+                <div className="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm space-y-2.5">
+                  <p className="text-xs font-black uppercase tracking-wider text-slate-700">
+                    Avionics &amp; Hardware Standard
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                    {model.features.map((feat) => (
+                      <div key={feat} className="flex items-center gap-2 text-xs font-medium text-slate-600">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
+                        <span>{feat}</span>
                       </div>
                     ))}
-
-                    {/* Center Drone Marker */}
-                    <div className="relative z-10 w-6 h-6 rounded-full bg-white/10 border border-white/40 flex items-center justify-center">
-                      <Navigation
-                        className={`w-3.5 h-3.5 transition-transform duration-500 ${
-                          simulating ? 'rotate-90 scale-125 text-emerald-400' : 'text-purple-300'
-                        }`}
-                      />
-                    </div>
-
-                    <div className="absolute bottom-2 left-4 text-[10px] font-mono text-purple-400/70">
-                      SYS: {drone.activeWaypoint}
-                    </div>
                   </div>
-                )}
-
-                {activeHudTab === 'telemetry' && (
-                  <div className="w-full grid grid-cols-2 gap-3 p-2 font-mono text-xs">
-                    <div className="p-3 rounded-xl bg-black/40 border border-white/10">
-                      <p className="text-white/40 text-[10px]">AVIONICS ARCHITECTURE</p>
-                      <p className="font-bold text-purple-300 mt-1">{drone.avionics}</p>
-                    </div>
-                    <div className="p-3 rounded-xl bg-black/40 border border-white/10">
-                      <p className="text-white/40 text-[10px]">BATTERY CELL IMPEDANCE</p>
-                      <p className="font-bold text-emerald-400 mt-1">{drone.batteryHealth} Optimal</p>
-                    </div>
-                    <div className="p-3 rounded-xl bg-black/40 border border-white/10">
-                      <p className="text-white/40 text-[10px]">FAIL-SAFE EMERGENCY</p>
-                      <p className="font-bold text-sky-300 mt-1">{drone.parachute}</p>
-                    </div>
-                    <div className="p-3 rounded-xl bg-black/40 border border-white/10">
-                      <p className="text-white/40 text-[10px]">CURRENT CORRIDOR</p>
-                      <p className="font-bold text-amber-300 mt-1">{drone.activeWaypoint}</p>
-                    </div>
-                  </div>
-                )}
-
-                {activeHudTab === 'avionics' && (
-                  <div className="w-full p-4 space-y-3 font-mono text-xs">
-                    <div className="flex items-center justify-between p-2.5 rounded-lg bg-black/30 border border-emerald-500/20">
-                      <span className="flex items-center gap-2 text-white/70">
-                        <CheckCircle className="w-4 h-4 text-emerald-400" />
-                        Dual RTK Satellite Lock
-                      </span>
-                      <span className="text-emerald-400 font-bold">28 SATS (FIX 3D)</span>
-                    </div>
-                    <div className="flex items-center justify-between p-2.5 rounded-lg bg-black/30 border border-emerald-500/20">
-                      <span className="flex items-center gap-2 text-white/70">
-                        <CheckCircle className="w-4 h-4 text-emerald-400" />
-                        DGCA NPNT Cryptographic Signature
-                      </span>
-                      <span className="text-emerald-400 font-bold">VERIFIED</span>
-                    </div>
-                    <div className="flex items-center justify-between p-2.5 rounded-lg bg-black/30 border border-emerald-500/20">
-                      <span className="flex items-center gap-2 text-white/70">
-                        <CheckCircle className="w-4 h-4 text-emerald-400" />
-                        Motor Thrust &amp; ESC Redundancy
-                      </span>
-                      <span className="text-emerald-400 font-bold">CALIBRATED</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Bottom Interactive Bar */}
-              <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-white/10">
-                <div className="flex items-center gap-2 text-xs text-white/60">
-                  <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
-                  <span>Telemetry Link: 5.8 GHz Datalink Online</span>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={handleSimulate}
-                    disabled={simulating}
-                    className="px-3.5 py-1.5 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/40 text-xs font-bold text-purple-200 transition-all flex items-center gap-1.5 active:scale-95 disabled:opacity-50"
-                  >
-                    <Sliders className="w-3.5 h-3.5" />
-                    <span>{simulating ? 'Simulating Transit...' : 'Simulate Transit Corridor'}</span>
-                  </button>
+                {/* Action button */}
+                <div className="pt-2 flex flex-wrap gap-3">
                   <button
                     onClick={() => go('track', '/track')}
-                    className="px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-bold text-white transition-all flex items-center gap-1.5"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs text-white bg-[#3b0080] hover:bg-[#2c0060] transition-all shadow-sm active:scale-95"
                   >
-                    <span>Track Live</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <Navigation className="w-3.5 h-3.5" />
+                    <span>Track Active Corridor</span>
+                  </button>
+
+                  <button
+                    onClick={() => setShowDiagnostics(!showDiagnostics)}
+                    className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-bold text-xs text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 transition-all active:scale-95"
+                  >
+                    <Cpu className="w-3.5 h-3.5 text-purple-600" />
+                    <span>{showDiagnostics ? 'Hide Diagnostics' : 'View QC Diagnostics'}</span>
                   </button>
                 </div>
               </div>
-            </div>
 
-            {/* Right: Dynamic Performance Meters (5 cols) */}
-            <div className="lg:col-span-5 bg-white/[0.03] border border-white/10 rounded-2xl p-6 backdrop-blur-sm flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-5">
-                  <h3 className="text-sm font-black uppercase tracking-wider text-white/90">
-                    Performance Telemetry
-                  </h3>
-                  <span className="text-[10px] font-black uppercase px-2 py-0.5 rounded bg-white/10 text-purple-300">
-                    Live Diagnostics
-                  </span>
-                </div>
-
-                {/* Progress Meters */}
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between text-xs mb-1.5">
-                      <span className="text-white/50">Max Cruise Speed</span>
-                      <span className="font-mono font-bold text-white">{drone.speed}</span>
-                    </div>
-                    <div className="h-2 rounded-full bg-white/10 overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all duration-700"
-                        style={{
-                          width: `${drone.speedPct}%`,
-                          backgroundColor: drone.color,
-                        }}
-                      />
-                    </div>
+              {/* Right Column: Transit Journey & Clean Card (5 cols) */}
+              <div className="lg:col-span-5 space-y-4">
+                {/* Transit Route Card */}
+                <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm space-y-5">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <p className="text-xs font-black uppercase tracking-wider text-slate-800 flex items-center gap-2">
+                      <Compass className="w-4 h-4 text-[#3b0080]" />
+                      Corridor Transit Status
+                    </p>
+                    <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                      Airworthy
+                    </span>
                   </div>
 
-                  <div>
-                    <div className="flex justify-between text-xs mb-1.5">
-                      <span className="text-white/50">Operational BVLOS Range</span>
-                      <span className="font-mono font-bold text-white">{drone.range}</span>
+                  {/* Clean Visual Steps */}
+                  <div className="space-y-4 relative pl-6 before:content-[''] before:absolute before:left-2 before:top-2 before:bottom-2 before:w-[2px] before:bg-slate-200">
+                    <div className="relative">
+                      <div className="w-4 h-4 rounded-full bg-emerald-500 border-2 border-white shadow-sm absolute -left-6 top-0.5" />
+                      <p className="text-xs font-bold text-slate-900">Departure Facility</p>
+                      <p className="text-xs text-slate-500">{model.currentStation}</p>
+                      <span className="text-[10px] text-emerald-600 font-semibold">● Assembly &amp; Diagnostics Passed</span>
                     </div>
-                    <div className="h-2 rounded-full bg-white/10 overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all duration-700"
-                        style={{
-                          width: `${drone.rangePct}%`,
-                          backgroundColor: drone.color,
-                        }}
-                      />
-                    </div>
-                  </div>
 
-                  <div>
-                    <div className="flex justify-between text-xs mb-1.5">
-                      <span className="text-white/50">Payload Capability</span>
-                      <span className="font-mono font-bold text-white">{drone.payload}</span>
+                    <div className="relative">
+                      <div className="w-4 h-4 rounded-full bg-[#3b0080] border-2 border-white shadow-sm absolute -left-6 top-0.5 animate-pulse" />
+                      <p className="text-xs font-bold text-slate-900">Transit Corridor</p>
+                      <p className="text-xs text-slate-500">{model.corridor}</p>
+                      <span className="text-[10px] text-purple-600 font-semibold">● 5.8 GHz Telemetry Linked</span>
                     </div>
-                    <div className="h-2 rounded-full bg-white/10 overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all duration-700"
-                        style={{
-                          width: `${drone.payloadPct}%`,
-                          backgroundColor: drone.color,
-                        }}
-                      />
-                    </div>
-                  </div>
 
-                  <div>
-                    <div className="flex justify-between text-xs mb-1.5">
-                      <span className="text-white/50">Mission Flight Endurance</span>
-                      <span className="font-mono font-bold text-white">{drone.endurance}</span>
-                    </div>
-                    <div className="h-2 rounded-full bg-white/10 overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all duration-700 bg-gradient-to-r from-purple-500 to-indigo-500"
-                        style={{ width: '85%' }}
-                      />
+                    <div className="relative">
+                      <div className="w-4 h-4 rounded-full bg-slate-300 border-2 border-white shadow-sm absolute -left-6 top-0.5" />
+                      <p className="text-xs font-bold text-slate-900">Receiving Base</p>
+                      <p className="text-xs text-slate-500">{model.targetStation}</p>
+                      <span className="text-[10px] text-slate-400 font-semibold">● Pending Acceptance Inspection</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Hardware Spec Quick Cards */}
-                <div className="grid grid-cols-2 gap-3 mt-6 pt-5 border-t border-white/10 text-xs">
-                  <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5">
-                    <p className="text-[10px] text-white/40">AIRFRAME</p>
-                    <p className="font-bold text-white mt-0.5">Toray Carbon Fiber</p>
+                {/* Diagnostics Toggle Card */}
+                {showDiagnostics && (
+                  <div className="bg-purple-50/70 rounded-2xl p-5 border border-purple-200/80 animate-in fade-in duration-150 space-y-2.5 text-xs">
+                    <p className="font-bold text-purple-900 flex items-center gap-2">
+                      <Gauge className="w-4 h-4 text-[#3b0080]" />
+                      Pre-Delivery QC Bench Results
+                    </p>
+                    <div className="space-y-1.5 pt-1 text-slate-600 font-medium">
+                      <div className="flex justify-between">
+                        <span>Dual RTK Satellite Lock:</span>
+                        <span className="font-bold text-emerald-600">28 Satellites (Fix 3D)</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Battery Cell Impedance:</span>
+                        <span className="font-bold text-emerald-600">99.4% (Optimal Balance)</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Emergency Parachute Ejection:</span>
+                        <span className="font-bold text-purple-700">Armed &amp; Verified</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>DGCA NPNT Cryptographic Tag:</span>
+                        <span className="font-bold text-emerald-600">Verified &amp; Stamped</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5">
-                    <p className="text-[10px] text-white/40">INGRESS RATING</p>
-                    <p className="font-bold text-white mt-0.5">IP55 All-Weather</p>
-                  </div>
-                  <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5">
-                    <p className="text-[10px] text-white/40">AVIONICS</p>
-                    <p className="font-bold text-white mt-0.5 truncate">Triple Redundant</p>
-                  </div>
-                  <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5">
-                    <p className="text-[10px] text-white/40">REGULATORY</p>
-                    <p className="font-bold text-emerald-400 mt-0.5">DGCA Certified</p>
-                  </div>
-                </div>
+                )}
               </div>
 
-              {/* Action Button */}
-              <div className="pt-6 mt-6 border-t border-white/10">
-                <button
-                  onClick={() => go('login', '/login')}
-                  className="w-full py-3 rounded-xl font-bold text-xs text-white transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2"
-                  style={{
-                    background: 'linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)',
-                  }}
-                >
-                  <Cpu className="w-4 h-4" />
-                  <span>Access Fleet Command Terminal</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
             </div>
-
           </div>
+
         </div>
       </section>
     </>
