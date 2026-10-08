@@ -1,37 +1,41 @@
-# IndoWings Aerial Logistics - Frontend Web Application
+# IndoWings Aerial Logistics - Frontend Web & Mobile Application
 
 Modern, real-time autonomous drone delivery and logistics command center built with React, TypeScript, Vite, Tailwind CSS, and Lucide Icons.
 
 ## Environment Variables (.env & .env.example)
 
-Create a `.env` file in the root of the `client` directory with the following exact variables:
+Create a `.env` file in the root of the `client` directory with the following exact ChotU Firebase credentials:
 
 ```env
 VITE_RAZORPAY_KEY_ID=rzp_live_SKjbolJvdxju2R
 
-# Firebase Web App Config (Project: indofleet-e3ef8)
-VITE_FIREBASE_API_KEY=AIzaSyCP_I6W0j_xoAoYJTuDtFFC9Mepo9DRdlw
-VITE_FIREBASE_AUTH_DOMAIN=indofleet-e3ef8.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=indofleet-e3ef8
-VITE_FIREBASE_STORAGE_BUCKET=indofleet-e3ef8.firebasestorage.app
-VITE_FIREBASE_MESSAGING_SENDER_ID=526465525994
-VITE_FIREBASE_APP_ID=1:526465525994:web:62f6d6bb51564455050f93
-VITE_FIREBASE_MEASUREMENT_ID=G-2YB3W191KH
-VITE_FIREBASE_VAPID_KEY=YOUR_PUBLIC_VAPID_KEY_FROM_FIREBASE_CONSOLE
+# Firebase Config - ChotU (Project ID: chotu-4d1e0)
+VITE_FIREBASE_API_KEY=AIzaSyBlaKIqDS15uSbSeRLDCSzuc5KFv2EgUdg
+VITE_FIREBASE_AUTH_DOMAIN=chotu-4d1e0.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=chotu-4d1e0
+VITE_FIREBASE_STORAGE_BUCKET=chotu-4d1e0.firebasestorage.app
+VITE_FIREBASE_MESSAGING_SENDER_ID=947976549226
+VITE_FIREBASE_APP_ID=1:947976549226:android:bf8ee7d1e2371a3984eb13
+VITE_FIREBASE_PACKAGE_NAME=com.chotu.chotu_customer_app
+VITE_FIREBASE_VAPID_KEY=YOUR_PUBLIC_VAPID_KEY
 ```
 
-## Firebase JavaScript Config Object Reference
+## Firebase JavaScript Config Object Reference (ChotU)
 ```javascript
 const firebaseConfig = {
-  apiKey: "AIzaSyCP_I6W0j_xoAoYJTuDtFFC9Mepo9DRdlw",
-  authDomain: "indofleet-e3ef8.firebaseapp.com",
-  projectId: "indofleet-e3ef8",
-  storageBucket: "indofleet-e3ef8.firebasestorage.app",
-  messagingSenderId: "526465525994",
-  appId: "1:526465525994:web:62f6d6bb51564455050f93",
-  measurementId: "G-2YB3W191KH"
+  apiKey: "AIzaSyBlaKIqDS15uSbSeRLDCSzuc5KFv2EgUdg",
+  authDomain: "chotu-4d1e0.firebaseapp.com",
+  projectId: "chotu-4d1e0",
+  storageBucket: "chotu-4d1e0.firebasestorage.app",
+  messagingSenderId: "947976549226",
+  appId: "1:947976549226:android:bf8ee7d1e2371a3984eb13"
 };
 ```
+
+## React Native Android File Location
+The `google-services.json` file for Android build is located at:
+- `android/app/google-services.json`
+- `public/google-services.json`
 
 ## Features
 - **Live Drone Tracking**: Real-time GPS flight simulation, altitude, speed gauges, and interactive radar map.
@@ -42,7 +46,7 @@ const firebaseConfig = {
 - **Customer & Admin Dashboards**: Order history, live flight cancellation, feedback system, and expert pilot consultations.
 
 ## Tech Stack
-- **Framework**: React 18 + TypeScript + Vite
+- **Framework**: React 18 / React Native + TypeScript + Vite
 - **Styling**: Tailwind CSS
 - **Icons**: Lucide React
 - **Firebase**: Auth (Phone OTP) + FCM (Cloud Messaging)
