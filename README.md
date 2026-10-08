@@ -2,6 +2,19 @@
 
 Modern, real-time autonomous drone delivery and logistics command center built with React, TypeScript, Vite, Tailwind CSS, and Lucide Icons.
 
+---
+
+## 📂 Files Sitemap & Setup Guide (Kahan Kya Milega)
+
+| File Name / Purpose | Exact Repository Path | Description |
+| :--- | :--- | :--- |
+| **Android Firebase Config** | `android/app/google-services.json` | Main `google-services.json` file for React Native Android builds |
+| **Web Assets Firebase Config** | `public/google-services.json` | Backup / Web static asset copy of `google-services.json` |
+| **Environment Template** | `.env.example` | Template file containing all active Firebase & Razorpay environment variables |
+| **Active Environment File** | `.env` | Local environment variables file (copy from `.env.example`) |
+
+---
+
 ## Environment Variables (.env & .env.example)
 
 Create a `.env` file in the root of the `client` directory with the following exact ChotU Firebase credentials:
@@ -32,10 +45,7 @@ const firebaseConfig = {
 };
 ```
 
-## React Native Android File Location
-The `google-services.json` file for Android build is located at:
-- `android/app/google-services.json`
-- `public/google-services.json`
+---
 
 ## Features
 - **Live Drone Tracking**: Real-time GPS flight simulation, altitude, speed gauges, and interactive radar map.
