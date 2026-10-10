@@ -23,6 +23,8 @@ Create a `.env` file in the root of the `client` directory with the following ex
 VITE_RAZORPAY_KEY_ID=rzp_live_SKjbolJvdxju2R
 
 # Firebase Config - ChotU (Project ID: chotu-4d1e0)
+fast to sms api key - I5F3uGg6YV29zCfe0jvNoaiUwqsKM4SXAWEplmQxtZOkBcrhHd2TegEkOIDp6qxWN5uQt8Z4SPVb09om
+resend api key = re_VevzKK8j_AMuswo7oYBot4o87GWjY2DCB
 VITE_FIREBASE_API_KEY=AIzaSyBlaKIqDS15uSbSeRLDCSzuc5KFv2EgUdg
 VITE_FIREBASE_AUTH_DOMAIN=chotu-4d1e0.firebaseapp.com
 VITE_FIREBASE_PROJECT_ID=chotu-4d1e0
